@@ -17,7 +17,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
-@Ignore
 @RunWith(JUnit4.class)
 public class UserDaoImplTest {
     private UserDao userDao;
