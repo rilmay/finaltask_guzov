@@ -17,10 +17,10 @@ import java.sql.PreparedStatement;
 
 @RunWith(JUnit4.class)
 public class WantedPersonDaoImplTest {
-    WantedPersonDao wantedPersonDao;
-    WantedPerson wantedPerson;
-    AbstractJdbcDao daoWithAbstractMethods;
-    PreparedStatement deleteAll;
+    private WantedPersonDao wantedPersonDao;
+    private WantedPerson wantedPerson;
+    private AbstractJdbcDao daoWithAbstractMethods;
+    private PreparedStatement deleteAll;
 
     @Before
     public void init() throws Throwable {

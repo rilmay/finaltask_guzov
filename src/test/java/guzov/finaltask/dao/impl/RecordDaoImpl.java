@@ -5,9 +5,7 @@ import by.guzov.finaltask.dao.RecordDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.Record;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -17,10 +15,10 @@ import java.time.LocalDate;
 
 @RunWith(JUnit4.class)
 public class RecordDaoImpl {
-    RecordDao recordDao;
-    Record record;
-    AbstractJdbcDao daoWithAbstractMethods;
-    PreparedStatement deleteAll;
+    private RecordDao recordDao;
+    private Record record;
+    private AbstractJdbcDao daoWithAbstractMethods;
+    private PreparedStatement deleteAll;
 
     @Before
     public void init() throws Throwable {

@@ -18,19 +18,17 @@ public class BdInit {
 
     public static void bdInit() {
         try {
-            System.out.println(Thread.currentThread().getName());
             if (!created) {
-                System.out.println("i did it");
                 created = true;
                 ConnectionPool connectionPool = ConnectionPoolImpl.getInstance();
                 Connection connection = connectionPool.retrieveConnection();
                 String create = Files
                         .readAllLines(Paths.get("src/main/resources/create_script.sql"), StandardCharsets.UTF_8)
                         .stream().collect(Collectors.joining());
-
                 Statement statement = connection.createStatement();
                 statement.execute(create);
                 statement.close();
+                connection.close();
             }
         } catch (IOException | SQLException | ConnectionPoolException e) {
             throw new RuntimeException(e);

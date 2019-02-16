@@ -18,10 +18,10 @@ import java.time.LocalDate;
 
 @RunWith(JUnit4.class)
 public class RequestDaoImpl {
-    RequestDao requestDao;
-    Request request;
-    AbstractJdbcDao daoWithAbstractMethods;
-    PreparedStatement deleteAll;
+    private RequestDao requestDao;
+    private Request request;
+    private AbstractJdbcDao daoWithAbstractMethods;
+    private PreparedStatement deleteAll;
 
     @Before
     public void init() throws Throwable {

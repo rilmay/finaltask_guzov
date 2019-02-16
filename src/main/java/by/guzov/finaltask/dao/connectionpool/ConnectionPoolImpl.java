@@ -55,7 +55,6 @@ public class ConnectionPoolImpl implements ConnectionPool {
         try {
             Properties properties = new Properties();
             properties.load(getClass().getResourceAsStream("/" + name));
-            System.out.println(properties.getProperty(DRIVER_CLASS));
             return properties;
         } catch (IOException e) {
             throw new RuntimeException(e);

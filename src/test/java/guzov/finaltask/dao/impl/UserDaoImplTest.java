@@ -8,6 +8,7 @@ import by.guzov.finaltask.dao.impl.UserDaoImpl;
 import by.guzov.finaltask.domain.User;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -16,12 +17,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
+@Ignore
 @RunWith(JUnit4.class)
 public class UserDaoImplTest {
-    UserDao userDao;
-    User user;
-    AbstractJdbcDao daoWithAbstractMethods;
-    PreparedStatement deleteAll;
+    private UserDao userDao;
+    private User user;
+    private AbstractJdbcDao daoWithAbstractMethods;
+    private PreparedStatement deleteAll;
 
     @Before
     public void init() throws Throwable {
