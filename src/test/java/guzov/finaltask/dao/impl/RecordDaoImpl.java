@@ -9,6 +9,7 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class RecordDaoImpl {
     private Record record;
     private AbstractJdbcDao daoWithAbstractMethods;
     private PreparedStatement deleteAll;
+    private Connection connection;
 
     @Before
     public void init() throws Throwable {
@@ -32,8 +34,8 @@ public class RecordDaoImpl {
         record.setPlace("Gomel");
         record.setRating(4);
         record.setRecordStatus("expired");
-        deleteAll = ConnectionPoolImpl.getInstance().retrieveConnection()
-                .prepareStatement("DELETE  FROM interpoldb.record WHERE id<100");
+        connection = ConnectionPoolImpl.getInstance().retrieveConnection();
+        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.record WHERE id<100");
     }
 
 
@@ -97,6 +99,11 @@ public class RecordDaoImpl {
         deleteAll.execute();
         Record forGetAll = recordDao.persist(record);
         Assert.assertEquals(forGetAll.getName(),
-                recordDao.getAll().stream().findFirst().get().getName());
+                recordDao.getAll().stream().findFirst().orElseGet(Record::new).getName());
+    }
+
+    @After
+    public void destroy() throws Exception{
+        connection.close();
     }
 }

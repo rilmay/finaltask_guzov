@@ -6,13 +6,11 @@ import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.dao.impl.UserDaoImpl;
 import by.guzov.finaltask.domain.User;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
@@ -23,6 +21,7 @@ public class UserDaoImplTest {
     private User user;
     private AbstractJdbcDao daoWithAbstractMethods;
     private PreparedStatement deleteAll;
+    private Connection connection;
 
     @Before
     public void init() throws Throwable {
@@ -37,8 +36,8 @@ public class UserDaoImplTest {
         user.setRole("user");
         user.setFirstName("fiiirstname");
         user.setLastName("last");
-        deleteAll = ConnectionPoolImpl.getInstance().retrieveConnection()
-                .prepareStatement("DELETE  FROM interpoldb.user WHERE id<100");
+        connection = ConnectionPoolImpl.getInstance().retrieveConnection();
+        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.user WHERE id<100");
     }
 
 
@@ -102,6 +101,11 @@ public class UserDaoImplTest {
         deleteAll.execute();
         User forGetAll = userDao.persist(user);
         Assert.assertEquals(forGetAll.getLogin(),
-                userDao.getAll().stream().findFirst().get().getLogin());
+                userDao.getAll().stream().findFirst().orElseGet(User::new).getLogin());
+    }
+
+    @After
+    public void destroy() throws Exception{
+        connection.close();
     }
 }

@@ -6,12 +6,14 @@ import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.WantedPerson;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
@@ -22,6 +24,7 @@ public class RequestDaoImpl {
     private Request request;
     private AbstractJdbcDao daoWithAbstractMethods;
     private PreparedStatement deleteAll;
+    private Connection connection;
 
     @Before
     public void init() throws Throwable {
@@ -34,8 +37,8 @@ public class RequestDaoImpl {
         request.setRequestStatus("pending");
         request.setReward(325);
         request.setWantedPersonId(1);
-        deleteAll = ConnectionPoolImpl.getInstance().retrieveConnection()
-                .prepareStatement("DELETE  FROM interpoldb.request WHERE id<100");
+        connection = ConnectionPoolImpl.getInstance().retrieveConnection();
+        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.request WHERE id<100");
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("descr");
@@ -103,6 +106,12 @@ public class RequestDaoImpl {
         deleteAll.execute();
         Request forGetAll = requestDao.persist(request);
         Assert.assertEquals(forGetAll.getLeadDate(),
-                requestDao.getAll().stream().findFirst().get().getLeadDate());
+                requestDao.getAll().stream().findFirst().orElseGet(Request::new).getLeadDate());
     }
+
+    @After
+    public void destroy() throws Exception{
+        connection.close();
+    }
+
 }
