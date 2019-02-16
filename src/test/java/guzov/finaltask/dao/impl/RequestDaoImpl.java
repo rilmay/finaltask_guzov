@@ -41,7 +41,7 @@ public class RequestDaoImpl {
         deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.request WHERE id<100");
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
-        wantedPerson.setDescription("descr");
+        wantedPerson.setDescription("Description");
         JdbcDaoFactory.getInstance().getDao(WantedPerson.class).persist(wantedPerson);
     }
 

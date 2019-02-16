@@ -29,8 +29,8 @@ public class RecordDaoImpl {
         recordDao = (RecordDao) JdbcDaoFactory.getInstance().getDao(Record.class);
         record = new Record();
         record.setDate(Date.valueOf(LocalDate.of(2002, 3, 6)));
-        record.setDescription("descript");
-        record.setName("namee");
+        record.setDescription("Description");
+        record.setName("Name");
         record.setPlace("Gomel");
         record.setRating(4);
         record.setRecordStatus("expired");

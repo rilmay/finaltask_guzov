@@ -29,13 +29,13 @@ public class UserDaoImplTest {
         BdInit.bdInit();
         userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         user = new User();
-        user.setLogin("лог");
+        user.setLogin("Логин");
         user.setPassword("123456789123");
         user.setRegistrationDate(Date.valueOf(LocalDate.of(2002, 3, 6)));
-        user.setEmail("mail");
+        user.setEmail("Почта");
         user.setRole("user");
-        user.setFirstName("fiiirstname");
-        user.setLastName("last");
+        user.setFirstName("Никита");
+        user.setLastName("Гузов");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.user WHERE id<100");
     }

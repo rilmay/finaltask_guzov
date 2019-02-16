@@ -32,11 +32,9 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     @Override
     @AutoConnection
     public T getByPK(PK key) throws DaoException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(getSelectQuery() + " WHERE id = " + key)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            T result = parseResultSet(resultSet).get(0);
-            resultSet.close();
-            return result;
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery() + " WHERE id = " + key)) {
+            return parseResultSet(preparedStatement.executeQuery()).get(0);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -46,10 +44,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     @AutoConnection
     public List<T> getAll() throws DaoException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSelectQuery())) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<T> result = parseResultSet(resultSet);
-            resultSet.close();
-            return result;
+            return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
             throw new DaoException(e);
         }
@@ -58,9 +53,10 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     @Override
     @AutoConnection
     public T persist(T object) throws PersistException {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {
             prepareStatementForInsert(preparedStatement, object);
-            preparedStatement.executeUpdate();
+            preparedStatement.execute();
 
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
