@@ -5,6 +5,7 @@ import by.guzov.finaltask.dao.WantedPersonDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.dao.impl.WantedPersonDaoImpl;
+import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.WantedPerson;
 import org.junit.After;
 import org.junit.Assert;
@@ -27,7 +28,7 @@ public class WantedPersonDaoImplTest {
 
     @Before
     public void init() throws Throwable {
-        daoWithAbstractMethods = new WantedPersonDaoImpl();
+        daoWithAbstractMethods = (AbstractJdbcDao) JdbcDaoFactory.getInstance().getTransactionalDao(WantedPerson.class);
         BdInit.bdInit();
         wantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
         wantedPerson = new WantedPerson();

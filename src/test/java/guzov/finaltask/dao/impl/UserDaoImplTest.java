@@ -5,6 +5,7 @@ import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.dao.impl.UserDaoImpl;
+import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.User;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -25,7 +26,7 @@ public class UserDaoImplTest {
 
     @Before
     public void init() throws Throwable {
-        daoWithAbstractMethods = new UserDaoImpl();
+        daoWithAbstractMethods = (AbstractJdbcDao) JdbcDaoFactory.getInstance().getTransactionalDao(User.class);
         BdInit.bdInit();
         userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         user = new User();

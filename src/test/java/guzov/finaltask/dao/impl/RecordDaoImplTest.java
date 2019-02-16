@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
 @RunWith(JUnit4.class)
-public class RecordDaoImpl {
+public class RecordDaoImplTest {
     private RecordDao recordDao;
     private Record record;
     private AbstractJdbcDao daoWithAbstractMethods;
@@ -24,7 +24,7 @@ public class RecordDaoImpl {
 
     @Before
     public void init() throws Throwable {
-        daoWithAbstractMethods = new by.guzov.finaltask.dao.impl.RecordDaoImpl();
+        daoWithAbstractMethods = (AbstractJdbcDao) JdbcDaoFactory.getInstance().getTransactionalDao(Record.class);
         BdInit.bdInit();
         recordDao = (RecordDao) JdbcDaoFactory.getInstance().getDao(Record.class);
         record = new Record();

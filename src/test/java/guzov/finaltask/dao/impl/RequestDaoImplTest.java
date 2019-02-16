@@ -4,6 +4,7 @@ import by.guzov.finaltask.dao.AbstractJdbcDao;
 import by.guzov.finaltask.dao.RequestDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
+import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.WantedPerson;
 import org.junit.After;
@@ -19,7 +20,7 @@ import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
 @RunWith(JUnit4.class)
-public class RequestDaoImpl {
+public class RequestDaoImplTest {
     private RequestDao requestDao;
     private Request request;
     private AbstractJdbcDao daoWithAbstractMethods;
@@ -28,7 +29,7 @@ public class RequestDaoImpl {
 
     @Before
     public void init() throws Throwable {
-        daoWithAbstractMethods = new by.guzov.finaltask.dao.impl.RequestDaoImpl();
+        daoWithAbstractMethods = (AbstractJdbcDao) JdbcDaoFactory.getInstance().getTransactionalDao(Request.class);
         BdInit.bdInit();
         requestDao = (RequestDao) JdbcDaoFactory.getInstance().getDao(Request.class);
         request = new Request();
