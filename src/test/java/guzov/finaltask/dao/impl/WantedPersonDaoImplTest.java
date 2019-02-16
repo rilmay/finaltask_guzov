@@ -31,10 +31,10 @@ public class WantedPersonDaoImplTest {
         BdInit.bdInit();
         wantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
         wantedPerson = new WantedPerson();
-        wantedPerson.setSpecialSings("special signs");
+        wantedPerson.setSpecialSings("Special signs");
         wantedPerson.setPersonStatus("missing");
-        wantedPerson.setFirstName("fiiirstname");
-        wantedPerson.setLastName("last");
+        wantedPerson.setFirstName("FirstName");
+        wantedPerson.setLastName("LastName");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.wanted_person WHERE id<100");
     }
@@ -61,7 +61,8 @@ public class WantedPersonDaoImplTest {
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpoldb.wanted_person WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
+        Assert.assertEquals("DELETE FROM interpoldb.wanted_person WHERE id = ?",
+                daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test
@@ -85,8 +86,6 @@ public class WantedPersonDaoImplTest {
         WantedPerson deleted = wantedPersonDao.persist(wantedPerson);
         wantedPersonDao.delete(deleted);
         Assert.assertFalse(wantedPersonDao.getAll().stream().findAny().isPresent());
-
-
     }
 
     @Test
@@ -98,7 +97,6 @@ public class WantedPersonDaoImplTest {
 
     @Test
     public void getAllTest() throws Exception {
-
         deleteAll.execute();
         WantedPerson forGetAll = wantedPersonDao.persist(wantedPerson);
         Assert.assertEquals(forGetAll.getFirstName(),
