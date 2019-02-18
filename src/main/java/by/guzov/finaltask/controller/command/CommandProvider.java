@@ -21,6 +21,8 @@ public class CommandProvider {
         commandMap.put("view_user_details", new CommandViewUserDetails());
         commandMap.put("delete_user", new CommandDeleteUser());
         commandMap.put("update_user_role", new CommandChangeUserRole());
+        commandMap.put("show_registration_page", new CommandShowRegistrationPage());
+        commandMap.put("register_user", new CommandRegisterUser());
     }
 
     /**

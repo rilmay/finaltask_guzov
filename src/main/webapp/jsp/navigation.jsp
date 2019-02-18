@@ -12,5 +12,6 @@
     </p>
     <ul class="menu-list">
         <li><a href="?command=user_list">User List</a></li>
+        <li><a href="?command=show_registration_page">Registration(temporary)</a></li>
     </ul>
 </aside>
