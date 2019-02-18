@@ -13,7 +13,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
-@Ignore
+
 @RunWith(JUnit4.class)
 public class UserDaoImplTest {
     private UserDao userDao;
@@ -36,30 +36,30 @@ public class UserDaoImplTest {
         user.setFirstName("Никита");
         user.setLastName("Гузов");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.user WHERE id<100");
+        deleteAll = connection.prepareStatement("DELETE  FROM interpol.user WHERE id<100");
     }
 
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM interpoldb.user", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT * FROM interpol.user", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO interpoldb.user (login, password, role, first_name, last_name, " +
+        Assert.assertEquals("INSERT INTO interpol.user (login, password, role, first_name, last_name, " +
                 "registration_date, email) VALUES (? ,? ,? ,? ,? ,? ,?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
-        Assert.assertEquals("UPDATE interpoldb.user SET login = ?, password = ?, role = ?, first_name = ?, " +
+        Assert.assertEquals("UPDATE interpol.user SET login = ?, password = ?, role = ?, first_name = ?, " +
                 "last_name = ?,registration_date = ?, email = ?WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpoldb.user WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
+        Assert.assertEquals("DELETE FROM interpol.user WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test

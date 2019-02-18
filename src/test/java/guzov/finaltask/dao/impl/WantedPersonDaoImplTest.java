@@ -12,7 +12,7 @@ import org.junit.runners.JUnit4;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-@Ignore
+
 @RunWith(JUnit4.class)
 public class WantedPersonDaoImplTest {
     private WantedPersonDao wantedPersonDao;
@@ -32,44 +32,42 @@ public class WantedPersonDaoImplTest {
         wantedPerson.setFirstName("FirstName");
         wantedPerson.setLastName("LastName");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.wanted_person WHERE id<100");
+        deleteAll = connection.prepareStatement("DELETE  FROM interpol.wanted_person WHERE id<100");
     }
 
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM interpoldb.wanted_person", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT * FROM interpol.wanted_person", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO interpoldb.wanted_person (first_name, last_name, person_status, " +
+        Assert.assertEquals("INSERT INTO interpol.wanted_person (first_name, last_name, person_status, " +
                 "description, birth_place, birth_date, search_area, special_signs, photo, reward)VALUES " +
                 "(? ,? ,? ,? ,? ,? ,?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
-        Assert.assertEquals("UPDATE interpoldb.wanted_person SET first_name = ?, last_name = ?, " +
+        Assert.assertEquals("UPDATE interpol.wanted_person SET first_name = ?, last_name = ?, " +
                 "person_status = ?, description = ?, birth_place = ?, birth_date = ?, search_area = ?, " +
                 "special_signs = ?, photo = ?, reward = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpoldb.wanted_person WHERE id = ?",
+        Assert.assertEquals("DELETE FROM interpol.wanted_person WHERE id = ?",
                 daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test
     public void persistTest() throws Exception {
-        //deleteAll.execute();
         Assert.assertEquals(wantedPerson.getFirstName(), wantedPersonDao.persist(wantedPerson).getFirstName());
     }
 
     @Test
     public void updateTest() throws Exception {
-        //deleteAll.execute();
         WantedPerson updated = wantedPersonDao.persist(wantedPerson);
         updated.setLastName("NewLastName");
         wantedPersonDao.update(updated);
@@ -78,7 +76,6 @@ public class WantedPersonDaoImplTest {
 
     @Test
     public void deleteTest() throws Exception {
-        //deleteAll.execute();
         wantedPersonDao.persist(wantedPerson);
         WantedPerson deleted = wantedPersonDao.persist(wantedPerson);
         wantedPersonDao.delete(deleted);
@@ -88,15 +85,13 @@ public class WantedPersonDaoImplTest {
 
     @Test
     public void getByPKTest() throws Exception {
-        //deleteAll.execute();
         WantedPerson wantedPersonWithPK = wantedPersonDao.persist(this.wantedPerson);
         Assert.assertEquals(this.wantedPerson.getSpecialSings(), wantedPersonDao.getByPK(wantedPersonWithPK.getId()).getSpecialSings());
     }
 
     @Test
     public void getAllTest() throws Exception {
-        //deleteAll.execute();
-        WantedPerson forGetAll = wantedPersonDao.persist(wantedPerson);
+        wantedPersonDao.persist(wantedPerson);
         Assert.assertTrue(
                 wantedPersonDao.getAll().stream().findAny().isPresent());
     }

@@ -14,7 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 
-@Ignore
+
 @RunWith(JUnit4.class)
 public class RecordDaoImplTest {
     private RecordDao recordDao;
@@ -36,30 +36,30 @@ public class RecordDaoImplTest {
         record.setRating(4);
         record.setRecordStatus("expired");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.record WHERE id<100");
+        deleteAll = connection.prepareStatement("DELETE  FROM interpol.record WHERE id<100");
     }
 
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM interpoldb.record", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT * FROM interpol.record", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO interpoldb.record (description, place, date, record_status, " +
+        Assert.assertEquals("INSERT INTO interpol.record (description, place, date, record_status, " +
                 "rating, name) VALUES (?, ?, ?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
-        Assert.assertEquals("UPDATE interpoldb.record SET description = ?, place = ?, date = ?, " +
+        Assert.assertEquals("UPDATE interpol.record SET description = ?, place = ?, date = ?, " +
                 "record_status = ?, rating = ?, name = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpoldb.record WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
+        Assert.assertEquals("DELETE FROM interpol.record WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test

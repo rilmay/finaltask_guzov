@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-@Ignore
 @RunWith(JUnit4.class)
 public class RequestDaoImplTest {
     private RequestDao requestDao;
@@ -39,10 +38,10 @@ public class RequestDaoImplTest {
         request.setReward(325);
         request.setWantedPersonId(1);
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.request WHERE id<100");
-        deleteWantedPeople = connection.prepareStatement("DELETE from  interpoldb.request where id<100");
+        deleteAll = connection.prepareStatement("DELETE  FROM interpol.request WHERE id<100");
+        deleteWantedPeople = connection.prepareStatement("DELETE from  interpol.request where id<100");
         addWantedPerson = connection.prepareStatement("INSERT INTO " +
-                "interpoldb.wanted_person (first_name, person_status) VALUES ('John' ,'missing')");
+                "interpol.wanted_person (first_name, person_status) VALUES ('John' ,'missing')");
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("Description");
@@ -52,24 +51,24 @@ public class RequestDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM interpoldb.request", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT * FROM interpol.request", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO interpoldb.request (reward, application_date, lead_date, " +
+        Assert.assertEquals("INSERT INTO interpol.request (reward, application_date, lead_date, " +
                 "request_status, wanted_person_id) VALUES (? ,? ,? ,? ,?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
-        Assert.assertEquals("UPDATE interpoldb.request SET reward = ?, application_date = ?, lead_date = ?, " +
+        Assert.assertEquals("UPDATE interpol.request SET reward = ?, application_date = ?, lead_date = ?, " +
                 "request_status = ?, wanted_person_id = ?WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpoldb.request WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
+        Assert.assertEquals("DELETE FROM interpol.request WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test
