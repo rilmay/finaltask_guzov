@@ -23,7 +23,7 @@ public class Router {
         return route;
     }
 
-    public String getType(){
+    public String getType() {
         return type.name().toLowerCase();
     }
 

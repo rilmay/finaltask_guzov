@@ -27,7 +27,8 @@
 
                             <p>
                                 <label for="password" class="field-label"> Your password: </label>
-                                <input type="password" id="password" class="password-field" name="password" required="required"
+                                <input type="password" id="password" class="password-field" name="password"
+                                       required="required"
                                        placeholder="password"/>
                             </p>
                             <p>
@@ -37,12 +38,14 @@
                             </p>
                             <p>
                                 <label for="first_name" class="field-label"> Your first name: </label>
-                                <input type="text" id="first_name" class="text-field" name="first_name" required="required"
+                                <input type="text" id="first_name" class="text-field" name="first_name"
+                                       required="required"
                                        placeholder="first name"/>
                             </p>
                             <p>
                                 <label for="last_name" class="field-label"> Your last name </label>
-                                <input type="text" id="last_name" class="text-field" name="last_name" required="required"
+                                <input type="text" id="last_name" class="text-field" name="last_name"
+                                       required="required"
                                        placeholder="last name"/>
                             </p>
                             <input type="hidden" name="command" value="register_user">

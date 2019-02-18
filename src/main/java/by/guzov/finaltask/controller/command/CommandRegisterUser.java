@@ -13,7 +13,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class CommandRegisterUser implements Command {
     @Override
@@ -23,7 +22,7 @@ public class CommandRegisterUser implements Command {
             User register = new User();
             register.setLogin(request.getParameter("login"));
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest((request.getParameter("password")+"salt").getBytes(StandardCharsets.UTF_8));
+            byte[] hash = digest.digest((request.getParameter("password") + "salt").getBytes(StandardCharsets.UTF_8));
             register.setPassword(String.valueOf(hash));
             register.setEmail(request.getParameter("email"));
             register.setLastName(request.getParameter("last_name"));
@@ -32,7 +31,7 @@ public class CommandRegisterUser implements Command {
             register.setRegistrationDate(Date.valueOf(LocalDate.now()));
             userDao.persist(register);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=user_list","redirect"));
+            responseContent.setRouter(new Router("?command=user_list", "redirect"));
             return responseContent;
         } catch (DaoException | PersistException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);

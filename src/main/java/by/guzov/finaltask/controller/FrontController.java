@@ -26,10 +26,10 @@ public class FrontController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
         ResponseContent responseContent = command.execute(request);
-        if(responseContent.getRouter().getType().equals("redirect")){
+        if (responseContent.getRouter().getType().equals("redirect")) {
             response.sendRedirect(responseContent.getRouter().getRoute());
-        }else{
-            request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request,response);
+        } else {
+            request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
         }
     }
 }

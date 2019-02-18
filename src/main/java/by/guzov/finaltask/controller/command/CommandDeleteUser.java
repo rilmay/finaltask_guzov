@@ -18,7 +18,7 @@ public class CommandDeleteUser implements Command {
             User user = userDao.getByPK(id);
             userDao.delete(user);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=user_list","redirect"));
+            responseContent.setRouter(new Router("?command=user_list", "redirect"));
             return responseContent;
         } catch (DaoException | PersistException e) {
             throw new RuntimeException(e);
