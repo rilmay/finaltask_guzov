@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(/* Provide your code here **/)
+@WebServlet("/demo")
 public class FrontController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,10 +24,12 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand("CommandExample");
+        Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
         ResponseContent responseContent = command.execute(request);
-
-        // Provide your code here
-
+        if(responseContent.getRouter().getType().equals("redirect")){
+            response.sendRedirect(responseContent.getRouter().getRoute());
+        }else{
+            request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request,response);
+        }
     }
 }

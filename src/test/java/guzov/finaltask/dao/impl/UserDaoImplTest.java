@@ -4,10 +4,11 @@ import by.guzov.finaltask.dao.AbstractJdbcDao;
 import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
-import by.guzov.finaltask.dao.impl.UserDaoImpl;
-import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.User;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -106,7 +107,7 @@ public class UserDaoImplTest {
     }
 
     @After
-    public void destroy() throws Exception{
+    public void destroy() throws Exception {
         connection.close();
     }
 }

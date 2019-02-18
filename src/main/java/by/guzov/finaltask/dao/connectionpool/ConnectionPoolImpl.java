@@ -47,7 +47,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         this.user = props.getProperty(DB_USER);
         this.password = props.getProperty(DB_PASSWORD);
         this.poolCapacity = Integer.parseInt(props.getProperty(POOL_CAPACITY));
-        //initDriver(this.driverClass);
+        initDriver(this.driverClass);
         semaphore = new Semaphore(this.poolCapacity);
     }
 

@@ -28,13 +28,13 @@ public class ConnectionPoolTest {
     private static final int N_THREADS = 30;
 
     @Before
-    public void init() throws Exception{
+    public void init() throws Exception {
         props = new Properties();
         props.load(getClass().getResourceAsStream("/db.properties"));
     }
 
     @Test
-    public void getConnectionTest() throws Exception{
+    public void getConnectionTest() throws Exception {
         ConnectionPool connectionPool = Mockito.spy(ConnectionPoolImpl.getInstance());
         ExecutorService executorService = Executors.newFixedThreadPool(N_THREADS);
         Set<Integer> hashCodes = Collections.synchronizedSet(new HashSet<>());

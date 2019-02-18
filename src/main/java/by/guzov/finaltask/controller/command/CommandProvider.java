@@ -16,6 +16,11 @@ public class CommandProvider {
 
     private CommandProvider() {
         commandMap.put("CommandExample", new CommandExample());
+        commandMap.put(null, new CommandViewEmptyAdminPage());
+        commandMap.put("user_list", new CommandViewUserList());
+        commandMap.put("view_user_details", new CommandViewUserDetails());
+        commandMap.put("delete_user", new CommandDeleteUser());
+        commandMap.put("update_user_role", new CommandChangeUserRole());
     }
 
     /**
@@ -25,8 +30,6 @@ public class CommandProvider {
      * @return command implementation
      */
     public Command takeCommand(String command) {
-        // Provide your code here
-
-        throw new UnsupportedOperationException();
+        return commandMap.get(command);
     }
 }

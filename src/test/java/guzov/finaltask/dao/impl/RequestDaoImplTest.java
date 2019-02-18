@@ -4,7 +4,6 @@ import by.guzov.finaltask.dao.AbstractJdbcDao;
 import by.guzov.finaltask.dao.RequestDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
-import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.WantedPerson;
 import org.junit.After;
@@ -111,7 +110,7 @@ public class RequestDaoImplTest {
     }
 
     @After
-    public void destroy() throws Exception{
+    public void destroy() throws Exception {
         connection.close();
     }
 
