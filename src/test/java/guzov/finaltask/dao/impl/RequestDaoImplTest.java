@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
 
-
+@Ignore
 @RunWith(JUnit4.class)
 public class RequestDaoImplTest {
     private RequestDao requestDao;
