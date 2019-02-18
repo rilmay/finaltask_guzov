@@ -16,6 +16,7 @@ import org.junit.runners.JUnit4;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.time.LocalDate;
 
 @RunWith(JUnit4.class)
@@ -25,6 +26,8 @@ public class RequestDaoImplTest {
     private AbstractJdbcDao daoWithAbstractMethods;
     private PreparedStatement deleteAll;
     private Connection connection;
+    private PreparedStatement deleteWantedPeople;
+    private PreparedStatement addWantedPerson;
 
     @Before
     public void init() throws Throwable {
@@ -39,6 +42,9 @@ public class RequestDaoImplTest {
         request.setWantedPersonId(1);
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM interpoldb.request WHERE id<100");
+        deleteWantedPeople = connection.prepareStatement("DELETE from  interpoldb.request where id<100");
+        addWantedPerson = connection.prepareStatement("INSERT INTO " +
+                "interpoldb.wanted_person (first_name, person_status) VALUES ('John' ,'missing')");
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("Description");
@@ -71,12 +77,16 @@ public class RequestDaoImplTest {
     @Test
     public void persistTest() throws Exception {
         deleteAll.execute();
+        deleteWantedPeople.execute();
+        addWantedPerson.execute();
         Assert.assertEquals(request.getRequestStatus(), requestDao.persist(request).getRequestStatus());
     }
 
     @Test
     public void updateTest() throws Exception {
         deleteAll.execute();
+        deleteWantedPeople.execute();
+        addWantedPerson.execute();
         Request updated = requestDao.persist(request);
         updated.setReward(10);
         requestDao.update(updated);
@@ -104,6 +114,8 @@ public class RequestDaoImplTest {
     @Test
     public void getAllTest() throws Exception {
         deleteAll.execute();
+        deleteWantedPeople.execute();
+        addWantedPerson.execute();
         Request forGetAll = requestDao.persist(request);
         Assert.assertEquals(forGetAll.getLeadDate(),
                 requestDao.getAll().stream().findFirst().orElseGet(Request::new).getLeadDate());
