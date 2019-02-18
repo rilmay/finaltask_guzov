@@ -6,10 +6,7 @@ import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.WantedPerson;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -18,6 +15,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
+
 
 @RunWith(JUnit4.class)
 public class RequestDaoImplTest {
@@ -77,16 +75,16 @@ public class RequestDaoImplTest {
     @Test
     public void persistTest() throws Exception {
         deleteAll.execute();
-        deleteWantedPeople.execute();
-        addWantedPerson.execute();
+//        deleteWantedPeople.execute();
+//        addWantedPerson.execute();
         Assert.assertEquals(request.getRequestStatus(), requestDao.persist(request).getRequestStatus());
     }
 
     @Test
     public void updateTest() throws Exception {
         deleteAll.execute();
-        deleteWantedPeople.execute();
-        addWantedPerson.execute();
+//        deleteWantedPeople.execute();
+//        addWantedPerson.execute();
         Request updated = requestDao.persist(request);
         updated.setReward(10);
         requestDao.update(updated);
@@ -96,6 +94,7 @@ public class RequestDaoImplTest {
     @Test
     public void deleteTest() throws Exception {
         deleteAll.execute();
+
         Request deleted = requestDao.persist(request);
         requestDao.delete(deleted);
         Assert.assertFalse(requestDao.getAll().stream().findAny().isPresent());
@@ -114,8 +113,8 @@ public class RequestDaoImplTest {
     @Test
     public void getAllTest() throws Exception {
         deleteAll.execute();
-        deleteWantedPeople.execute();
-        addWantedPerson.execute();
+//        deleteWantedPeople.execute();
+//        addWantedPerson.execute();
         Request forGetAll = requestDao.persist(request);
         Assert.assertEquals(forGetAll.getLeadDate(),
                 requestDao.getAll().stream().findFirst().orElseGet(Request::new).getLeadDate());
