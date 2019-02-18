@@ -24,7 +24,7 @@ public class CommandRegisterUser implements Command {
             register.setLogin(request.getParameter("login"));
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest((request.getParameter("password")+"salt").getBytes(StandardCharsets.UTF_8));
-            register.setPassword(Arrays.toString(hash));
+            register.setPassword(String.valueOf(hash));
             register.setEmail(request.getParameter("email"));
             register.setLastName(request.getParameter("last_name"));
             register.setFirstName(request.getParameter("first_name"));
