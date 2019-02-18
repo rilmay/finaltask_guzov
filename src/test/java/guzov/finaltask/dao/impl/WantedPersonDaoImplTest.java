@@ -82,10 +82,11 @@ public class WantedPersonDaoImplTest {
     @Test
     public void deleteTest() throws Exception {
         //deleteAll.execute();
+        wantedPersonDao.persist(wantedPerson);
         WantedPerson deleted = wantedPersonDao.persist(wantedPerson);
         wantedPersonDao.delete(deleted);
         Assert.assertFalse(wantedPersonDao.getAll().stream()
-                .filter(person -> person.getId().equals(deleted.getId())).findAny().isPresent());
+                .anyMatch(person -> person.getId().equals(deleted.getId())));
     }
 
     @Test

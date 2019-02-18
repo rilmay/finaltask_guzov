@@ -24,13 +24,13 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     private static final String EMAIL = "email";
 
 
-    private static final String DELETE_QUERY = "DELETE FROM interpoldb.user WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpoldb.user " +
+    private static final String DELETE_QUERY = "DELETE FROM interpol.user WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE interpol.user " +
             "SET login = ?, password = ?, role = ?, first_name = ?, last_name = ?," +
             "registration_date = ?, email = ?" +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpoldb.user";
-    private static final String CREATE_QUERY = "INSERT INTO interpoldb.user " +
+    private static final String SELECT_QUERY = "SELECT * FROM interpol.user";
+    private static final String CREATE_QUERY = "INSERT INTO interpol.user " +
             "(login, password, role, first_name, last_name, registration_date, email) " +
             "VALUES (? ,? ,? ,? ,? ,? ,?)";
 

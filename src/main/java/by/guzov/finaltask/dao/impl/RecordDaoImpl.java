@@ -19,12 +19,12 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     private static final String RATING = "rating";
     private static final String NAME = "name";
 
-    private static final String DELETE_QUERY = "DELETE FROM interpoldb.record WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpoldb.record " +
+    private static final String DELETE_QUERY = "DELETE FROM interpol.record WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE interpol.record " +
             "SET description = ?, place = ?, date = ?, record_status = ?, rating = ?, name = ? " +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpoldb.record";
-    private static final String CREATE_QUERY = "INSERT INTO interpoldb.record " +
+    private static final String SELECT_QUERY = "SELECT * FROM interpol.record";
+    private static final String CREATE_QUERY = "INSERT INTO interpol.record " +
             "(description, place, date, record_status, rating, name) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 

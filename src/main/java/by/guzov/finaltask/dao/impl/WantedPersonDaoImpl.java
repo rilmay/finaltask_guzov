@@ -23,13 +23,13 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     private static final String PHOTO = "photo";
     private static final String REWARD = "reward";
 
-    private static final String DELETE_QUERY = "DELETE FROM interpoldb.wanted_person WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpoldb.wanted_person " +
+    private static final String DELETE_QUERY = "DELETE FROM interpol.wanted_person WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE interpol.wanted_person " +
             "SET first_name = ?, last_name = ?, person_status = ?, description = ?, birth_place = ?, birth_date = ?, " +
             "search_area = ?, special_signs = ?, photo = ?, reward = ? " +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpoldb.wanted_person";
-    private static final String CREATE_QUERY = "INSERT INTO interpoldb.wanted_person " +
+    private static final String SELECT_QUERY = "SELECT * FROM interpol.wanted_person";
+    private static final String CREATE_QUERY = "INSERT INTO interpol.wanted_person " +
             "(first_name, last_name, person_status, description, birth_place, birth_date, search_area," +
             " special_signs, photo, reward)" +
             "VALUES (? ,? ,? ,? ,? ,? ,?, ?, ?, ?)";
