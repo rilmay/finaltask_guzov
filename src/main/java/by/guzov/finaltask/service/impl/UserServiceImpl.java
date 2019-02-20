@@ -9,7 +9,12 @@ import by.guzov.finaltask.dto.ResponceMessage;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.service.exception.ServiceException;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Example of user service implementation
@@ -31,16 +36,28 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    private void encryptPassword(User user) throws NoSuchAlgorithmException {
+        String passwordWithSalt = user.getPassword() + user.getLogin();
+
+        byte[] hexHash = MessageDigest.getInstance("SHA-256").digest(passwordWithSalt.getBytes(StandardCharsets.UTF_8));
+
+        String decimalHash = IntStream.range(0,hexHash.length).mapToObj(i -> Integer.toHexString(0xff & hexHash[i]))
+                .map(s -> (s.length() ==1)?"0"+s:s).collect(Collectors.joining());
+
+        user.setPassword(decimalHash);
+    }
+
     @Override
     public User register(User user) throws ServiceException {
         try {
             ResponceMessage responceMessage = userValidator.validate(user);
             if (responceMessage.getAnswer()) {
+                encryptPassword(user);
                 return userDao.persist(user);
             } else {
                 throw new ServiceException(responceMessage.getMessage());
             }
-        } catch (PersistException e) {
+        } catch (PersistException | NoSuchAlgorithmException e) {
             throw new ServiceException("Server error", e);
         }
     }
