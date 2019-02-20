@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements RequestDao {
@@ -26,6 +27,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     private static final String CREATE_QUERY = "INSERT INTO request " +
             "(reward, application_date, lead_date, request_status, wanted_person_id) " +
             "VALUES (? ,? ,? ,? ,?)";
+
+    private static final String SELECT_COLUMN = "FROM request";
 
     @Override
     protected List<Request> parseResultSet(ResultSet rs) throws SQLException {
@@ -86,7 +89,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
 
     @Override
     protected boolean hasColumn(String column) {
-        return false;
+        return Arrays.asList(new String[]{ID,REWARD,APPLICATION_DATE,LEAD_DATE,
+                REQUEST_STATUS,WANTED_PERSON_ID}).contains(column);
     }
 
     @Override

@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements RecordDao {
@@ -28,6 +29,7 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
             "(description, place, date, record_status, rating, name) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
+    private static final String SELECT_COLUMN = "FROM record";
     @Override
     protected List<Record> parseResultSet(ResultSet rs) throws SQLException {
         List<Record> records = new ArrayList<>();
@@ -89,7 +91,7 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
 
     @Override
     protected boolean hasColumn(String column) {
-        return false;
+        return Arrays.asList(new String[]{ID,DESCRIPTION,PLACE,DATE,RECORD_STATUS,RATING,NAME}).contains(column);
     }
 
     @Override

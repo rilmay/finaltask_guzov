@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> implements WantedPersonDao {
@@ -33,6 +34,8 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
             "(first_name, last_name, person_status, description, birth_place, birth_date, search_area," +
             " special_signs, photo, reward)" +
             "VALUES (? ,? ,? ,? ,? ,? ,?, ?, ?, ?)";
+
+    private static final String SELECT_COLUMN = "FROM wanted_person";
 
     @Override
     protected List<WantedPerson> parseResultSet(ResultSet rs) throws SQLException {
@@ -103,7 +106,8 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
 
     @Override
     protected boolean hasColumn(String column) {
-        return false;
+        return Arrays.asList(new String[]{ID,FIRST_NAME,LAST_NAME,PERSON_STATUS,DESCRIPTION,BIRTH_DATE,BIRTH_PLACE,
+                SEARCH_AREA,SPECIAL_SIGNS,REWARD,PHOTO}).contains(column);
     }
 
     @Override
