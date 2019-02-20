@@ -17,8 +17,10 @@
                         <p class="title is-4">Registration</p>
                         <p class="subtitle is-6">Please fill in the fields</p>
                     </div>
+                    <p class="has-text-danger"><c:out value="${error_message}"/></p>
                     <div class="content">
-                        <form action="${pageContext.request.contextPath}/demo" method="post">
+                        <br>
+                        <form action="${pageContext.request.contextPath}/" method="post">
                             <p>
                                 <label for="login" class="field-label"> Your login: </label>
                                 <input type="text" id="login" class="text-field" name="login" required="required"
@@ -51,9 +53,11 @@
                             <input type="hidden" name="command" value="register_user">
                             <input class="button is-danger" type="submit" value="register">
                         </form>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <p class="has-text-danger"><c:out value="${requirements_message}"/></p>
 </div>

@@ -1,4 +1,4 @@
-package by.guzov.finaltask.controller.listener;
+package by.guzov.finaltask.listener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;

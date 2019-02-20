@@ -1,4 +1,4 @@
-package by.guzov.finaltask.controller.command;
+package by.guzov.finaltask.command;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,6 @@ public class CommandProvider {
     }
 
     private CommandProvider() {
-        commandMap.put("CommandExample", new CommandExample());
         commandMap.put(null, new CommandViewEmptyAdminPage());
         commandMap.put("user_list", new CommandViewUserList());
         commandMap.put("view_user_details", new CommandViewUserDetails());

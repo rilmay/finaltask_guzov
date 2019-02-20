@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Admin page</title>
-    <link rel="stylesheet" href="decor/bulma.css">
+    <link rel="stylesheet" href="/static/bulma.css">
 </head>
 <body>
 <section class="hero is-dark">

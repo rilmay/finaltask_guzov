@@ -1,11 +1,10 @@
-package by.guzov.finaltask.controller.command;
+package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.dao.UserDao;
-import by.guzov.finaltask.dao.exception.DaoException;
-import by.guzov.finaltask.dao.exception.PersistException;
-import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.service.ServiceFactory;
+import by.guzov.finaltask.service.UserService;
+import by.guzov.finaltask.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,15 +12,15 @@ public class CommandChangeUserRole implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
-            UserDao userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
+            UserService userService = ServiceFactory.getInstance().getUserService();
             int id = Integer.parseInt(request.getParameter("userId"));
-            User user = userDao.getByPK(id);
+            User user = userService.getUserById(id);
             user.setRole(user.getRole().equals("user") ? "admin" : "user");
-            userDao.update(user);
+            userService.updateUser(user);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=view_user_details&id=" + user.getId(), "redirect"));
+            responseContent.setRouter(new Router("?command=view_user_details&id=" + user.getId(), Router.Type.REDIRECT));
             return responseContent;
-        } catch (DaoException | PersistException e) {
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }

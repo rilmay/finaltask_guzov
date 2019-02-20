@@ -1,4 +1,4 @@
-package by.guzov.finaltask.controller.filter;
+package by.guzov.finaltask.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

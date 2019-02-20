@@ -1,4 +1,4 @@
-package by.guzov.finaltask.controller.command;
+package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.dto.ResponseContent;
 

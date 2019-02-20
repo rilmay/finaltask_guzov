@@ -54,4 +54,6 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
      * @throws DaoException should be clarify
      */
     List<T> getAll() throws DaoException;
+
+    List<String> getStringsFromColumn(String column) throws DaoException;
 }

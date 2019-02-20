@@ -19,12 +19,12 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     private static final String RATING = "rating";
     private static final String NAME = "name";
 
-    private static final String DELETE_QUERY = "DELETE FROM interpol.record WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpol.record " +
+    private static final String DELETE_QUERY = "DELETE FROM record WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE record " +
             "SET description = ?, place = ?, date = ?, record_status = ?, rating = ?, name = ? " +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpol.record";
-    private static final String CREATE_QUERY = "INSERT INTO interpol.record " +
+    private static final String SELECT_QUERY = "SELECT * FROM record";
+    private static final String CREATE_QUERY = "INSERT INTO record " +
             "(description, place, date, record_status, rating, name) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -87,4 +87,13 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
         return DELETE_QUERY;
     }
 
+    @Override
+    protected boolean hasColumn(String column) {
+        return false;
+    }
+
+    @Override
+    protected String getSelectColumnQuery() {
+        return null;
+    }
 }

@@ -22,12 +22,17 @@
                         <p><strong>Registration Date: </strong><c:out value="${user.registrationDate}"/></p>
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>
-                    <form action="${pageContext.request.contextPath}/demo" method="post">
-                        <input type="hidden" name="command" value="update_user_role">
-                        <input type="hidden" name="userId" value="${user.id}">
-                        <input class="button is-light" type="submit" value="change role">
-                    </form>
-                    <form action="${pageContext.request.contextPath}/demo" method="post">
+                        <form action="${pageContext.request.contextPath}/" method="post">
+                            <input type="hidden" name="command" value="update_user_role">
+                            <input type="hidden" name="userId" value="${user.id}">
+                            <c:if test="${user.role == 'admin'}">
+                            <input class="button is-light" type="submit" value="change role to user">
+                            </c:if>
+                            <c:if test="${user.role == 'user'}">
+                                <input class="button is-light" type="submit" value="change role to admin">
+                            </c:if>
+                        </form>
+                    <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="command" value="delete_user">
                         <input type="hidden" name="userId" value="${user.id}">
                         <input class="button is-danger" type="submit" value="delete">

@@ -36,30 +36,30 @@ public class RecordDaoImplTest {
         record.setRating(4);
         record.setRecordStatus("expired");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        deleteAll = connection.prepareStatement("DELETE  FROM interpol.record WHERE id<100");
+        deleteAll = connection.prepareStatement("DELETE  FROM record WHERE id<100");
     }
 
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM interpol.record", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT * FROM record", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO interpol.record (description, place, date, record_status, " +
+        Assert.assertEquals("INSERT INTO record (description, place, date, record_status, " +
                 "rating, name) VALUES (?, ?, ?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
-        Assert.assertEquals("UPDATE interpol.record SET description = ?, place = ?, date = ?, " +
+        Assert.assertEquals("UPDATE record SET description = ?, place = ?, date = ?, " +
                 "record_status = ?, rating = ?, name = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpol.record WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
+        Assert.assertEquals("DELETE FROM record WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test

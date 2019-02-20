@@ -4,6 +4,7 @@ import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.dao.exception.PersistException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,10 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     protected abstract void prepareStatementForInsert(PreparedStatement statement, T object) throws SQLException;
 
     protected abstract void prepareStatementForUpdate(PreparedStatement statement, T object) throws SQLException;
+
+    protected abstract boolean hasColumn(String column);
+
+    protected abstract String getSelectColumnQuery();
 
     public abstract String getSelectQuery();
 
@@ -56,17 +61,17 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         try (PreparedStatement preparedStatement =
                      connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {
             prepareStatementForInsert(preparedStatement, object);
-            preparedStatement.execute();
-
+            if (preparedStatement.executeUpdate() < 1) {
+                throw new PersistException("Failed to insert");
+            }
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     object.setIDGen(generatedKeys.getInt(1));
                     return object;
                 } else {
-                    throw new SQLException("Creating user failed, no ID obtained.");
+                    throw new PersistException("Creating user failed, no ID obtained.");
                 }
             }
-
         } catch (SQLException e) {
             throw new PersistException(e);
         }
@@ -91,6 +96,26 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             preparedStatement.execute();
         } catch (SQLException e) {
             throw new PersistException(e);
+        }
+    }
+
+
+    @Override
+    @AutoConnection
+    public List<String> getStringsFromColumn(String column) throws DaoException {
+        if (!hasColumn(column)) {
+            throw new DaoException("This column does not exist");
+        }
+        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT " + column + " " + getSelectColumnQuery())) {
+            List<String> strings = new ArrayList<>();
+            //preparedStatement.setString(1, column);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                strings.add(rs.getString(column));
+            }
+            return strings;
+        } catch (SQLException e) {
+            throw new DaoException(e);
         }
     }
 }

@@ -22,7 +22,7 @@ public class BdInit {
             ConnectionPool connectionPool = ConnectionPoolImpl.getInstance();
             try (Connection connection = connectionPool.retrieveConnection()) {
                 String create = Files
-                        .readAllLines(Paths.get("src/main/resources/create_script.sql"), StandardCharsets.UTF_8)
+                        .readAllLines(Paths.get("src/test/resources/create_script.sql"), StandardCharsets.UTF_8)
                         .stream().collect(Collectors.joining());
                 Statement statement = connection.createStatement();
                 statement.execute(create);

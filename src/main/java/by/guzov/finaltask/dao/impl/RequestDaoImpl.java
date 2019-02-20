@@ -18,12 +18,12 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     private static final String REQUEST_STATUS = "request_status";
     private static final String WANTED_PERSON_ID = "wanted_person_id";
 
-    private static final String DELETE_QUERY = "DELETE FROM interpol.request WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpol.request " +
+    private static final String DELETE_QUERY = "DELETE FROM request WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE request " +
             "SET reward = ?, application_date = ?, lead_date = ?, request_status = ?, wanted_person_id = ?" +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpol.request";
-    private static final String CREATE_QUERY = "INSERT INTO interpol.request " +
+    private static final String SELECT_QUERY = "SELECT * FROM request";
+    private static final String CREATE_QUERY = "INSERT INTO request " +
             "(reward, application_date, lead_date, request_status, wanted_person_id) " +
             "VALUES (? ,? ,? ,? ,?)";
 
@@ -83,4 +83,14 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         return DELETE_QUERY;
     }
 
+
+    @Override
+    protected boolean hasColumn(String column) {
+        return false;
+    }
+
+    @Override
+    protected String getSelectColumnQuery() {
+        return null;
+    }
 }

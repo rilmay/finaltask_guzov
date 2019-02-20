@@ -38,10 +38,10 @@ public class RequestDaoImplTest {
         request.setReward(325);
         request.setWantedPersonId(1);
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
-        deleteAll = connection.prepareStatement("DELETE  FROM interpol.request WHERE id<100");
-        deleteWantedPeople = connection.prepareStatement("DELETE from  interpol.request where id<100");
+        deleteAll = connection.prepareStatement("DELETE  FROM request WHERE id<100");
+        deleteWantedPeople = connection.prepareStatement("DELETE from  request where id<100");
         addWantedPerson = connection.prepareStatement("INSERT INTO " +
-                "interpol.wanted_person (first_name, person_status) VALUES ('John' ,'missing')");
+                "wanted_person (first_name, person_status) VALUES ('John' ,'missing')");
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("Description");
@@ -51,24 +51,24 @@ public class RequestDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM interpol.request", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT * FROM request", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO interpol.request (reward, application_date, lead_date, " +
+        Assert.assertEquals("INSERT INTO request (reward, application_date, lead_date, " +
                 "request_status, wanted_person_id) VALUES (? ,? ,? ,? ,?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
-        Assert.assertEquals("UPDATE interpol.request SET reward = ?, application_date = ?, lead_date = ?, " +
+        Assert.assertEquals("UPDATE request SET reward = ?, application_date = ?, lead_date = ?, " +
                 "request_status = ?, wanted_person_id = ?WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
     public void getDeleteQuery() {
-        Assert.assertEquals("DELETE FROM interpol.request WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
+        Assert.assertEquals("DELETE FROM request WHERE id = ?", daoWithAbstractMethods.getDeleteQuery());
     }
 
     @Test

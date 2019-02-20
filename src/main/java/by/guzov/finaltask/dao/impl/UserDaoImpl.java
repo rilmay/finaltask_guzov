@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,15 +25,17 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     private static final String EMAIL = "email";
 
 
-    private static final String DELETE_QUERY = "DELETE FROM interpol.user WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpol.user " +
+    private static final String DELETE_QUERY = "DELETE FROM user WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE user " +
             "SET login = ?, password = ?, role = ?, first_name = ?, last_name = ?," +
             "registration_date = ?, email = ?" +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpol.user";
-    private static final String CREATE_QUERY = "INSERT INTO interpol.user " +
+    private static final String SELECT_QUERY = "SELECT * FROM user";
+    private static final String CREATE_QUERY = "INSERT INTO user " +
             "(login, password, role, first_name, last_name, registration_date, email) " +
             "VALUES (? ,? ,? ,? ,? ,? ,?)";
+
+    private static final String SELECT_COLUMN = "FROM user";
 
 
     @Override
@@ -96,7 +99,18 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     }
 
     @Override
+    protected String getSelectColumnQuery() {
+        return SELECT_COLUMN;
+    }
+
+    @Override
     public int signIn() {
         return 0;
+    }
+
+    @Override
+    protected boolean hasColumn(String column) {
+        return Arrays.asList(new String[]{ID, LOGIN, PASSWORD, ROLE, FIRST_NAME, LAST_NAME, REGISTRATION_DATE, EMAIL})
+                .contains(column);
     }
 }

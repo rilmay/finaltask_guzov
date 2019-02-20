@@ -1,7 +1,7 @@
 package by.guzov.finaltask.controller;
 
-import by.guzov.finaltask.controller.command.Command;
-import by.guzov.finaltask.controller.command.CommandProvider;
+import by.guzov.finaltask.command.Command;
+import by.guzov.finaltask.command.CommandProvider;
 import by.guzov.finaltask.dto.ResponseContent;
 
 import javax.servlet.ServletException;

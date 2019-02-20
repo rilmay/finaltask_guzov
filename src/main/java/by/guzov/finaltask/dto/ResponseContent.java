@@ -1,6 +1,6 @@
 package by.guzov.finaltask.dto;
 
-import by.guzov.finaltask.controller.command.Router;
+import by.guzov.finaltask.command.Router;
 
 /**
  * Provide response content to View layer

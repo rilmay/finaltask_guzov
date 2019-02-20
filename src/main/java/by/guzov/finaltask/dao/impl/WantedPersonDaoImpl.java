@@ -23,13 +23,13 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     private static final String PHOTO = "photo";
     private static final String REWARD = "reward";
 
-    private static final String DELETE_QUERY = "DELETE FROM interpol.wanted_person WHERE id = ?";
-    private static final String UPDATE_QUERY = "UPDATE interpol.wanted_person " +
+    private static final String DELETE_QUERY = "DELETE FROM wanted_person WHERE id = ?";
+    private static final String UPDATE_QUERY = "UPDATE wanted_person " +
             "SET first_name = ?, last_name = ?, person_status = ?, description = ?, birth_place = ?, birth_date = ?, " +
             "search_area = ?, special_signs = ?, photo = ?, reward = ? " +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM interpol.wanted_person";
-    private static final String CREATE_QUERY = "INSERT INTO interpol.wanted_person " +
+    private static final String SELECT_QUERY = "SELECT * FROM wanted_person";
+    private static final String CREATE_QUERY = "INSERT INTO wanted_person " +
             "(first_name, last_name, person_status, description, birth_place, birth_date, search_area," +
             " special_signs, photo, reward)" +
             "VALUES (? ,? ,? ,? ,? ,? ,?, ?, ?, ?)";
@@ -101,4 +101,13 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
         return DELETE_QUERY;
     }
 
+    @Override
+    protected boolean hasColumn(String column) {
+        return false;
+    }
+
+    @Override
+    protected String getSelectColumnQuery() {
+        return null;
+    }
 }
