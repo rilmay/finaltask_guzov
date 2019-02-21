@@ -29,6 +29,8 @@ public interface UserService {
 
     User createUser(User user);
 
+    User authenticate(User user) throws ServiceException;
+
     // Provide your code here
 
 }

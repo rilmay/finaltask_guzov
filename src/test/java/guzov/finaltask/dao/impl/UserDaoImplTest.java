@@ -28,7 +28,7 @@ public class UserDaoImplTest {
         BdInit.bdInit();
         userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         user = new User();
-        user.setLogin("Логин");
+        user.setLogin("Login");
         user.setPassword("123456789123");
         user.setRegistrationDate(Date.valueOf(LocalDate.of(2002, 3, 6)));
         user.setEmail("Почта");
@@ -102,6 +102,14 @@ public class UserDaoImplTest {
         User forGetAll = userDao.persist(user);
         Assert.assertEquals(forGetAll.getLogin(),
                 userDao.getAll().stream().findFirst().orElseGet(User::new).getLogin());
+    }
+
+    @Test
+    public void findByLoginTest() throws Exception{
+        deleteAll.execute();
+        User forGetAll = userDao.persist(user);
+
+        Assert.assertEquals(forGetAll.getPassword(),userDao.findByLogin(user).getPassword());
     }
 
     @After

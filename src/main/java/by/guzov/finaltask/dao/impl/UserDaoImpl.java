@@ -1,7 +1,9 @@
 package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
+import by.guzov.finaltask.dao.AutoConnection;
 import by.guzov.finaltask.dao.UserDao;
+import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.domain.User;
 
 import java.sql.PreparedStatement;
@@ -113,5 +115,17 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     protected boolean hasColumn(String column) {
         return Arrays.asList(ID, LOGIN, PASSWORD, ROLE, FIRST_NAME, LAST_NAME, REGISTRATION_DATE, EMAIL)
                 .contains(column);
+    }
+
+    @AutoConnection
+    @Override
+    public User findByLogin(User user) throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery() + " WHERE login = ?")) {
+            preparedStatement.setString(1,user.getLogin());
+            return parseResultSet(preparedStatement.executeQuery()).get(0);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 }

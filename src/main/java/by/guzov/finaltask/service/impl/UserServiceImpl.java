@@ -62,6 +62,23 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public User authenticate(User user) throws ServiceException{
+        try {
+            if (!userDao.getStringsFromColumn("login").contains(user.getLogin())) {
+                throw new ServiceException("error");
+            }
+            encryptPassword(user);
+            User validUser = userDao.findByLogin(user);
+            if (!user.getPassword().equals(validUser.getPassword())){
+                throw new ServiceException("error");
+            }
+            return validUser;
+        }catch (DaoException | NoSuchAlgorithmException e){
+            throw new ServiceException(e);
+        }
+    }
+
     public List<User> getAllUsers() {
         try {
             return userDao.getAll();

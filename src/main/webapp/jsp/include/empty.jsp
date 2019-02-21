@@ -9,5 +9,6 @@
 <div class="container">
     <div class="content">
         <h2>Click anything from the menu</h2>
+        <h3>${sessionScope.get("authorized")}</h3>
     </div>
 </div>

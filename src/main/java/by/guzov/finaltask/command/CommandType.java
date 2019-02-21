@@ -1,60 +1,45 @@
 package by.guzov.finaltask.command;
 
+import by.guzov.finaltask.dto.CommandContext;
+
 import java.util.Optional;
 import java.util.stream.Stream;
 
-/**
- * CommandType
- * <p>
- * <p>
- * getProperty()
- * 1 - GET/POST ALL USERS
- * 2 - GET ALL REGISTERED USERS
- * 3 - POST ALL REGISTERED USERS
- * 4 - GET/POST ADMIN ONLY
- */
 
 public enum CommandType {
-    CHANGE_USER_ROLE {
+    AUTHENTICATE_USER,
+    LOG_OUT_USER,
+    CHANGE_USER_ROLE,
+    DELETE_USER {
         @Override
-        int getProperty() {
-            return 4;
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
         }
-    }, DELETE_USER {
+    },
+    REGISTER_USER,
+    SHOW_AUTHENTICATION_PAGE,
+    SHOW_REGISTRATION_PAGE,
+    SHOW_EMPTY_PAGE,
+    SHOW_USER_DETAILS {
         @Override
-        int getProperty() {
-            return 4;
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ADMIN, USER);
         }
-    }, REGISTER_USER {
-        @Override
-        int getProperty() {
-            return 1;
-        }
-    }, SHOW_REGISTRATION_PAGE {
-        @Override
-        int getProperty() {
-            return 1;
-        }
-    }, SHOW_EMPTY_PAGE {
-        @Override
-        int getProperty() {
-            return 1;
-        }
-    }, SHOW_USER_DETAILS {
-        @Override
-        int getProperty() {
-            return 4;
-        }
-    }, SHOW_USER_LIST {
-        @Override
-        int getProperty() {
-            return 4;
-        }
-    };
+    }, SHOW_USER_LIST;
 
-    int getProperty() {
-        return 4;
+
+    public CommandContext getRestrictions() {
+        return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ALL_USERS);
     }
+
+    private static final String GET = "get";
+    private static final String POST = "post";
+    private static final String ADMIN = "admin";
+    private static final String USER = "user";
+    private static final String ANON = "null";
+
+
+    private static final String[] ALL_USERS = new String[]{USER, ADMIN, ANON};
 
     public static Optional<CommandType> of(String name) {
         return Stream.of(CommandType.values()).filter(type -> type.name().equalsIgnoreCase(name)).findFirst();
