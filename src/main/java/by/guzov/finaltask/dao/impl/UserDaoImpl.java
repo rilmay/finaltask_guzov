@@ -30,7 +30,8 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
             "SET login = ?, password = ?, role = ?, first_name = ?, last_name = ?," +
             "registration_date = ?, email = ?" +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM user";
+    private static final String SELECT_QUERY = "SELECT id, login, password, role, first_name, last_name, " +
+            "registration_date, email FROM user";
     private static final String CREATE_QUERY = "INSERT INTO user " +
             "(login, password, role, first_name, last_name, registration_date, email) " +
             "VALUES (? ,? ,? ,? ,? ,? ,?)";
@@ -110,7 +111,7 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
 
     @Override
     protected boolean hasColumn(String column) {
-        return Arrays.asList(new String[]{ID, LOGIN, PASSWORD, ROLE, FIRST_NAME, LAST_NAME, REGISTRATION_DATE, EMAIL})
+        return Arrays.asList(ID, LOGIN, PASSWORD, ROLE, FIRST_NAME, LAST_NAME, REGISTRATION_DATE, EMAIL)
                 .contains(column);
     }
 }

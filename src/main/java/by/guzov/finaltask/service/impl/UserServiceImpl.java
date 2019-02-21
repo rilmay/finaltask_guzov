@@ -5,7 +5,7 @@ import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.dao.exception.PersistException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
-import by.guzov.finaltask.dto.ResponceMessage;
+import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.service.exception.ServiceException;
 
@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
 
         byte[] hexHash = MessageDigest.getInstance("SHA-256").digest(passwordWithSalt.getBytes(StandardCharsets.UTF_8));
 
-        String decimalHash = IntStream.range(0,hexHash.length).mapToObj(i -> Integer.toHexString(0xff & hexHash[i]))
-                .map(s -> (s.length() ==1)?"0"+s:s).collect(Collectors.joining());
+        String decimalHash = IntStream.range(0, hexHash.length).mapToObj(i -> Integer.toHexString(0xff & hexHash[i]))
+                .map(s -> (s.length() == 1) ? "0" + s : s).collect(Collectors.joining());
 
         user.setPassword(decimalHash);
     }
@@ -50,12 +50,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) throws ServiceException {
         try {
-            ResponceMessage responceMessage = userValidator.validate(user);
-            if (responceMessage.getAnswer()) {
+            ResponseMessage responseMessage = userValidator.validate(user);
+            if (responseMessage.getAnswer()) {
                 encryptPassword(user);
                 return userDao.persist(user);
             } else {
-                throw new ServiceException(responceMessage.getMessage());
+                throw new ServiceException(responseMessage.getMessage());
             }
         } catch (PersistException | NoSuchAlgorithmException e) {
             throw new ServiceException("Server error", e);

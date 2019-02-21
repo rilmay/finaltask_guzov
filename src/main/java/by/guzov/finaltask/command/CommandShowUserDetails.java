@@ -8,7 +8,7 @@ import by.guzov.finaltask.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandViewUserDetails implements Command {
+public class CommandShowUserDetails implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
@@ -16,7 +16,7 @@ public class CommandViewUserDetails implements Command {
             User user = userService.getUserById(Integer.parseInt(request.getParameter("id")));
             request.setAttribute("user", user);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("/jsp/admin_page.jsp", Router.Type.FORWARD));
+            responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
             request.setAttribute("viewName", "user_details");
             return responseContent;
         } catch (ServiceException e) {

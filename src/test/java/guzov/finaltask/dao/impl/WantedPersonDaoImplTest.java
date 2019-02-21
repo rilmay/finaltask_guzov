@@ -5,7 +5,10 @@ import by.guzov.finaltask.dao.WantedPersonDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.WantedPerson;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -38,21 +41,23 @@ public class WantedPersonDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM wanted_person", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT id, first_name, last_name, person_status, description, birth_place, " +
+                        "birth_date, search_area, special_signs, photo FROM wanted_person",
+                daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
         Assert.assertEquals("INSERT INTO wanted_person (first_name, last_name, person_status, " +
-                "description, birth_place, birth_date, search_area, special_signs, photo, reward)VALUES " +
-                "(? ,? ,? ,? ,? ,? ,?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
+                "description, birth_place, birth_date, search_area, special_signs, photo)VALUES " +
+                "(? ,? ,? ,? ,? ,? ,?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
         Assert.assertEquals("UPDATE wanted_person SET first_name = ?, last_name = ?, " +
                 "person_status = ?, description = ?, birth_place = ?, birth_date = ?, search_area = ?, " +
-                "special_signs = ?, photo = ?, reward = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
+                "special_signs = ?, photo = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="by.guzov.finaltask.command.CommandType" %>
 
 <div class="container">
     <div class="columns">
@@ -23,7 +24,7 @@
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <p>
                                 <label for="login" class="field-label"> Your login: </label>
-                                <input type="text" id="login" class="text-field" name="login" required="required"
+                                <input type="text" id="login" class="text-field is-right" name="login" required="required"
                                        placeholder="login"/>
                             </p>
 
@@ -50,7 +51,7 @@
                                        required="required"
                                        placeholder="last name"/>
                             </p>
-                            <input type="hidden" name="command" value="register_user">
+                            <input type="hidden" name="command" value="${CommandType.REGISTER_USER}">
                             <input class="button is-danger" type="submit" value="register">
                         </form>
 

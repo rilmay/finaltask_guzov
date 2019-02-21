@@ -1,7 +1,7 @@
 package by.guzov.finaltask.service;
 
-import by.guzov.finaltask.dto.ResponceMessage;
+import by.guzov.finaltask.dto.ResponseMessage;
 
 public interface Validator<T> {
-    ResponceMessage validate(T entity);
+    ResponseMessage validate(T entity);
 }

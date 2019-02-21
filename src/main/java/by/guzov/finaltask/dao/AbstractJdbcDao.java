@@ -106,7 +106,8 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         if (!hasColumn(column)) {
             throw new DaoException("This column does not exist");
         }
-        try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT " + column + " " + getSelectColumnQuery())) {
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement("SELECT " + column + " " + getSelectColumnQuery())) {
             List<String> strings = new ArrayList<>();
             //preparedStatement.setString(1, column);
             ResultSet rs = preparedStatement.executeQuery();

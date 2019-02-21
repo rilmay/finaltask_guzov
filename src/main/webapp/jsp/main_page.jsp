@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="by.guzov.finaltask.command.CommandType" %>
 <html>
 <head>
     <title>Admin page</title>
@@ -18,7 +19,7 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <a href="?">Moderation page</a>
+                <a href="?command=${CommandType.SHOW_EMPTY_PAGE}">Moderation page</a>
             </h1>
             <h2 class="subtitle">
                 admin only

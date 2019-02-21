@@ -13,14 +13,13 @@ CREATE TABLE IF NOT EXISTS `wanted_person` (
   `id` INT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
-  `person_status` ENUM('missing', 'wanted', 'caught', 'found') NOT NULL,
+  `person_status` ENUM('pending', 'missing', 'wanted', 'caught', 'found') NOT NULL,
   `description` TEXT(200) NULL,
   `birth_place` VARCHAR(45) NULL,
   `birth_date` DATE NULL,
   `search_area` VARCHAR(45) NULL,
   `special_signs` TEXT(170) NULL,
   `photo` VARCHAR(45) NULL,
-  `reward` INT NULL,
   PRIMARY KEY (`id`));
 
   CREATE TABLE IF NOT EXISTS `request` (

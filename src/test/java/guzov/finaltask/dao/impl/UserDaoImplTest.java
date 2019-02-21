@@ -42,7 +42,8 @@ public class UserDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM user", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT id, login, password, role, first_name, last_name, registration_date," +
+                " email FROM user", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test

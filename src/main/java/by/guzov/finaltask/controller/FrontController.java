@@ -2,6 +2,7 @@ package by.guzov.finaltask.controller;
 
 import by.guzov.finaltask.command.Command;
 import by.guzov.finaltask.command.CommandProvider;
+import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.dto.ResponseContent;
 
@@ -25,7 +26,8 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand(request.getParameter("command"));
+        Command command = CommandProvider.getInstance().takeCommand(CommandType.of(request.getParameter("command"))
+                .orElse(CommandType.SHOW_EMPTY_PAGE));
         ResponseContent responseContent = command.execute(request);
         if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {
             response.sendRedirect(responseContent.getRouter().getRoute());

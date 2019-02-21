@@ -8,7 +8,7 @@ public class CommandShowRegistrationPage implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router("/jsp/admin_page.jsp", Router.Type.FORWARD));
+        responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
         request.setAttribute("viewName", "user_registration");
         return responseContent;
     }

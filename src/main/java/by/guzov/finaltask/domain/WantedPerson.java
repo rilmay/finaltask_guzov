@@ -17,7 +17,6 @@ public class WantedPerson implements Identified<Integer> {
     private String searchArea;
     private String specialSings;
     private String photo;
-    private int reward;
 
     @Override
     public Integer getId() {

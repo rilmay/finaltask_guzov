@@ -6,12 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="by.guzov.finaltask.command.CommandType" %>
 <aside class="menu">
     <p class="menu-label">
         Menu
     </p>
     <ul class="menu-list">
-        <li><a href="?command=user_list">User List</a></li>
-        <li><a href="?command=show_registration_page">Registration(temporary)</a></li>
+        <li><a href="?command=${CommandType.SHOW_USER_LIST}">User List</a></li>
+        <li><a href="?command=${CommandType.SHOW_REGISTRATION_PAGE}">Registration(temporary)</a></li>
     </ul>
 </aside>

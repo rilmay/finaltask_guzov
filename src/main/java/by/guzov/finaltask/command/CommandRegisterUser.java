@@ -26,11 +26,11 @@ public class CommandRegisterUser implements Command {
 
             userService.register(user);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=user_list", Router.Type.REDIRECT));
+            responseContent.setRouter(new Router("?command=" + CommandType.SHOW_USER_LIST, Router.Type.REDIRECT));
             return responseContent;
         } catch (ServiceException e) {
             ResponseContent failed = new ResponseContent();
-            failed.setRouter(new Router("/jsp/admin_page.jsp", Router.Type.FORWARD));
+            failed.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
             request.setAttribute("requirements_message", "*Note: all fields(except e-mail) must " +
                     "contain\r\n only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");
             request.setAttribute("error_message", "*" + e.getMessage());

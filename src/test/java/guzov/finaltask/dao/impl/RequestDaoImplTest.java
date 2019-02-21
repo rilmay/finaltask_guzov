@@ -51,7 +51,8 @@ public class RequestDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM request", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT id, reward, application_date, lead_date, request_status, " +
+                "wanted_person_id FROM request", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test

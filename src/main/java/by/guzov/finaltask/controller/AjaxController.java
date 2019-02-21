@@ -2,6 +2,7 @@ package by.guzov.finaltask.controller;
 
 import by.guzov.finaltask.command.Command;
 import by.guzov.finaltask.command.CommandProvider;
+import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.dto.ResponseContent;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ public class AjaxController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand("CommandExample");
+        Command command = CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE);
         ResponseContent responseContent = command.execute(request);
 
         // Provide your code here

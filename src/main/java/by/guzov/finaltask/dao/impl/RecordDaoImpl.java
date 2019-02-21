@@ -24,12 +24,14 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     private static final String UPDATE_QUERY = "UPDATE record " +
             "SET description = ?, place = ?, date = ?, record_status = ?, rating = ?, name = ? " +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM record";
+    private static final String SELECT_QUERY = "SELECT id, description, place, date, record_status, " +
+            "rating, name FROM record";
     private static final String CREATE_QUERY = "INSERT INTO record " +
             "(description, place, date, record_status, rating, name) " +
             "VALUES (?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_COLUMN = "FROM record";
+
     @Override
     protected List<Record> parseResultSet(ResultSet rs) throws SQLException {
         List<Record> records = new ArrayList<>();
@@ -91,11 +93,11 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
 
     @Override
     protected boolean hasColumn(String column) {
-        return Arrays.asList(new String[]{ID,DESCRIPTION,PLACE,DATE,RECORD_STATUS,RATING,NAME}).contains(column);
+        return Arrays.asList(ID, DESCRIPTION, PLACE, DATE, RECORD_STATUS, RATING, NAME).contains(column);
     }
 
     @Override
     protected String getSelectColumnQuery() {
-        return null;
+        return SELECT_COLUMN;
     }
 }

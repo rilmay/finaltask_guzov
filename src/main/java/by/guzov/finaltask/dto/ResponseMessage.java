@@ -1,6 +1,6 @@
 package by.guzov.finaltask.dto;
 
-public class ResponceMessage {
+public class ResponseMessage {
     private boolean answer;
     private String message;
 
@@ -20,7 +20,7 @@ public class ResponceMessage {
         this.message = message;
     }
 
-    public ResponceMessage(boolean answer, String message) {
+    public ResponseMessage(boolean answer, String message) {
         this.answer = answer;
         this.message = message;
     }

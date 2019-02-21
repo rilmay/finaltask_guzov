@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="by.guzov.finaltask.command.CommandType" %>
 <div class="container">
     <div class="content">
         <table class="table is-striped is-hoverable is-narrow is-fullwidth">
@@ -20,7 +21,7 @@
             <c:forEach items="${userList}" var="user">
                 <tr>
                     <td>
-                        <a href="?command=view_user_details&id=${user.id}">
+                        <a href="?command=${CommandType.SHOW_USER_DETAILS}&id=${user.id}">
                             <c:out value="${user.login}"/>
                         </a>
                     </td>

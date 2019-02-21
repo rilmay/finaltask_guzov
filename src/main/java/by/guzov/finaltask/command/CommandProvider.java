@@ -8,29 +8,30 @@ import java.util.Map;
  */
 public class CommandProvider {
     private static CommandProvider instance = new CommandProvider();
-    private Map<String, Command> commandMap = new HashMap<>();
+    private Map<CommandType, Command> commandMap = new HashMap<>();
 
     public static CommandProvider getInstance() {
         return instance;
     }
 
     private CommandProvider() {
-        commandMap.put(null, new CommandViewEmptyAdminPage());
-        commandMap.put("user_list", new CommandViewUserList());
-        commandMap.put("view_user_details", new CommandViewUserDetails());
-        commandMap.put("delete_user", new CommandDeleteUser());
-        commandMap.put("update_user_role", new CommandChangeUserRole());
-        commandMap.put("show_registration_page", new CommandShowRegistrationPage());
-        commandMap.put("register_user", new CommandRegisterUser());
+        commandMap.put(null, new CommandShowEmptyPage());
+        commandMap.put(CommandType.SHOW_USER_LIST, new CommandShowUserList());
+        commandMap.put(CommandType.SHOW_USER_DETAILS, new CommandShowUserDetails());
+        commandMap.put(CommandType.DELETE_USER, new CommandDeleteUser());
+        commandMap.put(CommandType.CHANGE_USER_ROLE, new CommandChangeUserRole());
+        commandMap.put(CommandType.SHOW_REGISTRATION_PAGE, new CommandShowRegistrationPage());
+        commandMap.put(CommandType.REGISTER_USER, new CommandRegisterUser());
+        commandMap.put(CommandType.SHOW_EMPTY_PAGE, new CommandShowEmptyPage());
     }
 
     /**
      * Return command by name
      *
-     * @param command name
+     * @param commandType name
      * @return command implementation
      */
-    public Command takeCommand(String command) {
-        return commandMap.get(command);
+    public Command takeCommand(CommandType commandType) {
+        return commandMap.get(commandType);
     }
 }

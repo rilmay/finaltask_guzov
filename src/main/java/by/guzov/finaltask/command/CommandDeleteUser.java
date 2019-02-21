@@ -17,7 +17,7 @@ public class CommandDeleteUser implements Command {
             User user = userService.getUserById(id);
             userService.deleteUser(user);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=user_list", Router.Type.REDIRECT));
+            responseContent.setRouter(new Router("?command=" + CommandType.SHOW_USER_LIST, Router.Type.REDIRECT));
             return responseContent;
         } catch (ServiceException e) {
             throw new RuntimeException(e);

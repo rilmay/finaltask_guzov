@@ -9,7 +9,7 @@ import by.guzov.finaltask.service.exception.ServiceException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class CommandViewUserList implements Command {
+public class CommandShowUserList implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
@@ -17,7 +17,7 @@ public class CommandViewUserList implements Command {
             List<User> users = userService.getAllUsers();
             request.setAttribute("userList", users);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("/jsp/admin_page.jsp", Router.Type.FORWARD));
+            responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
             request.setAttribute("viewName", "user_list");
             return responseContent;
         } catch (ServiceException e) {

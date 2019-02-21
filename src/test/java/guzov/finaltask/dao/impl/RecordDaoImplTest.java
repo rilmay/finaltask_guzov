@@ -42,7 +42,8 @@ public class RecordDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT * FROM record", daoWithAbstractMethods.getSelectQuery());
+        Assert.assertEquals("SELECT id, description, place, date, record_status, rating, name FROM record",
+                daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test

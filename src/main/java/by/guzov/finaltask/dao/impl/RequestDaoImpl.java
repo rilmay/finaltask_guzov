@@ -23,7 +23,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     private static final String UPDATE_QUERY = "UPDATE request " +
             "SET reward = ?, application_date = ?, lead_date = ?, request_status = ?, wanted_person_id = ?" +
             "WHERE id = ?";
-    private static final String SELECT_QUERY = "SELECT * FROM request";
+    private static final String SELECT_QUERY = "SELECT id, reward, application_date, lead_date, request_status, " +
+            "wanted_person_id FROM request";
     private static final String CREATE_QUERY = "INSERT INTO request " +
             "(reward, application_date, lead_date, request_status, wanted_person_id) " +
             "VALUES (? ,? ,? ,? ,?)";
@@ -89,12 +90,11 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
 
     @Override
     protected boolean hasColumn(String column) {
-        return Arrays.asList(new String[]{ID,REWARD,APPLICATION_DATE,LEAD_DATE,
-                REQUEST_STATUS,WANTED_PERSON_ID}).contains(column);
+        return Arrays.asList(ID, REWARD, APPLICATION_DATE, LEAD_DATE, REQUEST_STATUS, WANTED_PERSON_ID).contains(column);
     }
 
     @Override
     protected String getSelectColumnQuery() {
-        return null;
+        return SELECT_COLUMN;
     }
 }
