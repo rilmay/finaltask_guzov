@@ -1,7 +1,6 @@
 package by.guzov.finaltask.filter;
 
 import by.guzov.finaltask.command.CommandType;
-import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.dto.CommandContext;
 
 import javax.servlet.*;
@@ -28,12 +27,12 @@ public class RestrictionsFilter implements Filter {
                 .getRestrictions();
         String role = String.valueOf(httpServletRequest.getSession().getAttribute("authorized"));
         String method = httpServletRequest.getMethod().toLowerCase();
-        if (!(commandContext.isAllowedUser(role) && commandContext.isAllowedMethod(method))) {
-            request.setAttribute("viewName", "error_page");
-            request.setAttribute("error_message","you are forbidden to do this");
-            request.getRequestDispatcher("/jsp/main_page.jsp").forward(request, response);
-        }else {
+        if (commandContext.isAllowedUser(role) && commandContext.isAllowedMethod(method)) {
             chain.doFilter(request, response);
+        } else {
+            request.setAttribute("viewName", "error_page");
+            request.setAttribute("error_message", "you are forbidden to do this");
+            request.getRequestDispatcher("/jsp/main_page.jsp").forward(request, response);
         }
     }
 
