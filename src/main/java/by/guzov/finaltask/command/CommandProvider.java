@@ -26,6 +26,7 @@ public class CommandProvider {
         commandMap.put(CommandType.AUTHENTICATE_USER, new CommandAuthenticateUser());
         commandMap.put(CommandType.SHOW_AUTHENTICATION_PAGE, new CommandShowAuthenticationPage());
         commandMap.put(CommandType.LOG_OUT_USER, new CommandLogOutUser());
+        commandMap.put(CommandType.SHOW_ERROR_PAGE, new CommandShowEmptyPage());
     }
 
     /**

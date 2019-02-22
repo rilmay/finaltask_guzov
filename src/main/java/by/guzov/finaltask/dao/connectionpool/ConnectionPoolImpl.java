@@ -89,8 +89,10 @@ public class ConnectionPoolImpl implements ConnectionPool {
             semaphore.acquire();
             if (connectionDeque.size() == 0) {
                 return createConnection();
+            } else {
+                Connection saved = connectionDeque.pop();
+                return saved.isClosed() ? createConnection() : saved;
             }
-            return connectionDeque.pop();
         } catch (InterruptedException | SQLException e) {
             throw new ConnectionPoolException(e);
         }

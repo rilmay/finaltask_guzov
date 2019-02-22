@@ -7,17 +7,17 @@ public class CommandContext {
     private List<String> allowedUsers;
     private List<String> allowedMethods;
 
-    public List<String> getAllowedUsers() {
-        return allowedUsers;
+    public boolean isAllowedUser(String role) {
+        return allowedUsers.contains(role);
+    }
+
+    public boolean isAllowedMethod(String method) {
+        return allowedMethods.contains(method);
     }
 
     public CommandContext setAllowedUsers(String... allowedUsers) {
         this.allowedUsers = Arrays.asList(allowedUsers);
         return this;
-    }
-
-    public List<String> getAllowedMethods() {
-        return allowedMethods;
     }
 
     public CommandContext setAllowedMethods(String... allowedMethods) {

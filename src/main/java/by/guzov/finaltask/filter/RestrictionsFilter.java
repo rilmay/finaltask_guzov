@@ -1,10 +1,8 @@
 package by.guzov.finaltask.filter;
 
-import by.guzov.finaltask.command.CommandProvider;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.dto.CommandContext;
-import by.guzov.finaltask.dto.ResponseContent;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = "/")
-public class AuthenticationFilter implements Filter {
+public class RestrictionsFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -30,15 +28,12 @@ public class AuthenticationFilter implements Filter {
                 .getRestrictions();
         String role = String.valueOf(httpServletRequest.getSession().getAttribute("authorized"));
         String method = httpServletRequest.getMethod().toLowerCase();
-        if (commandContext.getAllowedUsers().contains(role) && commandContext.getAllowedMethods().contains(method)) {
+        if (!(commandContext.isAllowedUser(role) && commandContext.isAllowedMethod(method))) {
+            request.setAttribute("viewName", "error_page");
+            request.setAttribute("error_message","you are forbidden to do this");
+            request.getRequestDispatcher("/jsp/main_page.jsp").forward(request, response);
+        }else {
             chain.doFilter(request, response);
-        } else {
-            ResponseContent responseContent = CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(httpServletRequest);
-            if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {
-                httpServletResponse.sendRedirect(responseContent.getRouter().getRoute());
-            } else {
-                httpServletRequest.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
-            }
         }
     }
 

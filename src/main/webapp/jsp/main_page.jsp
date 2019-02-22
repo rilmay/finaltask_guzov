@@ -9,7 +9,7 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <html>
 <head>
-    <title>Admin page</title>
+    <title>Interpol</title>
     <link rel="stylesheet" href="static/bulma.css">
 </head>
 <body>

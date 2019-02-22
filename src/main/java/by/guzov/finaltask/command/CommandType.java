@@ -7,16 +7,36 @@ import java.util.stream.Stream;
 
 
 public enum CommandType {
-    AUTHENTICATE_USER,
-    LOG_OUT_USER,
-    CHANGE_USER_ROLE,
+    AUTHENTICATE_USER {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
+        }
+    },
+    LOG_OUT_USER {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST,GET).setAllowedUsers(ADMIN, USER);
+        }
+    },
+    CHANGE_USER_ROLE {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
+        }
+    },
     DELETE_USER {
         @Override
         public CommandContext getRestrictions() {
             return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
         }
     },
-    REGISTER_USER,
+    REGISTER_USER {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
+        }
+    },
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
@@ -25,7 +45,14 @@ public enum CommandType {
         public CommandContext getRestrictions() {
             return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ADMIN, USER);
         }
-    }, SHOW_USER_LIST;
+    },
+    SHOW_USER_LIST {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(GET).setAllowedUsers(ADMIN, USER);
+        }
+    },
+    SHOW_ERROR_PAGE;
 
 
     public CommandContext getRestrictions() {
@@ -37,8 +64,6 @@ public enum CommandType {
     private static final String ADMIN = "admin";
     private static final String USER = "user";
     private static final String ANON = "null";
-
-
     private static final String[] ALL_USERS = new String[]{USER, ADMIN, ANON};
 
     public static Optional<CommandType> of(String name) {
