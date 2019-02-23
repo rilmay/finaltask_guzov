@@ -8,15 +8,16 @@ import by.guzov.finaltask.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandDeleteUser implements Command {
+public class CommandDeletePersonalPage implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
+            User session_user = (User) request.getSession().getAttribute("session_user");
             UserService userService = ServiceFactory.getInstance().getUserService();
-            int id = Integer.parseInt(request.getParameter("userId"));
-            User user = userService.getUserById(id);
+            User user = userService.getUserById(session_user.getId());
             userService.deleteUser(user);
-            return CommandProvider.getInstance().takeCommand(CommandType.SHOW_USER_LIST).execute(request);
+            request.getSession().invalidate();
+            return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }

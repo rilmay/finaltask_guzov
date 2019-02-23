@@ -16,7 +16,7 @@ public enum CommandType {
     LOG_OUT_USER {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST,GET).setAllowedUsers(ADMIN, USER);
+            return new CommandContext().setAllowedMethods(POST, GET).setAllowedUsers(ADMIN, USER);
         }
     },
     CHANGE_USER_ROLE {
@@ -37,6 +37,12 @@ public enum CommandType {
             return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
         }
     },
+    DELETE_PERSONAL_PAGE {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN, USER);
+        }
+    },
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
@@ -52,7 +58,13 @@ public enum CommandType {
             return new CommandContext().setAllowedMethods(GET).setAllowedUsers(ADMIN, USER);
         }
     },
-    SHOW_ERROR_PAGE;
+    SHOW_ERROR_PAGE,
+    SHOW_PERSONAL_PAGE {
+        @Override
+        public CommandContext getRestrictions() {
+            return super.getRestrictions().setAllowedUsers(ADMIN, USER);
+        }
+    };
 
 
     public CommandContext getRestrictions() {
@@ -63,7 +75,7 @@ public enum CommandType {
     private static final String POST = "post";
     private static final String ADMIN = "admin";
     private static final String USER = "user";
-    private static final String ANON = "null";
+    private static final String ANON = "anon";
     private static final String[] ALL_USERS = new String[]{USER, ADMIN, ANON};
 
     public static Optional<CommandType> of(String name) {

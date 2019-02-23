@@ -27,28 +27,19 @@ public class ConnectionPoolImpl implements ConnectionPool {
 
     private static final String DRIVER_CLASS = "driver";
     private static final String DB_URL = "url";
-    private static final String DB_USER = "user";
-    private static final String DB_PASSWORD = "password";
     private static final String POOL_CAPACITY = "poolCapacity";
 
-    private String driverClass;
+    private Properties dbProps;
     private String jdbcUrl;
-    private String user;
-    private String password;
-    private int poolCapacity;
     private Semaphore semaphore;
     private final Deque<Connection> connectionDeque = new ConcurrentLinkedDeque<>();
     private final List<Connection> allConnections = new ArrayList<>();
 
     private ConnectionPoolImpl() {
-        Properties props = loadProperties("db.properties");
-        this.driverClass = props.getProperty(DRIVER_CLASS);
-        this.jdbcUrl = props.getProperty(DB_URL);
-        this.user = props.getProperty(DB_USER);
-        this.password = props.getProperty(DB_PASSWORD);
-        this.poolCapacity = Integer.parseInt(props.getProperty(POOL_CAPACITY));
-        initDriver(this.driverClass);
-        semaphore = new Semaphore(this.poolCapacity);
+        dbProps = loadProperties("db.properties");
+        this.jdbcUrl = dbProps.getProperty(DB_URL);
+        initDriver(dbProps.getProperty(DRIVER_CLASS));
+        semaphore = new Semaphore(Integer.parseInt(dbProps.getProperty(POOL_CAPACITY)));
     }
 
     private Properties loadProperties(String name) {
@@ -116,7 +107,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     }
 
     private Connection createConnection() throws SQLException {
-        Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
+        Connection connection = DriverManager.getConnection(jdbcUrl, dbProps);
         allConnections.add(connection);
         InvocationHandler connectionHandler = (Object proxy, Method method, Object[] args) -> {
             if (method.getName().equals("close")) {

@@ -1,5 +1,10 @@
 package by.guzov.finaltask.command;
 
+import by.guzov.finaltask.command.admin.CommandChangeUserRole;
+import by.guzov.finaltask.command.admin.CommandDeleteUser;
+import by.guzov.finaltask.command.admin.CommandShowUserDetails;
+import by.guzov.finaltask.command.admin.CommandShowUserList;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +32,8 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_AUTHENTICATION_PAGE, new CommandShowAuthenticationPage());
         commandMap.put(CommandType.LOG_OUT_USER, new CommandLogOutUser());
         commandMap.put(CommandType.SHOW_ERROR_PAGE, new CommandShowEmptyPage());
+        commandMap.put(CommandType.SHOW_PERSONAL_PAGE, new CommandShowPersonalPage());
+        commandMap.put(CommandType.DELETE_PERSONAL_PAGE, new CommandDeletePersonalPage());
     }
 
     /**

@@ -14,12 +14,12 @@
     </p>
     <ul class="menu-list">
         <li><a href="?command=${CommandType.SHOW_USER_LIST}">User List</a></li>
-        <c:if test="${sessionScope.get('authorized') == null}">
+        <c:if test="${sessionScope.get('session_user') == null}">
             <li><a href="?command=${CommandType.SHOW_REGISTRATION_PAGE}">Registration(temporary)</a></li>
             <li><a href="?command=${CommandType.SHOW_AUTHENTICATION_PAGE}">Log In</a></li>
         </c:if>
-        <c:if test="${sessionScope.get('authorized') != null}">
-            <li><a href="?command=${CommandType.LOG_OUT_USER}">Log out</a></li>
+        <c:if test="${sessionScope.get('session_user') != null}">
+            <li><a href="?command=${CommandType.SHOW_PERSONAL_PAGE}">Personal page</a> </li>
         </c:if>
     </ul>
 </aside>

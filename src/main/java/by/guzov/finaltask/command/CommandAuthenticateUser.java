@@ -14,12 +14,12 @@ public class CommandAuthenticateUser implements Command {
         try {
             String login = request.getParameter("login");
             String password = request.getParameter("password");
-            User unSigned = new User();
-            unSigned.setLogin(login);
-            unSigned.setPassword(password);
+            User unsigned = new User();
+            unsigned.setLogin(login);
+            unsigned.setPassword(password);
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User valid = userService.authenticate(unSigned);
-            request.getSession().setAttribute("authorized", valid.getRole());
+            User valid = userService.authenticate(unsigned);
+            request.getSession().setAttribute("session_user", valid);
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
         } catch (ServiceException e){
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_AUTHENTICATION_PAGE).execute(request);

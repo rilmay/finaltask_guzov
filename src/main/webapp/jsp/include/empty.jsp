@@ -10,10 +10,8 @@
 <div class="container">
     <div class="content">
         <h2>Click anything from the menu</h2>
-        <c:if test="${sessionScope.get('authorized') != null}">
-            <p>Hello, you role is ${sessionScope.get("authorized")}</p>
-        </c:if>
-        <c:if test="${sessionScope.get('authorized') == null}">
+            <p>Hello, your role is ${(sessionScope.get('session_user') == null)? 'anon' :(sessionScope.get('session_user')).role}</p>
+        <c:if test="${sessionScope.get('session_user') == null}">
             <p>Login: nikTestAuth, password: 12345 - admin account</p>
         </c:if>
     </div>

@@ -26,7 +26,7 @@ public class CommandRegisterUser implements Command {
 
             userService.register(user);
             ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=" + CommandType.SHOW_USER_LIST, Router.Type.REDIRECT));
+            responseContent.setRouter(new Router("?command=" + CommandType.SHOW_EMPTY_PAGE, Router.Type.REDIRECT));
             return responseContent;
         } catch (ServiceException e) {
             ResponseContent failed = new ResponseContent();

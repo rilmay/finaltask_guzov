@@ -7,18 +7,17 @@ import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.service.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
-public class CommandShowUserList implements Command {
+public class CommandShowPersonalPage implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            List<User> users = userService.getAllUsers();
-            request.setAttribute("userList", users);
+            User user = userService.getUserById(((User) request.getSession().getAttribute("session_user")).getId());
+            request.setAttribute("user", user);
             ResponseContent responseContent = new ResponseContent();
             responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
-            request.setAttribute("viewName", "user_list");
+            request.setAttribute("viewName", "personal_page");
             return responseContent;
         } catch (ServiceException e) {
             throw new RuntimeException(e);

@@ -1,6 +1,7 @@
 package by.guzov.finaltask.filter;
 
 import by.guzov.finaltask.command.CommandType;
+import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.CommandContext;
 
 import javax.servlet.*;
@@ -25,7 +26,8 @@ public class RestrictionsFilter implements Filter {
                 .of(httpServletRequest.getParameter("command"))
                 .orElse(CommandType.SHOW_EMPTY_PAGE)
                 .getRestrictions();
-        String role = String.valueOf(httpServletRequest.getSession().getAttribute("authorized"));
+        User session_user = (User) (httpServletRequest.getSession().getAttribute("session_user"));
+        String role = (session_user == null) ? "anon" : session_user.getRole();
         String method = httpServletRequest.getMethod().toLowerCase();
         if (commandContext.isAllowedUser(role) && commandContext.isAllowedMethod(method)) {
             chain.doFilter(request, response);
