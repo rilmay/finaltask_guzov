@@ -12,8 +12,9 @@ public class ResponseContent {
         return router;
     }
 
-    public void setRouter(Router router) {
+    public ResponseContent setRouter(Router router) {
         this.router = router;
+        return this;
     }
 
 }

@@ -1,27 +1,25 @@
 package by.guzov.finaltask.command.admin;
 
-import by.guzov.finaltask.command.Command;
+import by.guzov.finaltask.command.AbstractCommand;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.service.exception.ServiceException;
+import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class CommandShowUserList implements Command {
+public class CommandShowUserList extends AbstractCommand {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
             List<User> users = userService.getAllUsers();
             request.setAttribute("userList", users);
-            ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
-            request.setAttribute("viewName", "user_list");
-            return responseContent;
+            return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"user_list",Router.Type.FORWARD);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }

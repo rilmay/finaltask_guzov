@@ -5,12 +5,13 @@ import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.service.exception.ServiceException;
+import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class CommandRegisterUser implements Command {
+public class CommandRegisterUser extends AbstractCommand {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
@@ -21,21 +22,15 @@ public class CommandRegisterUser implements Command {
             user.setEmail(request.getParameter("email"));
             user.setLastName(request.getParameter("last_name"));
             user.setFirstName(request.getParameter("first_name"));
-            user.setRole("user");
+            user.setRole(ServletConst.USER);
             user.setRegistrationDate(Date.valueOf(LocalDate.now()));
-
             userService.register(user);
-            ResponseContent responseContent = new ResponseContent();
-            responseContent.setRouter(new Router("?command=" + CommandType.SHOW_EMPTY_PAGE, Router.Type.REDIRECT));
-            return responseContent;
+            return sendByUrl("?" + ServletConst.COMMAND + "=" + CommandType.SHOW_EMPTY_PAGE, Router.Type.REDIRECT);
         } catch (ServiceException e) {
-            ResponseContent failed = new ResponseContent();
-            failed.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
             request.setAttribute("requirements_message", "*Note: all fields(except e-mail) must " +
                     "contain\r\n only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");
             request.setAttribute("error_message", "*" + e.getMessage());
-            request.setAttribute("viewName", "user_registration");
-            return failed;
+            return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"user_registration",Router.Type.FORWARD);
         }
     }
 }

@@ -24,14 +24,14 @@
                             <p>
                                 <label for="login" class="field-label"> Your login: </label>
                                 <input type="text" id="login" class="text-field is-right" name="login" required="required"
-                                       placeholder="login"/>
+                                       placeholder="login" value="nikTestAuth"/>
                             </p>
 
                             <p>
                                 <label for="password" class="field-label"> Your password: </label>
                                 <input type="password" id="password" class="password-field" name="password"
                                        required="required"
-                                       placeholder="password"/>
+                                       placeholder="password" value="12345"/>
                             </p>
                             <input type="hidden" name="command" value="${CommandType.AUTHENTICATE_USER}">
                             <input class="button is-danger" type="submit" value="log in">

@@ -1,15 +1,13 @@
 package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowErrorPage implements Command{
+public class CommandShowErrorPage extends AbstractCommand{
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
-        request.setAttribute("viewName", "error_page");
-        return responseContent;
+        return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"error_page",Router.Type.FORWARD);
     }
 }

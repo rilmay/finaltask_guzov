@@ -1,15 +1,13 @@
 package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowAuthenticationPage implements Command {
+public class CommandShowAuthenticationPage extends AbstractCommand {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        ResponseContent responseContent = new ResponseContent();
-        responseContent.setRouter(new Router("/jsp/main_page.jsp", Router.Type.FORWARD));
-        request.setAttribute("viewName", "user_authentication");
-        return responseContent;
+        return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"user_authentication",Router.Type.FORWARD);
     }
 }

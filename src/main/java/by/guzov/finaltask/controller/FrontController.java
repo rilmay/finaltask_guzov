@@ -5,6 +5,7 @@ import by.guzov.finaltask.command.CommandProvider;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,7 +27,7 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand(CommandType.of(request.getParameter("command"))
+        Command command = CommandProvider.getInstance().takeCommand(CommandType.of(request.getParameter(ServletConst.COMMAND))
                 .orElse(CommandType.SHOW_EMPTY_PAGE));
         ResponseContent responseContent = command.execute(request);
         if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {
