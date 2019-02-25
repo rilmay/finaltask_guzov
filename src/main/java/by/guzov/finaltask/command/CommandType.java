@@ -1,6 +1,7 @@
 package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.dto.CommandContext;
+import by.guzov.finaltask.util.ServletConst;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -64,18 +65,19 @@ public enum CommandType {
         public CommandContext getRestrictions() {
             return super.getRestrictions().setAllowedUsers(ADMIN, USER);
         }
-    };
-
+    },
+    SHOW_WANTED_PEOPLE,
+    SHOW_PERSON_DETAILS;
 
     public CommandContext getRestrictions() {
         return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ALL_USERS);
     }
 
-    private static final String GET = "get";
-    private static final String POST = "post";
-    private static final String ADMIN = "admin";
-    private static final String USER = "user";
-    private static final String ANON = "anon";
+    private static final String GET = ServletConst.GET;
+    private static final String POST = ServletConst.POST;
+    private static final String ADMIN = ServletConst.ADMIN;
+    private static final String USER = ServletConst.USER;
+    private static final String ANON = ServletConst.ANON;
     private static final String[] ALL_USERS = new String[]{USER, ADMIN, ANON};
 
     public static Optional<CommandType> of(String name) {

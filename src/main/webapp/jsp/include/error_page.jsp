@@ -9,6 +9,5 @@
 <div class="container">
     <div class="content">
         <h3 class="has-text-danger">Error occurs, cause: ${error_message}</h3>
-        <h3>${sessionScope.get("authorized")}</h3>
     </div>
 </div>

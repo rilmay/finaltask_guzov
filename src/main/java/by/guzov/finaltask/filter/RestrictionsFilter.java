@@ -33,9 +33,9 @@ public class RestrictionsFilter implements Filter {
         if (commandContext.isAllowedUser(role) && commandContext.isAllowedMethod(method)) {
             chain.doFilter(request, response);
         } else {
-            request.setAttribute("viewName", "error_page");
+            request.setAttribute(ServletConst.VIEW_NAME, "error_page");
             request.setAttribute("error_message", "you are forbidden to do this");
-            request.getRequestDispatcher("/jsp/main_page.jsp").forward(request, response);
+            request.getRequestDispatcher(ServletConst.MAIN_PAGE_PATH).forward(request, response);
         }
     }
 

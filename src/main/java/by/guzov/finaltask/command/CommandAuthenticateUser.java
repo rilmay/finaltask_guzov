@@ -21,7 +21,7 @@ public class CommandAuthenticateUser implements Command {
             User valid = userService.authenticate(unsigned);
             request.getSession().setAttribute("session_user", valid);
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_AUTHENTICATION_PAGE).execute(request);
         }
     }

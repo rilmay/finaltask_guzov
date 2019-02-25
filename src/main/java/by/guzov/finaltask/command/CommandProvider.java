@@ -34,6 +34,8 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_ERROR_PAGE, new CommandShowEmptyPage());
         commandMap.put(CommandType.SHOW_PERSONAL_PAGE, new CommandShowPersonalPage());
         commandMap.put(CommandType.DELETE_PERSONAL_PAGE, new CommandDeletePersonalPage());
+        commandMap.put(CommandType.SHOW_WANTED_PEOPLE, new CommandShowWantedPeople());
+        commandMap.put(CommandType.SHOW_PERSON_DETAILS, new CommandShowPersonDetails());
     }
 
     /**

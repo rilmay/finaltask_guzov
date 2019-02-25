@@ -9,14 +9,14 @@ import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowPersonalPage extends AbstractCommand {
+public class CommandShowPersonalPage implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
             User user = userService.getUserById(((User) request.getSession().getAttribute("session_user")).getId());
             request.setAttribute("user", user);
-            return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"personal_page",Router.Type.FORWARD);
+            return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "personal_page", Router.Type.FORWARD);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class CommandRegisterUser extends AbstractCommand {
+public class CommandRegisterUser implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
@@ -25,12 +25,12 @@ public class CommandRegisterUser extends AbstractCommand {
             user.setRole(ServletConst.USER);
             user.setRegistrationDate(Date.valueOf(LocalDate.now()));
             userService.register(user);
-            return sendByUrl("?" + ServletConst.COMMAND + "=" + CommandType.SHOW_EMPTY_PAGE, Router.Type.REDIRECT);
+            return Util.sendByUrl("?" + ServletConst.COMMAND + "=" + CommandType.SHOW_EMPTY_PAGE, Router.Type.REDIRECT);
         } catch (ServiceException e) {
             request.setAttribute("requirements_message", "*Note: all fields(except e-mail) must " +
-                    "contain\r\n only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");
+                    "contain only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");
             request.setAttribute("error_message", "*" + e.getMessage());
-            return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"user_registration",Router.Type.FORWARD);
+            return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "user_registration", Router.Type.FORWARD);
         }
     }
 }

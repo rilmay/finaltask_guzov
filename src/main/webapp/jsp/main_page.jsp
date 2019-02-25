@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
+<%@ page import="by.guzov.finaltask.util.ServletConst" %>
 <html>
 <head>
     <title>Interpol</title>
@@ -19,7 +20,7 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <a href="?command=${CommandType.SHOW_EMPTY_PAGE}">Moderation page</a>
+                <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Moderation page</a>
             </h1>
             <h2 class="subtitle">
                 admin only
@@ -33,7 +34,7 @@
             <jsp:include page="navigation.jsp"/>
         </div>
         <div class="column is-three-quarters">
-            <jsp:include page="include/${viewName}.jsp"/>
+            <jsp:include page="include/${requestScope.get(ServletConst.VIEW_NAME)}.jsp"/>
         </div>
     </div>
 </section>

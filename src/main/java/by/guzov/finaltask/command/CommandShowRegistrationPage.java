@@ -5,9 +5,9 @@ import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowRegistrationPage extends AbstractCommand {
+public class CommandShowRegistrationPage implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        return basicResponse(request,ServletConst.MAIN_PAGE_PATH,"user_registration",Router.Type.FORWARD);
+        return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "user_registration", Router.Type.FORWARD);
     }
 }

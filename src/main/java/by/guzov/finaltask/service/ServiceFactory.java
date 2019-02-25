@@ -1,11 +1,20 @@
 package by.guzov.finaltask.service;
 
 import by.guzov.finaltask.service.impl.UserServiceImpl;
+import by.guzov.finaltask.service.impl.WantedPersonServiceImpl;
 
 /**
  * Service factory
  */
 public class ServiceFactory {
+    private final UserService userService;
+    private final WantedPersonService wantedPersonService;
+
+    private ServiceFactory() {
+        userService = new UserServiceImpl();
+        wantedPersonService = new WantedPersonServiceImpl();
+    }
+
     private static ServiceFactory instance = new ServiceFactory();
 
     public static ServiceFactory getInstance() {
@@ -13,6 +22,10 @@ public class ServiceFactory {
     }
 
     public UserService getUserService() {
-        return new UserServiceImpl();
+        return userService;
+    }
+
+    public WantedPersonService getWantedPersonService() {
+        return wantedPersonService;
     }
 }
