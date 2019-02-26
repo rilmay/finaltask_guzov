@@ -44,19 +44,25 @@ public enum CommandType {
             return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN, USER);
         }
     },
+    RECOVER_PASSWORD{
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
+        }
+    },
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
     SHOW_USER_DETAILS {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ADMIN, USER);
+            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ADMIN);
         }
     },
     SHOW_USER_LIST {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(GET).setAllowedUsers(ADMIN, USER);
+            return new CommandContext().setAllowedMethods(GET).setAllowedUsers(ADMIN);
         }
     },
     SHOW_ERROR_PAGE,
@@ -67,7 +73,13 @@ public enum CommandType {
         }
     },
     SHOW_WANTED_PEOPLE,
-    SHOW_PERSON_DETAILS;
+    SHOW_PERSON_DETAILS,
+    SHOW_RECOVERY_PAGE{
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(GET,POST).setAllowedUsers(ANON);
+        }
+    };
 
     public CommandContext getRestrictions() {
         return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ALL_USERS);

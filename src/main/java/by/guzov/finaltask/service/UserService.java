@@ -1,6 +1,7 @@
 package by.guzov.finaltask.service;
 
 import by.guzov.finaltask.domain.User;
+import by.guzov.finaltask.dto.PasswordRecovery;
 import by.guzov.finaltask.service.exception.ServiceException;
 
 import java.util.List;
@@ -30,6 +31,10 @@ public interface UserService {
     User createUser(User user);
 
     User authenticate(User user) throws ServiceException;
+
+    PasswordRecovery generateRecovery(String login);
+
+    void recoverPassword(PasswordRecovery passwordRecovery, String code, String newPassword);
 
     // Provide your code here
 

@@ -11,7 +11,7 @@ public class UserValidatorImpl implements Validator<User> {
     private static final String LOGIN = "login";
     private static final String EMAIL = "email";
 
-    private boolean isInvalid(String str, int length, String pattern) {
+    boolean isInvalid(String str, int length, String pattern) {
         return (str.length() < length || !str.matches(pattern));
     }
 
