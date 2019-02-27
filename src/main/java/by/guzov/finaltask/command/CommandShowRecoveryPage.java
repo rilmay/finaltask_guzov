@@ -19,18 +19,18 @@ public class CommandShowRecoveryPage implements Command {
             return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "recovery_page", Router.Type.FORWARD);
         } else {
             try {
-                UserService userService = ServiceFactory.getInstance().getUserService();
                 HttpSession session = request.getSession();
                 PasswordRecovery passwordRecovery = (PasswordRecovery) session.getAttribute("recovery");
                 if (passwordRecovery == null) {
-                    PasswordRecovery recovery = userService.generateRecovery(request.getParameter("login"));
+                    UserService userService = ServiceFactory.getInstance().getUserService();
+                    PasswordRecovery recovery = userService.generateRecovery(login);
                     session.setAttribute("recovery", recovery);
                     return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "recovery_page", Router.Type.FORWARD);
                 } else {
                     request.setAttribute("error_message", "invalid recovery procedure");
                     return CommandProvider.getInstance().takeCommand(CommandType.SHOW_ERROR_PAGE).execute(request);
                 }
-            }catch (ServiceException e){
+            } catch (ServiceException e) {
                 request.setAttribute("error_message", "invalid recovery procedure");
                 return CommandProvider.getInstance().takeCommand(CommandType.SHOW_ERROR_PAGE).execute(request);
             }

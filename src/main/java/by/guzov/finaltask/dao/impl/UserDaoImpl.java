@@ -119,10 +119,10 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
 
     @AutoConnection
     @Override
-    public User findByLogin(User user) throws DaoException {
+    public User getByLogin(User user) throws DaoException {
         try (PreparedStatement preparedStatement =
                      connection.prepareStatement(getSelectQuery() + " WHERE login = ?")) {
-            preparedStatement.setString(1,user.getLogin());
+            preparedStatement.setString(1, user.getLogin());
             return parseResultSet(preparedStatement.executeQuery()).get(0);
         } catch (SQLException e) {
             throw new DaoException(e);

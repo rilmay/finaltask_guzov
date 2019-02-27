@@ -12,9 +12,11 @@ import by.guzov.finaltask.service.exception.ServiceException;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -31,6 +33,15 @@ import java.util.stream.IntStream;
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
     private UserValidatorImpl userValidator;
+    private final String TLS = "mail.smtp.starttls.enable";
+    private final String HOST = "mail.smtp.host";
+    private final String USER = "mail.smtp.user";
+    private final String PASSWORD = "mail.smtp.password";
+    private final String PORT = "mail.smtp.port";
+    private final String AUTH = "mail.smtp.auth";
+    private final String PROTOCOL = "smtp";
+    private final String PROPERTIES_PATH = "/mail_bot.properties";
+
 
     public UserServiceImpl() {
         userDao = daoInit();
@@ -79,7 +90,7 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException("error");
             }
             encryptPassword(user);
-            User validUser = userDao.findByLogin(user);
+            User validUser = userDao.getByLogin(user);
             if (!user.getPassword().equals(validUser.getPassword())) {
                 throw new ServiceException("error");
             }
@@ -136,7 +147,7 @@ public class UserServiceImpl implements UserService {
             User user = new User();
             user.setLogin(login);
 
-            User found = userDao.findByLogin(user);
+            User found = userDao.getByLogin(user);
             recovery.setUserId(found.getId());
             String code = shaEncryption(Double.toString(Math.random())).substring(0, 6);
             sendEmailWithCode(code, found.getEmail());
@@ -150,38 +161,30 @@ public class UserServiceImpl implements UserService {
 
     private void sendEmailWithCode(String code, String email) throws ServiceException {
         try {
-            String host = "smtp.gmail.com";
-            String from = "interpolprojecttask@gmail.com";
-            String pass = "inter1nN9";
+            Properties properties = new Properties();
+            properties.load(getClass().getResourceAsStream(PROPERTIES_PATH));
+            String host = properties.getProperty(HOST);
+            String from = properties.getProperty(USER);
+            String pass = properties.getProperty(PASSWORD);
             Properties props = System.getProperties();
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", host);
-            props.put("mail.smtp.user", from);
-            props.put("mail.smtp.password", pass);
-            props.put("mail.smtp.port", "587");
-            props.put("mail.smtp.auth", "true");
-            String[] to = {email};
-            javax.mail.Session session = javax.mail.Session.getDefaultInstance(props, null);
+            props.put(TLS, properties.getProperty(TLS));
+            props.put(PORT, properties.getProperty(PORT));
+            props.put(AUTH, properties.getProperty(AUTH));
+            props.put(HOST, host);
+            props.put(USER, from);
+            props.put(PASSWORD, pass);
+            Session session = Session.getDefaultInstance(props, null);
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            InternetAddress[] toAddress = new InternetAddress[to.length];
-
-            for (int i = 0; i < to.length; i++) {
-                toAddress[i] = new InternetAddress(to[i]);
-            }
-            System.out.println(Message.RecipientType.TO);
-            for (InternetAddress toAddres : toAddress) {
-                message.addRecipient(Message.RecipientType.TO, toAddres);
-            }
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("Password recovery");
-
             message.setContent("Your secret code: " + code + ". It will be available for the next 10 minutes"
                     , "text/html");
-            Transport transport = session.getTransport("smtp");
+            Transport transport = session.getTransport(PROTOCOL);
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-        } catch (MessagingException e) {
+        } catch (MessagingException | IOException e) {
             throw new ServiceException(e);
         }
     }

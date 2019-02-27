@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
+<%@ page import="by.guzov.finaltask.util.ServletConst" %>
 
 <div class="container">
     <div class="columns">
@@ -16,7 +17,6 @@
                 <div class="card-content">
                     <div class="media-content">
                         <p class="title is-4">Password recovery</p>
-                        <p class="subtitle is-6">Please fill in the fields</p>
                     </div>
                     <div class="content">
                         <br>
@@ -29,8 +29,7 @@
                                        required="required"
                                        placeholder="login"/>
                             </p>
-
-                            <input type="hidden" name="command" value="${CommandType.SHOW_RECOVERY_PAGE}">
+                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_RECOVERY_PAGE}">
                                 <input class="button is-danger" type="submit" value="send e-mail">
                         </form>
                         </c:if>
@@ -49,7 +48,7 @@
                                            required="required"
                                            placeholder="password"/>
                                 </p>
-                                <input type="hidden" name="command" value="${CommandType.RECOVER_PASSWORD}">
+                                <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
                                 <input class="button is-danger" type="submit" value="confirm">
                             </form>
                         </c:if>

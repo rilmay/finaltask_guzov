@@ -109,7 +109,7 @@ public class UserDaoImplTest {
         deleteAll.execute();
         User forGetAll = userDao.persist(user);
 
-        Assert.assertEquals(forGetAll.getPassword(),userDao.findByLogin(user).getPassword());
+        Assert.assertEquals(forGetAll.getPassword(),userDao.getByLogin(user).getPassword());
     }
 
     @After

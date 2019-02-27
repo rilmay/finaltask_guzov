@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
+<%@ page import="by.guzov.finaltask.util.ServletConst" %>
 
 <div class="container">
     <div class="columns">
@@ -24,11 +25,11 @@
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="command" value="${CommandType.LOG_OUT_USER}">
+                        <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.LOG_OUT_USER}">
                         <input class="button is-light" type="submit" value="Log out">
                     </form>
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="command" value="${CommandType.DELETE_PERSONAL_PAGE}">
+                        <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
                         <input type="hidden" name="userId" value="${user.id}">
                         <input class="button is-danger" type="submit" value="delete">
                     </form>

@@ -31,7 +31,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
         try {
             return wantedPersonDao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException("Server error",e);
+            throw new ServiceException("Server error", e);
         }
     }
 

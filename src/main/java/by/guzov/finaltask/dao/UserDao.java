@@ -5,5 +5,6 @@ import by.guzov.finaltask.domain.User;
 
 public interface UserDao extends GenericDao<User, Integer> {
     int signIn();
-    User findByLogin(User user) throws DaoException;
+
+    User getByLogin(User user) throws DaoException;
 }

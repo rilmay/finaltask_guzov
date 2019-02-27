@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
+<%@ page import="by.guzov.finaltask.util.ServletConst" %>
 
 <div class="container">
     <div class="columns">
@@ -51,7 +52,7 @@
                                        required="required"
                                        placeholder="last name"/>
                             </p>
-                            <input type="hidden" name="command" value="${CommandType.REGISTER_USER}">
+                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.REGISTER_USER}">
                             <input class="button is-danger" type="submit" value="register">
                         </form>
 

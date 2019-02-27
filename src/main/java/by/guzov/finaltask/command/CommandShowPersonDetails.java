@@ -9,7 +9,7 @@ import by.guzov.finaltask.util.ServletConst;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowPersonDetails implements Command{
+public class CommandShowPersonDetails implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
@@ -17,7 +17,7 @@ public class CommandShowPersonDetails implements Command{
             WantedPerson wantedPerson = wantedPersonService.getById(Integer.parseInt(request.getParameter(ServletConst.ID)));
             request.setAttribute("person", wantedPerson);
             return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "wanted_person_details", Router.Type.FORWARD);
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }
