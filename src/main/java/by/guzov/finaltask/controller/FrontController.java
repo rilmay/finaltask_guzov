@@ -27,7 +27,8 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance().takeCommand(CommandType.of(request.getParameter(ServletConst.COMMAND))
+        Command command = CommandProvider.getInstance()
+                .takeCommand(CommandType.of(request.getParameter(ServletConst.COMMAND))
                 .orElse(CommandType.SHOW_EMPTY_PAGE));
         ResponseContent responseContent = command.execute(request);
         if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {

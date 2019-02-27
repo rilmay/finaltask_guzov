@@ -15,7 +15,7 @@ public class WantedPerson implements Identified<Integer> {
     private String birthPlace;
     private Date birthDate;
     private String searchArea;
-    private String specialSings;
+    private String specialSigns;
     private String photo;
 
     @Override

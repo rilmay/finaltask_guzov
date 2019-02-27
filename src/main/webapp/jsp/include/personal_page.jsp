@@ -29,6 +29,10 @@
                         <input class="button is-light" type="submit" value="Log out">
                     </form>
                     <form action="${pageContext.request.contextPath}/" method="post">
+                        <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
+                        <input class="button is-light" type="submit" value="Make a request">
+                    </form>
+                    <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
                         <input type="hidden" name="userId" value="${user.id}">
                         <input class="button is-danger" type="submit" value="delete">

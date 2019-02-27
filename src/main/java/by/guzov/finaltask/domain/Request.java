@@ -13,6 +13,7 @@ public class Request implements Identified<Integer> {
     private Date leadDate;
     private String requestStatus;
     private int wantedPersonId;
+    private int userId;
 
     @Override
     public Integer getId() {

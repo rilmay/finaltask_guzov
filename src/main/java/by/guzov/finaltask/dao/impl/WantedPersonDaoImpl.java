@@ -50,7 +50,7 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
             wantedPerson.setBirthPlace(rs.getString(BIRTH_PLACE));
             wantedPerson.setBirthDate(rs.getDate(BIRTH_DATE));
             wantedPerson.setSearchArea(rs.getString(SEARCH_AREA));
-            wantedPerson.setSpecialSings(rs.getString(SPECIAL_SIGNS));
+            wantedPerson.setSpecialSigns(rs.getString(SPECIAL_SIGNS));
             wantedPerson.setPhoto(rs.getString(PHOTO));
             wantedPeople.add(wantedPerson);
         }
@@ -78,7 +78,7 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
         statement.setString(i++, object.getBirthPlace());
         statement.setDate(i++, object.getBirthDate());
         statement.setString(i++, object.getSearchArea());
-        statement.setString(i++, object.getSpecialSings());
+        statement.setString(i++, object.getSpecialSigns());
         statement.setString(i, object.getPhoto());
     }
 

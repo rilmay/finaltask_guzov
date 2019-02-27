@@ -2,9 +2,11 @@ package guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
 import by.guzov.finaltask.dao.RequestDao;
+import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.Request;
+import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import org.junit.*;
 import org.junit.runner.RunWith;
@@ -25,6 +27,8 @@ public class RequestDaoImplTest {
     private Connection connection;
     private PreparedStatement deleteWantedPeople;
     private PreparedStatement addWantedPerson;
+    private User user;
+    private UserDao userDao;
 
     @Before
     public void init() throws Throwable {
@@ -45,6 +49,18 @@ public class RequestDaoImplTest {
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("Description");
+
+        userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
+        user = new User();
+        user.setLogin(Double.toString(Math.random()));
+        user.setPassword("123456789123");
+        user.setRegistrationDate(Date.valueOf(LocalDate.of(2002, 3, 6)));
+        user.setEmail(Double.toString(Math.random()));
+        user.setRole("user");
+        user.setFirstName("икита");
+        user.setLastName("узов");
+        User indb = userDao.persist(user);
+        request.setUserId(indb.getId());
         JdbcDaoFactory.getInstance().getDao(WantedPerson.class).persist(wantedPerson);
     }
 
@@ -52,19 +68,19 @@ public class RequestDaoImplTest {
     @Test
     public void getSelectQuery() {
         Assert.assertEquals("SELECT id, reward, application_date, lead_date, request_status, " +
-                "wanted_person_id FROM request", daoWithAbstractMethods.getSelectQuery());
+                "wanted_person_id, user_id FROM request", daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
-        Assert.assertEquals("INSERT INTO request (reward, application_date, lead_date, " +
-                "request_status, wanted_person_id) VALUES (? ,? ,? ,? ,?)", daoWithAbstractMethods.getCreateQuery());
+        Assert.assertEquals("INSERT INTO request (reward, application_date, lead_date, request_status, " +
+                "wanted_person_id, user_id) VALUES (? ,? ,? ,? ,? ,?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
         Assert.assertEquals("UPDATE request SET reward = ?, application_date = ?, lead_date = ?, " +
-                "request_status = ?, wanted_person_id = ?WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
+                "request_status = ?, wanted_person_id = ?, user_id=? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
@@ -75,16 +91,12 @@ public class RequestDaoImplTest {
     @Test
     public void persistTest() throws Exception {
         deleteAll.execute();
-//        deleteWantedPeople.execute();
-//        addWantedPerson.execute();
         Assert.assertEquals(request.getRequestStatus(), requestDao.persist(request).getRequestStatus());
     }
 
     @Test
     public void updateTest() throws Exception {
         deleteAll.execute();
-//        deleteWantedPeople.execute();
-//        addWantedPerson.execute();
         Request updated = requestDao.persist(request);
         updated.setReward(10);
         requestDao.update(updated);
@@ -113,8 +125,6 @@ public class RequestDaoImplTest {
     @Test
     public void getAllTest() throws Exception {
         deleteAll.execute();
-//        deleteWantedPeople.execute();
-//        addWantedPerson.execute();
         Request forGetAll = requestDao.persist(request);
         Assert.assertEquals(forGetAll.getLeadDate(),
                 requestDao.getAll().stream().findFirst().orElseGet(Request::new).getLeadDate());

@@ -27,7 +27,7 @@
                         <p><strong>Born: </strong>
                             <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
                         </p>
-                        <p><strong>Special signs: </strong><my:display variable="${person.specialSings}"/> </p>
+                        <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/> </p>
                         <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/> </p>
                     </div>
                     <form action="${pageContext.request.contextPath}/" method="post">

@@ -29,7 +29,12 @@ CREATE TABLE IF NOT EXISTS `wanted_person` (
   `lead_date` DATE NOT NULL,
   `request_status` ENUM('cancelled', 'approved', 'expired', 'pending', 'completed') NOT NULL,
   `wanted_person_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
+  CONSTRAINT `fk_request_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE CASCADE,
   CONSTRAINT `fk_request_wanted_person1`
     FOREIGN KEY (`wanted_person_id`)
     REFERENCES `wanted_person` (`id`)
@@ -59,17 +64,4 @@ CREATE TABLE IF NOT EXISTS `record_wanted_person` (
     REFERENCES `record` (`id`)
     ON DELETE CASCADE);
 
-CREATE TABLE IF NOT EXISTS `user_request` (
-  `id` INT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `request_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_user_request_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `fk_user_request_request1`
-    FOREIGN KEY (`request_id`)
-    REFERENCES `request` (`id`)
-    ON DELETE CASCADE);
 

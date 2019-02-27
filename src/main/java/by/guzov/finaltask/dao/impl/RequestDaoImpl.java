@@ -18,16 +18,17 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     private static final String LEAD_DATE = "lead_date";
     private static final String REQUEST_STATUS = "request_status";
     private static final String WANTED_PERSON_ID = "wanted_person_id";
+    private static final String USER_ID = "user_id";
 
     private static final String DELETE_QUERY = "DELETE FROM request WHERE id = ?";
     private static final String UPDATE_QUERY = "UPDATE request " +
-            "SET reward = ?, application_date = ?, lead_date = ?, request_status = ?, wanted_person_id = ?" +
+            "SET reward = ?, application_date = ?, lead_date = ?, request_status = ?, wanted_person_id = ?, user_id=? " +
             "WHERE id = ?";
     private static final String SELECT_QUERY = "SELECT id, reward, application_date, lead_date, request_status, " +
-            "wanted_person_id FROM request";
+            "wanted_person_id, user_id FROM request";
     private static final String CREATE_QUERY = "INSERT INTO request " +
-            "(reward, application_date, lead_date, request_status, wanted_person_id) " +
-            "VALUES (? ,? ,? ,? ,?)";
+            "(reward, application_date, lead_date, request_status, wanted_person_id, user_id) " +
+            "VALUES (? ,? ,? ,? ,? ,?)";
 
     private static final String SELECT_COLUMN = "FROM request";
 
@@ -42,6 +43,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
             request.setLeadDate(rs.getDate(LEAD_DATE));
             request.setRequestStatus(rs.getString(REQUEST_STATUS));
             request.setWantedPersonId(rs.getInt(WANTED_PERSON_ID));
+            request.setUserId(rs.getInt(USER_ID));
             requests.add(request);
         }
         return requests;
@@ -55,7 +57,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Request object) throws SQLException {
         statementPreparation(statement, object);
-        statement.setInt(6, object.getId());
+        statement.setInt(7, object.getId());
     }
 
     private void statementPreparation(PreparedStatement statement, Request object) throws SQLException {
@@ -64,7 +66,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         statement.setDate(i++, object.getApplicationDate());
         statement.setDate(i++, object.getLeadDate());
         statement.setString(i++, object.getRequestStatus());
-        statement.setInt(i, object.getWantedPersonId());
+        statement.setInt(i++, object.getWantedPersonId());
+        statement.setInt(i, object.getUserId());
     }
 
     @Override
@@ -90,7 +93,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
 
     @Override
     protected boolean hasColumn(String column) {
-        return Arrays.asList(ID, REWARD, APPLICATION_DATE, LEAD_DATE, REQUEST_STATUS, WANTED_PERSON_ID).contains(column);
+        return Arrays.asList(ID, REWARD, APPLICATION_DATE, LEAD_DATE, REQUEST_STATUS, WANTED_PERSON_ID, USER_ID).contains(column);
     }
 
     @Override

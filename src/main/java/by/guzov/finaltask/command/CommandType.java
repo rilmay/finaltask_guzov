@@ -50,6 +50,12 @@ public enum CommandType {
             return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
         }
     },
+    SEND_REQUEST {
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN, USER);
+        }
+    },
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
@@ -80,7 +86,13 @@ public enum CommandType {
             return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ANON);
         }
     },
-    SHOW_SUCCESS_PAGE;
+    SHOW_SUCCESS_PAGE,
+    SHOW_REQUEST_FORM {
+        @Override
+        public CommandContext getRestrictions() {
+            return super.getRestrictions().setAllowedUsers(USER, ADMIN);
+        }
+    };
 
     public CommandContext getRestrictions() {
         return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ALL_USERS);

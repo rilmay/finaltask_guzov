@@ -30,7 +30,7 @@ public class WantedPersonDaoImplTest {
         BdInit.bdInit();
         wantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
         wantedPerson = new WantedPerson();
-        wantedPerson.setSpecialSings("Special signs");
+        wantedPerson.setSpecialSigns("Special signs");
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setFirstName("FirstName");
         wantedPerson.setLastName("LastName");
@@ -91,7 +91,7 @@ public class WantedPersonDaoImplTest {
     @Test
     public void getByPKTest() throws Exception {
         WantedPerson wantedPersonWithPK = wantedPersonDao.persist(this.wantedPerson);
-        Assert.assertEquals(this.wantedPerson.getSpecialSings(), wantedPersonDao.getByPK(wantedPersonWithPK.getId()).getSpecialSings());
+        Assert.assertEquals(this.wantedPerson.getSpecialSigns(), wantedPersonDao.getByPK(wantedPersonWithPK.getId()).getSpecialSigns());
     }
 
     @Test

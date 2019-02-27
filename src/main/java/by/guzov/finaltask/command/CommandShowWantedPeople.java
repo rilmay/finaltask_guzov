@@ -14,7 +14,7 @@ public class CommandShowWantedPeople implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
-            List<WantedPerson> wantedPeople = wantedPersonService.getAllExceptPending();
+            List<WantedPerson> wantedPeople = wantedPersonService.getAll();
             request.setAttribute("peopleList", wantedPeople);
             return Util.responseWithView(request, ServletConst.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
