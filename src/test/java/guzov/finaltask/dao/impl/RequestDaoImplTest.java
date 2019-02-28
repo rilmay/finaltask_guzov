@@ -49,6 +49,7 @@ public class RequestDaoImplTest {
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("Description");
+        wantedPerson.setPending(true);
 
         userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         user = new User();

@@ -34,6 +34,7 @@ public class WantedPersonDaoImplTest {
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setFirstName("FirstName");
         wantedPerson.setLastName("LastName");
+        wantedPerson.setPending(false);
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM wanted_person WHERE id<100");
     }
@@ -42,22 +43,22 @@ public class WantedPersonDaoImplTest {
     @Test
     public void getSelectQuery() {
         Assert.assertEquals("SELECT id, first_name, last_name, person_status, description, birth_place, " +
-                        "birth_date, search_area, special_signs, photo FROM wanted_person",
+                        "birth_date, search_area, special_signs, photo, pending FROM wanted_person",
                 daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
         Assert.assertEquals("INSERT INTO wanted_person (first_name, last_name, person_status, " +
-                "description, birth_place, birth_date, search_area, special_signs, photo)VALUES " +
-                "(? ,? ,? ,? ,? ,? ,?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
+                "description, birth_place, birth_date, search_area, special_signs, photo, pending)VALUES " +
+                "(? ,? ,? ,? ,? ,? ,?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
         Assert.assertEquals("UPDATE wanted_person SET first_name = ?, last_name = ?, " +
                 "person_status = ?, description = ?, birth_place = ?, birth_date = ?, search_area = ?, " +
-                "special_signs = ?, photo = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
+                "special_signs = ?, photo = ?, pending = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test

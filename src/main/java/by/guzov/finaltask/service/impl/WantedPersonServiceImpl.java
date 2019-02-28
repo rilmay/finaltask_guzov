@@ -37,13 +37,13 @@ public class WantedPersonServiceImpl implements WantedPersonService {
 
     @Override
     public List<WantedPerson> getAllExceptPending() {
-        return getAll().stream().filter(wantedPerson -> !wantedPerson.getPersonStatus().equals("pending"))
+        return getAll().stream().filter(wantedPerson -> !wantedPerson.isPending())
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<WantedPerson> getAllPending() {
-        return getAll().stream().filter(wantedPerson -> wantedPerson.getPersonStatus().equals("pending"))
+        return getAll().stream().filter(WantedPerson::isPending)
                 .collect(Collectors.toList());
     }
 

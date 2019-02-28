@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `wanted_person` (
   `search_area` VARCHAR(45) NULL,
   `special_signs` TEXT(170) NULL,
   `photo` VARCHAR(45) NULL,
+  `pending` TINYINT NOT NULL,
   PRIMARY KEY (`id`));
 
   CREATE TABLE IF NOT EXISTS `request` (

@@ -17,6 +17,7 @@ public class WantedPerson implements Identified<Integer> {
     private String searchArea;
     private String specialSigns;
     private String photo;
+    private boolean pending;
 
     @Override
     public Integer getId() {

@@ -44,6 +44,12 @@ public enum CommandType {
             return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN, USER);
         }
     },
+    DELETE_WANTED_PERSON{
+        @Override
+        public CommandContext getRestrictions() {
+            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
+        }
+    },
     RECOVER_PASSWORD {
         @Override
         public CommandContext getRestrictions() {
@@ -90,7 +96,7 @@ public enum CommandType {
     SHOW_REQUEST_FORM {
         @Override
         public CommandContext getRestrictions() {
-            return super.getRestrictions().setAllowedUsers(USER, ADMIN);
+            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(USER, ADMIN);
         }
     };
 

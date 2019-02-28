@@ -54,6 +54,14 @@
                                            placeholder="first name"/>
                                 </p>
                                 <p>
+                                    <label for="status" class="field-label"> Person status: </label>
+                                    <select id="status" name="status" size="1">
+                                        <option disabled>pick status</option>
+                                        <option value="missing">missing</option>
+                                        <option value="wanted">wanted</option>
+                                    </select>
+                                </p>
+                                <p>
                                     <label for="description" class="field-label"> Description: </label>
                                     <textarea rows="5" cols="45" name="description" id="description"></textarea>
                                 </p>

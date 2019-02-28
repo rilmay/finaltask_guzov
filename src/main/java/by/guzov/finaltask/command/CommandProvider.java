@@ -41,6 +41,7 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_SUCCESS_PAGE, new CommandShowSuccessPage());
         commandMap.put(CommandType.SHOW_REQUEST_FORM, new CommandShowRequestForm());
         commandMap.put(CommandType.SEND_REQUEST, new CommandSendRequest());
+        commandMap.put(CommandType.DELETE_WANTED_PERSON, new CommandDeleteWantedPerson());
     }
 
     /**

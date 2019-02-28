@@ -18,23 +18,28 @@
                 <div class="card-content">
                     <div class="media-content">
                         <p class="title is-4"><my:display variable="${person.firstName}"/>
-                            <my:display variable="${person.lastName}"/> </p>
+                            <my:display variable="${person.lastName}"/></p>
                     </div>
                     <div class="content">
                         <my:image variable="${person.photo}"/>
                         <p><strong>Status: </strong><c:out value="${person.personStatus}"/></p>
-                        <p><strong>Description: </strong><my:display variable="${person.description}"/> </p>
+                        <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
                         <p><strong>Born: </strong>
                             <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
                         </p>
-                        <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/> </p>
-                        <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/> </p>
+                        <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
+                        <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
                     </div>
-                    <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="${ServletConst.COMMAND}" value="delete_user">
-                        <input type="hidden" name="userId" value="${user.id}">
-                        <input class="button is-danger" type="submit" value="delete">
+                    <form action="${pageContext.request.contextPath}/" method="get">
+                        <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
+                        <input type="hidden" name="wp_id" value="${person.id}">
+                        <input class="button is-light" type="submit" value="make a request">
                     </form>
+                        <form action="${pageContext.request.contextPath}/" method="post">
+                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_WANTED_PERSON}">
+                            <input type="hidden" name="personId" value="${person.id}">
+                            <input class="button is-danger" type="submit" value="delete">
+                        </form>
                 </div>
             </div>
         </div>
