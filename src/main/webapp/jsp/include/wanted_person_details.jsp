@@ -30,16 +30,20 @@
                         <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
                         <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
                     </div>
-                    <form action="${pageContext.request.contextPath}/" method="get">
-                        <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
-                        <input type="hidden" name="wp_id" value="${person.id}">
-                        <input class="button is-light" type="submit" value="make a request">
-                    </form>
+                    <c:if test="${not empty sessionScope.get(ServletConst.SESSION_USER)}">
+                        <form action="${pageContext.request.contextPath}/" method="get">
+                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
+                            <input type="hidden" name="wp_id" value="${person.id}">
+                            <input class="button is-light" type="submit" value="make a request">
+                        </form>
+                    </c:if>
+                    <c:if test="${sessionScope.get(ServletConst.SESSION_USER).role eq ServletConst.ADMIN}">
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_WANTED_PERSON}">
                             <input type="hidden" name="personId" value="${person.id}">
                             <input class="button is-danger" type="submit" value="delete">
                         </form>
+                    </c:if>
                 </div>
             </div>
         </div>

@@ -54,7 +54,7 @@
                                            placeholder="first name"/>
                                 </p>
                                 <p>
-                                    <label for="status" class="field-label"> Person status: </label>
+                                    <label for="status" class="field-label"> Person status(required): </label>
                                     <select id="status" name="status" size="1">
                                         <option disabled>pick status</option>
                                         <option value="missing">missing</option>

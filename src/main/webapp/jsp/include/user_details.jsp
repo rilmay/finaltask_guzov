@@ -27,12 +27,7 @@
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
                             <input type="hidden" name="userId" value="${user.id}">
-                            <c:if test="${user.role == 'admin'}">
-                            <input class="button is-light" type="submit" value="change role to user">
-                            </c:if>
-                            <c:if test="${user.role == 'user'}">
-                                <input class="button is-light" type="submit" value="change role to admin">
-                            </c:if>
+                            <input class="button is-light" type="submit" value="change role to ${(user.role eq ServletConst.USER)? 'admin':'user'}">
                         </form>
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_USER}">

@@ -17,7 +17,7 @@ public enum CommandType {
     LOG_OUT_USER {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST, GET).setAllowedUsers(ADMIN, USER);
+            return super.getRestrictions().setAllowedUsers(ADMIN, USER);
         }
     },
     CHANGE_USER_ROLE {
@@ -68,7 +68,7 @@ public enum CommandType {
     SHOW_USER_DETAILS {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ADMIN);
+            return super.getRestrictions().setAllowedUsers(ADMIN);
         }
     },
     SHOW_USER_LIST {
@@ -89,14 +89,14 @@ public enum CommandType {
     SHOW_RECOVERY_PAGE {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ANON);
+            return super.getRestrictions().setAllowedUsers(ANON);
         }
     },
     SHOW_SUCCESS_PAGE,
     SHOW_REQUEST_FORM {
         @Override
         public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(USER, ADMIN);
+            return super.getRestrictions().setAllowedUsers(USER, ADMIN);
         }
     };
 
