@@ -20,10 +20,10 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Moderation page</a>
+                <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Interpol page</a>
             </h1>
             <h2 class="subtitle">
-                admin only
+                here you can apply requests
             </h2>
         </div>
     </div>

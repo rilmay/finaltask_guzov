@@ -16,7 +16,7 @@ public class CommandSendRequest implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
-            String wpId = request.getParameter("wp_id");
+            String wpId = request.getParameter(ServletConst.ID);
             int wantedPersonId = (wpId == null) ? extractWantedPerson(request) : Integer.parseInt(wpId);
             int reward = Integer.parseInt(request.getParameter("reward"));
             Date applicationDate = Date.valueOf(request.getParameter("application_date"));

@@ -33,7 +33,7 @@
                     <c:if test="${not empty sessionScope.get(ServletConst.SESSION_USER)}">
                         <form action="${pageContext.request.contextPath}/" method="get">
                             <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
-                            <input type="hidden" name="wp_id" value="${person.id}">
+                            <input type="hidden" name="${ServletConst.ID}" value="${person.id}">
                             <input class="button is-light" type="submit" value="make a request">
                         </form>
                     </c:if>

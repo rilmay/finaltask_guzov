@@ -38,59 +38,7 @@
                                 <input type="date" id="lead" name="lead_date"
                                        required="required" min="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />"/>
                             </p>
-                            <c:if test="${not empty wp_id}">
-                                <input type="hidden" name="wp_id" value="${wp_id}">
-                            </c:if>
-                            <c:if test="${empty wp_id}">
-                                <h3>Describe the wanted person</h3>
-                                <p>
-                                    <label for="first_name" class="field-label"> First name: </label>
-                                    <input type="text" id="first_name" class="text-field is-right" name="first_name"
-                                           placeholder="first name"/>
-                                </p>
-                                <p>
-                                    <label for="last_name" class="field-label"> Last name: </label>
-                                    <input type="text" id="last_name" class="text-field is-right" name="last_name"
-                                           placeholder="first name"/>
-                                </p>
-                                <p>
-                                    <label for="status" class="field-label"> Person status(required): </label>
-                                    <select id="status" name="status" size="1">
-                                        <option disabled>pick status</option>
-                                        <option value="missing">missing</option>
-                                        <option value="wanted">wanted</option>
-                                    </select>
-                                </p>
-                                <p>
-                                    <label for="description" class="field-label"> Description: </label>
-                                    <textarea rows="5" cols="45" name="description" id="description"></textarea>
-                                </p>
-                                <p>
-                                    <label for="birth_place" class="field-label"> Birth place: </label>
-                                    <input type="text" id="birth_place" class="text-field is-right" name="birth_place"
-                                           placeholder="birth place"/>
-                                </p>
-                                <p>
-                                    <label for="birth_date" class="field-label"> Birth date: </label>
-                                    <input type="date" id="birth_date" name="birth_date"
-                                           max="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />"/>
-                                </p>
-                                <p>
-                                    <label for="search_area" class="field-label"> Search area: </label>
-                                    <input type="text" id="search_area" class="text-field is-right" name="search_area"
-                                           placeholder="search area"/>
-                                </p>
-                                <p>
-                                    <label for="special_signs" class="field-label"> Special signs: </label>
-                                    <input type="text" id="special_signs" class="text-field is-right" name="special_signs"
-                                           placeholder="special signs"/>
-                                </p>
-                                <p>
-                                    <label for="photo" class="field-label"> Photo: </label>
-                                    <input type="text" id="photo" class="text-field is-right" name="photo"
-                                           placeholder="photo"/>
-                                </p>
-                            </c:if>
+                            <jsp:include page="wp_request_description.jsp"/>
                             <input type="hidden" name="user_id" value="${(sessionScope.get(ServletConst.SESSION_USER)).id}">
                             <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SEND_REQUEST}">
                             <input class="button is-danger" type="submit" value="send">
