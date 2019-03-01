@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:useBean id="date" class="java.util.Date" />
 <div class="container">
@@ -39,8 +39,7 @@
                                        required="required" min="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />"/>
                             </p>
                             <jsp:include page="wp_request_description.jsp"/>
-                            <input type="hidden" name="user_id" value="${(sessionScope.get(ServletConst.SESSION_USER)).id}">
-                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SEND_REQUEST}">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SEND_REQUEST}">
                             <input class="button is-danger" type="submit" value="send">
                         </form>
                     </div>

@@ -1,115 +1,49 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.dto.CommandContext;
-import by.guzov.finaltask.util.ServletConst;
+import by.guzov.finaltask.dto.Restrictions;
 
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static by.guzov.finaltask.util.AppConstants.*;
+
 
 public enum CommandType {
-    AUTHENTICATE_USER {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
-        }
-    },
-    LOG_OUT_USER {
-        @Override
-        public CommandContext getRestrictions() {
-            return super.getRestrictions().setAllowedUsers(ADMIN, USER);
-        }
-    },
-    CHANGE_USER_ROLE {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
-        }
-    },
-    DELETE_USER {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
-        }
-    },
-    REGISTER_USER {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
-        }
-    },
-    DELETE_PERSONAL_PAGE {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN, USER);
-        }
-    },
-    DELETE_WANTED_PERSON{
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN);
-        }
-    },
-    RECOVER_PASSWORD {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ANON);
-        }
-    },
-    SEND_REQUEST {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(POST).setAllowedUsers(ADMIN, USER);
-        }
-    },
+    AUTHENTICATE_USER(new Restrictions().setMethods(POST).setRoles(ANON)),
+    LOG_OUT_USER(new Restrictions().setRoles(ADMIN, USER)),
+    CHANGE_USER_ROLE(new Restrictions().setMethods(POST).setRoles(ADMIN)),
+    DELETE_USER(new Restrictions().setMethods(POST).setRoles(ADMIN)),
+    REGISTER_USER(new Restrictions().setMethods(POST).setRoles(ANON)),
+    DELETE_PERSONAL_PAGE(new Restrictions().setMethods(POST).setRoles(ADMIN, USER)),
+    DELETE_WANTED_PERSON(new Restrictions().setMethods(POST).setRoles(ADMIN)),
+    RECOVER_PASSWORD(new Restrictions().setMethods(POST).setRoles(ANON)),
+    SEND_REQUEST(new Restrictions().setMethods(POST).setRoles(ADMIN, USER)),
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
-    SHOW_USER_DETAILS {
-        @Override
-        public CommandContext getRestrictions() {
-            return super.getRestrictions().setAllowedUsers(ADMIN);
-        }
-    },
-    SHOW_USER_LIST {
-        @Override
-        public CommandContext getRestrictions() {
-            return new CommandContext().setAllowedMethods(GET).setAllowedUsers(ADMIN);
-        }
-    },
+    SHOW_USER_DETAILS(new Restrictions().setRoles(ADMIN)),
+    SHOW_USER_LIST(new Restrictions().setMethods(GET).setRoles(ADMIN)),
     SHOW_ERROR_PAGE,
-    SHOW_PERSONAL_PAGE {
-        @Override
-        public CommandContext getRestrictions() {
-            return super.getRestrictions().setAllowedUsers(ADMIN, USER);
-        }
-    },
+    SHOW_PERSONAL_PAGE(new Restrictions().setRoles(ADMIN, USER)),
     SHOW_WANTED_PEOPLE,
     SHOW_PERSON_DETAILS,
-    SHOW_RECOVERY_PAGE {
-        @Override
-        public CommandContext getRestrictions() {
-            return super.getRestrictions().setAllowedUsers(ANON);
-        }
-    },
+    SHOW_RECOVERY_PAGE(new Restrictions().setRoles(ANON)),
     SHOW_SUCCESS_PAGE,
-    SHOW_REQUEST_FORM {
-        @Override
-        public CommandContext getRestrictions() {
-            return super.getRestrictions().setAllowedUsers(USER, ADMIN);
-        }
-    };
+    SHOW_REQUEST_FORM(new Restrictions().setRoles(USER, ADMIN));
 
-    public CommandContext getRestrictions() {
-        return new CommandContext().setAllowedMethods(GET, POST).setAllowedUsers(ALL_USERS);
+    public Restrictions getRestrictions() {
+        return restrictions;
     }
 
-    private static final String GET = ServletConst.GET;
-    private static final String POST = ServletConst.POST;
-    private static final String ADMIN = ServletConst.ADMIN;
-    private static final String USER = ServletConst.USER;
-    private static final String ANON = ServletConst.ANON;
-    private static final String[] ALL_USERS = new String[]{USER, ADMIN, ANON};
+    private Restrictions restrictions;
+
+    CommandType(Restrictions restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    CommandType() {
+        this.restrictions = new Restrictions();
+    }
 
     public static Optional<CommandType> of(String name) {
         return Stream.of(CommandType.values()).filter(type -> type.name().equalsIgnoreCase(name)).findFirst();

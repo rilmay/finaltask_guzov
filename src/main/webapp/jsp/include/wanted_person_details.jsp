@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
 <div class="container">
     <div class="columns">
@@ -30,16 +30,16 @@
                         <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
                         <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
                     </div>
-                    <c:if test="${not empty sessionScope.get(ServletConst.SESSION_USER)}">
+                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
                         <form action="${pageContext.request.contextPath}/" method="get">
-                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
-                            <input type="hidden" name="${ServletConst.ID}" value="${person.id}">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
+                            <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
                             <input class="button is-light" type="submit" value="make a request">
                         </form>
                     </c:if>
-                    <c:if test="${sessionScope.get(ServletConst.SESSION_USER).role eq ServletConst.ADMIN}">
+                    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_WANTED_PERSON}">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_WANTED_PERSON}">
                             <input type="hidden" name="personId" value="${person.id}">
                             <input class="button is-danger" type="submit" value="delete">
                         </form>

@@ -8,20 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <c:if test="${not empty wp}">
     <p>
-        request for search <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${ServletConst.ID}=${wp.id}">
-            ${wp.firstName} ${wp.lastName}</a>
+        request for search <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${wp.id}">
+            <my:display variable="${wp.firstName}"/> <my:display variable="${wp.lastName}"/></a>
     </p>
-    <input type="hidden" name="${ServletConst.ID}" value="${wp.id}">
+    <input type="hidden" name="${AppConstants.ID}" value="${wp.id}">
 </c:if>
 <c:if test="${empty wp}">
     <br>
     <p class="subtitle is-5">Describe the wanted person</p>
-    <p class="subtitle is-7">Or choose him from <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">the list</a></p>
+    <p class="subtitle is-6">Or choose him from <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">the list</a></p>
     <br>
     <p>
         <label for="first_name" class="field-label"> First name: </label>

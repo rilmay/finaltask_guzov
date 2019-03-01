@@ -1,16 +1,16 @@
 package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.dto.ResponseContent;
-import by.guzov.finaltask.util.ServletConst;
+import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
-public final class Util {
-    private Util() {
+public final class ResponseUtil {
+    private ResponseUtil() {
     }
 
     public static ResponseContent responseWithView(HttpServletRequest request, String page, String view, Router.Type type) {
-        request.setAttribute(ServletConst.VIEW_NAME, view);
+        request.setAttribute(AppConstants.VIEW_NAME, view);
         return sendByUrl(page, type);
     }
 

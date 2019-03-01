@@ -2,7 +2,6 @@ package by.guzov.finaltask.service;
 
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.PasswordRecovery;
-import by.guzov.finaltask.service.exception.ServiceException;
 
 import java.util.List;
 

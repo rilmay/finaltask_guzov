@@ -32,5 +32,7 @@ public class ServiceFactory {
         return wantedPersonService;
     }
 
-    public RequestService getRequestService(){return requestService;}
+    public RequestService getRequestService() {
+        return requestService;
+    }
 }

@@ -7,8 +7,8 @@ import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.PasswordRecovery;
 import by.guzov.finaltask.dto.ResponseMessage;
+import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.UserService;
-import by.guzov.finaltask.service.exception.ServiceException;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

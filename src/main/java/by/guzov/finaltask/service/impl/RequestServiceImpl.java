@@ -6,7 +6,7 @@ import by.guzov.finaltask.dao.exception.PersistException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.service.RequestService;
-import by.guzov.finaltask.service.exception.ServiceException;
+import by.guzov.finaltask.service.ServiceException;
 
 public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
@@ -15,7 +15,7 @@ public class RequestServiceImpl implements RequestService {
         requestDao = daoInit();
     }
 
-    private RequestDao daoInit(){
+    private RequestDao daoInit() {
         try {
             return (RequestDao) JdbcDaoFactory.getInstance().getDao(Request.class);
         } catch (DaoException e) {

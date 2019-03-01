@@ -5,8 +5,8 @@ import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.dao.exception.PersistException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.WantedPerson;
+import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.WantedPersonService;
-import by.guzov.finaltask.service.exception.ServiceException;
 
 import java.util.List;
 import java.util.stream.Collectors;

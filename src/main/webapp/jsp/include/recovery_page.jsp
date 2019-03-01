@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
 <div class="container">
     <div class="columns">
@@ -29,7 +29,7 @@
                                        required="required"
                                        placeholder="login"/>
                             </p>
-                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.SHOW_RECOVERY_PAGE}">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_RECOVERY_PAGE}">
                                 <input class="button is-danger" type="submit" value="send e-mail">
                         </form>
                         </c:if>
@@ -48,7 +48,7 @@
                                            required="required"
                                            placeholder="password"/>
                                 </p>
-                                <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
+                                <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
                                 <input class="button is-danger" type="submit" value="confirm">
                             </form>
                         </c:if>

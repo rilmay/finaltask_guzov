@@ -1,4 +1,4 @@
-package by.guzov.finaltask.service.exception;
+package by.guzov.finaltask.service;
 
 /**
  * Service Exception

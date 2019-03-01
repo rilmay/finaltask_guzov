@@ -1,13 +1,14 @@
 package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.domain.Request;
+import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RequestService;
+import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.WantedPersonService;
-import by.guzov.finaltask.service.exception.ServiceException;
-import by.guzov.finaltask.util.ServletConst;
+import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -16,50 +17,38 @@ public class CommandSendRequest implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
-            String wpId = request.getParameter(ServletConst.ID);
-            int wantedPersonId = (wpId == null) ? extractWantedPerson(request) : Integer.parseInt(wpId);
-            int reward = Integer.parseInt(request.getParameter("reward"));
-            Date applicationDate = Date.valueOf(request.getParameter("application_date"));
-            Date leadDate = Date.valueOf(request.getParameter("lead_date"));
-            int userId = Integer.parseInt(request.getParameter("user_id"));
+            String wpId = request.getParameter(AppConstants.ID);
             Request requestWP = new Request();
-            requestWP.setUserId(userId);
-            requestWP.setReward(reward);
-            requestWP.setWantedPersonId(wantedPersonId);
+            requestWP.setUserId(((User) request.getSession().getAttribute(AppConstants.SESSION_USER)).getId());
+            requestWP.setReward(Integer.parseInt(request.getParameter("reward")));
+            requestWP.setWantedPersonId((wpId == null) ? extractPersonAndReturnId(request) : Integer.parseInt(wpId));
             requestWP.setRequestStatus("pending");
-            requestWP.setLeadDate(leadDate);
-            requestWP.setApplicationDate(applicationDate);
+            requestWP.setLeadDate(Date.valueOf(request.getParameter("lead_date")));
+            requestWP.setApplicationDate(Date.valueOf(request.getParameter("application_date")));
 
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             requestService.create(requestWP);
 
-            return Util.sendByUrl("?" + ServletConst.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE, Router.Type.REDIRECT);
+            return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE
+                    , Router.Type.REDIRECT);
         } catch (ServiceException | NullPointerException | NumberFormatException e) {
             request.setAttribute("error_message", "invalid request form");
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_ERROR_PAGE).execute(request);
         }
     }
 
-    private int extractWantedPerson(HttpServletRequest request) {
-        String firstName = request.getParameter("first_name");
-        String lastName = request.getParameter("last_name");
-        String description = request.getParameter("description");
-        String birthPlace = request.getParameter("birth_place");
+    private int extractPersonAndReturnId(HttpServletRequest request) {
         String birthDate = request.getParameter("birth_date");
-        String searchArea = request.getParameter("search_area");
-        String specialSigns = request.getParameter("special_signs");
-        String photo = request.getParameter("photo");
-        String status = request.getParameter("status");
         WantedPerson wp = new WantedPerson();
-        wp.setDescription(description);
-        wp.setFirstName(firstName);
-        wp.setLastName(lastName);
-        wp.setBirthPlace(birthPlace);
-        wp.setBirthDate((birthDate != null) ? Date.valueOf(birthDate) : null);
-        wp.setSearchArea(searchArea);
-        wp.setSpecialSigns(specialSigns);
-        wp.setPhoto(photo);
-        wp.setPersonStatus(status);
+        wp.setDescription(request.getParameter("description"));
+        wp.setFirstName(request.getParameter("first_name"));
+        wp.setLastName(request.getParameter("last_name"));
+        wp.setBirthPlace(request.getParameter("birth_place"));
+        wp.setBirthDate((birthDate.isEmpty()) ? null : Date.valueOf(birthDate));
+        wp.setSearchArea(request.getParameter("search_area"));
+        wp.setSpecialSigns(request.getParameter("special_signs"));
+        wp.setPhoto(request.getParameter("photo"));
+        wp.setPersonStatus(request.getParameter("status"));
         wp.setPending(true);
 
         WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();

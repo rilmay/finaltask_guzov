@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
 <div class="container">
     <div class="columns">
@@ -25,12 +25,13 @@
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
                             <input type="hidden" name="userId" value="${user.id}">
-                            <input class="button is-light" type="submit" value="change role to ${(user.role eq ServletConst.USER)? 'admin':'user'}">
+                            <input class="button is-light" type="submit"
+                                   value="change role to ${(user.role eq AppConstants.USER)? 'admin':'user'}">
                         </form>
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="${ServletConst.COMMAND}" value="${CommandType.DELETE_USER}">
+                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
                         <input type="hidden" name="userId" value="${user.id}">
                         <input class="button is-danger" type="submit" value="delete">
                     </form>

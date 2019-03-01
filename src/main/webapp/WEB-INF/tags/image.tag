@@ -7,5 +7,5 @@
     <img src="${variable}">
 </c:if>
 <c:if test="${empty variable}">
-    <img src="/static/img/no_image.png">
+    <img src="static/img/no_image.png">
 </c:if>

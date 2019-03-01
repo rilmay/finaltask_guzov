@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <div class="container">
     <div class="content">
         <table class="table is-striped is-hoverable is-narrow is-fullwidth">
@@ -22,7 +22,7 @@
             <c:forEach items="${userList}" var="user">
                 <tr>
                     <td>
-                        <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${ServletConst.ID}=${user.id}">
+                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${user.id}">
                             <c:out value="${user.login}"/>
                         </a>
                     </td>

@@ -8,11 +8,11 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <div class="container">
     <div class="content">
         <h2 class="text is-light is-">Success</h2>
-        <p><c:if test="${(sessionScope.get(ServletConst.SESSION_USER) == null)}">
+        <p><c:if test="${(sessionScope.get(AppConstants.SESSION_USER) == null)}">
             Please log in
         </c:if></p>
     </div>

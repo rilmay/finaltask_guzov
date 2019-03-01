@@ -82,7 +82,7 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
         statement.setString(i++, object.getSearchArea());
         statement.setString(i++, object.getSpecialSigns());
         statement.setString(i++, object.getPhoto());
-        statement.setBoolean(i,object.isPending());
+        statement.setBoolean(i, object.isPending());
     }
 
     @Override

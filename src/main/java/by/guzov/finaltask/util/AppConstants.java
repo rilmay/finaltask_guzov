@@ -1,7 +1,7 @@
 package by.guzov.finaltask.util;
 
-public final class ServletConst {
-    private ServletConst() {
+public final class AppConstants {
+    private AppConstants() {
     }
 
     public static final String COMMAND = "command";

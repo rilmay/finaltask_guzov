@@ -9,7 +9,7 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
-<%@ page import="by.guzov.finaltask.util.ServletConst" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
 <div class="container">
     <div class="content">
@@ -29,7 +29,7 @@
                     <td><my:display variable="${person.lastName}"/></td>
                     <td><my:display variable="${person.personStatus}"/></td>
                     <td>
-                        <a href="?${ServletConst.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${ServletConst.ID}=${person.id}">
+                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
                             more...
                         </a>
                     </td>
