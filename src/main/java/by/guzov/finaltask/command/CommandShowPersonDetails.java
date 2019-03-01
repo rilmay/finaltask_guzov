@@ -18,7 +18,7 @@ public class CommandShowPersonDetails implements Command {
             request.setAttribute("person", wantedPerson);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_person_details", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            return ResponseUtil.toErrorPage(request, "server error");
         }
     }
 }

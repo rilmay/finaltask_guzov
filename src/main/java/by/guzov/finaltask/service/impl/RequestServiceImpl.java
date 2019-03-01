@@ -24,7 +24,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public Request create(Request request) {
+    public Request create(Request request) throws ServiceException {
         try {
             return daoInit().persist(request);
         } catch (PersistException e) {
@@ -33,7 +33,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void update(Request request) {
+    public void update(Request request) throws ServiceException {
         try {
             requestDao.update(request);
         } catch (PersistException e) {
@@ -43,7 +43,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public void delete(Request request) {
+    public void delete(Request request) throws ServiceException {
         try {
             requestDao.delete(request);
         } catch (PersistException e) {

@@ -19,4 +19,9 @@ public final class ResponseUtil {
         responseContent.setRouter(new Router(url, type));
         return responseContent;
     }
+
+    public static ResponseContent toErrorPage(HttpServletRequest request, String error) {
+        request.setAttribute(AppConstants.ERROR_MESSAGE, error);
+        return CommandProvider.getInstance().takeCommand(CommandType.SHOW_ERROR_PAGE).execute(request);
+    }
 }

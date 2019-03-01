@@ -1,19 +1,14 @@
-package by.guzov.finaltask.service.impl;
+package by.guzov.finaltask.util.validation;
 
 import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseMessage;
-import by.guzov.finaltask.service.Validator;
 
-public class UserValidatorImpl implements Validator<User> {
+public class UserValidatorImpl implements EntityValidator<User> {
     private static final String LOGIN = "login";
     private static final String EMAIL = "email";
-
-    boolean isInvalid(String str, int length, String pattern) {
-        return (str.length() < length || !str.matches(pattern));
-    }
 
     @Override
     public ResponseMessage validate(User entity) {
@@ -24,23 +19,23 @@ public class UserValidatorImpl implements Validator<User> {
             String firstName = entity.getFirstName();
             String lastName = entity.getLastName();
 
-            if (isInvalid(login, 4, "^[\\w]+$")) {
+            if (!StringValidator.validate(login, 4, StringValidator.TITLE_PATTERN_EN)) {
                 return new ResponseMessage(false, "login does not meet the requirements");
             }
 
-            if (isInvalid(password, 4, "^[\\w]+$")) {
+            if (!StringValidator.validate(password, 4, StringValidator.PASSWORD_PATTERN)) {
                 return new ResponseMessage(false, "password does not meet the requirements");
             }
 
-            if (isInvalid(email, 4, "^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$")) {
+            if (!StringValidator.validate(email, 4, StringValidator.EMAIL_PATTERN)) {
                 return new ResponseMessage(false, "e-mail does not meet the requirements");
             }
 
-            if (isInvalid(firstName, 1, "^[-\\wА-Яа-я]+$")) {
+            if (!StringValidator.validate(firstName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 return new ResponseMessage(false, "first name does not meet the requirements");
             }
 
-            if (isInvalid(lastName, 1, "^[-\\wА-Яа-я]+$")) {
+            if (!StringValidator.validate(lastName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 return new ResponseMessage(false, "last name does not meet the requirements");
             }
 

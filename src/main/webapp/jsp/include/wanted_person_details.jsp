@@ -40,7 +40,7 @@
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_WANTED_PERSON}">
-                            <input type="hidden" name="personId" value="${person.id}">
+                            <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
                             <input class="button is-danger" type="submit" value="delete">
                         </form>
                     </c:if>

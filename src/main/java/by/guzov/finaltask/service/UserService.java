@@ -19,21 +19,21 @@ public interface UserService {
      */
     User register(User user) throws ServiceException;
 
-    List<User> getAllUsers();
+    List<User> getAllUsers() throws ServiceException;
 
-    User getUserById(int id);
+    User getUserById(int id) throws ServiceException;
 
-    void updateUser(User user);
+    void updateUser(User user) throws ServiceException;
 
-    void deleteUser(User user);
+    void deleteUser(User user) throws ServiceException;
 
-    User createUser(User user);
+    User createUser(User user) throws ServiceException;
 
     User authenticate(User user) throws ServiceException;
 
-    PasswordRecovery generateRecovery(String login);
+    PasswordRecovery generateRecovery(String login) throws ServiceException;
 
-    void recoverPassword(PasswordRecovery passwordRecovery, String code, String newPassword);
+    void recoverPassword(PasswordRecovery passwordRecovery, String code, String newPassword) throws ServiceException;
 
     // Provide your code here
 

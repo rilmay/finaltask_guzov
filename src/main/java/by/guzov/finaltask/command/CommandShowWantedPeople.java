@@ -18,7 +18,7 @@ public class CommandShowWantedPeople implements Command {
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            return ResponseUtil.toErrorPage(request, "server error");
         }
     }
 }

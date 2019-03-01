@@ -14,4 +14,5 @@ public final class AppConstants {
     public static final String SESSION_USER = "session_user";
     public static final String GET = "get";
     public static final String POST = "post";
+    public static final String ERROR_MESSAGE = "error_message";
 }

@@ -9,21 +9,17 @@ import by.guzov.finaltask.dto.PasswordRecovery;
 import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.UserService;
+import by.guzov.finaltask.util.MailBot;
+import by.guzov.finaltask.util.validation.StringValidator;
+import by.guzov.finaltask.util.validation.UserValidatorImpl;
 
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,14 +29,6 @@ import java.util.stream.IntStream;
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
     private UserValidatorImpl userValidator;
-    private final String TLS = "mail.smtp.starttls.enable";
-    private final String HOST = "mail.smtp.host";
-    private final String USER = "mail.smtp.user";
-    private final String PASSWORD = "mail.smtp.password";
-    private final String PORT = "mail.smtp.port";
-    private final String AUTH = "mail.smtp.auth";
-    private final String PROTOCOL = "smtp";
-    private final String PROPERTIES_PATH = "/mail_bot.properties";
 
 
     public UserServiceImpl() {
@@ -100,7 +88,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers() throws ServiceException {
         try {
             return userDao.getAll();
         } catch (DaoException e) {
@@ -108,7 +96,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public User getUserById(int id) {
+    public User getUserById(int id) throws ServiceException {
         try {
             return userDao.getByPK(id);
         } catch (DaoException e) {
@@ -116,7 +104,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void updateUser(User user) {
+    public void updateUser(User user) throws ServiceException {
         try {
             userDao.update(user);
         } catch (PersistException e) {
@@ -124,7 +112,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public void deleteUser(User user) {
+    public void deleteUser(User user) throws ServiceException {
         try {
             userDao.delete(user);
         } catch (PersistException e) {
@@ -132,7 +120,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public User createUser(User user) {
+    public User createUser(User user) throws ServiceException {
         try {
             return userDao.persist(user);
         } catch (PersistException e) {
@@ -150,41 +138,11 @@ public class UserServiceImpl implements UserService {
             User found = userDao.getByLogin(user);
             recovery.setUserId(found.getId());
             String code = shaEncryption(Double.toString(Math.random())).substring(0, 6);
-            sendEmailWithCode(code, found.getEmail());
+            MailBot.sendEmailWithCode(code, found.getEmail());
             recovery.setCode(code);
-            recovery.setExpires(Timestamp.valueOf(LocalDateTime.now()).getTime() + 600);
+            recovery.setExpires(Timestamp.valueOf(LocalDateTime.now()).getTime() + 6_000_000);
             return recovery;
-        } catch (DaoException | NoSuchAlgorithmException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    private void sendEmailWithCode(String code, String email) throws ServiceException {
-        try {
-            Properties properties = new Properties();
-            properties.load(getClass().getResourceAsStream(PROPERTIES_PATH));
-            String host = properties.getProperty(HOST);
-            String from = properties.getProperty(USER);
-            String pass = properties.getProperty(PASSWORD);
-            Properties props = System.getProperties();
-            props.put(TLS, properties.getProperty(TLS));
-            props.put(PORT, properties.getProperty(PORT));
-            props.put(AUTH, properties.getProperty(AUTH));
-            props.put(HOST, host);
-            props.put(USER, from);
-            props.put(PASSWORD, pass);
-            Session session = Session.getDefaultInstance(props, null);
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-            message.setSubject("Password recovery");
-            message.setContent("Your secret code: " + code + ". It will be available for the next 10 minutes"
-                    , "text/html");
-            Transport transport = session.getTransport(PROTOCOL);
-            transport.connect(host, from, pass);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-        } catch (MessagingException | IOException e) {
+        } catch (DaoException | NoSuchAlgorithmException | MessagingException e) {
             throw new ServiceException(e);
         }
     }
@@ -192,17 +150,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void recoverPassword(PasswordRecovery recovery, String code, String newPassword) throws ServiceException {
         try {
-            if (!recovery.getCode().equals(code) || userValidator.isInvalid(newPassword, 4, "^[\\w]+$") ||
-                    Timestamp.valueOf(LocalDateTime.now()).getTime() <= recovery.getExpires()) {
-                throw new ServiceException("invalid recovery procedure");
-            } else {
+            if (recovery.getCode().equals(code) &&
+                    StringValidator.validate(newPassword, 4, StringValidator.PASSWORD_PATTERN)
+                    && Timestamp.valueOf(LocalDateTime.now()).getTime() <= recovery.getExpires()) {
                 User user = userDao.getByPK(recovery.getUserId());
                 user.setPassword(newPassword);
                 encryptPassword(user);
                 userDao.update(user);
+            } else {
+                throw new ServiceException("invalid recovery procedure");
             }
         } catch (DaoException | NoSuchAlgorithmException | PersistException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("server error");
         }
 
     }

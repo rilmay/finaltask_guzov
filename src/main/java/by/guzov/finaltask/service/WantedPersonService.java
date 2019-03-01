@@ -5,17 +5,17 @@ import by.guzov.finaltask.domain.WantedPerson;
 import java.util.List;
 
 public interface WantedPersonService {
-    List<WantedPerson> getAll();
+    List<WantedPerson> getAll() throws ServiceException;
 
-    List<WantedPerson> getAllExceptPending();
+    List<WantedPerson> getAllExceptPending() throws ServiceException;
 
-    List<WantedPerson> getAllPending();
+    List<WantedPerson> getAllPending() throws ServiceException;
 
-    void delete(WantedPerson wantedPerson);
+    void delete(WantedPerson wantedPerson) throws ServiceException;
 
-    WantedPerson getById(int id);
+    WantedPerson getById(int id) throws ServiceException;
 
-    void update(WantedPerson wantedPerson);
+    void update(WantedPerson wantedPerson) throws ServiceException;
 
-    WantedPerson create(WantedPerson wantedPerson);
+    WantedPerson create(WantedPerson wantedPerson) throws ServiceException;
 }

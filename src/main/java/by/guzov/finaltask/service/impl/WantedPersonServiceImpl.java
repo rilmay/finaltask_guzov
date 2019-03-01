@@ -27,7 +27,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     }
 
     @Override
-    public List<WantedPerson> getAll() {
+    public List<WantedPerson> getAll() throws ServiceException {
         try {
             return wantedPersonDao.getAll();
         } catch (DaoException e) {
@@ -36,19 +36,19 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     }
 
     @Override
-    public List<WantedPerson> getAllExceptPending() {
+    public List<WantedPerson> getAllExceptPending() throws ServiceException {
         return getAll().stream().filter(wantedPerson -> !wantedPerson.isPending())
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<WantedPerson> getAllPending() {
+    public List<WantedPerson> getAllPending() throws ServiceException {
         return getAll().stream().filter(WantedPerson::isPending)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void delete(WantedPerson wantedPerson) {
+    public void delete(WantedPerson wantedPerson) throws ServiceException {
         try {
             wantedPersonDao.delete(wantedPerson);
         } catch (PersistException e) {
@@ -57,7 +57,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     }
 
     @Override
-    public WantedPerson getById(int id) {
+    public WantedPerson getById(int id) throws ServiceException {
         try {
             return wantedPersonDao.getByPK(id);
         } catch (DaoException e) {
@@ -66,7 +66,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     }
 
     @Override
-    public void update(WantedPerson wantedPerson) {
+    public void update(WantedPerson wantedPerson) throws ServiceException {
         try {
             wantedPersonDao.update(wantedPerson);
         } catch (PersistException e) {
@@ -75,7 +75,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     }
 
     @Override
-    public WantedPerson create(WantedPerson wantedPerson) {
+    public WantedPerson create(WantedPerson wantedPerson) throws ServiceException {
         try {
             return wantedPersonDao.persist(wantedPerson);
         } catch (PersistException e) {

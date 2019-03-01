@@ -31,7 +31,7 @@ public class CommandProvider {
         commandMap.put(CommandType.AUTHENTICATE_USER, new CommandAuthenticateUser());
         commandMap.put(CommandType.SHOW_AUTHENTICATION_PAGE, new CommandShowAuthenticationPage());
         commandMap.put(CommandType.LOG_OUT_USER, new CommandLogOutUser());
-        commandMap.put(CommandType.SHOW_ERROR_PAGE, new CommandShowEmptyPage());
+        commandMap.put(CommandType.SHOW_ERROR_PAGE, new CommandShowErrorPage());
         commandMap.put(CommandType.SHOW_PERSONAL_PAGE, new CommandShowPersonalPage());
         commandMap.put(CommandType.DELETE_PERSONAL_PAGE, new CommandDeletePersonalPage());
         commandMap.put(CommandType.SHOW_WANTED_PEOPLE, new CommandShowWantedPeople());
