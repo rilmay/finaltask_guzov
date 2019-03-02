@@ -32,7 +32,7 @@
                         </form>
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
-                        <input type="hidden" name="userId" value="${user.id}">
+                        <input type="hidden" name="${AppConstants.ID}" value="${user.id}">
                         <input class="button is-danger" type="submit" value="delete">
                     </form>
                 </div>

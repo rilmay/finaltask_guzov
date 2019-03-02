@@ -5,24 +5,28 @@ import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.dao.exception.PersistException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.WantedPerson;
+import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.WantedPersonService;
+import by.guzov.finaltask.util.validation.WantedPersonValidator;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class WantedPersonServiceImpl implements WantedPersonService {
     private WantedPersonDao wantedPersonDao;
+    private WantedPersonValidator wantedPersonValidator;
 
     public WantedPersonServiceImpl() {
         wantedPersonDao = daoInit();
+        wantedPersonValidator = new WantedPersonValidator();
     }
 
     private WantedPersonDao daoInit() throws ServiceException {
         try {
             return (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("server error", e);
         }
     }
 
@@ -52,7 +56,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
         try {
             wantedPersonDao.delete(wantedPerson);
         } catch (PersistException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("server error", e);
         }
     }
 
@@ -61,7 +65,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
         try {
             return wantedPersonDao.getByPK(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("server error", e);
         }
     }
 
@@ -77,9 +81,14 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     @Override
     public WantedPerson create(WantedPerson wantedPerson) throws ServiceException {
         try {
-            return wantedPersonDao.persist(wantedPerson);
+            ResponseMessage responseMessage = wantedPersonValidator.validate(wantedPerson);
+            if (responseMessage.getAnswer()) {
+                return wantedPersonDao.persist(wantedPerson);
+            } else {
+                throw new ServiceException(responseMessage.getMessage());
+            }
         } catch (PersistException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("server error", e);
         }
     }
 }

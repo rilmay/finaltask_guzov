@@ -9,6 +9,7 @@ import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;
+import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,12 +18,12 @@ public class CommandDeleteUser implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            int id = Integer.parseInt(request.getParameter("userId"));
+            int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             User user = userService.getUserById(id);
             userService.deleteUser(user);
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_USER_LIST).execute(request);
         } catch (ServiceException e) {
-            return ResponseUtil.toErrorPage(request, "server error");
+            return ResponseUtil.toErrorPage(request, e.getMessage());
         }
     }
 }

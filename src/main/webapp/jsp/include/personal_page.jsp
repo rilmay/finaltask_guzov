@@ -34,7 +34,6 @@
                     </form>
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
-                        <input type="hidden" name="userId" value="${user.id}">
                         <input class="button is-danger" type="submit" value="delete">
                     </form>
                 </div>

@@ -9,31 +9,27 @@ import by.guzov.finaltask.dto.PasswordRecovery;
 import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.UserService;
+import by.guzov.finaltask.util.Encryptor;
 import by.guzov.finaltask.util.MailBot;
 import by.guzov.finaltask.util.validation.StringValidator;
-import by.guzov.finaltask.util.validation.UserValidatorImpl;
+import by.guzov.finaltask.util.validation.UserValidator;
 
 import javax.mail.MessagingException;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Example of user service implementation
  */
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
-    private UserValidatorImpl userValidator;
+    private UserValidator userValidator;
 
 
     public UserServiceImpl() {
         userDao = daoInit();
-        userValidator = new UserValidatorImpl();
+        userValidator = new UserValidator();
     }
 
     private UserDao daoInit() throws ServiceException {
@@ -44,16 +40,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private void encryptPassword(User user) throws NoSuchAlgorithmException {
+    private void encryptPassword(User user) {
         String passwordWithSalt = user.getPassword() + user.getLogin();
-        user.setPassword(shaEncryption(passwordWithSalt));
-    }
-
-    private String shaEncryption(String input) throws NoSuchAlgorithmException {
-        byte[] hexHash = MessageDigest.getInstance("SHA-256").digest(input.getBytes(StandardCharsets.UTF_8));
-
-        return IntStream.range(0, hexHash.length).mapToObj(i -> Integer.toHexString(0xff & hexHash[i]))
-                .map(s -> (s.length() == 1) ? "0" + s : s).collect(Collectors.joining());
+        user.setPassword(Encryptor.shaEncryption(passwordWithSalt));
     }
 
     @Override
@@ -66,7 +55,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 throw new ServiceException(responseMessage.getMessage());
             }
-        } catch (PersistException | NoSuchAlgorithmException e) {
+        } catch (PersistException e) {
             throw new ServiceException("Server error", e);
         }
     }
@@ -75,15 +64,15 @@ public class UserServiceImpl implements UserService {
     public User authenticate(User user) throws ServiceException {
         try {
             if (!userDao.getStringsFromColumn("login").contains(user.getLogin())) {
-                throw new ServiceException("error");
+                throw new ServiceException("Check your login");
             }
             encryptPassword(user);
             User validUser = userDao.getByLogin(user);
             if (!user.getPassword().equals(validUser.getPassword())) {
-                throw new ServiceException("error");
+                throw new ServiceException("Wrong password");
             }
             return validUser;
-        } catch (DaoException | NoSuchAlgorithmException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -137,12 +126,12 @@ public class UserServiceImpl implements UserService {
 
             User found = userDao.getByLogin(user);
             recovery.setUserId(found.getId());
-            String code = shaEncryption(Double.toString(Math.random())).substring(0, 6);
+            String code = Encryptor.shaEncryption(Double.toString(Math.random())).substring(0, 6);
             MailBot.sendEmailWithCode(code, found.getEmail());
             recovery.setCode(code);
             recovery.setExpires(Timestamp.valueOf(LocalDateTime.now()).getTime() + 6_000_000);
             return recovery;
-        } catch (DaoException | NoSuchAlgorithmException | MessagingException e) {
+        } catch (DaoException | MessagingException e) {
             throw new ServiceException(e);
         }
     }
@@ -160,7 +149,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 throw new ServiceException("invalid recovery procedure");
             }
-        } catch (DaoException | NoSuchAlgorithmException | PersistException e) {
+        } catch (DaoException | PersistException e) {
             throw new ServiceException("server error");
         }
 

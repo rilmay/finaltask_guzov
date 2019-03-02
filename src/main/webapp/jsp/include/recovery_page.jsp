@@ -20,7 +20,6 @@
                     </div>
                     <div class="content">
                         <br>
-
                         <c:if test="${empty sessionScope.get('recovery')}">
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <p>

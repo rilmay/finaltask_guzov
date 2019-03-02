@@ -6,7 +6,7 @@ import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseMessage;
 
-public class UserValidatorImpl implements EntityValidator<User> {
+public class UserValidator implements EntityValidator<User> {
     private static final String LOGIN = "login";
     private static final String EMAIL = "email";
 

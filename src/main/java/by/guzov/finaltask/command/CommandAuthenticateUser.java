@@ -23,6 +23,7 @@ public class CommandAuthenticateUser implements Command {
             request.getSession().setAttribute(AppConstants.SESSION_USER, valid);
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
         } catch (ServiceException e) {
+            request.setAttribute(AppConstants.ERROR_MESSAGE,e.getMessage());
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_AUTHENTICATION_PAGE).execute(request);
         }
     }

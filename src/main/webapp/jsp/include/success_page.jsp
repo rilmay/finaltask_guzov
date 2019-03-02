@@ -11,7 +11,7 @@
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <div class="container">
     <div class="content">
-        <h2 class="text is-light is-">Success</h2>
+        <h2 class="text is-light">Success</h2>
         <p><c:if test="${(sessionScope.get(AppConstants.SESSION_USER) == null)}">
             Please log in
         </c:if></p>

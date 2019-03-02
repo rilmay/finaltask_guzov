@@ -31,7 +31,10 @@ public class CommandSendRequest implements Command {
 
             return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE
                     , Router.Type.REDIRECT);
-        } catch (ServiceException | NullPointerException | NumberFormatException e) {
+        } catch (ServiceException e) {
+            request.setAttribute(AppConstants.ERROR_MESSAGE, e.getMessage());
+            return CommandProvider.getInstance().takeCommand(CommandType.SHOW_REQUEST_FORM).execute(request);
+        } catch (NullPointerException | NumberFormatException e) {
             return ResponseUtil.toErrorPage(request, "invalid request form");
         }
     }
