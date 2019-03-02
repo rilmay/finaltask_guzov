@@ -27,10 +27,10 @@ public class CommandShowRecoveryPage implements Command {
                     session.setAttribute("recovery", recovery);
                     return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "recovery_page", Router.Type.FORWARD);
                 } else {
-                    return ResponseUtil.toErrorPage(request, "invalid recovery procedure");
+                    return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
                 }
             } catch (ServiceException e) {
-                return ResponseUtil.toErrorPage(request, "invalid recovery procedure");
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
             }
         }
     }

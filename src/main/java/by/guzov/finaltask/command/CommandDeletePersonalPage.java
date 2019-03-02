@@ -20,7 +20,7 @@ public class CommandDeletePersonalPage implements Command {
             request.getSession().invalidate();
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
         } catch (ServiceException e) {
-            throw new RuntimeException(e);
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
         }
     }
 }

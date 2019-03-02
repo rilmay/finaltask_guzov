@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WantedPersonValidator implements EntityValidator<WantedPerson> {
-    private List<String> statuses = Arrays.asList(new String[]{"missing", "wanted"});
+    private List<String> statuses = Arrays.asList("missing", "wanted");
 
     @Override
     public ResponseMessage validate(WantedPerson entity) {

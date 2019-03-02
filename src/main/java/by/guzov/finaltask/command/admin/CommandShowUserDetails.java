@@ -1,6 +1,7 @@
 package by.guzov.finaltask.command.admin;
 
 import by.guzov.finaltask.command.Command;
+import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.domain.User;
@@ -17,11 +18,11 @@ public class CommandShowUserDetails implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User user = userService.getUserById(Integer.parseInt(request.getParameter("id")));
+            User user = userService.getUserById(Integer.parseInt(request.getParameter(AppConstants.ID)));
             request.setAttribute("user", user);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "user_details", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toErrorPage(request, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }
     }
 }

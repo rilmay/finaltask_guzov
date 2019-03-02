@@ -20,8 +20,12 @@ public final class ResponseUtil {
         return responseContent;
     }
 
-    public static ResponseContent toErrorPage(HttpServletRequest request, String error) {
+    public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, String error) {
         request.setAttribute(AppConstants.ERROR_MESSAGE, error);
-        return CommandProvider.getInstance().takeCommand(CommandType.SHOW_ERROR_PAGE).execute(request);
+        return toCommand(request, commandType);
+    }
+
+    public static ResponseContent toCommand(HttpServletRequest request, CommandType commandType) {
+        return CommandProvider.getInstance().takeCommand(commandType).execute(request);
     }
 }

@@ -29,8 +29,7 @@ public class CommandRegisterUser implements Command {
         } catch (ServiceException e) {
             request.setAttribute("requirements_message", "*Note: all fields(except e-mail) must " +
                     "contain only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");
-            request.setAttribute("error_message", "*" + e.getMessage());
-            return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "user_registration", Router.Type.FORWARD);
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REGISTRATION_PAGE, e.getMessage());
         }
     }
 }

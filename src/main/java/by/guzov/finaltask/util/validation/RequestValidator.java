@@ -15,16 +15,12 @@ public class RequestValidator implements EntityValidator<Request> {
         Date leadDate = entity.getLeadDate();
         String reward = Integer.toString(entity.getReward());
         String status = entity.getRequestStatus();
+        int userID = entity.getUserId();
+        int wpId = entity.getWantedPersonId();
 
         if (!StringValidator.validate(reward, 1, StringValidator.NUMBER_PATTERN)) {
             return new ResponseMessage(false, "reward does not meet the requirements");
         }
-
-        if (applicationDate.getTime() < Date.valueOf(LocalDate.now()).getTime())
-            return new ResponseMessage(false, "application date does not meet the requirements");
-
-        if (leadDate.getTime() < Date.valueOf(LocalDate.now()).getTime())
-            return new ResponseMessage(false, "lead date does not meet the requirements");
 
         if (leadDate.getTime() < applicationDate.getTime()) {
             return new ResponseMessage(false, "check your dates");
@@ -32,6 +28,18 @@ public class RequestValidator implements EntityValidator<Request> {
 
         if (!status.equals("pending")) {
             return new ResponseMessage(false, "incorrect status");
+        }
+
+        long currentDate = Date.valueOf(LocalDate.now()).getTime();
+
+        if (applicationDate.getTime() < currentDate)
+            return new ResponseMessage(false, "application date does not meet the requirements");
+
+        if (leadDate.getTime() < currentDate)
+            return new ResponseMessage(false, "lead date does not meet the requirements");
+
+        if (userID == 0 || wpId == 0) {
+            return new ResponseMessage(false, "incorrect request");
         }
 
         return new ResponseMessage(true, "");

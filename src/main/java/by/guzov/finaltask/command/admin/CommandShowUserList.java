@@ -1,6 +1,7 @@
 package by.guzov.finaltask.command.admin;
 
 import by.guzov.finaltask.command.Command;
+import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.domain.User;
@@ -22,7 +23,7 @@ public class CommandShowUserList implements Command {
             request.setAttribute("userList", users);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "user_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toErrorPage(request, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }
     }
 }

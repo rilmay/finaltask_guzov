@@ -1,7 +1,6 @@
 package by.guzov.finaltask.command.admin;
 
 import by.guzov.finaltask.command.Command;
-import by.guzov.finaltask.command.CommandProvider;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.User;
@@ -21,9 +20,9 @@ public class CommandDeleteUser implements Command {
             int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             User user = userService.getUserById(id);
             userService.deleteUser(user);
-            return CommandProvider.getInstance().takeCommand(CommandType.SHOW_USER_LIST).execute(request);
+            return ResponseUtil.toCommand(request, CommandType.SHOW_USER_LIST);
         } catch (ServiceException e) {
-            return ResponseUtil.toErrorPage(request, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }
     }
 }

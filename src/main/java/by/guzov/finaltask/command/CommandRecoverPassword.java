@@ -22,7 +22,7 @@ public class CommandRecoverPassword implements Command {
                     request.getParameter("new_password"));
             return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE, Router.Type.REDIRECT);
         } catch (ServiceException e) {
-            return ResponseUtil.toErrorPage(request, "invalid recovery procedure");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
         }
     }
 }

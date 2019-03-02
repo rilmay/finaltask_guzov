@@ -19,7 +19,7 @@ public class CommandDeleteWantedPerson implements Command {
             service.delete(found);
             return CommandProvider.getInstance().takeCommand(CommandType.SHOW_WANTED_PEOPLE).execute(request);
         } catch (ServiceException | NumberFormatException e) {
-            return ResponseUtil.toErrorPage(request, "invalid deleting procedure");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid deleting procedure");
         }
     }
 }

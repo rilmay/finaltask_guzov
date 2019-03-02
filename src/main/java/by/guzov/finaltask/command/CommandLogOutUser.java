@@ -8,6 +8,6 @@ public class CommandLogOutUser implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         request.getSession().invalidate();
-        return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
+        return ResponseUtil.toCommand(request, CommandType.SHOW_EMPTY_PAGE);
     }
 }

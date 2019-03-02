@@ -18,14 +18,14 @@ public class CommandChangeUserRole implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            int id = Integer.parseInt(request.getParameter("userId"));
+            int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             User user = userService.getUserById(id);
             user.setRole(user.getRole().equals(AppConstants.USER) ? AppConstants.ADMIN : AppConstants.USER);
             userService.updateUser(user);
             return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_USER_DETAILS +
                     "&" + AppConstants.ID + "=" + user.getId(), Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toErrorPage(request, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }
     }
 }
