@@ -5,6 +5,9 @@ import by.guzov.finaltask.util.AppConstants;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 import java.util.*;
 
 public class Text extends ResourceBundle {
@@ -45,8 +48,15 @@ public class Text extends ResourceBundle {
     protected Object handleGetObject(String key) {
         String in = parent.getObject(key).toString();
         try {
+
+
+            ByteBuffer inputBuffer = ByteBuffer.wrap(in.getBytes("ISO-8859-1"));
+            CharBuffer charBuffer = Charset.forName("ISO-8859-1").decode(inputBuffer);
+            ByteBuffer charBuffer1 = Charset.forName("UTF-8").encode(charBuffer);
+            byte[] out = charBuffer1.array();
+
             String str = new String(in.getBytes("ISO-8859-1"));
-            return new String(in.getBytes("ISO-8859-1"), "UTF-8");
+            return  new String(out);
         } catch (UnsupportedEncodingException e) {
             return in;
         }
