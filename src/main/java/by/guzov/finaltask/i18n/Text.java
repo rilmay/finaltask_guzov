@@ -45,7 +45,8 @@ public class Text extends ResourceBundle {
     protected Object handleGetObject(String key) {
         String in = parent.getObject(key).toString();
         try {
-            return new String(in.getBytes("ISO-8859-1"));
+            String str = new String(in.getBytes("ISO-8859-1"));
+            return new String(str.getBytes("UTF-8"),"UTF-8");
         } catch (UnsupportedEncodingException e) {
             return in;
         }
