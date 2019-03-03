@@ -15,4 +15,6 @@ public final class AppConstants {
     public static final String GET = "get";
     public static final String POST = "post";
     public static final String ERROR_MESSAGE = "error_message";
+    public static final String LANG = "lang";
+    public static final String LOCALE_BUNDLE = "text";
 }

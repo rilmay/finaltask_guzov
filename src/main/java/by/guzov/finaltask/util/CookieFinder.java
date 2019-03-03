@@ -19,7 +19,7 @@ public final class CookieFinder {
 
         return Arrays.stream(cookies)
                 .filter(cookie -> cookieName.equals(cookie.getName()))
-                .map(Cookie::getName)
+                .map(Cookie::getValue)
                 .findFirst();
     }
 }

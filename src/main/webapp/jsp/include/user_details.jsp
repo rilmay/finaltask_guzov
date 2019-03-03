@@ -26,7 +26,7 @@
                     </div>
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
-                            <input type="hidden" name="userId" value="${user.id}">
+                            <input type="hidden" name=${AppConstants.ID} value="${user.id}">
                             <input class="button is-light" type="submit"
                                    value="change role to ${(user.role eq AppConstants.USER)? 'admin':'user'}">
                         </form>
