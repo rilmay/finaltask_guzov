@@ -31,7 +31,7 @@ public class Text extends ResourceBundle {
             try {
                 setParent(getBundle(TEXT_BASE_NAME, locale));
             }catch (MissingResourceException e){
-                setParent(getBundle(TEXT_BASE_NAME,Locale.ENGLISH));
+                setParent(getBundle(TEXT_BASE_NAME,Locale.getDefault()));
             }
         }
     }
@@ -43,11 +43,11 @@ public class Text extends ResourceBundle {
 
     @Override
     protected Object handleGetObject(String key) {
+        String in = parent.getObject(key).toString();
         try {
-            String in = parent.getObject(key).toString();
             return new String(in.getBytes("ISO-8859-1"));
         } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            return in;
         }
     }
 }
