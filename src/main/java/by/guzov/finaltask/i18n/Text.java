@@ -8,7 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 public class Text extends ResourceBundle {
-    private static final String TEXT_BASE_NAME = "by.guzov.finaltask.i18n.lang";
+    private static final String TEXT_BASE_NAME = "i18n.language";
     private static List<String> availableLocales = Arrays.asList("ru", "en");
 
     public Text(String lang) {
