@@ -3,10 +3,7 @@ package by.guzov.finaltask.filter;
 import by.guzov.finaltask.i18n.Text;
 import by.guzov.finaltask.util.AppConstants;
 import by.guzov.finaltask.util.CookieFinder;
-import com.sun.deploy.net.HttpRequest;
-import com.sun.deploy.net.HttpResponse;
 
-import javax.mail.Session;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
@@ -30,20 +27,20 @@ public class LocaleFilter implements Filter {
         String change = request.getParameter("change_lang");
         HttpSession session = request.getSession();
         if (change != null) {
-            changeLocale(session,response,change);
+            changeLocale(session, response, change);
         } else {
-            initLocale(session,request);
+            initLocale(session, request);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private void changeLocale(HttpSession session, HttpServletResponse response, String locale){
+    private void changeLocale(HttpSession session, HttpServletResponse response, String locale) {
         session.setAttribute(AppConstants.LOCALE_BUNDLE, new Text(locale));
         Cookie cookie = new Cookie(AppConstants.LANG, locale);
         response.addCookie(cookie);
     }
 
-    private void initLocale(HttpSession session,HttpServletRequest request){
+    private void initLocale(HttpSession session, HttpServletRequest request) {
         if (session.getAttribute(AppConstants.LOCALE_BUNDLE) == null) {
             Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
             if (cookieLang.isPresent()) {
