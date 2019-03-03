@@ -28,7 +28,11 @@ public class Text extends ResourceBundle {
 
     private void setLocale(Locale locale) {
         if (parent == null || !parent.getLocale().equals(locale)) {
-            setParent(getBundle(TEXT_BASE_NAME, locale));
+            try {
+                setParent(getBundle(TEXT_BASE_NAME, locale));
+            }catch (MissingResourceException e){
+                setParent(getBundle(TEXT_BASE_NAME,Locale.ENGLISH));
+            }
         }
     }
 
