@@ -21,14 +21,14 @@
 <body>
 <section class="hero is-dark">
     <div class="hero-head">
-        <jsp:include page="include/header.jsp"/>
+        <jsp:include page="header.jsp"/>
     </div>
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
                 <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Interpol page</a>
             </h1>
-            <h2 class="subtitle"><c:out value="${text['hello']}"/> here you can apply requests
+            <h2 class="subtitle"><my:lang key="hello"/> here you can apply requests
             </h2>
         </div>
     </div>

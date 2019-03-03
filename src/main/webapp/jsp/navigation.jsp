@@ -15,6 +15,7 @@
     </p>
     <ul class="menu-list">
         <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">Wanted People</a></li>
+        <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">Request list</a> </li>
         <c:if test="${sessionScope.get(AppConstants.SESSION_USER) == null}">
             <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}">Registration</a></li>
             <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}">Log In</a></li>

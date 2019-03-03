@@ -42,6 +42,8 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_REQUEST_FORM, new CommandShowRequestForm());
         commandMap.put(CommandType.SEND_REQUEST, new CommandSendRequest());
         commandMap.put(CommandType.DELETE_WANTED_PERSON, new CommandDeleteWantedPerson());
+        commandMap.put(CommandType.SHOW_REQUEST_LIST, new CommandShowRequestList());
+        commandMap.put(CommandType.SHOW_REQUEST_DETAILS, new CommandShowRequestDetails());
     }
 
     /**

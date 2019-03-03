@@ -31,7 +31,7 @@ public class Text extends ResourceBundle {
             try {
                 setParent(getBundle(TEXT_BASE_NAME, locale));
             } catch (MissingResourceException e) {
-                setParent(getBundle(TEXT_BASE_NAME, Locale.getDefault()));
+                setParent(getBundle(TEXT_BASE_NAME, Locale.ENGLISH));
             }
         }
     }
