@@ -46,20 +46,9 @@ public class Text extends ResourceBundle {
         String in = parent.getObject(key).toString();
         try {
             String str = new String(in.getBytes("ISO-8859-1"));
-            return new String(new String(in.getBytes("UTF-8")).getBytes("ISO-8859-1"));
+            return new String(in.getBytes("ISO-8859-1"), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             return in;
         }
-    }
-
-    private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    public static String bytesToHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for ( int j = 0; j < bytes.length; j++ ) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4];
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-        }
-        return new String(hexChars);
     }
 }

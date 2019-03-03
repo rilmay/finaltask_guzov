@@ -27,7 +27,6 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("example","привет");
         Command command = CommandProvider.getInstance()
                 .takeCommand(CommandType.of(request.getParameter(AppConstants.COMMAND))
                         .orElse(CommandType.SHOW_EMPTY_PAGE));

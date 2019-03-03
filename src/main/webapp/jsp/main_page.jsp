@@ -26,9 +26,9 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}"><c:out value="${example}"/>Interpol page</a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Interpol page</a>
             </h1>
-            <h2 class="subtitle"><c:out value="${text['hello']}"/>here you can apply requests
+            <h2 class="subtitle"><c:out value="${text['hello']}"/> here you can apply requests
             </h2>
         </div>
     </div>
