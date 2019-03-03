@@ -29,6 +29,7 @@
                 <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Interpol page</a>
             </h1>
             <h2 class="subtitle">
+                привет
                 here you can apply requests
             </h2>
         </div>
