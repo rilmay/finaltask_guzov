@@ -1,9 +1,6 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.command.admin.CommandChangeUserRole;
-import by.guzov.finaltask.command.admin.CommandDeleteUser;
-import by.guzov.finaltask.command.admin.CommandShowUserDetails;
-import by.guzov.finaltask.command.admin.CommandShowUserList;
+import by.guzov.finaltask.command.admin.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +41,8 @@ public class CommandProvider {
         commandMap.put(CommandType.DELETE_WANTED_PERSON, new CommandDeleteWantedPerson());
         commandMap.put(CommandType.SHOW_REQUEST_LIST, new CommandShowRequestList());
         commandMap.put(CommandType.SHOW_REQUEST_DETAILS, new CommandShowRequestDetails());
+        commandMap.put(CommandType.SHOW_PENDING_REQUEST_LIST,new CommandShowPendingRequestList());
+        commandMap.put(CommandType.SHOW_PENDING_PEOPLE,new CommandShowPendingPeople());
     }
 
     /**

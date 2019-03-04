@@ -1,7 +1,10 @@
 package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
+import by.guzov.finaltask.dao.AutoConnection;
 import by.guzov.finaltask.dao.WantedPersonDao;
+import by.guzov.finaltask.dao.exception.DaoException;
+import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.WantedPerson;
 
 import java.sql.PreparedStatement;
@@ -114,5 +117,27 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     @Override
     protected String getSelectColumnQuery() {
         return SELECT_COLUMN;
+    }
+
+    @Override
+    @AutoConnection
+    public List<WantedPerson> getAllPending() throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery()+" WHERE pending = true")) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    @AutoConnection
+    public List<WantedPerson> getAllExceptPending() throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery()+" WHERE pending = false")) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 }

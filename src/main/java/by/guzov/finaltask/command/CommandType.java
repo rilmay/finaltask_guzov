@@ -31,7 +31,9 @@ public enum CommandType {
     SHOW_SUCCESS_PAGE,
     SHOW_REQUEST_FORM(new Restrictions().setRoles(USER, ADMIN)),
     SHOW_REQUEST_LIST,
-    SHOW_REQUEST_DETAILS;
+    SHOW_REQUEST_DETAILS,
+    SHOW_PENDING_REQUEST_LIST(new Restrictions().setRoles(ADMIN)),
+    SHOW_PENDING_PEOPLE(new Restrictions().setRoles(ADMIN));
 
     public Restrictions getRestrictions() {
         return restrictions;

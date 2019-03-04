@@ -51,6 +51,14 @@
                                     value="cancel">
                             </form>
                         </c:if>
+                        <c:if test="${request.request.requestStatus != 'pending' and request.request.requestStatus != 'completed'}">
+                            <form action="${pageContext.request.contextPath}/" method="post">
+                                <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
+                                <input type="hidden" name=${AppConstants.ID} value="${user.id}">
+                                <input class="button is-light" type="submit"
+                                       value="set completed">
+                            </form>
+                        </c:if>
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
                             <input type="hidden" name="${AppConstants.ID}" value="${user.id}">

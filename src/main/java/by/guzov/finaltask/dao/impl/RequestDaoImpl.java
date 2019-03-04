@@ -1,7 +1,9 @@
 package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
+import by.guzov.finaltask.dao.AutoConnection;
 import by.guzov.finaltask.dao.RequestDao;
+import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.domain.Request;
 
 import java.sql.PreparedStatement;
@@ -99,5 +101,27 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     @Override
     protected String getSelectColumnQuery() {
         return SELECT_COLUMN;
+    }
+
+    @Override
+    @AutoConnection
+    public List<Request> getAllPending() throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery()+" WHERE request_status = 'pending'")) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @Override
+    @AutoConnection
+    public List<Request> getAllExceptPending() throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery()+" WHERE request_status <> 'pending'")) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 }

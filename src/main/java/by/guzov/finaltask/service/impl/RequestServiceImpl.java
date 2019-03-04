@@ -73,16 +73,9 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<FullRequest> GetAllRequestWithPerson() {
+    public List<FullRequest> getAllFullRequests() {
         try {
-            List<Request> requests = requestDao.getAll();
-            List<FullRequest> out = new ArrayList<>();
-
-            for (Request request : requests) {
-                WantedPerson person = wantedPersonDao.getByPK(request.getWantedPersonId());
-                out.add(new FullRequest(request, person.getFirstName(), person.getLastName()));
-            }
-            return out;
+            return getWithWP(requestDao.getAll());
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
@@ -101,5 +94,33 @@ public class RequestServiceImpl implements RequestService {
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
+    }
+
+    @Override
+    public List<FullRequest> getAllPending() throws ServiceException {
+        try {
+            return getWithWP(requestDao.getAllPending());
+        } catch (DaoException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
+
+    @Override
+    public List<FullRequest> getAllExceptPending() throws ServiceException {
+        try {
+            return getWithWP(requestDao.getAllExceptPending());
+        } catch (DaoException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
+
+    private List<FullRequest> getWithWP(List<Request> requests) throws DaoException{
+        List<FullRequest> out = new ArrayList<>();
+
+        for (Request request : requests) {
+            WantedPerson person = wantedPersonDao.getByPK(request.getWantedPersonId());
+            out.add(new FullRequest(request, person.getFirstName(), person.getLastName()));
+        }
+        return out;
     }
 }

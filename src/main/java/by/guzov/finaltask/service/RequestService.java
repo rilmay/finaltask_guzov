@@ -12,8 +12,14 @@ public interface RequestService {
 
     void delete(Request request) throws ServiceException;
 
-    List<FullRequest> GetAllRequestWithPerson() throws ServiceException;
+    List<FullRequest> getAllFullRequests() throws ServiceException;
 
     FullRequest getFullRequest(int requestID) throws ServiceException;
+
+    List<FullRequest> getAllPending() throws ServiceException;
+
+    List<FullRequest> getAllExceptPending() throws ServiceException;
+
+
 
 }

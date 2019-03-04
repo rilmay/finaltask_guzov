@@ -21,8 +21,8 @@
     <p class="menu-label">Administration</p>
         <ul class="menu-list">
                 <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}">User List</a></li>
-                <li><a href="/">Pending requests</a></li>
-                <li><a href="/">Pending people</a> </li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_REQUEST_LIST}">Pending requests</a></li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_PEOPLE}">Pending people</a> </li>
         </ul>
     </c:if>
 </aside>

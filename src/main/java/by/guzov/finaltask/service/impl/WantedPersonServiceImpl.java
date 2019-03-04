@@ -11,7 +11,6 @@ import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.validation.WantedPersonValidator;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WantedPersonServiceImpl implements WantedPersonService {
     private WantedPersonDao wantedPersonDao;
@@ -41,14 +40,20 @@ public class WantedPersonServiceImpl implements WantedPersonService {
 
     @Override
     public List<WantedPerson> getAllExceptPending() throws ServiceException {
-        return getAll().stream().filter(wantedPerson -> !wantedPerson.isPending())
-                .collect(Collectors.toList());
+        try {
+            return wantedPersonDao.getAllExceptPending();
+        } catch (DaoException e) {
+            throw new ServiceException("Server error", e);
+        }
     }
 
     @Override
     public List<WantedPerson> getAllPending() throws ServiceException {
-        return getAll().stream().filter(WantedPerson::isPending)
-                .collect(Collectors.toList());
+        try {
+            return wantedPersonDao.getAllPending();
+        } catch (DaoException e) {
+            throw new ServiceException("Server error", e);
+        }
     }
 
     @Override
