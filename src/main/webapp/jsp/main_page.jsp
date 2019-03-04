@@ -26,10 +26,9 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">Interpol page</a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}"><my:lang key="interpol"/></a>
             </h1>
-            <h2 class="subtitle"><my:lang key="hello"/> here you can apply requests
-            </h2>
+            <h2 class="subtitle">people search service</h2>
         </div>
     </div>
 </section>

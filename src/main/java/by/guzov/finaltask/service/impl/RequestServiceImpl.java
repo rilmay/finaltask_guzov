@@ -15,8 +15,8 @@ import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.util.validation.RequestValidator;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
@@ -75,17 +75,14 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<FullRequest> GetAllRequestWithPerson() {
         try {
-
             List<Request> requests = requestDao.getAll();
-            return requests.stream()
-                    .map(request -> {
-                        try {
-                            return new FullRequest(request, wantedPersonDao.getByPK(request.getWantedPersonId()));
-                        } catch (DaoException e) {
-                            throw new ServiceException("server error", e);
-                        }
-                    })
-                    .collect(Collectors.toList());
+            List<FullRequest> out = new ArrayList<>();
+
+            for (Request request : requests) {
+                WantedPerson person = wantedPersonDao.getByPK(request.getWantedPersonId());
+                out.add(new FullRequest(request, person.getFirstName(), person.getLastName()));
+            }
+            return out;
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
@@ -95,9 +92,11 @@ public class RequestServiceImpl implements RequestService {
     public FullRequest getFullRequest(int requestID) {
         try {
             Request request = requestDao.getByPK(requestID);
+            WantedPerson person = wantedPersonDao.getByPK(request.getWantedPersonId());
+            User user = userDao.getByPK(request.getUserId());
             return new FullRequest(request,
-                    wantedPersonDao.getByPK(request.getWantedPersonId()),
-                    userDao.getByPK(request.getUserId()));
+                    person.getFirstName(),
+                    person.getLastName(), user.getLogin());
 
         } catch (DaoException e) {
             throw new ServiceException("server error", e);

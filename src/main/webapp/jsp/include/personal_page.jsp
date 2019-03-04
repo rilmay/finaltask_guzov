@@ -20,7 +20,6 @@
                         <p class="subtitle is-6">@<c:out value="${user.login}"/></p>
                     </div>
                     <div class="content">
-                        <p><strong>Role: </strong><c:out value="${user.role}"/></p>
                         <p><strong>Registration Date: </strong><c:out value="${user.registrationDate}"/></p>
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>

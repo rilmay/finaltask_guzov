@@ -9,6 +9,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ page import="by.guzov.finaltask.command.CommandType" %>
+<%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <nav class="navbar">
     <div class="navbar-menu">
         <div class="navbar-end">
@@ -23,5 +25,22 @@
                 </a>
             </span>
         </div>
+    </div>
+    <div class="navbar-tabs">
+        <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
+            <span class="navbar-item">
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}">Registration</a>
+            </span>
+            <span class="navbar-item">
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}">Log In</a>
+            </span>
+        </c:if>
+        <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
+            <span class="navbar-item">
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSONAL_PAGE}">
+                    <c:out value="${sessionScope.get(AppConstants.SESSION_USER).login}"/>
+                </a>
+            </span>
+        </c:if>
     </div>
 </nav>

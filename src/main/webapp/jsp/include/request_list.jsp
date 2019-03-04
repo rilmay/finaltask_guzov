@@ -25,8 +25,8 @@
                 <tr>
                     <td><a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}"/>full info</td>
                     <td>
-                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request_w_p.wantedPerson.id}">
-                            <my:display variable="${request_w_p.wantedPerson.firstName}"/> <my:display variable="${request_w_p.wantedPerson.lastName}"/>
+                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request_w_p.request.wantedPersonId}">
+                            <my:display variable="${request_w_p.personFirstName}"/> <my:display variable="${request_w_p.personLastName}"/>
                         </a>
                     </td>
                     <td><c:out value="${request_w_p.request.reward}"/></td>

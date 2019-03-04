@@ -6,42 +6,53 @@ import by.guzov.finaltask.domain.WantedPerson;
 
 public class FullRequest {
     private Request request;
-    private WantedPerson wantedPerson;
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+    private String personFirstName;
+    private String personLastName;
+    private String userLogin;
 
     public Request getRequest() {
         return request;
-    }
-
-    public WantedPerson getWantedPerson() {
-        return wantedPerson;
     }
 
     public void setRequest(Request request) {
         this.request = request;
     }
 
-    public void setWantedPerson(WantedPerson wantedPerson) {
-        this.wantedPerson = wantedPerson;
+    public String getPersonFirstName() {
+        return personFirstName;
     }
 
-    public FullRequest(Request request, WantedPerson wantedPerson) {
-        this.request = request;
-        this.wantedPerson = wantedPerson;
+    public void setPersonFirstName(String personFirstName) {
+        this.personFirstName = personFirstName;
     }
 
-    public FullRequest(Request request, WantedPerson wantedPerson, User user) {
+    public String getPersonLastName() {
+        return personLastName;
+    }
+
+    public void setPersonLastName(String personLastName) {
+        this.personLastName = personLastName;
+    }
+
+    public String getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(String userLogin) {
+        this.userLogin = userLogin;
+    }
+
+    public FullRequest(Request request, String personFirstName, String personLastName) {
         this.request = request;
-        this.wantedPerson = wantedPerson;
-        this.user = user;
+        this.personFirstName = personFirstName;
+        this.personLastName = personLastName;
+    }
+
+    public FullRequest(Request request, String personFirstName, String personLastName, String userLogin) {
+        this.request = request;
+        this.personFirstName = personFirstName;
+        this.personLastName = personLastName;
+        this.userLogin = userLogin;
     }
 
     public FullRequest() {

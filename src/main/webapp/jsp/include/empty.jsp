@@ -10,11 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <div class="content">
-        <h2>Click anything from the menu</h2>
-            <p>Hello, your role is ${(sessionScope.get(AppConstants.SESSION_USER) == null)? 'anon' :
-            (sessionScope.get(AppConstants.SESSION_USER)).role}</p>
-        <c:if test="${sessionScope.get(AppConstants.SESSION_USER) == null}">
-            <p>Login: nikTestAuth, password: 12345 - admin account</p>
+        <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
+            <p>Please log in</p>
         </c:if>
+        <div class="box">
+            <p class="title is-3">About us</p>
+            <p>People search service</p>
+        </div>
     </div>
 </div>

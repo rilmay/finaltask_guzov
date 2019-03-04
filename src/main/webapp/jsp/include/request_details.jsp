@@ -22,33 +22,41 @@
                             <c:out value="${request.request.leadDate}"/></p>
                         <p><strong>Status: </strong><c:out value="${request.request.requestStatus}"/></p>
                         <p><strong>Wanted person: </strong><a
-                                href="/?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request.wantedPerson.id}">
-                            <my:display variable="${request.wantedPerson.firstName}"/>
-                            <my:display variable="${request.wantedPerson.lastName}"/></a></p>
+                                href="/?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request.request.wantedPersonId}">
+                            <my:display variable="${request.personFirstName}"/>
+                            <my:display variable="${request.personLastName}"/></a></p>
                         <p><strong>User login: </strong>
                             <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == 'admin'}">
-                                <a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${request.user.id}">
-                                <c:out value="${request.user.login}"/></a>
+                                <a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${request.request.userId}">
+                                <c:out value="${request.userLogin}"/></a>
                             </c:if>
                             <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role != 'admin'}">
-                                <c:out value="${request.user.login}"/>
+                                <c:out value="${request.userLogin}"/>
                             </c:if>
                         </p>
                     </div>
                     <%--dodelat--%>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == 'admin'}">
+                        <c:if test="${request.request.requestStatus == 'pending'}">
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
                             <input type="hidden" name=${AppConstants.ID} value="${user.id}">
                             <input class="button is-light" type="submit"
                                 value="approve">
+                            </form>
+                            <form action="${pageContext.request.contextPath}/" method="post">
+                                <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
+                                <input type="hidden" name=${AppConstants.ID} value="${user.id}">
+                                <input class="button is-light" type="submit"
+                                    value="cancel">
+                            </form>
+                        </c:if>
+                        <form action="${pageContext.request.contextPath}/" method="post">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
+                            <input type="hidden" name="${AppConstants.ID}" value="${user.id}">
+                            <input class="button is-danger" type="submit" value="delete">
                         </form>
                     </c:if>
-                    <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
-                        <input type="hidden" name="${AppConstants.ID}" value="${user.id}">
-                        <input class="button is-danger" type="submit" value="delete">
-                    </form>
                 </div>
             </div>
         </div>
