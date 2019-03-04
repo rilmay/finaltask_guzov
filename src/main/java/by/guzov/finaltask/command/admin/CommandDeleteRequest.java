@@ -1,5 +1,8 @@
-package by.guzov.finaltask.command;
+package by.guzov.finaltask.command.admin;
 
+import by.guzov.finaltask.command.Command;
+import by.guzov.finaltask.command.CommandType;
+import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
@@ -8,13 +11,14 @@ import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowRequestList implements Command {
+public class CommandDeleteRequest implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            request.setAttribute("requestList", requestService.getAllExceptPending());
-            return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
+            int id = Integer.parseInt(request.getParameter(AppConstants.ID));
+            requestService.delete(requestService.getById(id));
+            return ResponseUtil.toCommand(request, CommandType.SHOW_REQUEST_LIST);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }

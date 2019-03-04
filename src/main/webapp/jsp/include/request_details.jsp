@@ -39,29 +39,26 @@
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == 'admin'}">
                         <c:if test="${request.request.requestStatus == 'pending'}">
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
-                            <input type="hidden" name=${AppConstants.ID} value="${user.id}">
-                            <input class="button is-light" type="submit"
-                                value="approve">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.APPROVE_REQUEST}">
+                            <input type="hidden" name=${AppConstants.ID} value="${request.request.id}">
+                            <input class="button is-light" type="submit" value="approve">
                             </form>
                             <form action="${pageContext.request.contextPath}/" method="post">
-                                <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
-                                <input type="hidden" name=${AppConstants.ID} value="${user.id}">
-                                <input class="button is-light" type="submit"
-                                    value="cancel">
+                                <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CANCEL_REQUEST}">
+                                <input type="hidden" name=${AppConstants.ID} value="${request.request.id}">
+                                <input class="button is-light" type="submit" value="cancel">
                             </form>
                         </c:if>
-                        <c:if test="${request.request.requestStatus != 'pending' and request.request.requestStatus != 'completed'}">
+                        <c:if test="${request.request.requestStatus == 'approved'}">
                             <form action="${pageContext.request.contextPath}/" method="post">
                                 <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
                                 <input type="hidden" name=${AppConstants.ID} value="${user.id}">
-                                <input class="button is-light" type="submit"
-                                       value="set completed">
+                                <input class="button is-light" type="submit" value="set completed">
                             </form>
                         </c:if>
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
-                            <input type="hidden" name="${AppConstants.ID}" value="${user.id}">
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_REQUEST}">
+                            <input type="hidden" name="${AppConstants.ID}" value="${request.request.id}">
                             <input class="button is-danger" type="submit" value="delete">
                         </form>
                     </c:if>

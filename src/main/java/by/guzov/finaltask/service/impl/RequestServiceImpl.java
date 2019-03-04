@@ -114,7 +114,7 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    private List<FullRequest> getWithWP(List<Request> requests) throws DaoException{
+    private List<FullRequest> getWithWP(List<Request> requests) throws DaoException {
         List<FullRequest> out = new ArrayList<>();
 
         for (Request request : requests) {
@@ -122,5 +122,38 @@ public class RequestServiceImpl implements RequestService {
             out.add(new FullRequest(request, person.getFirstName(), person.getLastName()));
         }
         return out;
+    }
+
+    @Override
+    public void approve(Request request) throws ServiceException {
+        try {
+
+            request.setRequestStatus("approved");
+            WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
+            wantedPerson.setPending(false);
+            requestDao.update(request);
+            wantedPersonDao.update(wantedPerson);
+        } catch (DaoException | PersistException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
+
+    @Override
+    public void cancel(Request request) throws ServiceException {
+        try {
+            request.setRequestStatus("cancelled");
+            requestDao.update(request);
+        } catch (PersistException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
+
+    @Override
+    public Request getById(int requestId) throws ServiceException {
+        try {
+            return requestDao.getByPK(requestId);
+        } catch (DaoException e) {
+            throw new ServiceException("server error", e);
+        }
     }
 }

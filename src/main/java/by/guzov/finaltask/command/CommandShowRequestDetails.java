@@ -8,18 +8,18 @@ import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowRequestDetails implements Command{
+public class CommandShowRequestDetails implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        try{
+        try {
             int requestId = Integer.parseInt(request.getParameter(AppConstants.ID));
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            request.setAttribute("request",requestService.getFullRequest(requestId));
-            return ResponseUtil.responseWithView(request,AppConstants.MAIN_PAGE_PATH,"request_details",Router.Type.FORWARD);
-        }catch (ServiceException e){
-            return ResponseUtil.toCommandWithError(request,CommandType.SHOW_ERROR_PAGE,e.getMessage());
-        }catch (NumberFormatException e){
-            return ResponseUtil.toCommandWithError(request,CommandType.SHOW_ERROR_PAGE,"server error");
+            request.setAttribute("request", requestService.getFullRequest(requestId));
+            return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_details", Router.Type.FORWARD);
+        } catch (ServiceException e) {
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+        } catch (NumberFormatException e) {
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
         }
     }
 }

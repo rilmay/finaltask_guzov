@@ -41,8 +41,11 @@ public class CommandProvider {
         commandMap.put(CommandType.DELETE_WANTED_PERSON, new CommandDeleteWantedPerson());
         commandMap.put(CommandType.SHOW_REQUEST_LIST, new CommandShowRequestList());
         commandMap.put(CommandType.SHOW_REQUEST_DETAILS, new CommandShowRequestDetails());
-        commandMap.put(CommandType.SHOW_PENDING_REQUEST_LIST,new CommandShowPendingRequestList());
-        commandMap.put(CommandType.SHOW_PENDING_PEOPLE,new CommandShowPendingPeople());
+        commandMap.put(CommandType.SHOW_PENDING_REQUEST_LIST, new CommandShowPendingRequestList());
+        commandMap.put(CommandType.SHOW_PENDING_PEOPLE, new CommandShowPendingPeople());
+        commandMap.put(CommandType.APPROVE_REQUEST, new CommandApproveRequest());
+        commandMap.put(CommandType.DELETE_REQUEST, new CommandDeleteRequest());
+        commandMap.put(CommandType.CANCEL_REQUEST, new CommandCancelRequest());
     }
 
     /**

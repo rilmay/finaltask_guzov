@@ -107,7 +107,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     @AutoConnection
     public List<Request> getAllPending() throws DaoException {
         try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery()+" WHERE request_status = 'pending'")) {
+                     connection.prepareStatement(getSelectQuery() + " WHERE request_status = 'pending'")) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -118,7 +118,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     @AutoConnection
     public List<Request> getAllExceptPending() throws DaoException {
         try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery()+" WHERE request_status <> 'pending'")) {
+                     connection.prepareStatement(getSelectQuery() + " WHERE request_status <> 'pending'")) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
             throw new DaoException(e);

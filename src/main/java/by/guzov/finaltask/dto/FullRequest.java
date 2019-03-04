@@ -1,8 +1,6 @@
 package by.guzov.finaltask.dto;
 
 import by.guzov.finaltask.domain.Request;
-import by.guzov.finaltask.domain.User;
-import by.guzov.finaltask.domain.WantedPerson;
 
 public class FullRequest {
     private Request request;

@@ -6,6 +6,8 @@ import by.guzov.finaltask.dto.FullRequest;
 import java.util.List;
 
 public interface RequestService {
+    Request getById(int requestId) throws ServiceException;
+
     Request create(Request request) throws ServiceException;
 
     void update(Request request) throws ServiceException;
@@ -20,6 +22,8 @@ public interface RequestService {
 
     List<FullRequest> getAllExceptPending() throws ServiceException;
 
+    void approve(Request request) throws ServiceException;
 
+    void cancel(Request request) throws ServiceException;
 
 }

@@ -1,5 +1,9 @@
-package by.guzov.finaltask.command;
+package by.guzov.finaltask.command.admin;
 
+import by.guzov.finaltask.command.Command;
+import by.guzov.finaltask.command.CommandProvider;
+import by.guzov.finaltask.command.CommandType;
+import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceException;
