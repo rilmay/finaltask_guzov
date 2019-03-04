@@ -156,4 +156,17 @@ public class RequestServiceImpl implements RequestService {
             throw new ServiceException("server error", e);
         }
     }
+
+    @Override
+    public void setCompleted(Request request) throws ServiceException {
+        try {
+            request.setRequestStatus("completed");
+            WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
+            wantedPerson.setPending(false);
+            requestDao.update(request);
+            wantedPersonDao.update(wantedPerson);
+        } catch (DaoException | PersistException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
 }

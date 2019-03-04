@@ -10,12 +10,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <div class="content">
-        <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
-            <p>Please log in</p>
-        </c:if>
         <div class="box">
             <p class="title is-3">About us</p>
             <p>People search service</p>
         </div>
+        <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
+            <div class="notification">
+                <p>Please log in</p>
+            </div>
+        </c:if>
     </div>
 </div>

@@ -26,4 +26,6 @@ public interface RequestService {
 
     void cancel(Request request) throws ServiceException;
 
+    void setCompleted(Request request) throws ServiceException;
+
 }

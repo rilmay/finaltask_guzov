@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
-public class Text extends ResourceBundle {
+public class LocaleHandler extends ResourceBundle {
     private static final String TEXT_BASE_NAME = "i18n.language";
     private static List<String> availableLocales = Arrays.asList("ru", "en");
 
-    public Text(String lang) {
+    public LocaleHandler(String lang) {
         if (availableLocales.contains(lang)) {
             setLocale(Locale.forLanguageTag(lang));
         } else {
@@ -19,11 +19,12 @@ public class Text extends ResourceBundle {
         }
     }
 
-    public static void setFor(HttpServletRequest request, HttpServletResponse response) {
+    public String getLocaleTag(){
+        return parent.getLocale().getLanguage();
     }
 
-    public static Text getCurrentInstance(HttpServletRequest request) {
-        return (Text) request.getSession().getAttribute(AppConstants.LOCALE_BUNDLE);
+    public static LocaleHandler getCurrentInstance(HttpServletRequest request) {
+        return (LocaleHandler) request.getSession().getAttribute(AppConstants.LOCALE_BUNDLE);
     }
 
     private void setLocale(Locale locale) {

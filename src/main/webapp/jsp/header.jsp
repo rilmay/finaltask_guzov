@@ -41,6 +41,11 @@
                     <c:out value="${sessionScope.get(AppConstants.SESSION_USER).login}"/>
                 </a>
             </span>
+            <span class="navbar-item">
+                <a href="?${AppConstants.COMMAND}=${CommandType.LOG_OUT_USER}">
+                    Log out
+                </a>
+            </span>
         </c:if>
     </div>
 </nav>

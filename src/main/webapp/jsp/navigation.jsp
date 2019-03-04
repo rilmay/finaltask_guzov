@@ -17,12 +17,19 @@
         <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">Wanted People</a></li>
         <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">Request list</a> </li>
     </ul>
-    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == AppConstants.ADMIN}">
-    <p class="menu-label">Administration</p>
+    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER).role}">
+        <p class="menu-label">Actions</p>
         <ul class="menu-list">
-                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}">User List</a></li>
-                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_REQUEST_LIST}">Pending requests</a></li>
-                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_PEOPLE}">Pending people</a> </li>
+            <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_FORM}">Make a request</a></li>
+            <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">My requests</a></li>
+        </ul>
+    </c:if>
+    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == AppConstants.ADMIN}">
+        <p class="menu-label">Administration</p>
+        <ul class="menu-list">
+            <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}">User List</a></li>
+            <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_REQUEST_LIST}">Pending requests</a></li>
+            <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_PEOPLE}">Pending people</a> </li>
         </ul>
     </c:if>
 </aside>

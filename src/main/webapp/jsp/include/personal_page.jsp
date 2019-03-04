@@ -24,14 +24,6 @@
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.LOG_OUT_USER}">
-                        <input class="button is-light" type="submit" value="Log out">
-                    </form>
-                    <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
-                        <input class="button is-light" type="submit" value="Make a request">
-                    </form>
-                    <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
                         <input class="button is-danger" type="submit" value="delete">
                     </form>

@@ -21,6 +21,7 @@ public enum CommandType {
     APPROVE_REQUEST(new Restrictions().setRoles(ADMIN)),
     DELETE_REQUEST(new Restrictions().setRoles(ADMIN)),
     CANCEL_REQUEST(new Restrictions().setRoles(ADMIN)),
+    SET_COMPLETED_REQUEST(new Restrictions().setRoles(ADMIN)),
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
