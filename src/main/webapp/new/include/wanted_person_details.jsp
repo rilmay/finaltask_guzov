@@ -32,7 +32,7 @@
                     </p>
                     <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
                     <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
-                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
+                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending}">
                         <form action="${pageContext.request.contextPath}/" method="get">
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_REQUEST_FORM}">

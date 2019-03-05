@@ -50,12 +50,12 @@
         </div>
     </div>
 </div>
-<section class="footer">
+<footer class="footer">
     <div class="content has-text-centered">
         <p>
             Nikita Guzov final project
         </p>
     </div>
-</section>
+</footer>
 <script async type="text/javascript" src="../js/bulma.js"></script>
 </body>
