@@ -22,6 +22,8 @@ public interface RequestService {
 
     List<FullRequest> getAllExceptPending() throws ServiceException;
 
+    List<FullRequest> getAllApproved() throws ServiceException;
+
     void approve(Request request) throws ServiceException;
 
     void cancel(Request request) throws ServiceException;

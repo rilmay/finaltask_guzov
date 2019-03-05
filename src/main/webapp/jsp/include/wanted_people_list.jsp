@@ -12,30 +12,33 @@
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
 <div class="container">
-    <div class="content">
-        <table class="table is-striped is-hoverable is-narrow is-fullwidth">
-            <thead>
-            <th>Photo</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Status</th>
-            <th></th>
-            </thead>
-            <tbody>
-            <c:forEach items="${peopleList}" var="person">
-                <tr>
-                    <td><my:image variable="${person.photo}"/></td>
-                    <td><my:display variable="${person.firstName}"/></td>
-                    <td><my:display variable="${person.lastName}"/></td>
-                    <td><my:display variable="${person.personStatus}"/></td>
-                    <td>
-                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
-                            more...
-                        </a>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+    <div class="section">
+        <c:forEach items="${peopleList}" var="person">
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <my:image variable="${person.photo}"/>
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>
+                                    <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
+                                            <my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
+                                    <a/>
+                                </strong>
+                                <br>
+                                <p><my:display variable="${person.personStatus}"/></p>
+                                <p><my:display variable="${person.description}"/></p>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </c:forEach>
     </div>
 </div>
+
+

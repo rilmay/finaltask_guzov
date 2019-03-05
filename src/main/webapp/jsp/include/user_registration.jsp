@@ -19,7 +19,7 @@
                         <p class="title is-4">Registration</p>
                         <p class="subtitle is-6">Please fill in the fields</p>
                     </div>
-                    <p class="has-text-danger"><c:out value="${error_message}"/></p>
+                    <p class="has-text-info"><c:out value="${error_message}"/></p>
                     <div class="content">
                         <br>
                         <form action="${pageContext.request.contextPath}/" method="post">
@@ -55,7 +55,6 @@
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.REGISTER_USER}">
                             <input class="button is-danger" type="submit" value="register">
                         </form>
-
                     </div>
                 </div>
             </div>

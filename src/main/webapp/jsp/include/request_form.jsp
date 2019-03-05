@@ -27,7 +27,7 @@
                             <p>
                                 <label for="reward" class="field-label"> Reward: </label>
                                 <input type="text" id="reward" class="text-field is-right" name="reward" required="required"
-                                       placeholder="reward (USD)" pattern="[0-9]+(\.[0-9]+)?"/>
+                                       placeholder="reward (USD)" pattern="[0-9]+"/>
                             </p>
                             <p>
                                 <label for="application" class="field-label"> Application date: </label>

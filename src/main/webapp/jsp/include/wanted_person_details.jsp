@@ -21,7 +21,9 @@
                             <my:display variable="${person.lastName}"/></p>
                     </div>
                     <div class="content">
+                        <br>
                         <my:image variable="${person.photo}"/>
+                        <br>
                         <p><strong>Status: </strong><c:out value="${person.personStatus}"/></p>
                         <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
                         <p><strong>Born: </strong>

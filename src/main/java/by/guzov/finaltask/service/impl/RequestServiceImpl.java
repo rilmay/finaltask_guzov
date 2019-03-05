@@ -169,4 +169,9 @@ public class RequestServiceImpl implements RequestService {
             throw new ServiceException("server error", e);
         }
     }
+
+    @Override
+    public List<FullRequest> getAllApproved() throws ServiceException {
+        return null;
+    }
 }
