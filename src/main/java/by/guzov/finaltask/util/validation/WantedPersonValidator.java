@@ -41,12 +41,8 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
             }
         }
 
-        if (notEmpty(description)) {
-            if (StringValidator.validate(description, 4, StringValidator.TEXT_PATTERN)) {
-                notNullCounter++;
-            } else {
-                return new ResponseMessage(false, "description does not meet the requirements");
-            }
+        if (!StringValidator.validate(description, 4, StringValidator.TEXT_PATTERN)) {
+            return new ResponseMessage(false, "description does not meet the requirements");
         }
 
         if (notEmpty(birthPlace)) {
@@ -89,7 +85,7 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
             notNullCounter++;
         }
 
-        if (notNullCounter < 3) {
+        if (notNullCounter < 2) {
             return new ResponseMessage(false, "too little person data");
         }
 
