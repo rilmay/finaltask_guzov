@@ -47,6 +47,8 @@ public class CommandProvider {
         commandMap.put(CommandType.DELETE_REQUEST, new CommandDeleteRequest());
         commandMap.put(CommandType.CANCEL_REQUEST, new CommandCancelRequest());
         commandMap.put(CommandType.SET_COMPLETED_REQUEST, new CommandSetCompletedRequest());
+        commandMap.put(CommandType.SHOW_REQUESTS_BY_USER, new CommandShowRequestsByUser());
+        commandMap.put(CommandType.SHOW_MY_REQUESTS,new CommandShowMyRequests());
     }
 
     /**

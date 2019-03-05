@@ -55,7 +55,7 @@
                     </p>
                     <p><strong>User login: </strong>
                         <c:if test="${role == AppConstants.ADMIN}">
-                            <a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${request.request.userId}">
+                            <a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${current.userId}">
                                 <c:out value="${request.userLogin}"/></a>
                         </c:if>
                         <c:if test="${role != AppConstants.ADMIN}">
@@ -88,6 +88,8 @@
                                        value="set completed">
                             </form>
                         </c:if>
+                    </c:if>
+                    <c:if test="${role == AppConstants.ADMIN or sessionScope.get(AppConstants.SESSION_USER).id == current.userId}">
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_REQUEST}">
                             <input type="hidden" name="${AppConstants.ID}" value="${current.id}">

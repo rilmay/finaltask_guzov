@@ -23,6 +23,9 @@
                 <div class="content">
                     <p><strong><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
                         </strong><i><my:display variable="${person.personStatus}"/></i></p>
+                    <c:if test="${person.pending}">
+                        <p class="button is-small is-warning">pending</p>
+                    </c:if>
                     <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
                     <p><strong>Born: </strong>
                         <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>

@@ -18,7 +18,7 @@
             <div class="media-content">
                 <p class="title is-4">Make a request</p>
                 <p class="subtitle is-6">Please fill in the fields</p>
-                <p class="has-text-info"><c:out value="${error_message}"/></p>
+                <p class="has-text-warning"><c:out value="${error_message}"/></p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <p>

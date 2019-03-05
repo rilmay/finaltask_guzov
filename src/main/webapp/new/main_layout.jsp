@@ -43,6 +43,7 @@
                 </div>
             </section>
             </c:if>
+            <br>
             <section>
                 <jsp:include page="include/${view_name}.jsp"/>
             </section>

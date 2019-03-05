@@ -23,9 +23,15 @@
                 </div>
                 <br>
                 <form action="${pageContext.request.contextPath}/" method="post">
-                    <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
+                    <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_REQUESTS_BY_USER}">
                     <input type="hidden" name=${AppConstants.ID} value="${user.id}">
                     <input class="button is-block is-light is-normal is-fullwidth" type="submit"
+                           value="requests">
+                </form>
+                <form action="${pageContext.request.contextPath}/" method="post">
+                    <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
+                    <input type="hidden" name=${AppConstants.ID} value="${user.id}">
+                    <input class="button is-block is-success is-normal is-fullwidth" type="submit"
                            value="change role to ${(user.role eq AppConstants.USER)? 'admin':'user'}">
                 </form>
                 <form action="${pageContext.request.contextPath}/" method="post">

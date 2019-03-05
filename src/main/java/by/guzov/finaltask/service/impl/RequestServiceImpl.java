@@ -10,6 +10,7 @@ import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.FullRequest;
+import by.guzov.finaltask.dto.RequestCondition;
 import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
@@ -96,24 +97,6 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    @Override
-    public List<FullRequest> getAllPending() throws ServiceException {
-        try {
-            return getWithWP(requestDao.getAllPending());
-        } catch (DaoException e) {
-            throw new ServiceException("server error", e);
-        }
-    }
-
-    @Override
-    public List<FullRequest> getAllExceptPending() throws ServiceException {
-        try {
-            return getWithWP(requestDao.getAllExceptPending());
-        } catch (DaoException e) {
-            throw new ServiceException("server error", e);
-        }
-    }
-
     private List<FullRequest> getWithWP(List<Request> requests) throws DaoException {
         List<FullRequest> out = new ArrayList<>();
 
@@ -171,7 +154,11 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<FullRequest> getAllApproved() throws ServiceException {
-        return null;
+    public List<FullRequest> getAllWithCondition(RequestCondition condition) throws ServiceException {
+        try {
+            return getWithWP(requestDao.getAllWithCondition(condition.getCondition()));
+        } catch (DaoException e) {
+            throw new ServiceException("server error", e);
+        }
     }
 }

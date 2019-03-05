@@ -4,6 +4,7 @@ import by.guzov.finaltask.command.Command;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.command.Router;
+import by.guzov.finaltask.dto.RequestCondition;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
@@ -17,7 +18,7 @@ public class CommandShowPendingRequestList implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            request.setAttribute("requestList", requestService.getAllPending());
+            request.setAttribute("requestList", requestService.getAllWithCondition(RequestCondition.PENDING_CANCELLED_EXPIRED));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());

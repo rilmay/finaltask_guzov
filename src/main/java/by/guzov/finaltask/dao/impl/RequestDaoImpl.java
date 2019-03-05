@@ -124,4 +124,15 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
             throw new DaoException(e);
         }
     }
+
+    @Override
+    @AutoConnection
+    public List<Request> getAllWithCondition(String condition) throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery() + " WHERE "+condition)) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
 }

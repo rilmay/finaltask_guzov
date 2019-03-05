@@ -16,7 +16,7 @@
             <p class="menu-label">User</p>
             <ul class="menu-list">
                 <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_FORM}">Make a request</a></li>
-                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">My requests</a></li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_MY_REQUESTS}">My requests</a></li>
             </ul>
         </c:if>
         <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == AppConstants.ADMIN}">
