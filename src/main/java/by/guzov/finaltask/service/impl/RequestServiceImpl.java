@@ -181,7 +181,11 @@ public class RequestServiceImpl implements RequestService {
             transactionManager.commit();
             transactionManager.end();
         } catch (SQLException | DaoException | PersistException e) {
-          throw new ServiceException(e);
+            try{
+                transactionManager.rollback();
+            }catch (SQLException e1) {
+                throw new ServiceException(e);
+            }
         }
 
     }
