@@ -1,7 +1,6 @@
 package by.guzov.finaltask.command.admin;
 
 import by.guzov.finaltask.command.Command;
-import by.guzov.finaltask.command.CommandProvider;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.WantedPerson;
@@ -21,7 +20,7 @@ public class CommandDeleteWantedPerson implements Command {
             WantedPersonService service = ServiceFactory.getInstance().getWantedPersonService();
             WantedPerson found = service.getById(id);
             service.delete(found);
-            return CommandProvider.getInstance().takeCommand(CommandType.SHOW_WANTED_PEOPLE).execute(request);
+            return ResponseUtil.redirectTo(request,CommandType.SHOW_WANTED_PEOPLE.name());
         } catch (ServiceException | NumberFormatException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid deleting procedure");
         }

@@ -18,7 +18,7 @@ public class CommandDeletePersonalPage implements Command {
             User user = userService.getUserById(sessionUser.getId());
             userService.deleteUser(user);
             request.getSession().invalidate();
-            return CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE).execute(request);
+            return ResponseUtil.toCommand(request,CommandType.SHOW_EMPTY_PAGE);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
         }

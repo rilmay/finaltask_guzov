@@ -25,7 +25,7 @@ public class CommandRegisterUser implements Command {
             user.setRole(AppConstants.USER);
             user.setRegistrationDate(Date.valueOf(LocalDate.now()));
             userService.register(user);
-            return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE, Router.Type.REDIRECT);
+            return ResponseUtil.redirectTo(request,CommandType.SHOW_SUCCESS_PAGE.name());
         } catch (ServiceException e) {
             request.setAttribute("requirements_message", "*Note: all fields(except e-mail) must " +
                     "contain only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");

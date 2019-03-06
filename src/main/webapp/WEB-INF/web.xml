@@ -5,12 +5,12 @@
          version="3.1">
     <display-name>Example project name</display-name>
     <context-param>
-        <param-name>mail.properties</param-name>
-        <param-value></param-value>
+        <param-name>mailProps</param-name>
+        <param-value>mail_bot.properties</param-value>
     </context-param>
     <context-param>
-        <param-name>db.properties</param-name>
-        <param-value></param-value>
+        <param-name>dbProps</param-name>
+        <param-value>db.properties</param-value>
     </context-param>
     <servlet-mapping>
         <servlet-name>default</servlet-name>

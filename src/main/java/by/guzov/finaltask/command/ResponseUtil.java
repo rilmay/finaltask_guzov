@@ -28,4 +28,9 @@ public final class ResponseUtil {
     public static ResponseContent toCommand(HttpServletRequest request, CommandType commandType) {
         return CommandProvider.getInstance().takeCommand(commandType).execute(request);
     }
+
+    public static ResponseContent redirectTo(HttpServletRequest request, String url){
+        request.setAttribute("redirect_command",url);
+        return sendByUrl(AppConstants.REDIRECT_PAGE_PATH,Router.Type.FORWARD);
+    }
 }

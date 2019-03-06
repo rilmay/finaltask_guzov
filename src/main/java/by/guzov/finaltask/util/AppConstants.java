@@ -10,6 +10,7 @@ public final class AppConstants {
     public static final String ANON = "anon";
     public static final String ID = "id";
     public static final String MAIN_PAGE_PATH = "/new/main_layout.jsp";
+    public static final String REDIRECT_PAGE_PATH = "/new/redirect_page.jsp";
     public static final String VIEW_NAME = "view_name";
     public static final String SESSION_USER = "session_user";
     public static final String GET = "get";

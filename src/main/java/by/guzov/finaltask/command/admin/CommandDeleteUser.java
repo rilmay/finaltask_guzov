@@ -20,7 +20,7 @@ public class CommandDeleteUser implements Command {
             int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             User user = userService.getUserById(id);
             userService.deleteUser(user);
-            return ResponseUtil.toCommand(request, CommandType.SHOW_USER_LIST);
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_USER_LIST.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }

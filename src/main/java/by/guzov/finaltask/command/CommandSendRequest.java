@@ -29,8 +29,7 @@ public class CommandSendRequest implements Command {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             requestService.create(wantedPersonRequest);
 
-            return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE
-                    , Router.Type.REDIRECT);
+            return ResponseUtil.redirectTo(request,CommandType.SHOW_SUCCESS_PAGE.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REQUEST_FORM, e.getMessage());
         } catch (NullPointerException | NumberFormatException e) {

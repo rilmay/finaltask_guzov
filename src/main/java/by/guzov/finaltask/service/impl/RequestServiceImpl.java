@@ -10,11 +10,15 @@ import by.guzov.finaltask.dto.FullRequest;
 import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
+import by.guzov.finaltask.util.AppConstants;
 import by.guzov.finaltask.validation.RequestValidator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
@@ -111,7 +115,7 @@ public class RequestServiceImpl implements RequestService {
             request.setRequestStatus("approved");
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
-            transactionalUpdate(request, wantedPerson);
+            transactionalUpdate(wantedPerson,request);
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
@@ -139,7 +143,6 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void setCompleted(Request request) throws ServiceException {
         try {
-            request.setRequestStatus("completed");
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
             String status = wantedPerson.getPersonStatus();
@@ -150,20 +153,30 @@ public class RequestServiceImpl implements RequestService {
                 newStatus = "found";
             }
             wantedPerson.setPersonStatus(newStatus);
-            transactionalUpdate(request, wantedPerson);
+            List<Request> updateRequests = requestDao
+                    .getAllByWantedPersonAndStatus(wantedPerson.getId(), null)
+                    .stream()
+                    .peek(req ->  req.setRequestStatus(req.getId().equals(request.getId())?
+                            AppConstants.STATUS_COMPLETED:AppConstants.STATUS_EXPIRED))
+                    .collect(Collectors.toList());
+            Request[] requests = new Request[updateRequests.size()];
+            IntStream.range(0,requests.length).forEach(i -> requests[i] = updateRequests.get(i));
+            transactionalUpdate(wantedPerson,requests);
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
     }
 
-    private void transactionalUpdate(Request request, WantedPerson wantedPerson) {
+    private void transactionalUpdate(WantedPerson wantedPerson,Request... requests) {
 
         TransactionManager transactionManager = new TransactionManager();
         try {
             WantedPersonDao transactionalWantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getTransactionalDao(WantedPerson.class);
             RequestDao transactionalRequestDao = (RequestDao) JdbcDaoFactory.getInstance().getTransactionalDao(Request.class);
             transactionManager.begin(transactionalWantedPersonDao, transactionalRequestDao);
-            transactionalRequestDao.update(request);
+            for(Request request:requests) {
+                transactionalRequestDao.update(request);
+            }
             transactionalWantedPersonDao.update(wantedPerson);
             transactionManager.commit();
             transactionManager.end();

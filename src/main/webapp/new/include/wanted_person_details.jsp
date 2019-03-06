@@ -39,15 +39,16 @@
                         <input class="button is-block is-light is-normal is-fullwidth" type="submit"
                                value="available requests">
                     </form>
-                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending
-                    and person.personStatus eq 'missing' and person.personStatus eq 'wanted'}">
-                        <form action="${pageContext.request.contextPath}/" method="get">
-                            <input type="hidden" name="${AppConstants.COMMAND}"
+                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending}">
+                        <c:if test="${person.personStatus eq 'missing' or person.personStatus eq 'wanted'}">
+                            <form action="${pageContext.request.contextPath}/" method="get">
+                                <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_REQUEST_FORM}">
-                            <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-block is-success is-normal is-fullwidth" type="submit"
-                                   value="make a request">
-                        </form>
+                                <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
+                                <input class="button is-block is-success is-normal is-fullwidth" type="submit"
+                                    value="make a request">
+                            </form>
+                        </c:if>
                     </c:if>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                         <form action="${pageContext.request.contextPath}/" method="post">

@@ -1,8 +1,5 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.command.Command;
-import by.guzov.finaltask.command.CommandType;
-import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
@@ -23,7 +20,7 @@ public class CommandDeleteRequest implements Command {
             Request current = requestService.getById(requestId);
             if(sessionUser.getRole().equals(AppConstants.ADMIN) || sessionUser.getId() == current.getUserId()) {
                 requestService.delete(current);
-                return ResponseUtil.toCommand(request, CommandType.SHOW_REQUEST_LIST);
+                return ResponseUtil.redirectTo(request,CommandType.SHOW_REQUEST_LIST.name());
             }else {
                 return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "you are forbidden to do this");
             }

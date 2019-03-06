@@ -5,7 +5,6 @@ import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;
-import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,7 +19,7 @@ public class CommandRecoverPassword implements Command {
             UserService userService = ServiceFactory.getInstance().getUserService();
             userService.recoverPassword(passwordRecovery, request.getParameter("code"),
                     request.getParameter("new_password"));
-            return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE, Router.Type.REDIRECT);
+            return ResponseUtil.redirectTo(request,CommandType.SHOW_SUCCESS_PAGE.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
         }

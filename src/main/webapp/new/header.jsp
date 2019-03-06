@@ -44,14 +44,12 @@
         <div class="navbar-menu">
             <div class="navbar-end">
 				<span class="navbar-item">
-                    <a class="button is-light" href="?change_lang=en">
-                        <span><my:lang key="en"/></span>
-                    </a>
+                    <input class="button is-light" type="button" value="<my:lang key="en"/>"
+                           onClick="window.location.href=window.location.href+'&change_lang=en'">
                 </span>
                 <span class="navbar-item">
-                    <a class="button is-light" href="?change_lang=ru">
-                        <span><my:lang key="ru"/></span>
-                    </a>
+                    <input class="button is-light" type="button" value="<my:lang key="ru"/>"
+                           onClick="window.location.href=window.location.href+'&change_lang=ru'">
                 </span>
             </div>
         </div>

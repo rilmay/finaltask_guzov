@@ -22,8 +22,8 @@ public class CommandCancelRequest implements Command {
             Request currentRequest = requestService.getById(id);
             requestService.cancel(currentRequest);
             return ResponseUtil
-                    .sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_REQUEST_DETAILS + "&" +
-                            AppConstants.ID + "=" + currentRequest.getId(), Router.Type.FORWARD);
+                    .redirectTo(request,CommandType.SHOW_REQUEST_DETAILS + "&" +
+                            AppConstants.ID + "=" + currentRequest.getId());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }
