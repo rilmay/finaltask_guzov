@@ -14,6 +14,6 @@
     <title>Redirect</title>
 </head>
 <body>
-    <c:redirect url="${pageContext.request.contextPath}/?${AppConstants.COMMAND}=${redirect_command}"/>
+    <c:redirect url="?${AppConstants.COMMAND}=${redirect_command}"/>
 </body>
 </html>

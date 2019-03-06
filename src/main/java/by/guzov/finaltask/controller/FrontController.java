@@ -6,14 +6,17 @@ import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.util.AppConstants;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@MultipartConfig
 @WebServlet(urlPatterns = "/", name = "index")
 public class FrontController extends HttpServlet {
     @Override
@@ -27,9 +30,17 @@ public class FrontController extends HttpServlet {
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Command command = CommandProvider.getInstance()
-                .takeCommand(CommandType.of(request.getParameter(AppConstants.COMMAND))
-                        .orElse(CommandType.SHOW_EMPTY_PAGE));
+        Command command;
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        if (isMultipart) {
+            command = CommandProvider.getInstance()
+                    .takeCommand(CommandType.of(request.getParameter(AppConstants.COMMAND))
+                            .orElse(CommandType.SHOW_EMPTY_PAGE));
+        } else {
+            command = CommandProvider.getInstance()
+                    .takeCommand(CommandType.of(request.getParameter(AppConstants.COMMAND))
+                            .orElse(CommandType.SHOW_EMPTY_PAGE));
+        }
         ResponseContent responseContent = command.execute(request);
         if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {
             response.sendRedirect(responseContent.getRouter().getRoute());

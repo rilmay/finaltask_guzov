@@ -53,7 +53,7 @@
             </select>
         </div>
     </div>
-    <label for="description" class="label">Description</label>
+    <label for="description" class="label">Description<i>(required)</i></label>
     <div class="field">
         <div class="control">
             <textarea required="required" class="textarea" name="description" id="description"></textarea>
@@ -90,15 +90,6 @@
         <div class="control">
             <input type="text" id="special_signs" class="input is-normal" name="special_signs"
                    placeholder="special signs"/>
-        </div>
-    </div>
-
-    <label for="photo" class="label">Photo</label>
-
-    <div class="field">
-        <div class="control">
-            <input type="text" id="photo" class="input is-normal" name="photo"
-                   placeholder="photo"/>
         </div>
     </div>
 </c:if>

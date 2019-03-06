@@ -1,6 +1,6 @@
 package by.guzov.finaltask.filter;
 
-import by.guzov.finaltask.i18n.LocaleHandler;
+import by.guzov.finaltask.i18n.MessageResourceBundle;
 import by.guzov.finaltask.util.AppConstants;
 import by.guzov.finaltask.util.CookieFinder;
 
@@ -35,7 +35,7 @@ public class LocaleFilter implements Filter {
     }
 
     private void changeLocale(HttpSession session, HttpServletResponse response, String locale) {
-        session.setAttribute(AppConstants.LOCALE_BUNDLE, new LocaleHandler(locale));
+        session.setAttribute(AppConstants.LOCALE_BUNDLE, new MessageResourceBundle(locale));
         Cookie cookie = new Cookie(AppConstants.LANG, locale);
         response.addCookie(cookie);
     }
@@ -44,9 +44,9 @@ public class LocaleFilter implements Filter {
         if (session.getAttribute(AppConstants.LOCALE_BUNDLE) == null) {
             Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
             if (cookieLang.isPresent()) {
-                session.setAttribute(AppConstants.LOCALE_BUNDLE, new LocaleHandler(cookieLang.get()));
+                session.setAttribute(AppConstants.LOCALE_BUNDLE, new MessageResourceBundle(cookieLang.get()));
             } else {
-                session.setAttribute(AppConstants.LOCALE_BUNDLE, new LocaleHandler(request.getLocale().getLanguage()));
+                session.setAttribute(AppConstants.LOCALE_BUNDLE, new MessageResourceBundle(request.getLocale().getLanguage()));
             }
         }
     }

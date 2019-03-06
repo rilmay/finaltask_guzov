@@ -51,6 +51,14 @@
                         </c:if>
                     </c:if>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
+                        <form action="${pageContext.request.contextPath}/" method="get">
+                            <input type="hidden" name="${AppConstants.COMMAND}"
+                                   value="${CommandType.SHOW_UPLOAD_PHOTO_FORM}">
+                            <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="upload photo">
+                        </form>
+                    </c:if>
+                    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                         <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.DELETE_WANTED_PERSON}">

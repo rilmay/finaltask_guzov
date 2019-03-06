@@ -23,7 +23,7 @@
                     <p class="has-text-danger"><c:out value="${error_message}"/></p>
                     <div class="content">
                         <br>
-                        <form action="${pageContext.request.contextPath}/" method="post">
+                        <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
                             <p>
                                 <label for="reward" class="field-label"> Reward: </label>
                                 <input type="text" id="reward" class="text-field is-right" name="reward" required="required"

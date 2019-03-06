@@ -47,7 +47,7 @@ public class CommandSendRequest implements Command {
         wp.setBirthDate((birthDate.isEmpty()) ? null : Date.valueOf(birthDate));
         wp.setSearchArea(request.getParameter("search_area"));
         wp.setSpecialSigns(request.getParameter("special_signs"));
-        wp.setPhoto(request.getParameter("photo"));
+        //wp.setPhoto(request.getParameter("photo"));
         wp.setPersonStatus(request.getParameter("status"));
         wp.setPending(true);
 

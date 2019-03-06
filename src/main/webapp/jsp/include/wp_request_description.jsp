@@ -68,7 +68,7 @@
     </p>
     <p>
         <label for="photo" class="field-label"> Photo: </label>
-        <input type="text" id="photo" class="text-field is-right" name="photo"
+        <input type="file" id="photo" class="text-field is-right" name="photo"
                placeholder="photo"/>
     </p>
 </c:if>
