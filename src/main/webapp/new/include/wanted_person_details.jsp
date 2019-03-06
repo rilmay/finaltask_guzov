@@ -32,12 +32,20 @@
                     </p>
                     <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
                     <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
-                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending}">
+                    <form action="${pageContext.request.contextPath}/" method="get">
+                        <input type="hidden" name="${AppConstants.COMMAND}"
+                               value="${CommandType.SHOW_REQUESTS_BY_WANTED_PERSON}">
+                        <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
+                        <input class="button is-block is-light is-normal is-fullwidth" type="submit"
+                               value="available requests">
+                    </form>
+                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending
+                    and person.personStatus eq 'missing' and person.personStatus eq 'wanted'}">
                         <form action="${pageContext.request.contextPath}/" method="get">
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_REQUEST_FORM}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-block is-light is-normal is-fullwidth" type="submit"
+                            <input class="button is-block is-success is-normal is-fullwidth" type="submit"
                                    value="make a request">
                         </form>
                     </c:if>

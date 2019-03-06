@@ -2,8 +2,8 @@ package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
 import by.guzov.finaltask.dao.AutoConnection;
+import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.RequestDao;
-import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.domain.Request;
 
 import java.sql.PreparedStatement;
@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements RequestDao {
     private static final String ID = "id";
@@ -105,9 +107,18 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
 
     @Override
     @AutoConnection
-    public List<Request> getAllPending() throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE request_status = 'pending'")) {
+    public List<Request> getAllByUserAndStatus(Integer userId, String... requestStatuses) throws DaoException {
+        String sql = getSelectQuery() + " WHERE 1=1";
+        if (userId != null) {
+            sql += " AND (" + USER_ID + " = '" + userId + "')";
+        }
+        if (requestStatuses != null) {
+            String statusQuery = Stream.of(requestStatuses)
+                    .map(status -> REQUEST_STATUS + " = '" + status + "'")
+                    .collect(Collectors.joining(" OR "));
+            sql += " AND (" + statusQuery + ")";
+        }
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -116,20 +127,18 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
 
     @Override
     @AutoConnection
-    public List<Request> getAllExceptPending() throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE request_status <> 'pending'")) {
-            return parseResultSet(preparedStatement.executeQuery());
-        } catch (SQLException e) {
-            throw new DaoException(e);
+    public List<Request> getAllByWantedPersonAndStatus(Integer personId, String... requestStatuses) throws DaoException {
+        String sql = getSelectQuery() + " WHERE 1=1";
+        if (personId != null) {
+            sql += " AND (" + WANTED_PERSON_ID + " = '" + personId + "')";
         }
-    }
-
-    @Override
-    @AutoConnection
-    public List<Request> getAllWithCondition(String condition) throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE "+condition)) {
+        if (requestStatuses != null) {
+            String statusQuery = Stream.of(requestStatuses)
+                    .map(status -> REQUEST_STATUS + " = '" + status + "'")
+                    .collect(Collectors.joining(" OR "));
+            sql += " AND (" + statusQuery + ")";
+        }
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
             throw new DaoException(e);

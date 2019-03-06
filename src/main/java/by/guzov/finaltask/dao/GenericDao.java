@@ -1,9 +1,7 @@
 package by.guzov.finaltask.dao;
 
-import by.guzov.finaltask.dao.exception.DaoException;
-import by.guzov.finaltask.dao.exception.PersistException;
-
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.List;
 
 /**

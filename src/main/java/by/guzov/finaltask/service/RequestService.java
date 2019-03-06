@@ -19,7 +19,9 @@ public interface RequestService {
 
     FullRequest getFullRequest(int requestID) throws ServiceException;
 
-    List<FullRequest> getAllWithCondition(RequestCondition condition) throws ServiceException;
+    List<FullRequest> getAllByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses);
+
+    List<FullRequest> getAllByUserAndStatuses(Integer userId, String... statuses);
 
     void approve(Request request) throws ServiceException;
 

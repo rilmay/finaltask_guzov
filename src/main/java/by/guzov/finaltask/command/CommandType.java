@@ -39,7 +39,8 @@ public enum CommandType {
     SHOW_PENDING_REQUEST_LIST(new Restrictions().setRoles(ADMIN)),
     SHOW_PENDING_PEOPLE(new Restrictions().setRoles(ADMIN)),
     SHOW_REQUESTS_BY_USER(new Restrictions().setRoles(ADMIN)),
-    SHOW_MY_REQUESTS(new Restrictions().setRoles(ADMIN,USER));
+    SHOW_MY_REQUESTS(new Restrictions().setRoles(ADMIN,USER)),
+    SHOW_REQUESTS_BY_WANTED_PERSON;
 
     public Restrictions getRestrictions() {
         return restrictions;

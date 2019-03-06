@@ -1,11 +1,11 @@
 package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
+import by.guzov.finaltask.dao.ConnectionPoolException;
+import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.GenericDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPool;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolFactory;
-import by.guzov.finaltask.dao.exception.ConnectionPoolException;
-import by.guzov.finaltask.dao.exception.DaoException;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;

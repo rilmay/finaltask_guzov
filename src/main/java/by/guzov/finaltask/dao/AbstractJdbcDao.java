@@ -1,8 +1,5 @@
 package by.guzov.finaltask.dao;
 
-import by.guzov.finaltask.dao.exception.DaoException;
-import by.guzov.finaltask.dao.exception.PersistException;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,5 @@
 package by.guzov.finaltask.dao;
 
-import by.guzov.finaltask.dao.exception.DaoException;
 import by.guzov.finaltask.domain.WantedPerson;
 
 import java.util.List;

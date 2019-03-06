@@ -3,7 +3,7 @@ package by.guzov.finaltask.dao.impl;
 import by.guzov.finaltask.dao.*;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPool;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolFactory;
-import by.guzov.finaltask.dao.exception.DaoException;
+import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;

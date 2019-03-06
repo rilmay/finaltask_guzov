@@ -17,4 +17,10 @@ public final class AppConstants {
     public static final String ERROR_MESSAGE = "error_message";
     public static final String LANG = "lang";
     public static final String LOCALE_BUNDLE = "text";
+
+    public static final String STATUS_APPROVED = "approved";
+    public static final String STATUS_CANCELLED = "cancelled";
+    public static final String STATUS_EXPIRED = "expired";
+    public static final String STATUS_COMPLETED = "completed";
+    public static final String STATUS_PENDING = "pending";
 }

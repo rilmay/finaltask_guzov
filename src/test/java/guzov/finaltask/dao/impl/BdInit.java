@@ -2,7 +2,7 @@ package guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.connectionpool.ConnectionPool;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
-import by.guzov.finaltask.dao.exception.ConnectionPoolException;
+import by.guzov.finaltask.dao.ConnectionPoolException;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

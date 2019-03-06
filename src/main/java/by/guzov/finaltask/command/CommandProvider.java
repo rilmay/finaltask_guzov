@@ -49,6 +49,7 @@ public class CommandProvider {
         commandMap.put(CommandType.SET_COMPLETED_REQUEST, new CommandSetCompletedRequest());
         commandMap.put(CommandType.SHOW_REQUESTS_BY_USER, new CommandShowRequestsByUser());
         commandMap.put(CommandType.SHOW_MY_REQUESTS,new CommandShowMyRequests());
+        commandMap.put(CommandType.SHOW_REQUESTS_BY_WANTED_PERSON, new CommandShowRequestsByWantedPerson());
     }
 
     /**

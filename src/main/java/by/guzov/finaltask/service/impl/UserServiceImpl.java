@@ -1,8 +1,8 @@
 package by.guzov.finaltask.service.impl;
 
 import by.guzov.finaltask.dao.UserDao;
-import by.guzov.finaltask.dao.exception.DaoException;
-import by.guzov.finaltask.dao.exception.PersistException;
+import by.guzov.finaltask.dao.DaoException;
+import by.guzov.finaltask.dao.PersistException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.PasswordRecovery;
@@ -10,9 +10,9 @@ import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.Encryptor;
-import by.guzov.finaltask.util.MailBot;
-import by.guzov.finaltask.util.validation.StringValidator;
-import by.guzov.finaltask.util.validation.UserValidator;
+import by.guzov.finaltask.util.MailSenderService;
+import by.guzov.finaltask.validation.StringValidator;
+import by.guzov.finaltask.validation.UserValidator;
 
 import javax.mail.MessagingException;
 import java.sql.Timestamp;
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
             User found = userDao.getByLogin(user);
             recovery.setUserId(found.getId());
             String code = Encryptor.shaEncryption(Double.toString(Math.random())).substring(0, 6);
-            MailBot.sendEmailWithCode(code, found.getEmail());
+            MailSenderService.sendEmailWithCode(code, found.getEmail());
             recovery.setCode(code);
             recovery.setExpires(Timestamp.valueOf(LocalDateTime.now()).getTime() + 6_000_000);
             return recovery;

@@ -2,8 +2,8 @@ package by.guzov.finaltask.listener;
 
 import by.guzov.finaltask.dao.connectionpool.ConnectionPool;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
-import by.guzov.finaltask.dao.exception.ConnectionPoolException;
-import by.guzov.finaltask.util.MailBot;
+import by.guzov.finaltask.dao.ConnectionPoolException;
+import by.guzov.finaltask.util.MailSenderService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -17,7 +17,7 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         pool = ConnectionPoolImpl.getInstance();
-        MailBot.getInstance();
+        MailSenderService.getInstance();
     }
 
     @Override

@@ -1,6 +1,6 @@
 package by.guzov.finaltask.util;
 
-import by.guzov.finaltask.util.validation.StringValidator;
+import by.guzov.finaltask.validation.StringValidator;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
 
-public final class MailBot {
+public final class MailSenderService {
     private static final String TLS = "mail.smtp.starttls.enable";
     private static final String HOST = "mail.smtp.host";
     private static final String USER = "mail.smtp.user";
@@ -25,13 +25,13 @@ public final class MailBot {
     private static String PASS_VALUE;
     private static Properties properties;
     private static Properties mailProperties;
-    private static MailBot INSTANCE = new MailBot();
+    private static MailSenderService INSTANCE = new MailSenderService();
 
-    public static MailBot getInstance() {
+    public static MailSenderService getInstance() {
         return INSTANCE;
     }
 
-    private MailBot() {
+    private MailSenderService() {
         try {
             properties = new Properties();
             properties.load(getClass().getResourceAsStream(PROPERTIES_PATH));
@@ -55,7 +55,7 @@ public final class MailBot {
             throw new IllegalArgumentException("incorrect email");
         }
         if (properties == null) {
-            new MailBot();
+            new MailSenderService();
         }
         Session session = Session.getDefaultInstance(mailProperties, null);
         MimeMessage message = new MimeMessage(session);

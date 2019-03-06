@@ -1,7 +1,7 @@
-package by.guzov.finaltask.util.validation;
+package by.guzov.finaltask.validation;
 
 import by.guzov.finaltask.dao.UserDao;
-import by.guzov.finaltask.dao.exception.DaoException;
+import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseMessage;

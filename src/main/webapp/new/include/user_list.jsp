@@ -26,7 +26,7 @@
                         <c:forEach items="${userList}" var="user">
                             <tr>
                                 <td width="5%">
-                                    <a class="button is-small is-primary" href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${user.id}">
+                                    <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${user.id}">
                                         <c:out value="${user.login}"/>
                                     </a>
                                 </td>

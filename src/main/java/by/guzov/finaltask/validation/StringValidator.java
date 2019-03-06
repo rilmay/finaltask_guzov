@@ -1,4 +1,4 @@
-package by.guzov.finaltask.util.validation;
+package by.guzov.finaltask.validation;
 
 public final class StringValidator {
     public final static String PASSWORD_PATTERN = "^[\\w]+$";

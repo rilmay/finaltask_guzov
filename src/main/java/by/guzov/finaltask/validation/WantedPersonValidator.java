@@ -1,4 +1,4 @@
-package by.guzov.finaltask.util.validation;
+package by.guzov.finaltask.validation;
 
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseMessage;

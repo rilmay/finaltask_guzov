@@ -1,7 +1,5 @@
 package by.guzov.finaltask.dao;
 
-import by.guzov.finaltask.dao.exception.DaoException;
-
 import java.io.Serializable;
 
 /**

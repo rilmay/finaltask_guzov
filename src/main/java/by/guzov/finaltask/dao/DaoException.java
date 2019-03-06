@@ -1,4 +1,4 @@
-package by.guzov.finaltask.dao.exception;
+package by.guzov.finaltask.dao;
 
 /**
  * Dao Exception

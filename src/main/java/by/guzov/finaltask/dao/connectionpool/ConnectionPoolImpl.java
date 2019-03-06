@@ -1,6 +1,6 @@
 package by.guzov.finaltask.dao.connectionpool;
 
-import by.guzov.finaltask.dao.exception.ConnectionPoolException;
+import by.guzov.finaltask.dao.ConnectionPoolException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;

@@ -1,21 +1,18 @@
 package by.guzov.finaltask.service.impl;
 
-import by.guzov.finaltask.dao.RequestDao;
-import by.guzov.finaltask.dao.UserDao;
-import by.guzov.finaltask.dao.WantedPersonDao;
-import by.guzov.finaltask.dao.exception.DaoException;
-import by.guzov.finaltask.dao.exception.PersistException;
+import by.guzov.finaltask.dao.*;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
+import by.guzov.finaltask.dao.impl.TransactionManager;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.FullRequest;
-import by.guzov.finaltask.dto.RequestCondition;
 import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
-import by.guzov.finaltask.util.validation.RequestValidator;
+import by.guzov.finaltask.validation.RequestValidator;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,9 +111,8 @@ public class RequestServiceImpl implements RequestService {
             request.setRequestStatus("approved");
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
-            requestDao.update(request);
-            wantedPersonDao.update(wantedPerson);
-        } catch (DaoException | PersistException e) {
+            transactionalUpdate(request, wantedPerson);
+        } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
     }
@@ -146,17 +142,50 @@ public class RequestServiceImpl implements RequestService {
             request.setRequestStatus("completed");
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
-            requestDao.update(request);
-            wantedPersonDao.update(wantedPerson);
-        } catch (DaoException | PersistException e) {
+            String status = wantedPerson.getPersonStatus();
+            String newStatus;
+            if (status.equals("wanted")) {
+                newStatus = "caught";
+            } else {
+                newStatus = "found";
+            }
+            wantedPerson.setPersonStatus(newStatus);
+            transactionalUpdate(request, wantedPerson);
+        } catch (DaoException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
+
+    private void transactionalUpdate(Request request, WantedPerson wantedPerson) {
+
+        TransactionManager transactionManager = new TransactionManager();
+        try {
+            WantedPersonDao transactionalWantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getTransactionalDao(WantedPerson.class);
+            RequestDao transactionalRequestDao = (RequestDao) JdbcDaoFactory.getInstance().getTransactionalDao(Request.class);
+            transactionManager.begin(transactionalWantedPersonDao, transactionalRequestDao);
+            transactionalRequestDao.update(request);
+            transactionalWantedPersonDao.update(wantedPerson);
+            transactionManager.commit();
+            transactionManager.end();
+        } catch (SQLException | DaoException | PersistException e) {
+          throw new ServiceException(e);
+        }
+
+    }
+
+    @Override
+    public List<FullRequest> getAllByUserAndStatuses(Integer userId, String... statuses) {
+        try {
+            return getWithWP(requestDao.getAllByUserAndStatus(userId, statuses));
+        } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
     }
 
     @Override
-    public List<FullRequest> getAllWithCondition(RequestCondition condition) throws ServiceException {
+    public List<FullRequest> getAllByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) {
         try {
-            return getWithWP(requestDao.getAllWithCondition(condition.getCondition()));
+            return getWithWP(requestDao.getAllByWantedPersonAndStatus(wantedPersonId, statuses));
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }

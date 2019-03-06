@@ -1,14 +1,14 @@
 package by.guzov.finaltask.service.impl;
 
 import by.guzov.finaltask.dao.WantedPersonDao;
-import by.guzov.finaltask.dao.exception.DaoException;
-import by.guzov.finaltask.dao.exception.PersistException;
+import by.guzov.finaltask.dao.DaoException;
+import by.guzov.finaltask.dao.PersistException;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.WantedPersonService;
-import by.guzov.finaltask.util.validation.WantedPersonValidator;
+import by.guzov.finaltask.validation.WantedPersonValidator;
 
 import java.util.List;
 

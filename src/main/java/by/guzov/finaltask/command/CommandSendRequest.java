@@ -18,16 +18,16 @@ public class CommandSendRequest implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             String wpId = request.getParameter(AppConstants.ID);
-            Request requestWP = new Request();
-            requestWP.setUserId(((User) request.getSession().getAttribute(AppConstants.SESSION_USER)).getId());
-            requestWP.setReward(Integer.parseInt(request.getParameter("reward")));
-            requestWP.setWantedPersonId((wpId == null) ? extractPersonAndReturnId(request) : Integer.parseInt(wpId));
-            requestWP.setRequestStatus("pending");
-            requestWP.setLeadDate(Date.valueOf(request.getParameter("lead_date")));
-            requestWP.setApplicationDate(Date.valueOf(request.getParameter("application_date")));
+            Request wantedPersonRequest = new Request();
+            wantedPersonRequest.setUserId(((User) request.getSession().getAttribute(AppConstants.SESSION_USER)).getId());
+            wantedPersonRequest.setReward(Integer.parseInt(request.getParameter("reward")));
+            wantedPersonRequest.setWantedPersonId((wpId == null) ? extractPersonAndReturnId(request) : Integer.parseInt(wpId));
+            wantedPersonRequest.setRequestStatus("pending");
+            wantedPersonRequest.setLeadDate(Date.valueOf(request.getParameter("lead_date")));
+            wantedPersonRequest.setApplicationDate(Date.valueOf(request.getParameter("application_date")));
 
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            requestService.create(requestWP);
+            requestService.create(wantedPersonRequest);
 
             return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_SUCCESS_PAGE
                     , Router.Type.REDIRECT);

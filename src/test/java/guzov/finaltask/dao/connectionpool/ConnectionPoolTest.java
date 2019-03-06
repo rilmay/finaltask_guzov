@@ -2,7 +2,7 @@ package guzov.finaltask.dao.connectionpool;
 
 import by.guzov.finaltask.dao.connectionpool.ConnectionPool;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
-import by.guzov.finaltask.dao.exception.ConnectionPoolException;
+import by.guzov.finaltask.dao.ConnectionPoolException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
