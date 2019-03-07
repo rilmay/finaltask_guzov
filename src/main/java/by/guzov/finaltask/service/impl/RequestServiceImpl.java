@@ -15,6 +15,7 @@ import by.guzov.finaltask.validation.RequestValidator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -153,20 +154,22 @@ public class RequestServiceImpl implements RequestService {
             }
             wantedPerson.setPersonStatus(newStatus);
             List<Request> updateRequests = requestDao
-                    .getAllByWantedPersonAndStatus(wantedPerson.getId(), null)
+                    .getAllByWantedPersonAndStatus(wantedPerson.getId())
                     .stream()
                     .peek(req -> req.setRequestStatus(req.getId().equals(request.getId()) ?
                             AppConstants.STATUS_COMPLETED : AppConstants.STATUS_EXPIRED))
                     .collect(Collectors.toList());
-            Request[] requests = new Request[updateRequests.size()];
-            IntStream.range(0, requests.length).forEach(i -> requests[i] = updateRequests.get(i));
-            transactionalUpdate(wantedPerson, requests);
+            transactionalUpdate(wantedPerson, updateRequests);
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
     }
 
-    private void transactionalUpdate(WantedPerson wantedPerson, Request... requests) {
+    private void transactionalUpdate(WantedPerson wantedPerson, Request requests) {
+        transactionalUpdate(wantedPerson, Collections.singletonList(requests));
+    }
+
+    private void transactionalUpdate(WantedPerson wantedPerson, List<Request> requests) {
 
         TransactionManager transactionManager = new TransactionManager();
         try {

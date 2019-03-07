@@ -45,11 +45,12 @@
             <div class="navbar-end">
 				<span class="navbar-item">
                     <input class="button is-light" type="button" value="<my:lang key="en"/>"
-                           onClick="window.location.href=window.location.href+'&change_lang=en'">
+                           onClick="changeLang('en')">
                 </span>
                 <span class="navbar-item">
+
                     <input class="button is-light" type="button" value="<my:lang key="ru"/>"
-                           onClick="window.location.href=window.location.href+'&change_lang=ru'">
+                           onClick="changeLang('ru')">
                 </span>
             </div>
         </div>
@@ -76,4 +77,21 @@
             </c:if>
         </div>
     </div>
+    <script type="text/javascript">
+        function changeLang(langToChange) {
+            var currentLocation = window.location;
+            var locationToGo;
+            if (currentLocation.search) {
+                if (currentLocation.search.indexOf("change_lang=") > 0) {
+                    var spliced = currentLocation.search.split("change_lang=")[0];
+                    locationToGo = spliced + 'change_lang=' + langToChange;
+                } else {
+                    locationToGo = currentLocation.search + '&change_lang=' + langToChange;
+                }
+            } else {
+                locationToGo = currentLocation.search + '?change_lang=' + langToChange;
+            }
+            window.location.href = locationToGo;
+        }
+    </script>
 </nav>

@@ -5,6 +5,10 @@
          version="3.1">
     <display-name>Example project name</display-name>
     <context-param>
+        <param-name>photoDir</param-name>
+        <param-value>D:\\photos</param-value>
+    </context-param>
+    <context-param>
         <param-name>mailProps</param-name>
         <param-value>mail_bot.properties</param-value>
     </context-param>
