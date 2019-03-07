@@ -39,7 +39,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private final List<Connection> allConnections = new ArrayList<>();
 
     private ConnectionPoolImpl() {
-        dbProps = loadProperties(getServletContext().getInitParameter(PROPERTIES_PARAM));
+        dbProps = loadProperties("db.properties");
         this.jdbcUrl = dbProps.getProperty(DB_URL);
         initDriver(dbProps.getProperty(DRIVER_CLASS));
         semaphore = new Semaphore(Integer.parseInt(dbProps.getProperty(POOL_CAPACITY)));
