@@ -2,7 +2,6 @@ package by.guzov.finaltask.dao.connectionpool;
 
 import by.guzov.finaltask.dao.ConnectionPoolException;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -18,6 +17,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
 /**

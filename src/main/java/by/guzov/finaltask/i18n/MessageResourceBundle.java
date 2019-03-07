@@ -18,7 +18,7 @@ public class MessageResourceBundle extends ResourceBundle {
         }
     }
 
-    public String getLocaleTag(){
+    public String getLocaleTag() {
         return parent.getLocale().getLanguage();
     }
 

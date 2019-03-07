@@ -19,7 +19,7 @@ public class CommandRecoverPassword implements Command {
             UserService userService = ServiceFactory.getInstance().getUserService();
             userService.recoverPassword(passwordRecovery, request.getParameter("code"),
                     request.getParameter("new_password"));
-            return ResponseUtil.redirectTo(request,CommandType.SHOW_SUCCESS_PAGE.name());
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_SUCCESS_PAGE.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
         }

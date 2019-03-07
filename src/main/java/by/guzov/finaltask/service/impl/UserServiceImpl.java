@@ -1,8 +1,8 @@
 package by.guzov.finaltask.service.impl;
 
-import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.PersistException;
+import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.PasswordRecovery;

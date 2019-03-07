@@ -20,7 +20,7 @@ public class CommandDeleteWantedPerson implements Command {
             WantedPersonService service = ServiceFactory.getInstance().getWantedPersonService();
             WantedPerson found = service.getById(id);
             service.delete(found);
-            return ResponseUtil.redirectTo(request,CommandType.SHOW_WANTED_PEOPLE.name());
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_WANTED_PEOPLE.name());
         } catch (ServiceException | NumberFormatException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid deleting procedure");
         }

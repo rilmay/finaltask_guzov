@@ -2,8 +2,8 @@ package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
 import by.guzov.finaltask.dao.AutoConnection;
-import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.DaoException;
+import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.domain.User;
 
 import java.sql.PreparedStatement;

@@ -15,7 +15,6 @@ import by.guzov.finaltask.validation.RequestValidator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -115,7 +114,7 @@ public class RequestServiceImpl implements RequestService {
             request.setRequestStatus("approved");
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
-            transactionalUpdate(wantedPerson,request);
+            transactionalUpdate(wantedPerson, request);
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
@@ -156,34 +155,34 @@ public class RequestServiceImpl implements RequestService {
             List<Request> updateRequests = requestDao
                     .getAllByWantedPersonAndStatus(wantedPerson.getId(), null)
                     .stream()
-                    .peek(req ->  req.setRequestStatus(req.getId().equals(request.getId())?
-                            AppConstants.STATUS_COMPLETED:AppConstants.STATUS_EXPIRED))
+                    .peek(req -> req.setRequestStatus(req.getId().equals(request.getId()) ?
+                            AppConstants.STATUS_COMPLETED : AppConstants.STATUS_EXPIRED))
                     .collect(Collectors.toList());
             Request[] requests = new Request[updateRequests.size()];
-            IntStream.range(0,requests.length).forEach(i -> requests[i] = updateRequests.get(i));
-            transactionalUpdate(wantedPerson,requests);
+            IntStream.range(0, requests.length).forEach(i -> requests[i] = updateRequests.get(i));
+            transactionalUpdate(wantedPerson, requests);
         } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
     }
 
-    private void transactionalUpdate(WantedPerson wantedPerson,Request... requests) {
+    private void transactionalUpdate(WantedPerson wantedPerson, Request... requests) {
 
         TransactionManager transactionManager = new TransactionManager();
         try {
             WantedPersonDao transactionalWantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getTransactionalDao(WantedPerson.class);
             RequestDao transactionalRequestDao = (RequestDao) JdbcDaoFactory.getInstance().getTransactionalDao(Request.class);
             transactionManager.begin(transactionalWantedPersonDao, transactionalRequestDao);
-            for(Request request:requests) {
+            for (Request request : requests) {
                 transactionalRequestDao.update(request);
             }
             transactionalWantedPersonDao.update(wantedPerson);
             transactionManager.commit();
             transactionManager.end();
         } catch (SQLException | DaoException | PersistException e) {
-            try{
+            try {
                 transactionManager.rollback();
-            }catch (SQLException e1) {
+            } catch (SQLException e1) {
                 throw new ServiceException(e);
             }
         }

@@ -3,7 +3,6 @@ package by.guzov.finaltask.command.admin;
 import by.guzov.finaltask.command.Command;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
-import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RequestService;
@@ -22,7 +21,7 @@ public class CommandCancelRequest implements Command {
             Request currentRequest = requestService.getById(id);
             requestService.cancel(currentRequest);
             return ResponseUtil
-                    .redirectTo(request,CommandType.SHOW_REQUEST_DETAILS + "&" +
+                    .redirectTo(request, CommandType.SHOW_REQUEST_DETAILS + "&" +
                             AppConstants.ID + "=" + currentRequest.getId());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());

@@ -8,14 +8,14 @@ import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowRequestsByWantedPerson implements Command{
+public class CommandShowRequestsByWantedPerson implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
             int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             request.setAttribute("requestList", requestService
-                    .getAllByWantedPersonAndStatuses(id,AppConstants.STATUS_APPROVED,AppConstants.STATUS_COMPLETED));
+                    .getAllByWantedPersonAndStatuses(id, AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());

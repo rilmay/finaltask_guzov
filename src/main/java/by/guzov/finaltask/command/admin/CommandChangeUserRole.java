@@ -3,7 +3,6 @@ package by.guzov.finaltask.command.admin;
 import by.guzov.finaltask.command.Command;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
-import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceException;
@@ -22,7 +21,7 @@ public class CommandChangeUserRole implements Command {
             User user = userService.getUserById(id);
             user.setRole(user.getRole().equals(AppConstants.USER) ? AppConstants.ADMIN : AppConstants.USER);
             userService.updateUser(user);
-            return ResponseUtil.redirectTo(request,CommandType.SHOW_USER_DETAILS +
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_USER_DETAILS +
                     "&" + AppConstants.ID + "=" + user.getId());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());

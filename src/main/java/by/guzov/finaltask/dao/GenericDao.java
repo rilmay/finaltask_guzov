@@ -1,7 +1,6 @@
 package by.guzov.finaltask.dao;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.util.List;
 
 /**

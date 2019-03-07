@@ -2,7 +2,6 @@ package by.guzov.finaltask.service;
 
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.dto.FullRequest;
-import by.guzov.finaltask.dto.RequestCondition;
 
 import java.util.List;
 

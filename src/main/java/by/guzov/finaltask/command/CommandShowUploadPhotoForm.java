@@ -9,7 +9,7 @@ import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandShowUploadPhotoForm implements Command{
+public class CommandShowUploadPhotoForm implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
@@ -18,7 +18,7 @@ public class CommandShowUploadPhotoForm implements Command{
             WantedPerson wantedPerson = wantedPersonService.getById(id);
             request.setAttribute("person", wantedPerson);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "upload_photo_form", Router.Type.FORWARD);
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
         }
     }
