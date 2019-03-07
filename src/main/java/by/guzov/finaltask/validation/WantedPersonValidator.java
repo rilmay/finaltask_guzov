@@ -26,7 +26,7 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
         String photo = entity.getPhoto();
 
         if (notEmpty(firstName)) {
-            if (StringValidator.validate(firstName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
+            if (StringValidator.isValid(firstName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "first name does not meet the requirements");
@@ -34,19 +34,19 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
         }
 
         if (notEmpty(lastName)) {
-            if (StringValidator.validate(lastName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
+            if (StringValidator.isValid(lastName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "last name does not meet the requirements");
             }
         }
 
-        if (!StringValidator.validate(description, 4, StringValidator.TEXT_PATTERN)) {
+        if (!StringValidator.isValid(description, 4, StringValidator.TEXT_PATTERN)) {
             return new ResponseMessage(false, "description does not meet the requirements");
         }
 
         if (notEmpty(birthPlace)) {
-            if (StringValidator.validate(birthPlace, 4, StringValidator.TEXT_PATTERN)) {
+            if (StringValidator.isValid(birthPlace, 4, StringValidator.TEXT_PATTERN)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "birth place does not meet the requirements");
@@ -54,7 +54,7 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
         }
 
         if (notEmpty(searchArea)) {
-            if (StringValidator.validate(searchArea, 4, StringValidator.TEXT_PATTERN)) {
+            if (StringValidator.isValid(searchArea, 4, StringValidator.TEXT_PATTERN)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "search area does not meet the requirements");
@@ -62,7 +62,7 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
         }
 
         if (notEmpty(specialSigns)) {
-            if (StringValidator.validate(specialSigns, 4, StringValidator.TEXT_PATTERN)) {
+            if (StringValidator.isValid(specialSigns, 4, StringValidator.TEXT_PATTERN)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "special signs do not meet the requirements");

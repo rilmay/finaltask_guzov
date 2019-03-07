@@ -57,7 +57,7 @@ public final class MailSenderService {
     }
 
     public static void sendEmailWithCode(String code, String email) throws MessagingException {
-        if (!StringValidator.validate(email, 3, StringValidator.EMAIL_PATTERN)) {
+        if (!StringValidator.isValid(email, 3, StringValidator.EMAIL_PATTERN)) {
             throw new IllegalArgumentException("incorrect email");
         }
         if (mailProperties == null) {

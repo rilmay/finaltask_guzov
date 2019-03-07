@@ -44,7 +44,7 @@ public class RequestServiceImpl implements RequestService {
     public Request create(Request request) throws ServiceException {
         try {
             ResponseMessage message = validator.validate(request);
-            if (message.getAnswer()) {
+            if (message.isValid()) {
                 return requestDao.persist(request);
             } else {
                 throw new ServiceException(message.getMessage());

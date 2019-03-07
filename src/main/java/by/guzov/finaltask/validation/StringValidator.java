@@ -11,7 +11,7 @@ public final class StringValidator {
     private StringValidator() {
     }
 
-    public static boolean validate(String str, int minLength, String pattern) {
+    public static boolean isValid(String str, int minLength, String pattern) {
         return str.length() >= minLength && str.matches(pattern);
     }
 }

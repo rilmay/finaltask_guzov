@@ -19,23 +19,23 @@ public class UserValidator implements EntityValidator<User> {
             String firstName = entity.getFirstName();
             String lastName = entity.getLastName();
 
-            if (!StringValidator.validate(login, 4, StringValidator.TITLE_PATTERN_EN)) {
+            if (!StringValidator.isValid(login, 4, StringValidator.TITLE_PATTERN_EN)) {
                 return new ResponseMessage(false, "login does not meet the requirements");
             }
 
-            if (!StringValidator.validate(password, 4, StringValidator.PASSWORD_PATTERN)) {
+            if (!StringValidator.isValid(password, 4, StringValidator.PASSWORD_PATTERN)) {
                 return new ResponseMessage(false, "password does not meet the requirements");
             }
 
-            if (!StringValidator.validate(email, 4, StringValidator.EMAIL_PATTERN)) {
+            if (!StringValidator.isValid(email, 4, StringValidator.EMAIL_PATTERN)) {
                 return new ResponseMessage(false, "e-mail does not meet the requirements");
             }
 
-            if (!StringValidator.validate(firstName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
+            if (!StringValidator.isValid(firstName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 return new ResponseMessage(false, "first name does not meet the requirements");
             }
 
-            if (!StringValidator.validate(lastName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
+            if (!StringValidator.isValid(lastName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 return new ResponseMessage(false, "last name does not meet the requirements");
             }
 

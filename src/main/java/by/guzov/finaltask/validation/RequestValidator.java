@@ -18,7 +18,7 @@ public class RequestValidator implements EntityValidator<Request> {
         int userID = entity.getUserId();
         int wpId = entity.getWantedPersonId();
 
-        if (!StringValidator.validate(reward, 1, StringValidator.NUMBER_PATTERN)) {
+        if (!StringValidator.isValid(reward, 1, StringValidator.NUMBER_PATTERN)) {
             return new ResponseMessage(false, "reward does not meet the requirements");
         }
 

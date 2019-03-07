@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     public User register(User user) throws ServiceException {
         try {
             ResponseMessage responseMessage = userValidator.validate(user);
-            if (responseMessage.getAnswer()) {
+            if (responseMessage.isValid()) {
                 encryptPassword(user);
                 return userDao.persist(user);
             } else {
@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
     public void recoverPassword(PasswordRecovery recovery, String code, String newPassword) throws ServiceException {
         try {
             if (recovery.getCode().equals(code) &&
-                    StringValidator.validate(newPassword, 4, StringValidator.PASSWORD_PATTERN)
+                    StringValidator.isValid(newPassword, 4, StringValidator.PASSWORD_PATTERN)
                     && Timestamp.valueOf(LocalDateTime.now()).getTime() <= recovery.getExpires()) {
                 User user = userDao.getByPK(recovery.getUserId());
                 user.setPassword(newPassword);

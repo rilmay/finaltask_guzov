@@ -1,15 +1,15 @@
 package by.guzov.finaltask.dto;
 
 public class ResponseMessage {
-    private boolean answer;
+    private boolean valid;
     private String message;
 
-    public boolean getAnswer() {
-        return answer;
+    public boolean isValid() {
+        return valid;
     }
 
-    public void setAnswer(boolean answer) {
-        this.answer = answer;
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 
     public String getMessage() {
@@ -20,8 +20,8 @@ public class ResponseMessage {
         this.message = message;
     }
 
-    public ResponseMessage(boolean answer, String message) {
-        this.answer = answer;
+    public ResponseMessage(boolean valid, String message) {
+        this.valid = valid;
         this.message = message;
     }
 }

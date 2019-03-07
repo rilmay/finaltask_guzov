@@ -87,7 +87,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     public WantedPerson create(WantedPerson wantedPerson) throws ServiceException {
         try {
             ResponseMessage responseMessage = wantedPersonValidator.validate(wantedPerson);
-            if (responseMessage.getAnswer()) {
+            if (responseMessage.isValid()) {
                 return wantedPersonDao.persist(wantedPerson);
             } else {
                 throw new ServiceException(responseMessage.getMessage());
