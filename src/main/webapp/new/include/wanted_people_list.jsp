@@ -16,7 +16,7 @@
     <article class="media">
         <div class="media-left">
             <figure class="image is-64x64">
-                <my:image variable="${person.photo}"/>
+                <my:image rounded="rounded" variable="${person.photo}"/>
             </figure>
         </div>
         <div class="media-content">

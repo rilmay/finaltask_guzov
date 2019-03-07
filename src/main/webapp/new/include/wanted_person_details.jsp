@@ -15,7 +15,7 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-left">
-                <figure class="image is-70x70">
+                <figure class="image is-128x128">
                     <my:image variable="${person.photo}"/>
                 </figure>
             </div>
@@ -50,8 +50,8 @@
                             </form>
                         </c:if>
                     </c:if>
-                    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
-                        <form action="${pageContext.request.contextPath}/" method="get">
+                    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN and empty person.photo}">
+                        <form action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_UPLOAD_PHOTO_FORM}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
@@ -68,6 +68,7 @@
                     </c:if>
                 </div>
             </div>
+            <br>
         </article>
     </div>
 </div>

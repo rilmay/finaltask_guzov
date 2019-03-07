@@ -6,7 +6,7 @@
     <display-name>Example project name</display-name>
     <context-param>
         <param-name>photoDir</param-name>
-        <param-value>D:\\photos</param-value>
+        <param-value>C:\\Users\Dmitry\Downloads\BSUIR\Epam\finaltask\src\main\webapp\img\user</param-value>
     </context-param>
     <context-param>
         <param-name>mailProps</param-name>
@@ -30,7 +30,10 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.js</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

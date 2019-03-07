@@ -16,12 +16,19 @@
         <article class="media">
             <div class="media-content">
                 <p class="title is-4">Upload photo</p>
-                <p class="subtitle is-6">for <my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/></p>
+                <p class="subtitle is-6">for <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
+                    <my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/></a></p>
                 <p class="has-text-warning"><c:out value="${error_message}"/></p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.UPLOAD_PHOTO}">
-                        <input type="file" id="photo" name="photo" />
+                        <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
+                        <label for="photo" class="label">Photo</label>
+                        <div class="field">
+                            <div class="control">
+                        <input class="button is-block is-light is-normal is-fullwidth" required="required" type="file" id="photo" name="photo" />
+                            </div>
+                        </div>
                         <input class="button is-block is-success is-normal is-fullwidth" type="submit" value="upload">
                     </form>
                 </div>

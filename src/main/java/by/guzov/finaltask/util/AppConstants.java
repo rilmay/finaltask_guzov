@@ -18,6 +18,8 @@ public final class AppConstants {
     public static final String ERROR_MESSAGE = "error_message";
     public static final String LANG = "lang";
     public static final String LOCALE_BUNDLE = "text";
+    public static final String WANTED_PERSON_FILE_PREFIX = "wp_";
+    public static final String RECORD_FILE_PREFIX = "rec_";
 
     public static final String STATUS_APPROVED = "approved";
     public static final String STATUS_CANCELLED = "cancelled";

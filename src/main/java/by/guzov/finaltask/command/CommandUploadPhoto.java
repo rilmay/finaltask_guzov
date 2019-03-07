@@ -1,17 +1,18 @@
 package by.guzov.finaltask.command;
 
+import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.service.ServiceException;
+import by.guzov.finaltask.service.ServiceFactory;
+import by.guzov.finaltask.service.WantedPersonService;
+import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.util.ImageUploadService;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
+import java.io.IOException;
 
 public class CommandUploadPhoto implements Command {
 
@@ -22,25 +23,16 @@ public class CommandUploadPhoto implements Command {
             if (!isMultipart) {
                 return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "upload error");
             }
+            int wantedPersonId = Integer.parseInt(request.getParameter(AppConstants.ID));
             Part photo = request.getPart("photo");
-
-            String fileName = Paths.get(photo.getSubmittedFileName()).getFileName().toString();
-
-            if (fileName == null || fileName.isEmpty()) {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "photo");
-            }
-            InputStream stream = photo.getInputStream();
-            String photoDir = getServletContext().getInitParameter("photoDir");
-            Path path = Paths.get(photoDir + "/" + fileName);
-
-            Files.copy(stream, path, StandardCopyOption.REPLACE_EXISTING);
-            request.setAttribute("size", path.toString());
-
+            String fileName = ImageUploadService.upload(photo,wantedPersonId,AppConstants.WANTED_PERSON_FILE_PREFIX);
+            WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
+            WantedPerson wantedPerson = wantedPersonService.getById(wantedPersonId);
+            wantedPerson.setPhoto(fileName);
+            wantedPersonService.update(wantedPerson);
             return ResponseUtil.toCommand(request, CommandType.SHOW_SUCCESS_PAGE);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-            //return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+        } catch (IOException | ServletException | ServiceException e) {
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }
 
     }
