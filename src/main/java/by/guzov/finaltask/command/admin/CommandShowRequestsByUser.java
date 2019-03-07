@@ -18,7 +18,7 @@ public class CommandShowRequestsByUser implements Command {
         try {
             int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            request.setAttribute("requestList", requestService.getAllByUserAndStatuses(id, null));
+            request.setAttribute("requestList", requestService.getAllByUserAndStatuses(id));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());

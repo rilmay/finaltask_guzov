@@ -3,8 +3,8 @@ package by.guzov.finaltask.util;
 import by.guzov.finaltask.service.ServiceException;
 
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,8 +12,11 @@ import java.nio.file.StandardCopyOption;
 
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
-public final class ImageUploadService {
-    private ImageUploadService(){}
+public final class ImageService {
+    private static final String photoDirectory = getServletContext().getInitParameter("photoDir");
+
+    private ImageService() {
+    }
 
     public static String upload(Part photo, int id, String prefix) {
         try {
@@ -26,13 +29,20 @@ public final class ImageUploadService {
                 throw new ServiceException("invalid photo format");
             }
             String outFileName = prefix + id + format;
-            InputStream stream = photo.getInputStream();
-            String photoDir = getServletContext().getInitParameter("photoDir");
-            Path path = Paths.get(photoDir + "/" + outFileName);
-            Files.copy(stream, path, StandardCopyOption.REPLACE_EXISTING);
+            Path path = Paths.get(photoDirectory + "/" + outFileName);
+            Files.copy(photo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             return outFileName;
         } catch (IOException e) {
             throw new ServiceException("upload error", e);
+        }
+    }
+
+    public static void delete(String photo) {
+        File delete = new File(photoDirectory + "/" + photo);
+        if (delete.exists()) {
+            if (!delete.delete()) {
+                throw new ServiceException("File was not deleted");
+            }
         }
     }
 }

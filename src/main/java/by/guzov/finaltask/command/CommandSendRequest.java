@@ -9,7 +9,7 @@ import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.AppConstants;
-import by.guzov.finaltask.util.ImageUploadService;
+import by.guzov.finaltask.util.ImageService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +61,7 @@ public class CommandSendRequest implements Command {
         Part photo = request.getPart("photo");
         String fileName = Paths.get(photo.getSubmittedFileName()).getFileName().toString();
         if(fileName != null && !fileName.isEmpty()){
-            String savedPhoto = ImageUploadService.upload(photo,id,AppConstants.WANTED_PERSON_FILE_PREFIX);
+            String savedPhoto = ImageService.upload(photo,id,AppConstants.WANTED_PERSON_FILE_PREFIX);
             WantedPerson savedWantedPerson = wantedPersonService.getById(id);
             savedWantedPerson.setPhoto(savedPhoto);
             wantedPersonService.update(savedWantedPerson);

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
@@ -145,13 +144,7 @@ public class RequestServiceImpl implements RequestService {
         try {
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
-            String status = wantedPerson.getPersonStatus();
-            String newStatus;
-            if (status.equals("wanted")) {
-                newStatus = "caught";
-            } else {
-                newStatus = "found";
-            }
+            String newStatus = wantedPerson.getPersonStatus().equals("wanted") ? "caught" : "found";
             wantedPerson.setPersonStatus(newStatus);
             List<Request> updateRequests = requestDao
                     .getAllByWantedPersonAndStatus(wantedPerson.getId())
