@@ -18,8 +18,6 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
-
 /**
  * Implementation of Connection Pool
  */

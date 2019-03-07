@@ -22,7 +22,7 @@ public class CommandDeleteWantedPerson implements Command {
             WantedPerson found = service.getById(id);
             service.delete(found);
             String photo = found.getPhoto();
-            if(photo != null){
+            if (photo != null) {
                 ImageService.delete(photo);
             }
             return ResponseUtil.redirectTo(request, CommandType.SHOW_WANTED_PEOPLE.name());

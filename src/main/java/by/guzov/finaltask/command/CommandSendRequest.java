@@ -60,8 +60,8 @@ public class CommandSendRequest implements Command {
 
         Part photo = request.getPart("photo");
         String fileName = Paths.get(photo.getSubmittedFileName()).getFileName().toString();
-        if(fileName != null && !fileName.isEmpty()){
-            String savedPhoto = ImageService.upload(photo,id,AppConstants.WANTED_PERSON_FILE_PREFIX);
+        if (fileName != null && !fileName.isEmpty()) {
+            String savedPhoto = ImageService.upload(photo, id, AppConstants.WANTED_PERSON_FILE_PREFIX);
             WantedPerson savedWantedPerson = wantedPersonService.getById(id);
             savedWantedPerson.setPhoto(savedPhoto);
             wantedPersonService.update(savedWantedPerson);
