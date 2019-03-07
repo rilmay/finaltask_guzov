@@ -10,50 +10,57 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
-<div class="container">
-    <div class="columns">
-        <div class="is-one-third">
-            <div class="card">
-                <div class="card-content">
-                    <div class="media-content">
-                        <p class="title is-4">Password recovery</p>
-                    </div>
-                    <div class="content">
-                        <br>
-                        <c:if test="${empty sessionScope.get('recovery')}">
+<div class="column is-6 is-centered">
+    <div class="box is-2">
+        <article class="media">
+            <div class="media-content">
+                <p class="title is-4">Password recovery</p>
+                <div class="content">
+                    <br>
+                    <c:if test="${empty sessionScope.get('recovery')}">
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <p>
-                                <label for="login" class="field-label"> Your login: </label>
-                                <input type="text" id="login" class="text-field is-right" name="login"
-                                       required="required"
-                                       placeholder="login"/>
-                            </p>
-                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_RECOVERY_PAGE}">
-                                <input class="button is-danger" type="submit" value="send e-mail">
+                            <label for="login" class="label">Login</label>
+                            <div class="field">
+                                <div class="control">
+                                    <input type="text" id="login" class="input is-normal is-focused" name="login"
+                                           required="required"
+                                           placeholder="login"/>
+                                </div>
+                            </div>
+                            <input type="hidden" name="${AppConstants.COMMAND}"
+                                   value="${CommandType.SHOW_RECOVERY_PAGE}">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="send e-mail">
                         </form>
-                        </c:if>
-                        <c:if test="${not empty sessionScope.get('recovery')}">
-                            <p>We have sent you email, please enter secret code and new password</p>
-                            <form action="${pageContext.request.contextPath}/" method="post">
-                                <p>
-                                    <label for="code" class="field-label"> Secret code: </label>
-                                    <input type="text" id="code" class="text-field is-right" name="code"
+                    </c:if>
+                    <c:if test="${not empty sessionScope.get('recovery')}">
+                        We have sent you email, please enter secret code and new password
+                        <form action="${pageContext.request.contextPath}/" method="post">
+
+                            <label for="code" class="label">Secret code</label>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input type="text" id="code" class="input is-normal" name="code"
                                            required="required"
                                            placeholder="code"/>
-                                </p>
-                                <p>
-                                    <label for="new_password" class="field-label"> New password: </label>
-                                    <input type="password" id="new_password" class="password-field" name="new_password"
+                                </div>
+                            </div>
+
+                            <label for="new_password" class="label">New password</label>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input type="password" id="new_password" class="input is-normal" name="new_password"
                                            required="required"
                                            placeholder="password"/>
-                                </p>
-                                <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
-                                <input class="button is-danger" type="submit" value="confirm">
-                            </form>
-                        </c:if>
-                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="confirm">
+                        </form>
+                    </c:if>
                 </div>
             </div>
-        </div>
+        </article>
     </div>
 </div>

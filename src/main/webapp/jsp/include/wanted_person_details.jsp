@@ -11,43 +11,64 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
-<div class="container">
-    <div class="columns">
-        <div class="is-one-third">
-            <div class="card">
-                <div class="card-content">
-                    <div class="media-content">
-                        <p class="title is-4"><my:display variable="${person.firstName}"/>
-                            <my:display variable="${person.lastName}"/></p>
-                    </div>
-                    <div class="content">
-                        <br>
-                        <my:image variable="${person.photo}"/>
-                        <br>
-                        <p><strong>Status: </strong><c:out value="${person.personStatus}"/></p>
-                        <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
-                        <p><strong>Born: </strong>
-                            <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
-                        </p>
-                        <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
-                        <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
-                    </div>
-                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
-                        <form action="${pageContext.request.contextPath}/" method="get">
-                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_REQUEST_FORM}">
+<div class="column is-8 is-centered">
+    <div class="box is-2">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-128x128">
+                    <my:image variable="${person.photo}"/>
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p><strong><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
+                        </strong><i><my:display variable="${person.personStatus}"/></i></p>
+                    <c:if test="${person.pending}">
+                        <p class="button is-small is-warning">pending</p>
+                    </c:if>
+                    <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
+                    <p><strong>Born: </strong>
+                        <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
+                    </p>
+                    <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
+                    <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
+                    <form action="${pageContext.request.contextPath}/" method="get">
+                        <input type="hidden" name="${AppConstants.COMMAND}"
+                               value="${CommandType.SHOW_REQUESTS_BY_WANTED_PERSON}">
+                        <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
+                        <input class="button is-block is-light is-normal is-fullwidth" type="submit"
+                               value="available requests">
+                    </form>
+                    <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending}">
+                        <c:if test="${person.personStatus eq 'missing' or person.personStatus eq 'wanted'}">
+                            <form action="${pageContext.request.contextPath}/" method="get">
+                                <input type="hidden" name="${AppConstants.COMMAND}"
+                                   value="${CommandType.SHOW_REQUEST_FORM}">
+                                <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
+                                <input class="button is-block is-success is-normal is-fullwidth" type="submit"
+                                    value="make a request">
+                            </form>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN and empty person.photo}">
+                        <form action="${pageContext.request.contextPath}/" method="post">
+                            <input type="hidden" name="${AppConstants.COMMAND}"
+                                   value="${CommandType.SHOW_UPLOAD_PHOTO_FORM}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-light" type="submit" value="make a request">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="upload photo">
                         </form>
                     </c:if>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_WANTED_PERSON}">
+                            <input type="hidden" name="${AppConstants.COMMAND}"
+                                   value="${CommandType.DELETE_WANTED_PERSON}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-danger" type="submit" value="delete">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="delete">
                         </form>
                     </c:if>
                 </div>
             </div>
-        </div>
+            <br>
+        </article>
     </div>
 </div>

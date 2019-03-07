@@ -10,25 +10,22 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
-<div class="container">
-    <div class="columns">
-        <div class="is-one-third">
-            <div class="card">
-                <div class="card-content">
-                    <div class="media-content">
+<div class="column is-4 is-centered">
+    <div class="box is-2">
+        <article class="media">
+            <div class="media-content">
                         <p class="title is-4"><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></p>
                         <p class="subtitle is-6">@<c:out value="${user.login}"/></p>
-                    </div>
                     <div class="content">
                         <p><strong>Registration Date: </strong><c:out value="${user.registrationDate}"/></p>
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>
+                    <br>
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
-                        <input class="button is-danger" type="submit" value="delete">
+                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="delete">
                     </form>
                 </div>
-            </div>
-        </div>
+        </article>
     </div>
 </div>

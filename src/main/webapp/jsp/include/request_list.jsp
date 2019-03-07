@@ -10,31 +10,39 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
-<div class="container">
-    <div class="content">
-        <table class="table is-striped is-hoverable is-narrow is-fullwidth">
-            <thead>
-            <th></th>
-            <th>Wanted person</th>
-            <th>Reward</th>
-            <th>Search period</th>
-            <th>Status</th>
-            </thead>
-            <tbody>
-            <c:forEach items="${requestList}" var="request_w_p">
-                <tr>
-                    <td><a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}"/>full info</td>
-                    <td>
-                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request_w_p.request.wantedPersonId}">
-                            <my:display variable="${request_w_p.personFirstName}"/> <my:display variable="${request_w_p.personLastName}"/>
-                        </a>
-                    </td>
-                    <td><c:out value="${request_w_p.request.reward}"/></td>
-                    <td><c:out value="${request_w_p.request.applicationDate}"/> - <c:out value="${request_w_p.request.leadDate}"/></td>
-                    <td><c:out value="${request_w_p.request.requestStatus}"/></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+
+<div class="columns">
+    <div class="column is-10">
+        <div class="card events-card">
+            <div class="card-table">
+                <div class="content">
+                    <table class="table is-fullwidth is-striped">
+                        <thead>
+                        <th>Wanted person</th>
+                        <th>Reward</th>
+                        <th>Boundary dates</th>
+                        <th>Status</th>
+                        <th></th>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${requestList}" var="request_w_p">
+                            <tr>
+                                <td>
+                                    <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request_w_p.request.wantedPersonId}">
+                                        <my:display variable="${request_w_p.personFirstName}"/> <my:display variable="${request_w_p.personLastName}"/>
+                                    </a>
+                                </td>
+                                <td><c:out value="${request_w_p.request.reward}"/></td>
+                                <td><c:out value="${request_w_p.request.applicationDate}"/> - <c:out value="${request_w_p.request.leadDate}"/></td>
+                                <td><c:out value="${request_w_p.request.requestStatus}"/></td>
+                                <td><a class="button is-small is-primary"
+                                       href="/?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}">Info</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -112,7 +112,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         if (userId != null) {
             sql += " AND (" + USER_ID + " = '" + userId + "')";
         }
-        if (requestStatuses != null) {
+        if (requestStatuses != null && requestStatuses.length != 0) {
             String statusQuery = Stream.of(requestStatuses)
                     .map(status -> REQUEST_STATUS + " = '" + status + "'")
                     .collect(Collectors.joining(" OR "));
@@ -132,7 +132,7 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         if (personId != null) {
             sql += " AND (" + WANTED_PERSON_ID + " = '" + personId + "')";
         }
-        if (requestStatuses != null) {
+        if (requestStatuses != null && requestStatuses.length != 0) {
             String statusQuery = Stream.of(requestStatuses)
                     .map(status -> REQUEST_STATUS + " = '" + status + "'")
                     .collect(Collectors.joining(" OR "));
