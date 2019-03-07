@@ -22,6 +22,11 @@
         <url-pattern>*.png</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>

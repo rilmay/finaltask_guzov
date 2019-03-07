@@ -20,7 +20,8 @@
                 <p class="has-text-warning"><c:out value="${error_message}"/></p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
-                        <input type="file" id="application" name="application_date" />
+                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.UPLOAD_PHOTO}">
+                        <input type="file" id="photo" name="photo" />
                         <input class="button is-block is-success is-normal is-fullwidth" type="submit" value="upload">
                     </form>
                 </div>

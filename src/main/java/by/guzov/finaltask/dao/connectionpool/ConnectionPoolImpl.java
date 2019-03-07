@@ -2,6 +2,7 @@ package by.guzov.finaltask.dao.connectionpool;
 
 import by.guzov.finaltask.dao.ConnectionPoolException;
 
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -17,6 +18,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
 /**
  * Implementation of Connection Pool
@@ -28,6 +30,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private static final String DRIVER_CLASS = "driver";
     private static final String DB_URL = "url";
     private static final String POOL_CAPACITY = "poolCapacity";
+    private static final String PROPERTIES_PARAM = "dbProps";
 
     private Properties dbProps;
     private String jdbcUrl;
@@ -36,7 +39,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
     private final List<Connection> allConnections = new ArrayList<>();
 
     private ConnectionPoolImpl() {
-        dbProps = loadProperties("db.properties");
+        dbProps = loadProperties(getServletContext().getInitParameter(PROPERTIES_PARAM));
         this.jdbcUrl = dbProps.getProperty(DB_URL);
         initDriver(dbProps.getProperty(DRIVER_CLASS));
         semaphore = new Semaphore(Integer.parseInt(dbProps.getProperty(POOL_CAPACITY)));

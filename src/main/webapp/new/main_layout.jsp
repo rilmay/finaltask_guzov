@@ -18,6 +18,10 @@
 <head>
     <title>Interpol</title>
     <link rel="stylesheet" href="static/bulma.css">
+
+    <link rel="stylesheet" href="css/dropdown_menu.css">
+    <link rel="script" href="js/drop_down_menu.js">
+
 </head>
 <body>
 
