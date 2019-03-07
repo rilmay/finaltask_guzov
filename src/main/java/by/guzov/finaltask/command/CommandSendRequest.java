@@ -9,8 +9,13 @@ import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.util.ImageUploadService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.Date;
 
 public class CommandSendRequest implements Command {
@@ -32,12 +37,12 @@ public class CommandSendRequest implements Command {
             return ResponseUtil.redirectTo(request, CommandType.SHOW_SUCCESS_PAGE.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REQUEST_FORM, e.getMessage());
-        } catch (NullPointerException | NumberFormatException e) {
+        } catch (NullPointerException | IOException | ServletException | NumberFormatException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid request form");
         }
     }
 
-    private int extractPersonAndReturnId(HttpServletRequest request) {
+    private int extractPersonAndReturnId(HttpServletRequest request) throws IOException, ServletException {
         String birthDate = request.getParameter("birth_date");
         WantedPerson wp = new WantedPerson();
         wp.setDescription(request.getParameter("description"));
@@ -47,11 +52,20 @@ public class CommandSendRequest implements Command {
         wp.setBirthDate((birthDate.isEmpty()) ? null : Date.valueOf(birthDate));
         wp.setSearchArea(request.getParameter("search_area"));
         wp.setSpecialSigns(request.getParameter("special_signs"));
-        //wp.setPhoto(request.getParameter("photo"));
         wp.setPersonStatus(request.getParameter("status"));
         wp.setPending(true);
 
         WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
-        return wantedPersonService.create(wp).getId();
+        int id = wantedPersonService.create(wp).getId();
+
+        Part photo = request.getPart("photo");
+        String fileName = Paths.get(photo.getSubmittedFileName()).getFileName().toString();
+        if(fileName != null && !fileName.isEmpty()){
+            String savedPhoto = ImageUploadService.upload(photo,id,AppConstants.WANTED_PERSON_FILE_PREFIX);
+            WantedPerson savedWantedPerson = wantedPersonService.getById(id);
+            savedWantedPerson.setPhoto(savedPhoto);
+            wantedPersonService.update(savedWantedPerson);
+        }
+        return id;
     }
 }

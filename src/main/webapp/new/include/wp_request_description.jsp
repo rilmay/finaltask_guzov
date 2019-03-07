@@ -92,4 +92,11 @@
                    placeholder="special signs"/>
         </div>
     </div>
+
+    <label for="photo" class="label">Photo</label>
+    <div class="field">
+        <div class="control">
+            <input class="button is-block is-light is-normal is-fullwidth" required="required" type="file" id="photo" name="photo" />
+        </div>
+    </div>
 </c:if>

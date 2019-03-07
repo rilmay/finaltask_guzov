@@ -12,7 +12,6 @@
     <div class="box">
         <p class="title is-3 has-text-info">Success</p>
         <p>You have been redirected to this page afterwards that the past action was successfully done.</p>
-        ${size}
     </div>
 </div>
 

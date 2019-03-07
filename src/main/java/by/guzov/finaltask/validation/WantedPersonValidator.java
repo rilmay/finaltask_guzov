@@ -26,7 +26,7 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
         String photo = entity.getPhoto();
 
         if (notEmpty(firstName)) {
-            if (StringValidator.validate(firstName, 4, StringValidator.TITLE_PATTERN_EN_RUS)) {
+            if (StringValidator.validate(firstName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "first name does not meet the requirements");
@@ -34,7 +34,7 @@ public class WantedPersonValidator implements EntityValidator<WantedPerson> {
         }
 
         if (notEmpty(lastName)) {
-            if (StringValidator.validate(lastName, 4, StringValidator.TITLE_PATTERN_EN_RUS)) {
+            if (StringValidator.validate(lastName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 notNullCounter++;
             } else {
                 return new ResponseMessage(false, "last name does not meet the requirements");

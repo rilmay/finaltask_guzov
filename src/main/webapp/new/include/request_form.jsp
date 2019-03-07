@@ -20,7 +20,7 @@
                 <p class="subtitle is-6">Please fill in the fields</p>
                 <p class="has-text-warning"><c:out value="${error_message}"/></p>
                 <div class="content">
-                    <form action="${pageContext.request.contextPath}/" method="post">
+                    <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
                         <p>
                             <label for="reward" class="label">Reward</label>
 
