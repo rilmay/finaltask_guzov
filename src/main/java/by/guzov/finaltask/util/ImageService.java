@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
 public final class ImageService {
-    private static final String photoDirectory = getServletContext().getInitParameter("photoDir");
+    private static final String PHOTO_DIR = getServletContext().getInitParameter("photoDir");
 
     private ImageService() {
     }
@@ -29,7 +29,7 @@ public final class ImageService {
                 throw new ServiceException("invalid photo format");
             }
             String outFileName = prefix + id + format;
-            Path path = Paths.get(photoDirectory + "/" + outFileName);
+            Path path = Paths.get(PHOTO_DIR + "/" + outFileName);
             Files.copy(photo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             return outFileName;
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public final class ImageService {
     }
 
     public static void delete(String photo) {
-        File delete = new File(photoDirectory + "/" + photo);
+        File delete = new File(PHOTO_DIR + "/" + photo);
         if (delete.exists()) {
             if (!delete.delete()) {
                 throw new ServiceException("File was not deleted");
