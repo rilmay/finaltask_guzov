@@ -17,7 +17,7 @@
 <nav class="navbar is-light">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item brand-text" onclick="openCloseMenu(menu)">
+            <a class="navbar-item brand-text" onclick="openCloseMenu()">
                 <my:lang key="interpol"/>
             </a>
             <div class="navbar-burger burger" data-target="navMenu">
@@ -38,18 +38,15 @@
                     <my:lang key="requests"/>
                 </a>
             </div>
-
         </div>
-
         <div class="navbar-menu">
             <div class="navbar-end">
 				<span class="navbar-item">
-                    <input class="button is-light" type="button" value="<my:lang key="en"/>"
+                    <input id="en" class="button is-light" type="button" value="<my:lang key="en"/>"
                            onClick="changeLang('en')">
                 </span>
                 <span class="navbar-item">
-
-                    <input class="button is-light" type="button" value="<my:lang key="ru"/>"
+                    <input id="ru" class="button is-light" type="button" value="<my:lang key="ru"/>"
                            onClick="changeLang('ru')">
                 </span>
             </div>
@@ -78,6 +75,9 @@
         </div>
     </div>
     <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById('${text.getLocaleTag()}').setAttribute("disabled","disabled")}
+
         function changeLang(langToChange) {
             var currentLocation = window.location;
             var locationToGo;
@@ -94,13 +94,13 @@
             window.location.href = locationToGo;
         }
 
-        function openCloseMenu(id) {
-            var doc = document.getElementById(id);
-            var style = doc.style.display;
-            if(style == 'none'){
-                doc.style.display = 'block';
+        function openCloseMenu() {
+            var doc = document.getElementById("menu");
+            var display = doc.style.display;
+            if(display == "none"){
+                doc.style.display = "block";
             }else {
-                doc.style.display = 'none';
+                doc.style.display = "none";
             }
         }
     </script>
