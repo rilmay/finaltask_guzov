@@ -4,13 +4,15 @@
 
 
 <jsp:directive.attribute name="key" required="true" description="key"/>
-
+<c:set value="???${key}???" var="notInMap"/>
 <c:if test="${not empty key}">
-    <c:if test="${not empty text[key]}">
-        <c:out value="${text[key]}"/>
-    </c:if>
-    <c:if test="${empty text[key]}">
-        <c:out value="key"/>
-    </c:if>
+    <c:choose>
+        <c:when test="${text[key] eq notInMap}">
+            ${key}
+        </c:when>
+        <c:otherwise>
+            <c:out value="${text[key]}"/>
+        </c:otherwise>
+    </c:choose>
 </c:if>
 

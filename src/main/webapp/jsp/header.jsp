@@ -17,7 +17,7 @@
 <nav class="navbar is-light">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item brand-text" href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">
+            <a class="navbar-item brand-text" onclick="openCloseMenu(menu)">
                 <my:lang key="interpol"/>
             </a>
             <div class="navbar-burger burger" data-target="navMenu">
@@ -29,13 +29,13 @@
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">
-                    Home
+                    <my:lang key="home"/>
                 </a>
                 <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">
-                    Wanted people
+                    <my:lang key="wanted_people"/>
                 </a>
                 <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">
-                    Requests
+                    <my:lang key="requests"/>
                 </a>
             </div>
 
@@ -57,10 +57,10 @@
         <div class="navbar-tabs">
             <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
             <span class="navbar-item">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}">Registration</a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}"><my:lang key="registration"/></a>
             </span>
                 <span class="navbar-item">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}">Log In</a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}"><my:lang key="log_in"/></a>
             </span>
             </c:if>
             <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
@@ -71,9 +71,9 @@
             </span>
                 <span class="navbar-item">
                 <a href="?${AppConstants.COMMAND}=${CommandType.LOG_OUT_USER}">
-                    Log out
+                    <my:lang key="log_out"/>
                 </a>
-            </span>
+                </span>
             </c:if>
         </div>
     </div>
@@ -92,6 +92,16 @@
                 locationToGo = currentLocation.search + '?change_lang=' + langToChange;
             }
             window.location.href = locationToGo;
+        }
+
+        function openCloseMenu(id) {
+            var doc = document.getElementById(id);
+            var style = doc.style.display;
+            if(style == 'none'){
+                doc.style.display = 'block';
+            }else {
+                doc.style.display = 'none';
+            }
         }
     </script>
 </nav>

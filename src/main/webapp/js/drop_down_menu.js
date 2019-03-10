@@ -1,9 +1,9 @@
-function openMenu(id) {
+function openCloseMenu(id) {
     var doc = document.getElementById(id);
-    doc.style.display = 'block';
-}
-
-function closeMenu(id) {
-    var doc = document.getElementById(id);
-    doc.style.display = 'none';
+    var style = doc.style.display;
+    if(style == 'none'){
+        doc.style.display = 'block';
+    }else {
+        doc.style.display = 'none';
+    }
 }
