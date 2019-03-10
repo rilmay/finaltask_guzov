@@ -13,11 +13,8 @@ import java.util.List;
 
 public class WantedPersonServiceImpl implements WantedPersonService {
     private WantedPersonDao wantedPersonDao;
-    private WantedPersonValidator wantedPersonValidator;
-
     public WantedPersonServiceImpl() {
         wantedPersonDao = daoInit();
-        wantedPersonValidator = new WantedPersonValidator();
     }
 
     private WantedPersonDao daoInit() throws ServiceException {

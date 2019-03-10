@@ -23,19 +23,16 @@ import java.util.List;
  */
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
-    private UserValidator userValidator;
-
 
     public UserServiceImpl() {
         userDao = daoInit();
-        userValidator = new UserValidator();
     }
 
     private UserDao daoInit() throws ServiceException {
         try {
             return (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            throw new ServiceException("server error",e);
         }
     }
 

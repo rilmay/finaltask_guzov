@@ -20,13 +20,11 @@ import java.util.stream.Collectors;
 
 public class RequestServiceImpl implements RequestService {
     private RequestDao requestDao;
-    private RequestValidator validator;
     private WantedPersonDao wantedPersonDao;
     private UserDao userDao;
 
     public RequestServiceImpl() {
         daoInit();
-        validator = new RequestValidator();
     }
 
     private void daoInit() {

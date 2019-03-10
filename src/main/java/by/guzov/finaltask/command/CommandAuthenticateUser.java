@@ -17,8 +17,8 @@ import java.util.Map;
 public class CommandAuthenticateUser implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
+        Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
         try {
-            Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
 
             if (StringValidator.isValid(fieldMap.get(FieldNames.LOGIN), 3, 16, StringValidator.TITLE_PATTERN_EN) &&
                     StringValidator.isValid(fieldMap.get(FieldNames.PASSWORD), 3, 16, StringValidator.PASSWORD_PATTERN)) {

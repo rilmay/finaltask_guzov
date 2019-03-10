@@ -24,7 +24,7 @@
                         <div class="field">
                             <div class="control">
                                 <input type="text" id="login" class="input is-normal" name="${FieldNames.LOGIN}" required="required"
-                                       placeholder="login" value="nikTestAuth"/>
+                                       placeholder="login" value="nikTestAuth2"/>
                             </div>
                         </div>
 

@@ -31,12 +31,44 @@
                 <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">
                     <my:lang key="home"/>
                 </a>
-                <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">
-                    <my:lang key="wanted_people"/>
-                </a>
-                <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">
-                    <my:lang key="requests"/>
-                </a>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <my:lang key="wanted_people"/>
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item"
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">
+                            All
+                        </a>
+                        <a class="navbar-item"
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}&${AppConstants.ONLY}=relevant">
+                            Relevant
+                        </a>
+                        <a class="navbar-item"
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}&${AppConstants.ONLY}=found">
+                            Found
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        <my:lang key="requests"/>
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">
+                            All
+                        </a>
+                        <a class="navbar-item"
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_APPROVED}">
+                            Relevant
+                        </a>
+                        <a class="navbar-item"
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_COMPLETED}">
+                            Completed
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="navbar-menu">

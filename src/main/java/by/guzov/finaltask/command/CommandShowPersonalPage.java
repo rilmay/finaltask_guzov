@@ -14,7 +14,7 @@ public class CommandShowPersonalPage implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User user = userService.getUserById(((User) request.getSession().getAttribute("session_user")).getId());
+            User user = userService.getUserById(((User) request.getSession().getAttribute(AppConstants.SESSION_USER)).getId());
             request.setAttribute("user", user);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "personal_page", Router.Type.FORWARD);
         } catch (ServiceException e) {
