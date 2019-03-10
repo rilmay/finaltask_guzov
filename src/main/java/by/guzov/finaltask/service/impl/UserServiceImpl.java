@@ -6,7 +6,6 @@ import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.PasswordRecovery;
-import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.Encryptor;
@@ -48,13 +47,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(User user) throws ServiceException {
         try {
-            ResponseMessage responseMessage = userValidator.validate(user);
-            if (responseMessage.isValid()) {
-                encryptPassword(user);
-                return userDao.persist(user);
-            } else {
-                throw new ServiceException(responseMessage.getMessage());
-            }
+            encryptPassword(user);
+            return userDao.persist(user);
         } catch (PersistException e) {
             throw new ServiceException("Server error", e);
         }

@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ page import="by.guzov.finaltask.util.FieldNames" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <jsp:useBean id="date" class="java.util.Date" />
 
@@ -18,7 +19,11 @@
             <div class="media-content">
                 <p class="title is-4">Make a request</p>
                 <p class="subtitle is-6">Please fill in the fields</p>
-                <p class="has-text-warning"><c:out value="${error_message}"/></p>
+                <c:if test="${not empty error_messages}">
+                    <c:forEach items="${error_messages}" var="error">
+                        <p class="has-text-danger">${error}</p>
+                    </c:forEach>
+                </c:if>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
                         <p>
@@ -26,7 +31,7 @@
 
                         <div class="field">
                             <div class="control">
-                                <input type="text" id="reward" class="input is-normal" name="reward"
+                                <input type="text" id="reward" class="input is-normal" name="${FieldNames.REWARD}"
                                        required="required"
                                        placeholder="reward (USD)" pattern="[0-9]+"/>
                             </div>
@@ -35,7 +40,7 @@
 
                         <div class="field">
                             <div class="control">
-                                <input type="date" id="application" name="application_date"
+                                <input type="date" id="application" name="${FieldNames.APPLICATION_DATE}"
                                        required="required" class="date-picker"
                                        min="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />">
                             </div>
@@ -45,7 +50,7 @@
 
                         <div class="field">
                             <div class="control">
-                                <input type="date" id="lead" name="lead_date"
+                                <input type="date" id="lead" name="${FieldNames.LEAD_DATE}"
                                        required="required" class="date-picker"
                                        min="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />"/>
                                 </p>

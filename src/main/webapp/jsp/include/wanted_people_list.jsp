@@ -12,12 +12,14 @@
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
 <c:forEach items="${peopleList}" var="person">
+    <div class="column is-8">
 <div class="box is-2">
     <article class="media">
         <div class="media-left">
             <figure class="image is-64x64">
                 <my:image rounded="rounded" variable="${person.photo}"/>
             </figure>
+            <br>
         </div>
         <div class="media-content">
             <div class="content">
@@ -32,5 +34,6 @@
         </div>
     </article>
 </div>
+    </div>
 </c:forEach>
 

@@ -9,6 +9,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ page import="by.guzov.finaltask.util.FieldNames" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <div class="column is-6 is-centered">
     <div class="box is-2">
@@ -16,13 +18,17 @@
             <div class="media-content">
                 <p class="title is-4">Registration</p>
                 <p class="subtitle is-6">Please fill in the fields</p>
-                <p class="has-text-warning"><c:out value="${error_message}"/></p>
+                <c:if test="${not empty error_messages}">
+                    <c:forEach items="${error_messages}" var="error">
+                        <p class="has-text-danger">${error}</p>
+                    </c:forEach>
+                </c:if>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <label for="login" class="label">Login</label>
                         <div class="field">
                             <div class="control">
-                                <input type="text" id="login" class="input is-normal" name="login" required="required"
+                                <input type="text" id="login" class="input is-normal" name="${FieldNames.LOGIN}" required="required"
                                        placeholder="login"/>
                             </div>
                         </div>
@@ -30,7 +36,7 @@
                         <label for="password" class="label">Password</label>
                         <div class="field">
                             <div class="control">
-                                <input type="password" id="password" class="input is-normal" name="password"
+                                <input type="password" id="password" class="input is-normal" name="${FieldNames.PASSWORD}"
                                        required="required"
                                        placeholder="password"/>
 
@@ -40,7 +46,7 @@
                         <label for="email" class="label">E-mail</label>
                         <div class="field">
                             <div class="control">
-                                <input type="text" id="email" class="input is-normal" name="email" required="required"
+                                <input type="text" id="email" class="input is-normal" name="${FieldNames.EMAIL}" required="required"
                                        placeholder="e-mail"/>
 
                             </div>
@@ -49,7 +55,7 @@
                         <label for="first_name" class="label">First name</label>
                         <div class="field">
                             <div class="control">
-                                <input type="text" id="first_name" class="input is-normal" name="first_name"
+                                <input type="text" id="first_name" class="input is-normal" name="${FieldNames.FIRST_NAME}"
                                        required="required"
                                        placeholder="first name"/>
 
@@ -59,7 +65,7 @@
                         <label for="last_name" class="label">Last name</label>
                         <div class="field">
                             <div class="control">
-                                <input type="text" id="last_name" class="input is-normal" name="last_name"
+                                <input type="text" id="last_name" class="input is-normal" name="${FieldNames.LAST_NAME}"
                                        required="required"
                                        placeholder="last name"/>
                             </div>

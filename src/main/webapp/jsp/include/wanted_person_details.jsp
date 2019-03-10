@@ -18,14 +18,15 @@
                 <figure class="image is-128x128">
                     <my:image variable="${person.photo}"/>
                 </figure>
+                <br>
+                <c:if test="${person.pending}">
+                    <p class="button is-fullwidth is-small is-warning">pending</p>
+                </c:if>
             </div>
             <div class="media-content">
                 <div class="content">
                     <p><strong><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
                         </strong><i><my:display variable="${person.personStatus}"/></i></p>
-                    <c:if test="${person.pending}">
-                        <p class="button is-small is-warning">pending</p>
-                    </c:if>
                     <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
                     <p><strong>Born: </strong>
                         <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
@@ -51,7 +52,7 @@
                         </c:if>
                     </c:if>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN and empty person.photo}">
-                        <form action="${pageContext.request.contextPath}/" method="post">
+                        <form action="${pageContext.request.contextPath}/" method="get">
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_UPLOAD_PHOTO_FORM}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">

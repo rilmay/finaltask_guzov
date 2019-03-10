@@ -6,7 +6,9 @@ import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.util.FieldNames;
 import by.guzov.finaltask.util.ImageService;
+import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +20,12 @@ public class CommandUploadPhoto implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
-            int wantedPersonId = Integer.parseInt(request.getParameter(AppConstants.ID));
-            Part photo = request.getPart("photo");
+            String wpId = request.getParameter(AppConstants.ID);
+            if (!StringValidator.isValid(wpId, 1, 9, StringValidator.NUMBER_PATTERN)) {
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid person id");
+            }
+            int wantedPersonId = Integer.parseInt(wpId);
+            Part photo = request.getPart(FieldNames.PHOTO);
             String fileName = ImageService.upload(photo, wantedPersonId, AppConstants.WANTED_PERSON_FILE_PREFIX);
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
             WantedPerson wantedPerson = wantedPersonService.getById(wantedPersonId);

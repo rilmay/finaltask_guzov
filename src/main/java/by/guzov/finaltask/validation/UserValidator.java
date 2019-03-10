@@ -4,52 +4,54 @@ import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
-import by.guzov.finaltask.dto.ResponseMessage;
+import by.guzov.finaltask.util.FieldNames;
 
-public class UserValidator implements EntityValidator<User> {
-    private static final String LOGIN = "login";
-    private static final String EMAIL = "email";
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+public class UserValidator implements Validator {
     @Override
-    public ResponseMessage validate(User entity) {
+    public List<String> validate(Map<String, String> fieldMap) {
+
+        List<String> errors = new ArrayList<>();
+        String login = fieldMap.get(FieldNames.LOGIN);
+        String password = fieldMap.get(FieldNames.PASSWORD);
+        String email = fieldMap.get(FieldNames.EMAIL);
+        String firstName = fieldMap.get(FieldNames.FIRST_NAME);
+        String lastName = fieldMap.get(FieldNames.LAST_NAME);
         try {
-            String login = entity.getLogin();
-            String password = entity.getPassword();
-            String email = entity.getEmail();
-            String firstName = entity.getFirstName();
-            String lastName = entity.getLastName();
-
-            if (!StringValidator.isValid(login, 4, StringValidator.TITLE_PATTERN_EN)) {
-                return new ResponseMessage(false, "login does not meet the requirements");
+            if (!StringValidator.isValid(login, 4, 16, StringValidator.TITLE_PATTERN_EN)) {
+                errors.add("login does not meet the requirements");
             }
 
-            if (!StringValidator.isValid(password, 4, StringValidator.PASSWORD_PATTERN)) {
-                return new ResponseMessage(false, "password does not meet the requirements");
+            if (!StringValidator.isValid(password, 4, 16, StringValidator.PASSWORD_PATTERN)) {
+                errors.add("password does not meet the requirements");
             }
 
-            if (!StringValidator.isValid(email, 4, StringValidator.EMAIL_PATTERN)) {
-                return new ResponseMessage(false, "e-mail does not meet the requirements");
+            if (!StringValidator.isValid(email, 4, 40, StringValidator.EMAIL_PATTERN)) {
+                errors.add("e-mail does not meet the requirements");
             }
 
-            if (!StringValidator.isValid(firstName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
-                return new ResponseMessage(false, "first name does not meet the requirements");
+            if (!StringValidator.isValid(firstName, 2, 16, StringValidator.TITLE_PATTERN_EN_RUS)) {
+                errors.add("first name does not meet the requirements");
             }
 
-            if (!StringValidator.isValid(lastName, 1, StringValidator.TITLE_PATTERN_EN_RUS)) {
-                return new ResponseMessage(false, "last name does not meet the requirements");
+            if (!StringValidator.isValid(lastName, 2, 16, StringValidator.TITLE_PATTERN_EN_RUS)) {
+                errors.add("last name does not meet the requirements");
             }
 
             UserDao userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
-            if (userDao.getStringsFromColumn(LOGIN).contains(login)) {
-                return new ResponseMessage(false, "login has already taken");
+            if (userDao.getStringsFromColumn(FieldNames.LOGIN).contains(login)) {
+                errors.add("login has already taken");
             }
 
-            if (userDao.getStringsFromColumn(EMAIL).contains(email)) {
-                return new ResponseMessage(false, "e-mail has already taken");
+            if (userDao.getStringsFromColumn(FieldNames.EMAIL).contains(email)) {
+                errors.add("e-mail has already taken");
             }
         } catch (DaoException e) {
-            return new ResponseMessage(false, "server error");
+            errors.add("server error");
         }
-        return new ResponseMessage(true, "");
+        return errors;
     }
 }

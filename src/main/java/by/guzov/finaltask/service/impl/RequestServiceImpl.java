@@ -7,7 +7,6 @@ import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.FullRequest;
-import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.util.AppConstants;
@@ -43,12 +42,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public Request create(Request request) throws ServiceException {
         try {
-            ResponseMessage message = validator.validate(request);
-            if (message.isValid()) {
-                return requestDao.persist(request);
-            } else {
-                throw new ServiceException(message.getMessage());
-            }
+            return requestDao.persist(request);
         } catch (PersistException e) {
             throw new ServiceException("server error", e);
         }

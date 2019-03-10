@@ -5,7 +5,6 @@ import by.guzov.finaltask.dao.PersistException;
 import by.guzov.finaltask.dao.WantedPersonDao;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.WantedPerson;
-import by.guzov.finaltask.dto.ResponseMessage;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.validation.WantedPersonValidator;
@@ -86,12 +85,7 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     @Override
     public WantedPerson create(WantedPerson wantedPerson) throws ServiceException {
         try {
-            ResponseMessage responseMessage = wantedPersonValidator.validate(wantedPerson);
-            if (responseMessage.isValid()) {
-                return wantedPersonDao.persist(wantedPerson);
-            } else {
-                throw new ServiceException(responseMessage.getMessage());
-            }
+            return wantedPersonDao.persist(wantedPerson);
         } catch (PersistException e) {
             throw new ServiceException("server error", e);
         }

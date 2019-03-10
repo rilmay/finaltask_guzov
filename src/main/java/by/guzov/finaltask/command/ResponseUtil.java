@@ -4,6 +4,7 @@ import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public final class ResponseUtil {
     private ResponseUtil() {
@@ -22,6 +23,11 @@ public final class ResponseUtil {
 
     public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, String error) {
         request.setAttribute(AppConstants.ERROR_MESSAGE, error);
+        return toCommand(request, commandType);
+    }
+
+    public static ResponseContent toCommandWithErrors(HttpServletRequest request, CommandType commandType, List<String> error) {
+        request.setAttribute(AppConstants.ERROR_MESSAGES, error);
         return toCommand(request, commandType);
     }
 

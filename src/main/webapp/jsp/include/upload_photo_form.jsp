@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ page import="by.guzov.finaltask.util.FieldNames" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <div class="column is-4 is-centered">
@@ -25,9 +26,10 @@
                         <label for="photo" class="label">Photo</label>
                         <div class="field">
                             <div class="control">
-                        <input class="button is-block is-light is-normal is-fullwidth" required="required" type="file" id="photo" name="photo" />
+                        <input class="button is-block is-light is-normal is-fullwidth" required="required" type="file" id="photo" name="${FieldNames.PHOTO}" />
                             </div>
                         </div>
+                        <br>
                         <input class="button is-block is-success is-normal is-fullwidth" type="submit" value="upload">
                     </form>
                 </div>
