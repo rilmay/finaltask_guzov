@@ -6,8 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
+import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
+
 public class MessageResourceBundle extends ResourceBundle {
-    private static final String TEXT_BASE_NAME = "i18n.language";
+    private static final String TEXT_BASE_NAME = getServletContext().getInitParameter("bundleDir");
     private static List<String> availableLocales = Arrays.asList("ru", "en");
 
     public MessageResourceBundle(String lang) {
@@ -23,7 +25,7 @@ public class MessageResourceBundle extends ResourceBundle {
     }
 
     public static MessageResourceBundle getCurrentInstance(HttpServletRequest request) {
-        return (MessageResourceBundle) request.getSession().getAttribute(AppConstants.LOCALE_BUNDLE);
+        return (MessageResourceBundle) request.getAttribute(AppConstants.LOCALE_BUNDLE);
     }
 
     private void setLocale(Locale locale) {

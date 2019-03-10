@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ page import="by.guzov.finaltask.util.FieldNames" %>
 
 <div class="column is-6 is-centered">
     <div class="box is-2">
@@ -22,7 +23,7 @@
                         <label for="login" class="label">Login</label>
                         <div class="field">
                             <div class="control">
-                                <input type="text" id="login" class="input is-normal" name="login" required="required"
+                                <input type="text" id="login" class="input is-normal" name="${FieldNames.LOGIN}" required="required"
                                        placeholder="login" value="nikTestAuth"/>
                             </div>
                         </div>
@@ -30,7 +31,7 @@
                         <label for="password" class="label">Password</label>
                         <div class="field">
                             <div class="control">
-                                <input type="password" id="password" class="input is-normal" name="password"
+                                <input type="password" id="password" class="input is-normal" name="${FieldNames.PASSWORD}"
                                        required="required"
                                        placeholder="password" value="12345"/>
 

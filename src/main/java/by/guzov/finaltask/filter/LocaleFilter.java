@@ -1,6 +1,7 @@
 package by.guzov.finaltask.filter;
 
 import by.guzov.finaltask.i18n.MessageResourceBundle;
+import by.guzov.finaltask.i18n.ResourceBundleFactory;
 import by.guzov.finaltask.util.AppConstants;
 import by.guzov.finaltask.util.CookieFinder;
 
@@ -9,7 +10,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -25,29 +25,29 @@ public class LocaleFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String change = request.getParameter("change_lang");
-        HttpSession session = request.getSession();
         if (change != null) {
-            changeLocale(session, response, change);
+            changeLocale(request, response, change);
         } else {
-            initLocale(session, request);
+            initLocale(request);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    private void changeLocale(HttpSession session, HttpServletResponse response, String locale) {
-        session.setAttribute(AppConstants.LOCALE_BUNDLE, new MessageResourceBundle(locale));
-        Cookie cookie = new Cookie(AppConstants.LANG, locale);
+    private void changeLocale(HttpServletRequest request, HttpServletResponse response, String locale) {
+        ResourceBundleFactory factory = ResourceBundleFactory.getInstance();
+        MessageResourceBundle resourceBundle = factory.getBundle(locale);
+        request.setAttribute(AppConstants.LOCALE_BUNDLE, resourceBundle);
+        Cookie cookie = new Cookie(AppConstants.LANG, resourceBundle.getLocaleTag());
         response.addCookie(cookie);
     }
 
-    private void initLocale(HttpSession session, HttpServletRequest request) {
-        if (session.getAttribute(AppConstants.LOCALE_BUNDLE) == null) {
-            Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
-            if (cookieLang.isPresent()) {
-                session.setAttribute(AppConstants.LOCALE_BUNDLE, new MessageResourceBundle(cookieLang.get()));
-            } else {
-                session.setAttribute(AppConstants.LOCALE_BUNDLE, new MessageResourceBundle(request.getLocale().getLanguage()));
-            }
+    private void initLocale(HttpServletRequest request) {
+        Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
+        ResourceBundleFactory factory = ResourceBundleFactory.getInstance();
+        if (cookieLang.isPresent()) {
+            request.setAttribute(AppConstants.LOCALE_BUNDLE, factory.getBundle(cookieLang.get()));
+        } else {
+            request.setAttribute(AppConstants.LOCALE_BUNDLE, factory.getBundle(request.getLocale().getLanguage()));
         }
     }
 
