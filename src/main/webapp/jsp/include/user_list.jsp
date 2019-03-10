@@ -40,5 +40,14 @@
                 </div>
             </div>
         </div>
+        <c:if test="${userList.size() eq 0}">
+            <div class="has-text-centered is-light">
+                <br>
+                <br>
+                <p class="subtitle">Nothing to show...</p>
+                <br>
+                <br>
+            </div>
+        </c:if>
     </div>
 </div>

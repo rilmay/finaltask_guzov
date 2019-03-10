@@ -38,7 +38,7 @@
                                value="${CommandType.SHOW_REQUESTS_BY_WANTED_PERSON}">
                         <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
                         <input class="button is-block is-light is-normal is-fullwidth" type="submit"
-                               value="available requests">
+                               value="requests">
                     </form>
                     <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending}">
                         <c:if test="${person.personStatus eq 'missing' or person.personStatus eq 'wanted'}">
