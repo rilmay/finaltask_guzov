@@ -38,15 +38,15 @@
                     <div class="navbar-dropdown">
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">
-                            All
+                            <my:lang key="all"/>
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}&${AppConstants.ONLY}=relevant">
-                            Relevant
+                            <my:lang key="status_relevant"/>
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}&${AppConstants.ONLY}=found">
-                            Found
+                            <my:lang key="status_found"/>
                         </a>
                     </div>
                 </div>
@@ -56,15 +56,15 @@
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">
-                            All
+                            <my:lang key="all"/>
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_APPROVED}">
-                            Relevant
+                            <my:lang key="status_relevant"/>
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_COMPLETED}">
-                            Completed
+                            <my:lang key="status_completed"/>
                         </a>
                     </div>
                 </div>
@@ -75,11 +75,11 @@
                     <div class="navbar-dropdown">
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}">
-                            Relevant
+                            <my:lang key="status_relevant"/>
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}&${AppConstants.ONLY}=expired">
-                            Archive
+                            <my:lang key="archive"/>
                         </a>
                     </div>
                 </div>

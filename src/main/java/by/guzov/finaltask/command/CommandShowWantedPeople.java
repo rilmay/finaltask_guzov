@@ -21,7 +21,7 @@ public class CommandShowWantedPeople implements Command {
             List<WantedPerson> wantedPeople;
             if (only == null) {
                 wantedPeople = wantedPersonService.getAllExceptPending();
-            } else if (only.equals("relevant")) {
+            } else if (only.equals("status_relevant")) {
                 wantedPeople = wantedPersonService.getAllExceptPending().stream()
                         .filter(wantedPerson -> Arrays.asList("missing", "wanted").contains(wantedPerson.getPersonStatus()))
                         .collect(Collectors.toList());

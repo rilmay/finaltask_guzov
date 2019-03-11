@@ -88,3 +88,4 @@ fabric.properties
 
 Start.java
 .idea/*
+src/main/webapp/img/user/*

@@ -39,7 +39,7 @@ public class RecordValidator implements Validator {
             errors.add("description does not meet the requirements");
         }
 
-        if (!Arrays.asList("relevant", "expired").contains(record_status)) {
+        if (!Arrays.asList("status_relevant", "expired").contains(record_status)) {
             errors.add("status does not meet the requirements");
         }
 
