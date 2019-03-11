@@ -52,6 +52,9 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_REQUESTS_BY_WANTED_PERSON, new CommandShowRequestsByWantedPerson());
         commandMap.put(CommandType.SHOW_UPLOAD_PHOTO_FORM, new CommandShowUploadPhotoForm());
         commandMap.put(CommandType.UPLOAD_PHOTO, new CommandUploadPhoto());
+        commandMap.put(CommandType.SHOW_RECORD_FORM, new CommandShowRecordForm());
+        commandMap.put(CommandType.SEND_RECORD, new CommandSendRecord());
+        commandMap.put(CommandType.SHOW_RECORD_LIST,new CommandShowRecordList());
     }
 
     /**

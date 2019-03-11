@@ -1,6 +1,8 @@
 package by.guzov.finaltask.dao.impl;
 
 import by.guzov.finaltask.dao.AbstractJdbcDao;
+import by.guzov.finaltask.dao.AutoConnection;
+import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.RecordDao;
 import by.guzov.finaltask.domain.Record;
 
@@ -19,16 +21,17 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     private static final String RECORD_STATUS = "record_status";
     private static final String RATING = "rating";
     private static final String NAME = "name";
+    private static final String PHOTO = "photo";
 
     private static final String DELETE_QUERY = "DELETE FROM record WHERE id = ?";
     private static final String UPDATE_QUERY = "UPDATE record " +
-            "SET description = ?, place = ?, date = ?, record_status = ?, rating = ?, name = ? " +
+            "SET description = ?, place = ?, date = ?, record_status = ?, rating = ?, name = ?, photo = ? " +
             "WHERE id = ?";
     private static final String SELECT_QUERY = "SELECT id, description, place, date, record_status, " +
-            "rating, name FROM record";
+            "rating, name, photo FROM record";
     private static final String CREATE_QUERY = "INSERT INTO record " +
-            "(description, place, date, record_status, rating, name) " +
-            "VALUES (?, ?, ?, ?, ?, ?)";
+            "(description, place, date, record_status, rating, name, photo) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     private static final String SELECT_COLUMN = "FROM record";
 
@@ -44,6 +47,7 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
             record.setRecordStatus(rs.getString(RECORD_STATUS));
             record.setRating(rs.getInt(RATING));
             record.setName(rs.getString(NAME));
+            record.setPhoto(rs.getString(PHOTO));
             records.add(record);
         }
         return records;
@@ -57,7 +61,7 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, Record object) throws SQLException {
         statementPreparation(statement, object);
-        statement.setInt(7, object.getId());
+        statement.setInt(8, object.getId());
 
     }
 
@@ -68,7 +72,8 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
         statement.setDate(i++, object.getDate());
         statement.setString(i++, object.getRecordStatus());
         statement.setInt(i++, object.getRating());
-        statement.setString(i, object.getName());
+        statement.setString(i++, object.getName());
+        statement.setString(i, object.getPhoto());
     }
 
     @Override
@@ -93,11 +98,33 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
 
     @Override
     protected boolean hasColumn(String column) {
-        return Arrays.asList(ID, DESCRIPTION, PLACE, DATE, RECORD_STATUS, RATING, NAME).contains(column);
+        return Arrays.asList(ID, DESCRIPTION, PLACE, DATE, RECORD_STATUS, RATING, NAME, PHOTO).contains(column);
     }
 
     @Override
     protected String getSelectColumnQuery() {
         return SELECT_COLUMN;
+    }
+
+    @AutoConnection
+    @Override
+    public List<Record> getAllRelevant() throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery() + " WHERE record_status = 'relevant'")) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    @AutoConnection
+    @Override
+    public List<Record> getAllExpired() throws DaoException {
+        try (PreparedStatement preparedStatement =
+                     connection.prepareStatement(getSelectQuery() + " WHERE record_status = 'expired'")) {
+            return parseResultSet(preparedStatement.executeQuery());
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 }

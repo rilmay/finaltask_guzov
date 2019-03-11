@@ -10,7 +10,6 @@ import by.guzov.finaltask.dto.FullRequest;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.util.AppConstants;
-import by.guzov.finaltask.validation.RequestValidator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

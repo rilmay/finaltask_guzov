@@ -2,9 +2,10 @@ package by.guzov.finaltask.validation;
 
 public class ValidatorFactory {
     private static ValidatorFactory INSTANCE = new ValidatorFactory();
-    private UserValidator userValidator = new UserValidator();
-    private WantedPersonValidator wantedPersonValidator = new WantedPersonValidator();
-    private RequestValidator requestValidator = new RequestValidator();
+    private Validator userValidator = new UserValidator();
+    private Validator wantedPersonValidator = new WantedPersonValidator();
+    private Validator requestValidator = new RequestValidator();
+    private Validator recordValidator = new RecordValidator();
 
 
     private ValidatorFactory() {
@@ -15,15 +16,19 @@ public class ValidatorFactory {
         return INSTANCE;
     }
 
-    public UserValidator getUserValidator() {
+    public Validator getUserValidator() {
         return userValidator;
     }
 
-    public WantedPersonValidator getWantedPersonValidator() {
+    public Validator getWantedPersonValidator() {
         return wantedPersonValidator;
     }
 
-    public RequestValidator getRequestValidator() {
+    public Validator getRequestValidator() {
         return requestValidator;
+    }
+
+    public Validator getRecordValidator() {
+        return recordValidator;
     }
 }

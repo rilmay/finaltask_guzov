@@ -19,17 +19,17 @@ public class CommandShowWantedPeople implements Command {
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
             String only = request.getParameter("ONLY");
             List<WantedPerson> wantedPeople;
-            if(only == null){
+            if (only == null) {
                 wantedPeople = wantedPersonService.getAllExceptPending();
-            }else if(only.equals("relevant")){
+            } else if (only.equals("relevant")) {
                 wantedPeople = wantedPersonService.getAllExceptPending().stream()
-                        .filter(wantedPerson -> Arrays.asList("missing","wanted").contains(wantedPerson.getPersonStatus()))
+                        .filter(wantedPerson -> Arrays.asList("missing", "wanted").contains(wantedPerson.getPersonStatus()))
                         .collect(Collectors.toList());
-            }else if (only.equals("found")){
+            } else if (only.equals("found")) {
                 wantedPeople = wantedPersonService.getAllExceptPending().stream()
-                        .filter(wantedPerson -> Arrays.asList("found","caught").contains(wantedPerson.getPersonStatus()))
+                        .filter(wantedPerson -> Arrays.asList("found", "caught").contains(wantedPerson.getPersonStatus()))
                         .collect(Collectors.toList());
-            }else {
+            } else {
                 wantedPeople = wantedPersonService.getAllExceptPending();
             }
             request.setAttribute("peopleList", wantedPeople);

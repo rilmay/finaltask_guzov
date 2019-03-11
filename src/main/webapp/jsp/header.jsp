@@ -74,11 +74,11 @@
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item"
-                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_APPROVED}">
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}">
                             Relevant
                         </a>
                         <a class="navbar-item"
-                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_COMPLETED}">
+                           href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}&${AppConstants.ONLY}=expired">
                             Archive
                         </a>
                     </div>

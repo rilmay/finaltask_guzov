@@ -9,5 +9,5 @@
     <img class="<c:if test="${rounded eq 'rounded'}">is-square is-rounded</c:if>" src="${pageContext.request.contextPath}/img/user/${variable}" />
 </c:if>
 <c:if test="${empty variable}">
-    <img class="<c:if test="${rounded eq 'rounded'}">is-square is-rounded</c:if>" src=" <c:url value="/img/common/person.png"/> ">
+    <img class="<c:if test="${rounded eq 'rounded'}">is-square is-rounded</c:if>" src=" <c:url value="/img/common/no_image.png"/> ">
 </c:if>

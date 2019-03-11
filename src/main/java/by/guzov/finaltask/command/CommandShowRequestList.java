@@ -8,6 +8,7 @@ import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandShowRequestList implements Command {
@@ -17,15 +18,9 @@ public class CommandShowRequestList implements Command {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             String only = request.getParameter(AppConstants.ONLY);
             List<FullRequest> requests;
-            if(only == null){
-                requests = requestService.getAllByUserAndStatuses(null,
-                        AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED);
-            }else if(only.equals(AppConstants.STATUS_APPROVED)){
-                requests = requestService.getAllByUserAndStatuses(null,
-                        AppConstants.STATUS_APPROVED);
-            }else if(only.equals(AppConstants.STATUS_COMPLETED)){
-                requests = requestService.getAllByUserAndStatuses(null, AppConstants.STATUS_COMPLETED);
-            }else {
+            if (Arrays.asList(AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED).contains(only)) {
+                requests = requestService.getAllByUserAndStatuses(null, only);
+            } else {
                 requests = requestService.getAllByUserAndStatuses(null,
                         AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED);
             }

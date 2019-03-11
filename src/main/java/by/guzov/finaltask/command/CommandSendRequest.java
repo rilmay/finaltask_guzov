@@ -1,10 +1,10 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.domain.Builder.Builder;
-import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
+import by.guzov.finaltask.domain.Builder.Builder;
+import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
@@ -14,7 +14,7 @@ import by.guzov.finaltask.util.AppConstants;
 import by.guzov.finaltask.util.FieldNames;
 import by.guzov.finaltask.util.HttpRequestMapper;
 import by.guzov.finaltask.util.ImageService;
-import by.guzov.finaltask.validation.RequestValidator;
+import by.guzov.finaltask.validation.Validator;
 import by.guzov.finaltask.validation.ValidatorFactory;
 
 import javax.servlet.ServletException;
@@ -39,7 +39,7 @@ public class CommandSendRequest implements Command {
             } else {
                 errors.addAll(createPersonAndReturnErrors(fieldMap, request));
             }
-            RequestValidator requestValidator = ValidatorFactory.getInstance().getRequestValidator();
+            Validator requestValidator = ValidatorFactory.getInstance().getRequestValidator();
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
                 return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors);

@@ -11,7 +11,6 @@ import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.Encryptor;
 import by.guzov.finaltask.util.MailSenderService;
 import by.guzov.finaltask.validation.StringValidator;
-import by.guzov.finaltask.validation.UserValidator;
 
 import javax.mail.MessagingException;
 import java.sql.Timestamp;
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
         try {
             return (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         } catch (DaoException e) {
-            throw new ServiceException("server error",e);
+            throw new ServiceException("server error", e);
         }
     }
 

@@ -7,12 +7,12 @@ import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.WantedPersonService;
-import by.guzov.finaltask.validation.WantedPersonValidator;
 
 import java.util.List;
 
 public class WantedPersonServiceImpl implements WantedPersonService {
     private WantedPersonDao wantedPersonDao;
+
     public WantedPersonServiceImpl() {
         wantedPersonDao = daoInit();
     }

@@ -14,6 +14,7 @@ public class Record implements Identified<Integer> {
     private String recordStatus;
     private int rating;
     private String name;
+    private String photo;
 
     @Override
     public Integer getId() {

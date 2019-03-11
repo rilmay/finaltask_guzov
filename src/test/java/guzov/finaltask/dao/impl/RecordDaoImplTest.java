@@ -35,6 +35,7 @@ public class RecordDaoImplTest {
         record.setPlace("Gomel");
         record.setRating(4);
         record.setRecordStatus("expired");
+        record.setPhoto("wp.jpg");
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM record WHERE id<100");
     }
@@ -42,20 +43,20 @@ public class RecordDaoImplTest {
 
     @Test
     public void getSelectQuery() {
-        Assert.assertEquals("SELECT id, description, place, date, record_status, rating, name FROM record",
+        Assert.assertEquals("SELECT id, description, place, date, record_status, rating, name, photo FROM record",
                 daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
         Assert.assertEquals("INSERT INTO record (description, place, date, record_status, " +
-                "rating, name) VALUES (?, ?, ?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
+                "rating, name, photo) VALUES (?, ?, ?, ?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
         Assert.assertEquals("UPDATE record SET description = ?, place = ?, date = ?, " +
-                "record_status = ?, rating = ?, name = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
+                "record_status = ?, rating = ?, name = ?, photo = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
@@ -97,11 +98,20 @@ public class RecordDaoImplTest {
 
     @Test
     public void getAllTest() throws Exception {
-
         deleteAll.execute();
         Record forGetAll = recordDao.persist(record);
         Assert.assertEquals(forGetAll.getName(),
                 recordDao.getAll().stream().findFirst().orElseGet(Record::new).getName());
+    }
+
+    @Test
+    public void getAllExpiredTest() throws Exception{
+        deleteAll.execute();
+        Record forGetAllExpired = recordDao.persist(record);
+
+        Assert.assertEquals(forGetAllExpired.getName(),
+                recordDao.getAllExpired().stream().findFirst().orElseGet(Record::new).getName());
+
     }
 
     @After

@@ -23,6 +23,7 @@ public enum CommandType {
     CANCEL_REQUEST(new Restrictions().setRoles(ADMIN, USER)),
     SET_COMPLETED_REQUEST(new Restrictions().setRoles(ADMIN)),
     UPLOAD_PHOTO(new Restrictions().setRoles(ADMIN)),
+    SEND_RECORD(new Restrictions().setRoles(ADMIN)),
     SHOW_AUTHENTICATION_PAGE,
     SHOW_REGISTRATION_PAGE,
     SHOW_EMPTY_PAGE,
@@ -42,7 +43,9 @@ public enum CommandType {
     SHOW_REQUESTS_BY_USER(new Restrictions().setRoles(ADMIN)),
     SHOW_MY_REQUESTS(new Restrictions().setRoles(ADMIN, USER)),
     SHOW_REQUESTS_BY_WANTED_PERSON,
-    SHOW_UPLOAD_PHOTO_FORM(new Restrictions().setRoles(ADMIN));
+    SHOW_UPLOAD_PHOTO_FORM(new Restrictions().setRoles(ADMIN)),
+    SHOW_RECORD_FORM(new Restrictions().setRoles(ADMIN)),
+    SHOW_RECORD_LIST;
 
     public Restrictions getRestrictions() {
         return restrictions;

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `wanted_person` (
   `id` INT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
-  `person_status` ENUM('pending', 'missing', 'wanted', 'caught', 'found') NOT NULL,
+  `person_status` ENUM('missing', 'wanted', 'caught', 'found') NOT NULL,
   `description` TEXT(200) NULL,
   `birth_place` VARCHAR(45) NULL,
   `birth_date` DATE NULL,
@@ -49,20 +49,7 @@ CREATE TABLE IF NOT EXISTS `record` (
   `record_status` ENUM('relevant', 'expired') NOT NULL,
   `rating` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
+  `photo` VARCHAR(45) NULL,
   PRIMARY KEY (`id`));
-
-CREATE TABLE IF NOT EXISTS `record_wanted_person` (
-  `id` INT NULL AUTO_INCREMENT,
-  `wanted_person_id` INT NOT NULL,
-  `record_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_record_wanted_person_wanted_person1`
-    FOREIGN KEY (`wanted_person_id`)
-    REFERENCES `wanted_person` (`id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `fk_record_wanted_person_record1`
-    FOREIGN KEY (`record_id`)
-    REFERENCES `record` (`id`)
-    ON DELETE CASCADE);
 
 

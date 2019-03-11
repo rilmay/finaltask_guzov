@@ -24,7 +24,7 @@ public final class HttpRequestMapper {
                 outMap.put(parameterName, new String(value.getBytes("ISO-8859-1"), "UTF-8"));
             }
             return outMap;
-        }catch (IOException e){
+        } catch (IOException e) {
             throw new ServiceException("server error");
         }
     }

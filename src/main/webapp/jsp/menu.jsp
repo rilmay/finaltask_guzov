@@ -26,6 +26,8 @@
             <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == AppConstants.ADMIN}">
                 <p class="menu-label"><my:lang key="administration"/></p>
                 <ul class="menu-list">
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_FORM}"><my:lang key="make_record"/></a>
+                    </li>
                     <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}"><my:lang key="user_list"/></a>
                     </li>
                     <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_REQUEST_LIST}">
