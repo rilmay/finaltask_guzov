@@ -1,6 +1,7 @@
 function ondeleteclick(formid) {
     swal({
         title: 'Are you sure?',
+        icon: "warning",
         dangerMode: true,
         buttons: {
             cancel: true,
@@ -18,4 +19,15 @@ function ondeleteclick(formid) {
         );
     }
 })
+}
+
+function successWindow(title) {
+    swal({
+        icon: "success",
+        title: title,
+        timer: 2000,
+        buttons: {
+            confirm: true
+        }
+    });
 }

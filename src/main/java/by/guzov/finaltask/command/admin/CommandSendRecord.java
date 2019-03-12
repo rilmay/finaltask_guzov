@@ -29,7 +29,7 @@ public class CommandSendRecord implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
-        fieldMap.put(FieldNames.RECORD_SATUS, "status_relevant");
+        fieldMap.put(FieldNames.RECORD_SATUS, "relevant");
 
         Validator recordValidator = ValidatorFactory.getInstance().getRecordValidator();
         List<String> errors = recordValidator.validate(fieldMap);

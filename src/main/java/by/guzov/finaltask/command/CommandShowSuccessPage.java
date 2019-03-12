@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CommandShowSuccessPage implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "success_page", Router.Type.FORWARD);
+        request.setAttribute("success",true);
+        return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "empty", Router.Type.FORWARD);
     }
 }

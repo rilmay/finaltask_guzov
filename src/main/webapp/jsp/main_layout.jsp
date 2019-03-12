@@ -48,6 +48,9 @@
             </section>
             </c:if>
             <br>
+            <c:if test="${success}">
+                <script>window.onload = function () { successWindow('${text['success_title']}') }</script>
+            </c:if>
             <section>
                 <jsp:include page="include/${view_name}.jsp"/>
             </section>
