@@ -19,8 +19,9 @@
     <link rel="stylesheet" href="static/bulma.css">
 
     <link rel="stylesheet" href="css/dropdown_menu.css">
-    <link rel="script" href="js/drop_down_menu.js">
-
+    <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/custom.js"></script>
 </head>
 <body>
 

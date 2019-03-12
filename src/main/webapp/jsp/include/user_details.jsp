@@ -34,9 +34,11 @@
                     <input class="button is-block is-success is-normal is-fullwidth" type="submit"
                            value="change role to ${(user.role eq AppConstants.USER)? 'admin':'user'}">
                 </form>
-                <form action="${pageContext.request.contextPath}/" method="post">
-                    <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
-                    <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="delete">
+                <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">
+                    <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
+                    <input type="hidden" name=${AppConstants.ID} value="${user.id}">
+                    <input class="button is-block is-info is-normal is-fullwidth" type="button" value="delete"
+                           onclick="ondeleteclick('delete_form')">
                 </form>
             </div>
         </article>
