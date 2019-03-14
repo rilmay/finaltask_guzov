@@ -35,7 +35,6 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_PERSON_DETAILS, new CommandShowPersonDetails());
         commandMap.put(CommandType.SHOW_RECOVERY_PAGE, new CommandShowRecoveryPage());
         commandMap.put(CommandType.RECOVER_PASSWORD, new CommandRecoverPassword());
-        commandMap.put(CommandType.SHOW_SUCCESS_PAGE, new CommandShowSuccessPage());
         commandMap.put(CommandType.SHOW_REQUEST_FORM, new CommandShowRequestForm());
         commandMap.put(CommandType.SEND_REQUEST, new CommandSendRequest());
         commandMap.put(CommandType.DELETE_WANTED_PERSON, new CommandDeleteWantedPerson());

@@ -34,7 +34,6 @@ public enum CommandType {
     SHOW_WANTED_PEOPLE,
     SHOW_PERSON_DETAILS,
     SHOW_RECOVERY_PAGE(new Restrictions().setRoles(ANON)),
-    SHOW_SUCCESS_PAGE,
     SHOW_REQUEST_FORM(new Restrictions().setRoles(USER, ADMIN)),
     SHOW_REQUEST_LIST,
     SHOW_REQUEST_DETAILS,

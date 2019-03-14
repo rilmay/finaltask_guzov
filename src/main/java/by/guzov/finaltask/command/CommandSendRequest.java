@@ -50,7 +50,7 @@ public class CommandSendRequest implements Command {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             requestService.create(wantedPersonRequest);
 
-            return ResponseUtil.redirectTo(request, CommandType.SHOW_SUCCESS_PAGE.name());
+            return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_MY_REQUESTS.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
             return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors);

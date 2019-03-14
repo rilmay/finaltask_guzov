@@ -39,4 +39,13 @@ public final class ResponseUtil {
         request.setAttribute("redirect_command", url);
         return sendByUrl(AppConstants.REDIRECT_PAGE_PATH, Router.Type.FORWARD);
     }
+
+    public static ResponseContent redirectWIthSuccess(HttpServletRequest request, String url) {
+        return redirectTo(request, url+"&success=true");
+    }
+
+
+    public static void addSuccess(HttpServletRequest request) {
+        request.setAttribute("success", true);
+    }
 }

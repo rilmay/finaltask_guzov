@@ -48,7 +48,7 @@ public class CommandSendRecord implements Command {
                 saved.setPhoto(savedPhoto);
                 recordService.update(saved);
             }
-            return ResponseUtil.toCommand(request, CommandType.SHOW_SUCCESS_PAGE);
+            return ResponseUtil.redirectWIthSuccess(request,CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
             return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_RECORD_FORM, errors);

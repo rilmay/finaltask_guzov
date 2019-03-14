@@ -90,10 +90,11 @@
                         </c:if>
                     </c:if>
                     <c:if test="${role == AppConstants.ADMIN or sessionScope.get(AppConstants.SESSION_USER).id == current.userId}">
-                        <form action="${pageContext.request.contextPath}/" method="post">
+                        <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_REQUEST}">
                             <input type="hidden" name="${AppConstants.ID}" value="${current.id}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="delete">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="button" value="delete"
+                                   onclick="ondeleteclick('delete_form')">
                         </form>
                     </c:if>
                 </div>

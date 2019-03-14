@@ -26,7 +26,7 @@ public class CommandAuthenticateUser implements Command {
                 UserService userService = ServiceFactory.getInstance().getUserService();
                 User valid = userService.authenticate(unsigned);
                 request.getSession().setAttribute(AppConstants.SESSION_USER, valid);
-                return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
+                return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
             } else {
                 return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, "check login and password");
             }

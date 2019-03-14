@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void recoverPassword(PasswordRecovery recovery, String code, String newPassword) throws ServiceException {
+    public User recoverPassword(PasswordRecovery recovery, String code, String newPassword) throws ServiceException {
         try {
             if (recovery.getCode().equals(code) &&
                     StringValidator.isValid(newPassword, 4, StringValidator.PASSWORD_PATTERN)
@@ -136,6 +136,7 @@ public class UserServiceImpl implements UserService {
                 user.setPassword(newPassword);
                 encryptPassword(user);
                 userDao.update(user);
+                return user;
             } else {
                 throw new ServiceException("invalid recovery procedure");
             }

@@ -25,7 +25,7 @@ public class CommandDeleteWantedPerson implements Command {
             if (photo != null) {
                 ImageService.delete(photo);
             }
-            return ResponseUtil.redirectTo(request, CommandType.SHOW_WANTED_PEOPLE.name());
+            return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_WANTED_PEOPLE.name());
         } catch (ServiceException | NumberFormatException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid deleting procedure");
         }

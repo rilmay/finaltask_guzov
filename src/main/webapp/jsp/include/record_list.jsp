@@ -17,7 +17,7 @@
             <article class="media">
                 <div class="media-left">
                     <figure class="image is-64x64">
-                        <my:image rounded="rounded" variable="${record.photo}"/>
+                        <my:image variable="${record.photo}"/>
                     </figure>
                     <br>
                 </div>
@@ -30,7 +30,6 @@
                                 </a>
                             </strong></p>
                         <p><my:display variable="${record.description}"/></p>
-                            ${record.photo}
                     </div>
                 </div>
             </article>

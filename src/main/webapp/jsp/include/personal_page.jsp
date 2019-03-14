@@ -21,9 +21,10 @@
                         <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
                     </div>
                     <br>
-                    <form action="${pageContext.request.contextPath}/" method="post">
+                    <form id="" action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="delete">
+                        <input class="button is-block is-info is-normal is-fullwidth" type="button" value="delete"
+                               onclick="ondeleteclick('delete_form')">
                     </form>
                 </div>
         </article>

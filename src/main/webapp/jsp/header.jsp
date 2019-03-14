@@ -121,9 +121,6 @@
         </div>
     </div>
     <script type="text/javascript">
-        window.onload = function () {
-            document.getElementById('${text.getLocaleTag()}').setAttribute("disabled","disabled")}
-
         function changeLang(langToChange) {
             var currentLocation = window.location;
             var locationToGo;

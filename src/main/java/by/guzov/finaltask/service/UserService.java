@@ -33,7 +33,7 @@ public interface UserService {
 
     PasswordRecovery generateRecovery(String login) throws ServiceException;
 
-    void recoverPassword(PasswordRecovery passwordRecovery, String code, String newPassword) throws ServiceException;
+    User recoverPassword(PasswordRecovery passwordRecovery, String code, String newPassword) throws ServiceException;
 
     // Provide your code here
 

@@ -35,8 +35,9 @@ public class CommandRegisterUser implements Command {
             user.setRole(AppConstants.USER);
             user.setRegistrationDate(Date.valueOf(LocalDate.now()));
             UserService userService = ServiceFactory.getInstance().getUserService();
-            userService.register(user);
-            return ResponseUtil.redirectTo(request, CommandType.SHOW_SUCCESS_PAGE.name());
+            User registered = userService.register(user);
+            request.getSession().setAttribute(AppConstants.SESSION_USER,registered);
+            return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
             errors.add("*Note: all fields(except e-mail) must " +

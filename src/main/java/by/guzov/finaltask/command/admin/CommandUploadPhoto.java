@@ -34,7 +34,7 @@ public class CommandUploadPhoto implements Command {
             WantedPerson wantedPerson = wantedPersonService.getById(wantedPersonId);
             wantedPerson.setPhoto(fileName);
             wantedPersonService.update(wantedPerson);
-            return ResponseUtil.toCommand(request, CommandType.SHOW_SUCCESS_PAGE);
+            return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (IOException | ServletException | ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
         }

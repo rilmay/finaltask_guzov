@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="static/bulma.css">
 
     <link rel="stylesheet" href="css/dropdown_menu.css">
-    <script src="/js/sweetalert.min.js"></script>
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/custom.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/custom.js"></script>
 </head>
 <body>
 
@@ -48,9 +48,6 @@
             </section>
             </c:if>
             <br>
-            <c:if test="${success}">
-                <script>window.onload = function () { successWindow('${text['success_title']}') }</script>
-            </c:if>
             <section>
                 <jsp:include page="include/${view_name}.jsp"/>
             </section>
@@ -64,5 +61,9 @@
         </p>
     </div>
 </footer>
+    <script>window.onload = function () {
+        <c:if test="${success}">successWindow('${text['success_title']}')</c:if>
+        document.getElementById('${text.getLocaleTag()}').setAttribute("disabled","disabled")}
+    </script>
 <script async type="text/javascript" src="../js/bulma.js"></script>
 </body>

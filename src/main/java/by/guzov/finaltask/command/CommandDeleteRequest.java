@@ -20,7 +20,7 @@ public class CommandDeleteRequest implements Command {
             Request current = requestService.getById(requestId);
             if (sessionUser.getRole().equals(AppConstants.ADMIN) || sessionUser.getId() == current.getUserId()) {
                 requestService.delete(current);
-                return ResponseUtil.redirectTo(request, CommandType.SHOW_REQUEST_LIST.name());
+                return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_REQUEST_LIST.name());
             } else {
                 return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "you are forbidden to do this");
             }

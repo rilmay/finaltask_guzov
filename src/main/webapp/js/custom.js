@@ -12,11 +12,11 @@ function ondeleteclick(formid) {
     }).then((value) => {
         if(value == "delete"){
         document.getElementById(formid).submit();
-        swal(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-        );
+        // swal(
+        //     'Deleted!',
+        //     'Your file has been deleted.',
+        //     'success'
+        // );
     }
 })
 }
@@ -25,7 +25,7 @@ function successWindow(title) {
     swal({
         icon: "success",
         title: title,
-        timer: 2000,
+        timer: 700,
         buttons: {
             confirm: true
         }
