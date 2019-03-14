@@ -24,7 +24,9 @@ public class WantedPersonBuilder implements Builder<WantedPerson> {
         wantedPerson.setLastName(lastName);
         wantedPerson.setPersonStatus(status);
         wantedPerson.setDescription(description);
-        wantedPerson.setBirthDate(Date.valueOf(birthDate));
+        if(birthDate != null && !birthDate.isEmpty()) {
+            wantedPerson.setBirthDate(Date.valueOf(birthDate));
+        }
         wantedPerson.setBirthPlace(birthPlace);
         wantedPerson.setSearchArea(searchArea);
         wantedPerson.setSpecialSigns(specialSigns);
