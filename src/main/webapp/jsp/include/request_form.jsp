@@ -11,6 +11,7 @@
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <%@ page import="by.guzov.finaltask.util.FieldNames" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <jsp:useBean id="date" class="java.util.Date" />
 
 <div class="column is-6 is-centered">
@@ -26,16 +27,8 @@
                 </c:if>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
-                        <p>
-                            <label for="reward" class="label">Reward</label>
+                        <my:inputfield label="Reward" name="${FieldNames.REWARD}"/>
 
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="reward" class="input is-normal" name="${FieldNames.REWARD}"
-                                       required="required"
-                                       placeholder="reward (USD)" pattern="[0-9]+"/>
-                            </div>
-                        </div>
                         <label for="application" class="label">Application date</label>
 
                         <div class="field">

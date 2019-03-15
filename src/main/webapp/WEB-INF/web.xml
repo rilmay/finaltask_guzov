@@ -14,7 +14,7 @@
     </context-param>
     <context-param>
         <param-name>bundleDir</param-name>
-        <param-value>i18n.language</param-value>
+        <param-value>i18n.messages</param-value>
     </context-param>
     <context-param>
         <param-name>dbProps</param-name>

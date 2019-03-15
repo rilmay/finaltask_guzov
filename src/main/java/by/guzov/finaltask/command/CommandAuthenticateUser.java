@@ -19,18 +19,19 @@ public class CommandAuthenticateUser implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
         try {
-
             if (StringValidator.isValid(fieldMap.get(FieldNames.LOGIN), 3, 16, StringValidator.TITLE_PATTERN_EN) &&
                     StringValidator.isValid(fieldMap.get(FieldNames.PASSWORD), 3, 16, StringValidator.PASSWORD_PATTERN)) {
                 User unsigned = BuilderFactory.getInstance().getUserBuilder().build(fieldMap);
                 UserService userService = ServiceFactory.getInstance().getUserService();
                 User valid = userService.authenticate(unsigned);
                 request.getSession().setAttribute(AppConstants.SESSION_USER, valid);
-                return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
+                return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
             } else {
+                fieldMap.forEach(request::setAttribute);
                 return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, "check login and password");
             }
         } catch (ServiceException e) {
+            fieldMap.forEach(request::setAttribute);
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, e.getMessage());
         }
     }

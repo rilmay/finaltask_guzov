@@ -10,6 +10,7 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <%@ page import="by.guzov.finaltask.util.FieldNames" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <div class="column is-6 is-centered">
     <div class="box is-2">
@@ -20,23 +21,8 @@
                 <p class="has-text-danger"><c:out value="${error_message}"/></p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <label for="login" class="label">Login</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="login" class="input is-normal" name="${FieldNames.LOGIN}" required="required"
-                                       placeholder="login" value="nikRec2"/>
-                        </div>
-                        </div>
-
-                        <label for="password" class="label">Password</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="password" id="password" class="input is-normal" name="${FieldNames.PASSWORD}"
-                                       required="required"
-                                       placeholder="password" value="12345"/>
-
-                            </div>
-                        </div>
+                        <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>
+                        <my:inputfield label="Password" name="${FieldNames.PASSWORD}" type="password"/>
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.AUTHENTICATE_USER}">
                         <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="Log in">
                     </form>

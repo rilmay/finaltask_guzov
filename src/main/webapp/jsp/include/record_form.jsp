@@ -11,6 +11,7 @@
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 <%@ page import="by.guzov.finaltask.util.FieldNames" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <div class="column is-6 is-centered">
     <div class="box is-2">
@@ -25,18 +26,10 @@
                 </c:if>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
-                        <p>
-                            <label for="title" class="label">Title</label>
 
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="title" class="input is-normal" name="${FieldNames.NAME}"
-                                       required="required"
-                                       placeholder="title"/>
-                            </div>
-                        </div>
+                        <my:inputfield label="Title" name="${FieldNames.NAME}"/>
 
-                            <label for="rating" class="label">Rating</label>
+                        <label for="rating" class="label">Rating</label>
                         <div class="field">
                             <div class="control">
                                 <select required="required" id="rating" class="select" name="${FieldNames.RATING}" size="1">
@@ -49,17 +42,7 @@
                             </div>
                         </div>
 
-
-                        <label for="place" class="label">Place</label>
-
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="place" class="input is-normal" name="${FieldNames.PLACE}"
-                                       required="required"
-                                       placeholder="place"/>
-                            </div>
-                        </div>
-
+                        <my:inputfield label="Place" name="${FieldNames.PLACE}"/>
 
                         <label for="date" class="label">Date</label>
 
@@ -77,14 +60,7 @@
                             </div>
                         </div>
 
-
-                        <label for="photo" class="label">Photo</label>
-                        <div class="field">
-                            <div class="control">
-                                <input class="button is-block is-light is-normal is-fullwidth" type="file"
-                                       id="photo" name="${FieldNames.PHOTO}" />
-                            </div>
-                        </div>
+                        <my:inputfield label="Photo" name="${FieldNames.PHOTO}" type="file" requied="false"/>
 
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SEND_RECORD}">
                         <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="send">

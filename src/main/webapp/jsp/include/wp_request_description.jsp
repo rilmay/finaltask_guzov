@@ -30,21 +30,8 @@
         list</a></p>
     <br>
 
-    <label for="first_name" class="label">First name</label>
-
-    <div class="field">
-        <div class="control">
-            <input type="text" id="first_name" class="input is-normal" name="${FieldNames.FIRST_NAME}"
-                   placeholder="first name"/>
-        </div>
-    </div>
-    <label for="last_name" class="label">Last name</label>
-    <div class="field">
-        <div class="control">
-            <input type="text" id="last_name" class="input is-normal" name="${FieldNames.LAST_NAME}"
-                   placeholder="first name"/>
-        </div>
-    </div>
+    <my:inputfield label="First name" name="${FieldNames.FIRST_NAME}" requied="false"/>
+    <my:inputfield label="Last name" name="${FieldNames.LAST_NAME}" requied="false"/>
     <label for="status" class="label">Person status</label>
     <div class="field">
         <div class="control">
@@ -60,14 +47,7 @@
             <textarea required="required" class="textarea" name="${FieldNames.DESCRIPTION}" id="description"></textarea>
         </div>
     </div>
-    <label for="birth_place" class="label">Birth place</label>
-
-    <div class="field">
-        <div class="control">
-            <input type="text" id="birth_place" class="input is-normal" name="${FieldNames.BIRTH_PLACE}"
-                   placeholder="birth place"/>
-        </div>
-    </div>
+    <my:inputfield label="Birth place" name="${FieldNames.BIRTH_PLACE}" requied="false"/>
     <label for="birth_date" class="label">Birth date</label>
     <div class="field">
         <div class="control">
@@ -75,29 +55,8 @@
                    max="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />"/>
         </div>
     </div>
-
-    <label for="search_area" class="label">Search area</label>
-
-    <div class="field">
-        <div class="control">
-            <input type="text" id="search_area" class="input is-normal" name="${FieldNames.SEARCH_AREA}"
-                   placeholder="search area"/>
-        </div>
-    </div>
-
-    <label for="special_signs" class="label">Special signs</label>
-
-    <div class="field">
-        <div class="control">
-            <input type="text" id="special_signs" class="input is-normal" name="${FieldNames.SPECIAL_SIGNS}"
-                   placeholder="special signs"/>
-        </div>
-    </div>
-
-    <label for="photo" class="label">Photo</label>
-    <div class="field">
-        <div class="control">
-            <input class="button is-block is-light is-normal is-fullwidth" type="file" id="photo" name="${FieldNames.PHOTO}" />
-        </div>
-    </div>
+    <my:inputfield label="Search area" name="${FieldNames.SEARCH_AREA}" requied="false"/>
+    <my:inputfield label="Special signs" name="${FieldNames.SPECIAL_SIGNS}" requied="false"/>
+    <my:inputfield label="Photo" name="${FieldNames.PHOTO}" type="file" requied="false"/>
+    <br>
 </c:if>

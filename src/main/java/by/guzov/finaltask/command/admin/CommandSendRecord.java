@@ -34,6 +34,7 @@ public class CommandSendRecord implements Command {
         Validator recordValidator = ValidatorFactory.getInstance().getRecordValidator();
         List<String> errors = recordValidator.validate(fieldMap);
         if (errors.size() > 0) {
+            fieldMap.forEach(request::setAttribute);
             return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_RECORD_FORM, errors);
         }
         Builder<Record> recordBuilder = BuilderFactory.getInstance().getRecordBuilder();

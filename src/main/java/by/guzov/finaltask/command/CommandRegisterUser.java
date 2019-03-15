@@ -1,8 +1,8 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.Builder.Builder;
 import by.guzov.finaltask.domain.Builder.BuilderFactory;
+import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
@@ -22,21 +22,21 @@ import java.util.Map;
 public class CommandRegisterUser implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
-        List<String> errors = new ArrayList<>();
+        Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
+        Validator userValidator = ValidatorFactory.getInstance().getUserValidator();
+        List<String> errors = new ArrayList<>(userValidator.validate(fieldMap));
+        if (errors.size() > 0) {
+            fieldMap.forEach(request::setAttribute);
+            return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors);
+        }
+        Builder<User> userBuilder = BuilderFactory.getInstance().getUserBuilder();
         try {
-            Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
-            Validator userValidator = ValidatorFactory.getInstance().getUserValidator();
-            errors.addAll(userValidator.validate(fieldMap));
-            if (errors.size() > 0) {
-                return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors);
-            }
-            Builder<User> userBuilder = BuilderFactory.getInstance().getUserBuilder();
             User user = userBuilder.build(fieldMap);
             user.setRole(AppConstants.USER);
             user.setRegistrationDate(Date.valueOf(LocalDate.now()));
             UserService userService = ServiceFactory.getInstance().getUserService();
             User registered = userService.register(user);
-            request.getSession().setAttribute(AppConstants.SESSION_USER,registered);
+            request.getSession().setAttribute(AppConstants.SESSION_USER, registered);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());

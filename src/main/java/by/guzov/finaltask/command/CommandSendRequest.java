@@ -42,6 +42,7 @@ public class CommandSendRequest implements Command {
             Validator requestValidator = ValidatorFactory.getInstance().getRequestValidator();
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
+                fieldMap.forEach(request::setAttribute);
                 return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors);
             }
             Builder<Request> requestBuilder = BuilderFactory.getInstance().getRequestBuilder();
@@ -67,7 +68,7 @@ public class CommandSendRequest implements Command {
             wantedPerson.setPending(true);
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
             int id = wantedPersonService.create(wantedPerson).getId();
-            fieldMap.put(FieldNames.PERSON_ID, id + "");
+            fieldMap.put(FieldNames.PERSON_ID, Integer.toString(id));
 
             Part photo = request.getPart(FieldNames.PHOTO);
             String fileName = Paths.get(photo.getSubmittedFileName()).getFileName().toString();
