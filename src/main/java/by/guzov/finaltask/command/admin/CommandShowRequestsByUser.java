@@ -21,7 +21,7 @@ public class CommandShowRequestsByUser implements Command {
             request.setAttribute("requestList", requestService.getAllByUserAndStatuses(id));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

@@ -20,11 +20,10 @@ public class CommandApproveRequest implements Command {
             int id = Integer.parseInt(request.getParameter(AppConstants.ID));
             Request currentRequest = requestService.getById(id);
             requestService.approve(currentRequest);
-            return ResponseUtil
-                    .redirectTo(request, CommandType.SHOW_REQUEST_DETAILS + "&" +
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_REQUEST_DETAILS + "&" +
                             AppConstants.ID + "=" + currentRequest.getId());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

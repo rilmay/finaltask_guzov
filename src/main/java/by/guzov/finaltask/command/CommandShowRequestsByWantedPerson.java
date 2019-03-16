@@ -18,7 +18,7 @@ public class CommandShowRequestsByWantedPerson implements Command {
                     .getAllByWantedPersonAndStatuses(id, AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

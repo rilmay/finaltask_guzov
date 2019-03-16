@@ -23,7 +23,7 @@ public class CommandShowUploadPhotoForm implements Command {
             request.setAttribute("person", wantedPerson);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "upload_photo_form", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
         }
     }
 }

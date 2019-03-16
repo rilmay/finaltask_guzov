@@ -33,8 +33,8 @@ public class RestrictionsFilter implements Filter {
         if (restrictions.isAllowedRole(role) && restrictions.isAllowedMethod(method)) {
             chain.doFilter(request, response);
         } else {
-            request.setAttribute(AppConstants.VIEW_NAME, "error_page");
-            request.setAttribute("error_message", "you are forbidden to do this");
+            request.setAttribute(AppConstants.VIEW_NAME, "empty");
+            request.setAttribute(AppConstants.ERROR_MESSAGE, "you are forbidden to do this");
             request.getRequestDispatcher(AppConstants.MAIN_PAGE_PATH).forward(request, response);
         }
     }

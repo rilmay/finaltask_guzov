@@ -22,7 +22,7 @@ public class CommandDeleteUser implements Command {
             userService.deleteUser(user);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_USER_LIST.name());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

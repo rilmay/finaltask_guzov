@@ -17,9 +17,9 @@ public class CommandShowRequestDetails implements Command {
             request.setAttribute("request", requestService.getFullRequest(requestId));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_details", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         } catch (NumberFormatException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
         }
     }
 }

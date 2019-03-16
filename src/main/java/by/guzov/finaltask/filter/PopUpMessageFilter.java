@@ -16,10 +16,8 @@ public class PopUpMessageFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         String success = request.getParameter("success");
-        if (success != null && success.equals("true")) {
-            if (servletRequest.getAttribute("success") == null) {
-                request.setAttribute("success", true);
-            }
+        if (success != null && success.equals("true") && servletRequest.getAttribute("success") == null) {
+            request.setAttribute("success", true);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

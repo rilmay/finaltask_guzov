@@ -25,13 +25,13 @@ public class CommandRecoverPassword implements Command {
             if (StringValidator.isValid(newPassword, 3, 16, StringValidator.PASSWORD_PATTERN) &&
                     StringValidator.isValid(code, 3, 16, StringValidator.TITLE_PATTERN_EN)) {
                 User recovered = userService.recoverPassword(passwordRecovery, code, newPassword);
-                session.setAttribute(AppConstants.SESSION_USER,recovered);
+                session.setAttribute(AppConstants.SESSION_USER, recovered);
                 return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
             } else {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid recovery procedure");
             }
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid recovery procedure");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid recovery procedure");
         }
     }
 }

@@ -25,7 +25,7 @@ public class CommandUploadPhoto implements Command {
         try {
             String wpId = request.getParameter(AppConstants.ID);
             if (!StringValidator.isValid(wpId, 1, 9, StringValidator.NUMBER_PATTERN)) {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid person id");
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid person id");
             }
             int wantedPersonId = Integer.parseInt(wpId);
             Part photo = request.getPart(FieldNames.PHOTO);
@@ -35,8 +35,10 @@ public class CommandUploadPhoto implements Command {
             wantedPerson.setPhoto(fileName);
             wantedPersonService.update(wantedPerson);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
-        } catch (IOException | ServletException | ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+        } catch (ServiceException e) {
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_UPLOAD_PHOTO_FORM, "server error");
+        } catch (IOException | ServletException e) {
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
         }
 
     }

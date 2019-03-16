@@ -24,7 +24,7 @@ public class CommandChangeUserRole implements Command {
             return ResponseUtil.redirectTo(request, CommandType.SHOW_USER_DETAILS +
                     "&" + AppConstants.ID + "=" + user.getId());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

@@ -24,7 +24,7 @@ public class CommandCancelRequest implements Command {
                     .redirectTo(request, CommandType.SHOW_REQUEST_DETAILS + "&" +
                             AppConstants.ID + "=" + currentRequest.getId());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

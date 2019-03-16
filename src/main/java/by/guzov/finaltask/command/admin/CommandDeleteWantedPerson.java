@@ -27,7 +27,7 @@ public class CommandDeleteWantedPerson implements Command {
             }
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_WANTED_PEOPLE.name());
         } catch (ServiceException | NumberFormatException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "invalid deleting procedure");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid deleting procedure");
         }
     }
 }

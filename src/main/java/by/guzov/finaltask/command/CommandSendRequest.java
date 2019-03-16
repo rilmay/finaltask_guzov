@@ -1,10 +1,10 @@
 package by.guzov.finaltask.command;
 
+import by.guzov.finaltask.domain.Builder.Builder;
+import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
-import by.guzov.finaltask.domain.Builder.Builder;
-import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
@@ -30,8 +30,8 @@ public class CommandSendRequest implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         List<String> errors = new ArrayList<>();
+        Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
         try {
-            Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
             fieldMap.put(FieldNames.REQUEST_STATUS, "pending");
             String wpId = fieldMap.get(AppConstants.ID);
             if (wpId != null) {
@@ -43,7 +43,7 @@ public class CommandSendRequest implements Command {
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
                 fieldMap.forEach(request::setAttribute);
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REQUEST_FORM, errors);
+                return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
             }
             Builder<Request> requestBuilder = BuilderFactory.getInstance().getRequestBuilder();
             Request wantedPersonRequest = requestBuilder.build(fieldMap);
@@ -54,10 +54,9 @@ public class CommandSendRequest implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_MY_REQUESTS.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REQUEST_FORM, errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
         } catch (IOException | ServletException e) {
-            errors.add(e.getMessage());
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, errors);
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=server_error");
         }
     }
 

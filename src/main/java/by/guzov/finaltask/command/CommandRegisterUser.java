@@ -27,7 +27,7 @@ public class CommandRegisterUser implements Command {
         List<String> errors = new ArrayList<>(userValidator.validate(fieldMap));
         if (errors.size() > 0) {
             fieldMap.forEach(request::setAttribute);
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REGISTRATION_PAGE, errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
         }
         Builder<User> userBuilder = BuilderFactory.getInstance().getUserBuilder();
         try {
@@ -40,9 +40,7 @@ public class CommandRegisterUser implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
-            errors.add("*Note: all fields(except e-mail) must " +
-                    "contain only letters, digits and underscore, e-mail must be valid and unique, login must be unique ");
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REGISTRATION_PAGE, errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
         }
     }
 }

@@ -9,6 +9,6 @@ public class CommandLogOutUser implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         request.getSession().invalidate();
-        return ResponseUtil.sendByUrl("?" + AppConstants.COMMAND + "=" + CommandType.SHOW_EMPTY_PAGE, Router.Type.REDIRECT);
+        return ResponseUtil.toCommand(request,CommandType.SHOW_EMPTY_PAGE);
     }
 }

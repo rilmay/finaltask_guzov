@@ -21,7 +21,7 @@ public class CommandShowPendingRequestList implements Command {
                     AppConstants.STATUS_CANCELLED, AppConstants.STATUS_EXPIRED, AppConstants.STATUS_PENDING));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
         }
     }
 }

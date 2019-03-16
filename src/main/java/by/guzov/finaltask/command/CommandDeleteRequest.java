@@ -22,10 +22,10 @@ public class CommandDeleteRequest implements Command {
                 requestService.delete(current);
                 return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_REQUEST_LIST.name());
             } else {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "you are forbidden to do this");
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "you are forbidden to do this");
             }
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, e.getMessage());
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=server_error");
         }
     }
 }

@@ -5,6 +5,7 @@ import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public final class ResponseUtil {
@@ -16,7 +17,7 @@ public final class ResponseUtil {
         return sendByUrl(page, type);
     }
 
-    public static ResponseContent sendByUrl(String url, Router.Type type) {
+    private static ResponseContent sendByUrl(String url, Router.Type type) {
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(url, type));
         return responseContent;
@@ -27,7 +28,8 @@ public final class ResponseUtil {
         return toCommand(request, commandType);
     }
 
-    public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, List<String> errors) {
+    public static ResponseContent toFormWithErrors(HttpServletRequest request, CommandType commandType, List<String> errors, Map<String, String> fieldMap) {
+        fieldMap.forEach(request::setAttribute);
         request.setAttribute(AppConstants.ERROR_MESSAGE, errors.stream().collect(Collectors.joining("\\n")));
         return toCommand(request, commandType);
     }
@@ -42,7 +44,7 @@ public final class ResponseUtil {
     }
 
     public static ResponseContent redirectWIthSuccess(HttpServletRequest request, String url) {
-        return redirectTo(request, url+"&success=true");
+        return redirectTo(request, url + "&success=true");
     }
 
     public static void addSuccess(HttpServletRequest request) {

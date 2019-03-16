@@ -29,7 +29,6 @@ public enum CommandType {
     SHOW_EMPTY_PAGE,
     SHOW_USER_DETAILS(new Restrictions().setRoles(ADMIN)),
     SHOW_USER_LIST(new Restrictions().setMethods(GET).setRoles(ADMIN)),
-    SHOW_ERROR_PAGE,
     SHOW_PERSONAL_PAGE(new Restrictions().setRoles(ADMIN, USER)),
     SHOW_WANTED_PEOPLE,
     SHOW_PERSON_DETAILS,

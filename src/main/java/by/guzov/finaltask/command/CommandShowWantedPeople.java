@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class CommandShowWantedPeople implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
-
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
             String only = request.getParameter("ONLY");
             List<WantedPerson> wantedPeople;
@@ -35,7 +34,7 @@ public class CommandShowWantedPeople implements Command {
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, "server error");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
         }
     }
 }
