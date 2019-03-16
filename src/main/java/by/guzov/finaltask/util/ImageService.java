@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
@@ -18,14 +19,14 @@ public final class ImageService {
     private ImageService() {
     }
 
-    public static String upload(Part photo, int id, String prefix) {
+    public static String upload(Part photo, int id, String prefix) throws ServiceException {
         try {
             String fileName = Paths.get(photo.getSubmittedFileName()).getFileName().toString();
             if (fileName == null || fileName.isEmpty()) {
                 throw new ServiceException("empty photo input");
             }
             String format = fileName.replaceAll("^.+(?=\\.)", "");
-            if (!format.equals(".jpg") && !format.equals(".png")) {
+            if (!Arrays.asList(".jpg", ".png").contains(format)) {
                 throw new ServiceException("invalid photo format");
             }
             String outFileName = prefix + id + format;
@@ -37,7 +38,7 @@ public final class ImageService {
         }
     }
 
-    public static void delete(String photo) {
+    public static void delete(String photo) throws ServiceException {
         File delete = new File(PHOTO_DIR + "/" + photo);
         if (delete.exists()) {
             if (!delete.delete()) {

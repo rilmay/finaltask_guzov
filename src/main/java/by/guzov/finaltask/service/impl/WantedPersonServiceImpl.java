@@ -13,7 +13,7 @@ import java.util.List;
 public class WantedPersonServiceImpl implements WantedPersonService {
     private WantedPersonDao wantedPersonDao;
 
-    public WantedPersonServiceImpl() {
+    public WantedPersonServiceImpl() throws ServiceException {
         wantedPersonDao = daoInit();
     }
 

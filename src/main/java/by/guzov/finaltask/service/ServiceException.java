@@ -3,7 +3,7 @@ package by.guzov.finaltask.service;
 /**
  * Service Exception
  */
-public class ServiceException extends RuntimeException {
+public class ServiceException extends Exception {
     public ServiceException(String message, Throwable cause) {
         super(message, cause);
     }

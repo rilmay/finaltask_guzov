@@ -22,11 +22,11 @@ public class RequestServiceImpl implements RequestService {
     private WantedPersonDao wantedPersonDao;
     private UserDao userDao;
 
-    public RequestServiceImpl() {
+    public RequestServiceImpl() throws ServiceException {
         daoInit();
     }
 
-    private void daoInit() {
+    private void daoInit() throws ServiceException {
         try {
             requestDao = (RequestDao) JdbcDaoFactory.getInstance().getDao(Request.class);
             wantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
@@ -65,7 +65,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<FullRequest> getAllFullRequests() {
+    public List<FullRequest> getAllFullRequests() throws ServiceException {
         try {
             return getWithWP(requestDao.getAll());
         } catch (DaoException e) {
@@ -74,7 +74,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public FullRequest getFullRequest(int requestID) {
+    public FullRequest getFullRequest(int requestID) throws ServiceException {
         try {
             Request request = requestDao.getByPK(requestID);
             WantedPerson person = wantedPersonDao.getByPK(request.getWantedPersonId());
@@ -149,11 +149,11 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    private void transactionalUpdate(WantedPerson wantedPerson, Request requests) {
+    private void transactionalUpdate(WantedPerson wantedPerson, Request requests) throws ServiceException {
         transactionalUpdate(wantedPerson, Collections.singletonList(requests));
     }
 
-    private void transactionalUpdate(WantedPerson wantedPerson, List<Request> requests) {
+    private void transactionalUpdate(WantedPerson wantedPerson, List<Request> requests) throws ServiceException {
 
         TransactionManager transactionManager = new TransactionManager();
         try {
@@ -177,7 +177,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<FullRequest> getAllByUserAndStatuses(Integer userId, String... statuses) {
+    public List<FullRequest> getAllByUserAndStatuses(Integer userId, String... statuses) throws ServiceException {
         try {
             return getWithWP(requestDao.getAllByUserAndStatus(userId, statuses));
         } catch (DaoException e) {
@@ -186,7 +186,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<FullRequest> getAllByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) {
+    public List<FullRequest> getAllByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) throws ServiceException {
         try {
             return getWithWP(requestDao.getAllByWantedPersonAndStatus(wantedPersonId, statuses));
         } catch (DaoException e) {

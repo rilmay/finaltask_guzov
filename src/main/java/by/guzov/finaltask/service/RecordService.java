@@ -5,17 +5,17 @@ import by.guzov.finaltask.domain.Record;
 import java.util.List;
 
 public interface RecordService {
-    Record getById(int id);
+    Record getById(int id) throws ServiceException;
 
-    Record create(Record record);
+    Record create(Record record) throws ServiceException;
 
-    void delete(Record record);
+    void delete(Record record) throws ServiceException;
 
-    void update(Record record);
+    void update(Record record) throws ServiceException;
 
-    List<Record> getAllRelevant();
+    List<Record> getAllRelevant() throws ServiceException;
 
-    List<Record> getAllExpired();
+    List<Record> getAllExpired() throws ServiceException;
 
-    List<Record> getAll();
+    List<Record> getAll() throws ServiceException;
 }

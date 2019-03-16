@@ -13,11 +13,11 @@ import java.util.List;
 public class RecordServiceImpl implements RecordService {
     private RecordDao recordDao;
 
-    public RecordServiceImpl() {
+    public RecordServiceImpl() throws ServiceException {
         daoInit();
     }
 
-    private void daoInit() {
+    private void daoInit() throws ServiceException {
         try {
             this.recordDao = (RecordDao) JdbcDaoFactory.getInstance().getDao(Record.class);
         } catch (DaoException e) {
@@ -26,7 +26,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public Record getById(int id) {
+    public Record getById(int id) throws ServiceException {
         try {
             return recordDao.getByPK(id);
         } catch (DaoException e) {
@@ -35,7 +35,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public Record create(Record record) {
+    public Record create(Record record) throws ServiceException {
         try {
             return recordDao.persist(record);
         } catch (PersistException e) {
@@ -44,7 +44,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public void delete(Record record) {
+    public void delete(Record record) throws ServiceException {
         try {
             recordDao.delete(record);
         } catch (PersistException e) {
@@ -53,7 +53,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public void update(Record record) {
+    public void update(Record record) throws ServiceException {
         try {
             recordDao.update(record);
         } catch (PersistException e) {
@@ -63,7 +63,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<Record> getAllRelevant() {
+    public List<Record> getAllRelevant() throws ServiceException {
         try {
             return recordDao.getAllRelevant();
         } catch (DaoException e) {
@@ -72,7 +72,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<Record> getAllExpired() {
+    public List<Record> getAllExpired() throws ServiceException {
         try {
             return recordDao.getAllExpired();
         } catch (DaoException e) {
@@ -81,7 +81,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<Record> getAll() {
+    public List<Record> getAll() throws ServiceException {
         try {
             return recordDao.getAll();
         } catch (DaoException e) {

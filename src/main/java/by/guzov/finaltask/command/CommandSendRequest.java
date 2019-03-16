@@ -60,7 +60,7 @@ public class CommandSendRequest implements Command {
         }
     }
 
-    private List<String> createPersonAndReturnErrors(Map<String, String> fieldMap, HttpServletRequest request) throws IOException, ServletException {
+    private List<String> createPersonAndReturnErrors(Map<String, String> fieldMap, HttpServletRequest request) throws IOException, ServletException, ServiceException {
         List<String> errors = ValidatorFactory.getInstance().getWantedPersonValidator().validate(fieldMap);
         if (errors.size() == 0) {
             WantedPerson wantedPerson = BuilderFactory.getInstance().getWantedPersonBuilder().build(fieldMap);

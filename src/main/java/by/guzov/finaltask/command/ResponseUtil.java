@@ -12,15 +12,19 @@ public final class ResponseUtil {
     private ResponseUtil() {
     }
 
-    public static ResponseContent responseWithView(HttpServletRequest request, String page, String view, Router.Type type) {
-        request.setAttribute(AppConstants.VIEW_NAME, view);
-        return sendByUrl(page, type);
-    }
-
     private static ResponseContent sendByUrl(String url, Router.Type type) {
         ResponseContent responseContent = new ResponseContent();
         responseContent.setRouter(new Router(url, type));
         return responseContent;
+    }
+
+    public static ResponseContent toCommand(HttpServletRequest request, CommandType commandType) {
+        return CommandProvider.getInstance().takeCommand(commandType).execute(request);
+    }
+
+    public static ResponseContent responseWithView(HttpServletRequest request, String page, String view, Router.Type type) {
+        request.setAttribute(AppConstants.VIEW_NAME, view);
+        return sendByUrl(page, type);
     }
 
     public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, String error) {
@@ -30,12 +34,7 @@ public final class ResponseUtil {
 
     public static ResponseContent toFormWithErrors(HttpServletRequest request, CommandType commandType, List<String> errors, Map<String, String> fieldMap) {
         fieldMap.forEach(request::setAttribute);
-        request.setAttribute(AppConstants.ERROR_MESSAGE, errors.stream().collect(Collectors.joining("\\n")));
-        return toCommand(request, commandType);
-    }
-
-    public static ResponseContent toCommand(HttpServletRequest request, CommandType commandType) {
-        return CommandProvider.getInstance().takeCommand(commandType).execute(request);
+        return toCommandWithError(request, commandType, errors.stream().collect(Collectors.joining("\\n")));
     }
 
     public static ResponseContent redirectTo(HttpServletRequest request, String url) {

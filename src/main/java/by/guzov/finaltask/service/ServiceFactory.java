@@ -15,10 +15,14 @@ public class ServiceFactory {
     private final RecordService recordService;
 
     private ServiceFactory() {
-        userService = new UserServiceImpl();
-        wantedPersonService = new WantedPersonServiceImpl();
-        requestService = new RequestServiceImpl();
-        recordService = new RecordServiceImpl();
+        try {
+            userService = new UserServiceImpl();
+            wantedPersonService = new WantedPersonServiceImpl();
+            requestService = new RequestServiceImpl();
+            recordService = new RecordServiceImpl();
+        } catch (ServiceException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static ServiceFactory INSTANCE = new ServiceFactory();
