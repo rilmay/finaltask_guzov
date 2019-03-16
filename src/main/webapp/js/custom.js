@@ -31,3 +31,11 @@ function successWindow(title) {
         }
     });
 }
+
+function error(text) {
+    swal({
+        icon: "error",
+        //title: "error",
+        text: text
+    });
+}

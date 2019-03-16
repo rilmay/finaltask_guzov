@@ -9,6 +9,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ page import="by.guzov.finaltask.util.FieldNames" %>
 
 <div class="column is-6 is-centered">
     <div class="box is-2">
@@ -19,14 +21,7 @@
                     <br>
                     <c:if test="${empty sessionScope.get('recovery')}">
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <label for="login" class="label">Login</label>
-                            <div class="field">
-                                <div class="control">
-                                    <input type="text" id="login" class="input is-normal is-focused" name="login"
-                                           required="required"
-                                           placeholder="login"/>
-                                </div>
-                            </div>
+                            <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_RECOVERY_PAGE}">
                             <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="send e-mail">
@@ -35,26 +30,8 @@
                     <c:if test="${not empty sessionScope.get('recovery')}">
                         We have sent you email, please enter secret code and new password
                         <form action="${pageContext.request.contextPath}/" method="post">
-
-                            <label for="code" class="label">Secret code</label>
-
-                            <div class="field">
-                                <div class="control">
-                                    <input type="text" id="code" class="input is-normal" name="code"
-                                           required="required"
-                                           placeholder="code"/>
-                                </div>
-                            </div>
-
-                            <label for="new_password" class="label">New password</label>
-
-                            <div class="field">
-                                <div class="control">
-                                    <input type="password" id="new_password" class="input is-normal" name="new_password"
-                                           required="required"
-                                           placeholder="password"/>
-                                </div>
-                            </div>
+                            <my:inputfield label="Secret code" name="code"/>
+                            <my:inputfield label="New password" name="new_password" type="password"/>
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
                             <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="confirm">
                         </form>

@@ -43,7 +43,7 @@ public class CommandSendRequest implements Command {
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
                 fieldMap.forEach(request::setAttribute);
-                return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors);
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REQUEST_FORM, errors);
             }
             Builder<Request> requestBuilder = BuilderFactory.getInstance().getRequestBuilder();
             Request wantedPersonRequest = requestBuilder.build(fieldMap);
@@ -54,10 +54,10 @@ public class CommandSendRequest implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_MY_REQUESTS.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
-            return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors);
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_REQUEST_FORM, errors);
         } catch (IOException | ServletException e) {
             errors.add(e.getMessage());
-            return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_ERROR_PAGE, errors);
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_ERROR_PAGE, errors);
         }
     }
 

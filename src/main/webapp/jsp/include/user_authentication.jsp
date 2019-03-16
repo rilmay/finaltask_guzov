@@ -18,7 +18,6 @@
             <div class="media-content">
                 <p class="title is-4">Authentication</p>
                 <p class="subtitle is-6">Please fill in the fields</p>
-                <p class="has-text-danger"><c:out value="${error_message}"/></p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>

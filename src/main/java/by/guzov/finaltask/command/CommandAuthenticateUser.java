@@ -12,6 +12,8 @@ import by.guzov.finaltask.util.HttpRequestMapper;
 import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class CommandAuthenticateUser implements Command {
@@ -28,7 +30,7 @@ public class CommandAuthenticateUser implements Command {
                 return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
             } else {
                 fieldMap.forEach(request::setAttribute);
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, "check login and password");
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, "check login and password\\nlogin");
             }
         } catch (ServiceException e) {
             fieldMap.forEach(request::setAttribute);

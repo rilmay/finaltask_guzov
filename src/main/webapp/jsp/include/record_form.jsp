@@ -19,11 +19,6 @@
             <div class="media-content">
                 <p class="title is-4">Make a record</p>
                 <p class="subtitle is-6">Please fill in the fields</p>
-                <c:if test="${not empty error_messages}">
-                    <c:forEach items="${error_messages}" var="error">
-                        <p class="has-text-danger">${error}</p>
-                    </c:forEach>
-                </c:if>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
 

@@ -17,8 +17,6 @@
 <head>
     <title>Interpol</title>
     <link rel="stylesheet" href="static/bulma.css">
-
-    <link rel="stylesheet" href="css/dropdown_menu.css">
     <script src="js/sweetalert.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/custom.js"></script>
@@ -62,8 +60,8 @@
     </div>
 </footer>
     <script>window.onload = function () {
+        <c:if test="${not empty error_message}">error('${error_message}')</c:if>
         <c:if test="${success}">successWindow('${text['success_title']}')</c:if>
         document.getElementById('${text.getLocaleTag()}').setAttribute("disabled","disabled")}
     </script>
-<script async type="text/javascript" src="../js/bulma.js"></script>
 </body>

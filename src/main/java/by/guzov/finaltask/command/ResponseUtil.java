@@ -5,6 +5,7 @@ import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class ResponseUtil {
     private ResponseUtil() {
@@ -26,8 +27,8 @@ public final class ResponseUtil {
         return toCommand(request, commandType);
     }
 
-    public static ResponseContent toCommandWithErrors(HttpServletRequest request, CommandType commandType, List<String> error) {
-        request.setAttribute(AppConstants.ERROR_MESSAGES, error);
+    public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, List<String> errors) {
+        request.setAttribute(AppConstants.ERROR_MESSAGE, errors.stream().collect(Collectors.joining("\\n")));
         return toCommand(request, commandType);
     }
 
@@ -43,7 +44,6 @@ public final class ResponseUtil {
     public static ResponseContent redirectWIthSuccess(HttpServletRequest request, String url) {
         return redirectTo(request, url+"&success=true");
     }
-
 
     public static void addSuccess(HttpServletRequest request) {
         request.setAttribute("success", true);

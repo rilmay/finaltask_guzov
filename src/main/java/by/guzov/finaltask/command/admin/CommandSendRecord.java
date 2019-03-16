@@ -35,7 +35,7 @@ public class CommandSendRecord implements Command {
         List<String> errors = recordValidator.validate(fieldMap);
         if (errors.size() > 0) {
             fieldMap.forEach(request::setAttribute);
-            return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_RECORD_FORM, errors);
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_RECORD_FORM, errors);
         }
         Builder<Record> recordBuilder = BuilderFactory.getInstance().getRecordBuilder();
         Record record = recordBuilder.build(fieldMap);
@@ -52,7 +52,7 @@ public class CommandSendRecord implements Command {
             return ResponseUtil.redirectWIthSuccess(request,CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add(e.getMessage());
-            return ResponseUtil.toCommandWithErrors(request, CommandType.SHOW_RECORD_FORM, errors);
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_RECORD_FORM, errors);
         } catch (IOException | ServletException e) {
             return ResponseUtil.redirectTo(request, CommandType.SHOW_ERROR_PAGE + "error_message=server_error");
         }
