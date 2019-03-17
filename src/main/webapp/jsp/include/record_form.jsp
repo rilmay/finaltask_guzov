@@ -24,19 +24,6 @@
 
                         <my:inputfield label="Title" name="${FieldNames.NAME}"/>
 
-                        <label for="rating" class="label">Rating</label>
-                        <div class="field">
-                            <div class="control">
-                                <select required="required" id="rating" class="select" name="${FieldNames.RATING}" size="1">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                        </div>
-
                         <my:inputfield label="Place" name="${FieldNames.PLACE}"/>
 
                         <label for="date" class="label">Date</label>
@@ -51,12 +38,21 @@
                         <label for="description" class="label">Description</label>
                         <div class="field">
                             <div class="control">
-                                <textarea required="required" class="textarea" name="${FieldNames.DESCRIPTION}" id="description"></textarea>
+                                <textarea required="required" class="textarea" name="${FieldNames.DESCRIPTION}"
+                                          id="description"></textarea>
                             </div>
                         </div>
 
                         <my:inputfield label="Photo" name="${FieldNames.PHOTO}" type="file" requied="false"/>
 
+                        <label for="rate" class="label">Rating</label>
+                        <div id="rate" class="rating">
+                            <input name="${FieldNames.RATING}" id="e5" type="radio" value="5"><label for="e5">☆</label>
+                            <input name="${FieldNames.RATING}" id="e4" type="radio" value="4"><label for="e4">☆</label>
+                            <input name="${FieldNames.RATING}" id="e3" type="radio" value="3"><label for="e3">☆</label>
+                            <input name="${FieldNames.RATING}" id="e2" type="radio" value="2"><label for="e2">☆</label>
+                            <input name="${FieldNames.RATING}" id="e1" type="radio" value="1"><label for="e1">☆</label>
+                        </div>
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SEND_RECORD}">
                         <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="send">
                     </form>

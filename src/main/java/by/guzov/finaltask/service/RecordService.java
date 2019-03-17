@@ -18,4 +18,6 @@ public interface RecordService {
     List<Record> getAllExpired() throws ServiceException;
 
     List<Record> getAll() throws ServiceException;
+
+    void setExpired(Record record) throws ServiceException;
 }

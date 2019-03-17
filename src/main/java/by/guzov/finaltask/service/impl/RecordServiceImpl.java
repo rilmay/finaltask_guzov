@@ -88,4 +88,14 @@ public class RecordServiceImpl implements RecordService {
             throw new ServiceException("server error", e);
         }
     }
+
+    @Override
+    public void setExpired(Record record) throws ServiceException {
+        try {
+            record.setRecordStatus("expired");
+            recordDao.update(record);
+        } catch (PersistException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
 }

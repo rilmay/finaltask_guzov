@@ -11,31 +11,33 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
+<div class="column is-10">
+    <div class="tile is-ancestor" style="flex-wrap: wrap;">
 <c:forEach items="${peopleList}" var="person">
-    <div class="column is-8">
-<div class="box is-2">
-    <article class="media">
-        <div class="media-left">
-            <figure class="image is-64x64">
-                <my:image rounded="rounded" variable="${person.photo}"/>
-            </figure>
-            <br>
-        </div>
-        <div class="media-content">
-            <div class="content">
-                <p>
-                    <strong>
-                        <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
+    <div class="tile is-parent is-4">
+        <div class="tile is-child box">
+            <div class="card-image">
+                <figure class="image is-fullwidth">
+                <my:image variable="${person.photo}"/>
+                </figure>
+            </div>
+            <div class="card-content">
+                <div class="media">
+                    <div class="media-content">
+                        <a class="title is-5" href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
                                 <my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
                                     </a>
-                    </strong><i><my:display variable="${person.personStatus}"/></i></p>
+                    </div>
+                </div>
+                <p><i><my:display variable="${person.personStatus}"/></i></p>
+                <br>
                 <p><my:display variable="${person.description}"/></p>
             </div>
         </div>
-    </article>
-</div>
     </div>
 </c:forEach>
+    </div>
+</div>
 <c:if test="${peopleList.size() eq 0}">
     <div class="has-text-centered is-light">
         <br>

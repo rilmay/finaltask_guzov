@@ -16,27 +16,35 @@
         <div class="box is-2">
             <article class="media">
                 <div class="media-left">
-                    <figure class="image is-64x64">
+                    <figure class="image is-128x128">
                         <my:image variable="${record.photo}"/>
                     </figure>
+                    <br>
                     <br>
                 </div>
                 <div class="media-content">
                     <div class="content">
-                        <p>
-                            <strong>
-                                <a href="">
-                                    ${record.name}
-                                </a>
-                            </strong></p>
-                        <p><my:display variable="${record.description}"/></p>
+                        <h3>
+                            <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_DETAILS}&${AppConstants.ID}=${record.id}">${record.name}</a>
+                        </h3>
+                        <p><strong>Place: </strong>${record.place}</p>
+                        <p><strong>Date: </strong>${record.date}</p>
+                    </div>
+                </div>
+                <div class="media-right">
+                    <div class="rating" style="color: orange; width: 150px; font-size: 30px; height: 40px;">
+                        <c:forTokens items="1,2,3,4,5" delims="," var="star">
+                            <c:if test="${star <= record.rating}">
+                                ☆
+                            </c:if>
+                        </c:forTokens>
                     </div>
                 </div>
             </article>
         </div>
     </div>
 </c:forEach>
-<c:if test="${peopleList.size() eq 0}">
+<c:if test="${recordList.size() eq 0}">
     <div class="has-text-centered is-light">
         <br>
         <br>

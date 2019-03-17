@@ -17,6 +17,7 @@
 <head>
     <title>Interpol</title>
     <link rel="stylesheet" href="static/bulma.css">
+    <link rel="stylesheet" href="static/rating.css">
     <script src="js/sweetalert.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/custom.js"></script>
