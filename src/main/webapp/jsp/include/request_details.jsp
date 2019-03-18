@@ -20,7 +20,7 @@
                     <c:set value="${request.request}" var="current"/>
                     <c:set value="${sessionScope.get(AppConstants.SESSION_USER).role}" var="role"/>
                     <p><strong>Wanted person: </strong><a
-                            href="/?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request.request.wantedPersonId}">
+                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${request.request.wantedPersonId}">
                         <my:display variable="${request.personFirstName}"/>
                         <my:display variable="${request.personLastName}"/></a></p>
                     <p><strong>Reward: </strong><c:out value="${current.reward}"/> USD</p>
@@ -55,7 +55,7 @@
                     </p>
                     <p><strong>User login: </strong>
                         <c:if test="${role == AppConstants.ADMIN}">
-                            <a href="/?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${current.userId}">
+                            <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_DETAILS}&${AppConstants.ID}=${current.userId}">
                                 <c:out value="${request.userLogin}"/></a>
                         </c:if>
                         <c:if test="${role != AppConstants.ADMIN}">

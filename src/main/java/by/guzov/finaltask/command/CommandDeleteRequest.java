@@ -32,7 +32,7 @@ public class CommandDeleteRequest implements Command {
                 return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.forbidden");
             }
         } catch (ServiceException e) {
-            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=server%error");
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=error%server");
         }
     }
 }

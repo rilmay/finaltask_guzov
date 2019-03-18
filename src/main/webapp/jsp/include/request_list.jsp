@@ -36,7 +36,7 @@
                                 <td><c:out value="${request_w_p.request.applicationDate}"/> - <c:out value="${request_w_p.request.leadDate}"/></td>
                                 <td><c:out value="${request_w_p.request.requestStatus}"/></td>
                                 <td><a class="button is-small is-primary"
-                                       href="/?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}">Info</a></td>
+                                       href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}">Info</a></td>
                             </tr>
                         </c:forEach>
                         </tbody>
