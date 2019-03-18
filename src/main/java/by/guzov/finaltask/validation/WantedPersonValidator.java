@@ -1,5 +1,6 @@
 package by.guzov.finaltask.validation;
 
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.util.FieldNames;
 
 import java.sql.Date;
@@ -30,7 +31,7 @@ public class WantedPersonValidator implements Validator {
             if (StringValidator.isValid(firstName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 notNullCounter++;
             } else {
-                errors.add("first name does not meet the requirements");
+                errors.add("field.first_name" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
             }
         }
 
@@ -38,19 +39,19 @@ public class WantedPersonValidator implements Validator {
             if (StringValidator.isValid(lastName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
                 notNullCounter++;
             } else {
-                errors.add("last name does not meet the requirements");
+                errors.add("field.last_name" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
             }
         }
 
         if (!StringValidator.isValid(description, 4, StringValidator.TEXT_PATTERN)) {
-            errors.add("description does not meet the requirements");
+            errors.add("field.description" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
         }
 
         if (notEmpty(birthPlace)) {
             if (StringValidator.isValid(birthPlace, 4, StringValidator.TEXT_PATTERN)) {
                 notNullCounter++;
             } else {
-                errors.add("birth place does not meet the requirements");
+                errors.add("field.birth_place" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
             }
         }
 
@@ -58,7 +59,7 @@ public class WantedPersonValidator implements Validator {
             if (StringValidator.isValid(searchArea, 4, StringValidator.TEXT_PATTERN)) {
                 notNullCounter++;
             } else {
-                errors.add("search area does not meet the requirements");
+                errors.add("field.search_area" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
             }
         }
 
@@ -66,29 +67,29 @@ public class WantedPersonValidator implements Validator {
             if (StringValidator.isValid(specialSigns, 4, StringValidator.TEXT_PATTERN)) {
                 notNullCounter++;
             } else {
-                errors.add("special signs do not meet the requirements");
+                errors.add("field.special_signs" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
             }
         }
 
         if (!statuses.contains(status)) {
-            errors.add("incorrect status");
+            errors.add("field.status" + MessageLocalizer.DELIMITER + "error.invalid_base");
         }
 
         if (notEmpty(birthDate)) {
             if (!StringValidator.isValid(birthDate, 1, StringValidator.DATE_PATTERN)) {
-                errors.add("incorrect birth date");
+                errors.add("field.birth_date" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
             } else {
                 long birth = Date.valueOf(birthDate).getTime();
                 if (birth < Date.valueOf(LocalDate.now()).getTime()) {
                     notNullCounter++;
                 } else {
-                    errors.add("incorrect birth date");
+                    errors.add("field.birth_date" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
                 }
             }
         }
 
         if (notNullCounter < 3) {
-            errors.add("too little person data");
+            errors.add("error.little_data");
         }
         return errors;
     }

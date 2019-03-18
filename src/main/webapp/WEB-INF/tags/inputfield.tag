@@ -8,15 +8,7 @@
 <jsp:directive.attribute name="requied" description="required"/>
 <jsp:directive.attribute name="type" description="type"/>
 
-
-<c:set value="${label}" var="langlabel"/>
-<c:set value="???${label}???" var="notInMap"/>
-
-<c:if test="${text[label] != notInMap}">
-    <p class="is-hidden">${langlabel = text[label]}</p>
-</c:if>
-
-<label for="field" class="label">${langlabel}</label>
+<label for="field" class="label">${label}</label>
 
 <div class="field">
     <div class="control">
@@ -31,7 +23,7 @@
                 </c:choose>
                name="${name}"
                 <c:if test="${requied != 'false'}"> required="required" </c:if>
-               placeholder="${langlabel}"
+               placeholder="${label}"
                value="${requestScope.get(name)}"/>
     </div>
 </div>

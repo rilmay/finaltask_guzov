@@ -16,7 +16,7 @@
         <div class="box is-2">
             <article class="media">
                 <div class="media-left">
-                    <figure class="image is-128x128">
+                    <figure class="image is-96x96">
                         <my:image variable="${record.photo}"/>
                     </figure>
                     <br>

@@ -15,33 +15,31 @@
     <aside class="menu is-hidden-mobile">
         <div id="menu">
             <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER).role}">
-                <p class="menu-label"><my:lang key="user"/></p>
+                <p class="menu-label">${text['title.user']}</p>
                 <ul class="menu-list">
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_FORM}"><my:lang
-                            key="make_request"/></a></li>
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_MY_REQUESTS}"><my:lang
-                            key="my_requests"/></a></li>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_FORM}">${text['links.make_request']}</a></li>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_MY_REQUESTS}">${text['links.my_requests']}</a></li>
                 </ul>
             </c:if>
             <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == AppConstants.ADMIN}">
-                <p class="menu-label"><my:lang key="administration"/></p>
+                <p class="menu-label">${text['title.administration']}</p>
                 <ul class="menu-list">
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_FORM}"><my:lang key="make_record"/></a>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_FORM}">${text['links.make_record']}</a>
                     </li>
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}"><my:lang key="user_list"/></a>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}">${text['links.user_list']}</a>
                     </li>
                     <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_REQUEST_LIST}">
-                        <my:lang key="pending_requests"/></a></li>
+                            ${text['links.pending_requests']}</a></li>
                     <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_PEOPLE}">
-                        <my:lang key="pending_people"/></a></li>
+                            ${text['links.pending_people']}</a></li>
                 </ul>
             </c:if>
             <p class="menu-label">
-                <my:lang key="general"/>
+                ${text['title.general']}
             </p>
             <ul class="menu-list">
-                <li><a><my:lang key="about_us"/></a></li>
-                <li><a><my:lang key="How to apply request"/></a></li>
+                <li><a>${text['links.about_us']}</a></li>
+                <li><a>${text['links.how_apply_request']}</a></li>
             </ul>
         </div>
     </aside>

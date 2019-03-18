@@ -37,7 +37,7 @@
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">
-                            Hello
+                            <my:lang key="title.hello"/>
                         </h1>
                         <h2 class="subtitle">
                             please log in or register
@@ -62,7 +62,7 @@
 </footer>
     <script>window.onload = function () {
         <c:if test="${not empty error_message}">error('${error_message}')</c:if>
-        <c:if test="${success}">successWindow('${text['success_title']}')</c:if>
+        <c:if test="${success}">successWindow('${text['title.success']}')</c:if>
         document.getElementById('${text.getLocaleTag()}').setAttribute("disabled","disabled")}
     </script>
 </body>

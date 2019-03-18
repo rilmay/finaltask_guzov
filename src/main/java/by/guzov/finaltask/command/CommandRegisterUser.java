@@ -4,6 +4,7 @@ import by.guzov.finaltask.domain.Builder.Builder;
 import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;
@@ -26,8 +27,8 @@ public class CommandRegisterUser implements Command {
         Validator userValidator = ValidatorFactory.getInstance().getUserValidator();
         List<String> errors = new ArrayList<>(userValidator.validate(fieldMap));
         if (errors.size() > 0) {
-            fieldMap.forEach(request::setAttribute);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
+            List<String> localized = MessageLocalizer.getMessages(request,errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, localized, fieldMap);
         }
         Builder<User> userBuilder = BuilderFactory.getInstance().getUserBuilder();
         try {
@@ -39,8 +40,9 @@ public class CommandRegisterUser implements Command {
             request.getSession().setAttribute(AppConstants.SESSION_USER, registered);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
-            errors.add(e.getMessage());
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
+            errors.add("error.server");
+            List<String> localized = MessageLocalizer.getMessages(request,errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, localized, fieldMap);
         }
     }
 }

@@ -8,5 +8,5 @@
     <c:out value="${variable}"/>
 </c:if>
 <c:if test="${empty variable}">
-    <my:lang key="unknown"/>
+    ${text['title.unknown']}
 </c:if>

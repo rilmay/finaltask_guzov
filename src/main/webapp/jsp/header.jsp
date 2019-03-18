@@ -18,7 +18,7 @@
     <div class="container">
         <div class="navbar-brand">
             <a class="navbar-item brand-text" onclick="openCloseMenu()">
-                <my:lang key="interpol"/>
+                ${text['app.title.interpol']}
             </a>
             <div class="navbar-burger burger" data-target="navMenu">
                 <span></span>
@@ -29,57 +29,57 @@
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">
-                    <my:lang key="home"/>
+                    ${text['links.home']}
                 </a>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
-                        <my:lang key="wanted_people"/>
+                        ${text['links.wanted_people']}
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">
-                            <my:lang key="all"/>
+                            ${text['links.all']}
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}&${AppConstants.ONLY}=relevant">
-                            <my:lang key="status_relevant"/>
+                            ${text['links.status_relevant']}
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}&${AppConstants.ONLY}=found">
-                            <my:lang key="status_found"/>
+                            ${text['links.status_found']}
                         </a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
-                        <my:lang key="requests"/>
+                        ${text['links.requests']}
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}">
-                            <my:lang key="all"/>
+                            ${text['links.all']}
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_APPROVED}">
-                            <my:lang key="status_relevant"/>
+                            ${text['links.status_relevant']}
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_LIST}&${AppConstants.ONLY}=${AppConstants.STATUS_COMPLETED}">
-                            <my:lang key="status_completed"/>
+                            ${text['links.status_completed']}
                         </a>
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
-                        <my:lang key="records"/>
+                        ${text['links.records']}
                     </a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}">
-                            <my:lang key="status_relevant"/>
+                            ${text['links.status_relevant']}
                         </a>
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}&${AppConstants.ONLY}=expired">
-                            <my:lang key="archive"/>
+                            ${text['links.archive']}
                         </a>
                     </div>
                 </div>
@@ -88,11 +88,11 @@
         <div class="navbar-menu">
             <div class="navbar-end">
 				<span class="navbar-item">
-                    <input id="en" class="button is-light" type="button" value="<my:lang key="en"/>"
+                    <input id="en" class="button is-light" type="button" value="${text['links.en']}"
                            onClick="changeLang('en')">
                 </span>
                 <span class="navbar-item">
-                    <input id="ru" class="button is-light" type="button" value="<my:lang key="ru"/>"
+                    <input id="ru" class="button is-light" type="button" value="<my:lang key="${text['links.ru']}"/>"
                            onClick="changeLang('ru')">
                 </span>
             </div>
@@ -100,10 +100,10 @@
         <div class="navbar-tabs">
             <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
             <span class="navbar-item">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}"><my:lang key="registration"/></a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}">${text['links.registration']}</a>
             </span>
                 <span class="navbar-item">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}"><my:lang key="log_in"/></a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}">${text['links.log_in']}</a>
             </span>
             </c:if>
             <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
@@ -114,7 +114,7 @@
             </span>
                 <span class="navbar-item">
                 <a href="?${AppConstants.COMMAND}=${CommandType.LOG_OUT_USER}">
-                    <my:lang key="log_out"/>
+                    ${text['links.log_out']}
                 </a>
                 </span>
             </c:if>

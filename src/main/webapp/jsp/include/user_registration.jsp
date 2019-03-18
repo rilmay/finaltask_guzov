@@ -20,51 +20,15 @@
                 <p class="subtitle is-6">Please fill in the fields</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <label for="login" class="label">Login</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="login" class="input is-normal" name="${FieldNames.LOGIN}" required="required"
-                                       placeholder="login"/>
-                            </div>
-                        </div>
+                        <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>
 
-                        <label for="password" class="label">Password</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="password" id="password" class="input is-normal" name="${FieldNames.PASSWORD}"
-                                       required="required"
-                                       placeholder="password"/>
+                        <my:inputfield label="Password" name="${FieldNames.PASSWORD}" type="password"/>
 
-                            </div>
-                        </div>
+                        <my:inputfield label="E-mail" name="${FieldNames.EMAIL}"/>
 
-                        <label for="email" class="label">E-mail</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="email" class="input is-normal" name="${FieldNames.EMAIL}" required="required"
-                                       placeholder="e-mail"/>
+                        <my:inputfield label="First name" name="${FieldNames.FIRST_NAME}"/>
 
-                            </div>
-                        </div>
-
-                        <label for="first_name" class="label">First name</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="first_name" class="input is-normal" name="${FieldNames.FIRST_NAME}"
-                                       required="required"
-                                       placeholder="first name"/>
-
-                            </div>
-                        </div>
-
-                        <label for="last_name" class="label">Last name</label>
-                        <div class="field">
-                            <div class="control">
-                                <input type="text" id="last_name" class="input is-normal" name="${FieldNames.LAST_NAME}"
-                                       required="required"
-                                       placeholder="last name"/>
-                            </div>
-                        </div>
+                        <my:inputfield label="Last name" name="${FieldNames.LAST_NAME}"/>
 
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.REGISTER_USER}">
                         <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="register">

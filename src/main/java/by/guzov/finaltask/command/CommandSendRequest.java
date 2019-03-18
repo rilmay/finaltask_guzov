@@ -6,6 +6,7 @@ import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
@@ -42,8 +43,8 @@ public class CommandSendRequest implements Command {
             Validator requestValidator = ValidatorFactory.getInstance().getRequestValidator();
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
-                fieldMap.forEach(request::setAttribute);
-                return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
+                List<String> localized = MessageLocalizer.getMessages(request,errors);
+                return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, localized, fieldMap);
             }
             Builder<Request> requestBuilder = BuilderFactory.getInstance().getRequestBuilder();
             Request wantedPersonRequest = requestBuilder.build(fieldMap);
@@ -53,10 +54,11 @@ public class CommandSendRequest implements Command {
 
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_MY_REQUESTS.name());
         } catch (ServiceException e) {
-            errors.add(e.getMessage());
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
+            errors.add("error.server");
+            List<String> localized = MessageLocalizer.getMessages(request,errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, localized, fieldMap);
         } catch (IOException | ServletException e) {
-            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=server_error");
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=error.server");
         }
     }
 

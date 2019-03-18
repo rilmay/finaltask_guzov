@@ -7,6 +7,7 @@ import by.guzov.finaltask.domain.Builder.Builder;
 import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.RecordService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
@@ -34,8 +35,8 @@ public class CommandSendRecord implements Command {
         Validator recordValidator = ValidatorFactory.getInstance().getRecordValidator();
         List<String> errors = recordValidator.validate(fieldMap);
         if (errors.size() > 0) {
-            fieldMap.forEach(request::setAttribute);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
+            List<String> localized = MessageLocalizer.getMessages(request,errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, localized, fieldMap);
         }
         Builder<Record> recordBuilder = BuilderFactory.getInstance().getRecordBuilder();
         Record record = recordBuilder.build(fieldMap);
@@ -51,10 +52,11 @@ public class CommandSendRecord implements Command {
             }
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
-            errors.add(e.getMessage());
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
+            errors.add("error.server");
+            List<String> localized = MessageLocalizer.getMessages(request,errors);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, localized, fieldMap);
         } catch (IOException | ServletException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

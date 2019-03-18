@@ -1,5 +1,6 @@
 package by.guzov.finaltask.validation;
 
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.util.FieldNames;
 
 import java.sql.Date;
@@ -21,36 +22,36 @@ public class RequestValidator implements Validator {
         String person_id = fieldMap.get(FieldNames.PERSON_ID);
 
         if (!StringValidator.isValid(person_id, 1, 9, StringValidator.NUMBER_PATTERN)) {
-            errors.add("person does not meet the requirements");
+            errors.add("title.person" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
         }
 
         if (!StringValidator.isValid(reward, 1, 9, StringValidator.NUMBER_PATTERN)) {
-            errors.add("reward does not meet the requirements");
+            errors.add("field.reward" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
         }
 
         if (!StringValidator.isValid(applicationDate, 1, StringValidator.DATE_PATTERN)) {
-            errors.add("incorrect application date" + applicationDate);
+            errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
         }
 
         if (!StringValidator.isValid(leadDate, 1, StringValidator.DATE_PATTERN)) {
-            errors.add("incorrect lead date" + leadDate);
+            errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
         } else if (StringValidator.isValid(applicationDate, 1, StringValidator.DATE_PATTERN)) {
             long application = Date.valueOf(applicationDate).getTime();
             long lead = Date.valueOf(leadDate).getTime();
             long currentDate = Date.valueOf(LocalDate.now()).getTime();
             if (application < currentDate)
-                errors.add("application date does not meet the requirements");
+                errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
             if (lead < currentDate)
-                errors.add("lead date does not meet the requirements");
+                errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
             if (application > lead) {
-                errors.add("lead date cannot be earlier then application date");
+                errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
             }
         } else {
-            errors.add("incorrect application date");
+            errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
         }
 
         if (!status.equals("pending")) {
-            errors.add("incorrect status");
+            errors.add("field.status" + MessageLocalizer.DELIMITER + "error.invalid_base");
         }
         return errors;
     }
