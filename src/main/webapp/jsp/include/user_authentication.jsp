@@ -20,8 +20,8 @@
                 <p class="subtitle is-6">Please fill in the fields</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>
-                        <my:inputfield label="Password" name="${FieldNames.PASSWORD}" type="password"/>
+                        <my:inputfield label="${text['field.login']}" name="${FieldNames.LOGIN}"/>
+                        <my:inputfield label="${text['field.password']}" name="${FieldNames.PASSWORD}" type="password"/>
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.AUTHENTICATE_USER}">
                         <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="Log in">
                     </form>

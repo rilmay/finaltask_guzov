@@ -43,8 +43,7 @@ public class CommandSendRequest implements Command {
             Validator requestValidator = ValidatorFactory.getInstance().getRequestValidator();
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
-                List<String> localized = MessageLocalizer.getMessages(request,errors);
-                return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, localized, fieldMap);
+                return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
             }
             Builder<Request> requestBuilder = BuilderFactory.getInstance().getRequestBuilder();
             Request wantedPersonRequest = requestBuilder.build(fieldMap);
@@ -55,10 +54,9 @@ public class CommandSendRequest implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_MY_REQUESTS.name());
         } catch (ServiceException e) {
             errors.add("error.server");
-            List<String> localized = MessageLocalizer.getMessages(request,errors);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, localized, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
         } catch (IOException | ServletException e) {
-            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=error.server");
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=error%server");
         }
     }
 

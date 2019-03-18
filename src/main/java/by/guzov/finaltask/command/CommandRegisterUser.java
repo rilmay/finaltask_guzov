@@ -27,8 +27,7 @@ public class CommandRegisterUser implements Command {
         Validator userValidator = ValidatorFactory.getInstance().getUserValidator();
         List<String> errors = new ArrayList<>(userValidator.validate(fieldMap));
         if (errors.size() > 0) {
-            List<String> localized = MessageLocalizer.getMessages(request,errors);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, localized, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
         }
         Builder<User> userBuilder = BuilderFactory.getInstance().getUserBuilder();
         try {
@@ -41,8 +40,7 @@ public class CommandRegisterUser implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add("error.server");
-            List<String> localized = MessageLocalizer.getMessages(request,errors);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, localized, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
         }
     }
 }

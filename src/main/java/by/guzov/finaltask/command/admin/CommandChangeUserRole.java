@@ -5,10 +5,12 @@ import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,15 +18,20 @@ public class CommandChangeUserRole implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
+            String id = request.getParameter(AppConstants.ID);
+            if (!StringValidator.isValid(id, 1, 9, StringValidator.NUMBER_PATTERN)) {
+                return ResponseUtil.toCommandWithError(request,
+                        CommandType.SHOW_EMPTY_PAGE, "field.id" + MessageLocalizer.DELIMITER + "error.invalid_base");
+            }
+            int userId = Integer.parseInt(id);
             UserService userService = ServiceFactory.getInstance().getUserService();
-            int id = Integer.parseInt(request.getParameter(AppConstants.ID));
-            User user = userService.getUserById(id);
+            User user = userService.getUserById(userId);
             user.setRole(user.getRole().equals(AppConstants.USER) ? AppConstants.ADMIN : AppConstants.USER);
             userService.updateUser(user);
             return ResponseUtil.redirectTo(request, CommandType.SHOW_USER_DETAILS +
                     "&" + AppConstants.ID + "=" + user.getId());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

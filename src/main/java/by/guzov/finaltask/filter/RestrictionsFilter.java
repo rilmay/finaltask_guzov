@@ -5,7 +5,6 @@ import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.Restrictions;
 import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.util.AppConstants;
-import sun.plugin2.message.Message;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -36,7 +35,7 @@ public class RestrictionsFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             request.setAttribute(AppConstants.VIEW_NAME, "empty");
-            request.setAttribute(AppConstants.ERROR_MESSAGE, MessageLocalizer.getMessages(httpServletRequest,"error.forbidden"));
+            request.setAttribute(AppConstants.ERROR_MESSAGE, MessageLocalizer.getMessages(httpServletRequest, "error.forbidden"));
             request.getRequestDispatcher(AppConstants.MAIN_PAGE_PATH).forward(request, response);
         }
     }

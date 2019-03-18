@@ -21,7 +21,7 @@ public class CommandShowRequestForm implements Command {
                 WantedPerson person = service.getById(wpId);
                 request.setAttribute("wp", person);
             } catch (ServiceException e) {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
             }
         }
         return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_form", Router.Type.FORWARD);

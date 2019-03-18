@@ -1,5 +1,8 @@
 package by.guzov.finaltask.filter;
 
+import by.guzov.finaltask.i18n.MessageLocalizer;
+import by.guzov.finaltask.util.AppConstants;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +23,17 @@ public class PopUpMessageFilter implements Filter {
             request.setAttribute("success", true);
         }
         filterChain.doFilter(servletRequest, servletResponse);
+        String error = request.getParameter(AppConstants.ERROR_MESSAGE);
+        if (error != null && !error.isEmpty()) {
+            error = error.replaceAll("%", ".");
+            String message;
+            try {
+                message = MessageLocalizer.getMessages(request, error);
+            } catch (Exception e) {
+                message = MessageLocalizer.getMessages(request, "error.server");
+            }
+            request.setAttribute(AppConstants.ERROR_MESSAGE, message);
+        }
     }
 
     @Override

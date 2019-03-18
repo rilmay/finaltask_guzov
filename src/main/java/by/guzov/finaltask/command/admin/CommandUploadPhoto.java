@@ -5,6 +5,7 @@ import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.WantedPersonService;
@@ -25,7 +26,8 @@ public class CommandUploadPhoto implements Command {
         try {
             String wpId = request.getParameter(AppConstants.ID);
             if (!StringValidator.isValid(wpId, 1, 9, StringValidator.NUMBER_PATTERN)) {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid person id");
+                return ResponseUtil.toCommandWithError(request,
+                        CommandType.SHOW_EMPTY_PAGE, "field.id" + MessageLocalizer.DELIMITER + "error.invalid_base");
             }
             int wantedPersonId = Integer.parseInt(wpId);
             Part photo = request.getPart(FieldNames.PHOTO);
@@ -36,9 +38,9 @@ public class CommandUploadPhoto implements Command {
             wantedPersonService.update(wantedPerson);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_UPLOAD_PHOTO_FORM, "server error");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_UPLOAD_PHOTO_FORM, "error.server");
         } catch (IOException | ServletException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
 
     }

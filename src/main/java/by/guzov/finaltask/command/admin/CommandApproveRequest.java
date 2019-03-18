@@ -5,10 +5,12 @@ import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,14 +18,19 @@ public class CommandApproveRequest implements Command {
     @Override
     public ResponseContent execute(HttpServletRequest request) {
         try {
+            String id = request.getParameter(AppConstants.ID);
+            if (!StringValidator.isValid(id, 1, 9, StringValidator.NUMBER_PATTERN)) {
+                return ResponseUtil.toCommandWithError(request,
+                        CommandType.SHOW_EMPTY_PAGE, "field.id" + MessageLocalizer.DELIMITER + "error.invalid_base");
+            }
+            int requestId = Integer.parseInt(id);
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            int id = Integer.parseInt(request.getParameter(AppConstants.ID));
-            Request currentRequest = requestService.getById(id);
+            Request currentRequest = requestService.getById(requestId);
             requestService.approve(currentRequest);
             return ResponseUtil.redirectTo(request, CommandType.SHOW_REQUEST_DETAILS + "&" +
                     AppConstants.ID + "=" + currentRequest.getId());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, e.getMessage());
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

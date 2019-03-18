@@ -29,25 +29,31 @@ public class RequestValidator implements Validator {
             errors.add("field.reward" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
         }
 
-        if (!StringValidator.isValid(applicationDate, 1, StringValidator.DATE_PATTERN)) {
-            errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
-        }
+        boolean validDates = true;
 
         if (!StringValidator.isValid(leadDate, 1, StringValidator.DATE_PATTERN)) {
-            errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
-        } else if (StringValidator.isValid(applicationDate, 1, StringValidator.DATE_PATTERN)) {
+            validDates = false;
+            errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
+        }
+        if (!StringValidator.isValid(applicationDate, 1, StringValidator.DATE_PATTERN)) {
+            validDates = false;
+            errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
+        }
+        if (validDates) {
             long application = Date.valueOf(applicationDate).getTime();
             long lead = Date.valueOf(leadDate).getTime();
-            long currentDate = Date.valueOf(LocalDate.now()).getTime();
-            if (application < currentDate)
-                errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
-            if (lead < currentDate)
-                errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
             if (application > lead) {
-                errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
+                errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.can_not_earlier_base" +
+                        MessageLocalizer.DELIMITER + "field.application_date");
+            } else {
+                long currentDate = Date.valueOf(LocalDate.now()).getTime();
+                if (application < currentDate) {
+                    errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
+                }
+                if (lead < currentDate) {
+                    errors.add("field.lead_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
+                }
             }
-        } else {
-            errors.add("field.application_date" + MessageLocalizer.DELIMITER + "error.invalid_base");
         }
 
         if (!status.equals("pending")) {

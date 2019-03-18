@@ -35,8 +35,7 @@ public class CommandSendRecord implements Command {
         Validator recordValidator = ValidatorFactory.getInstance().getRecordValidator();
         List<String> errors = recordValidator.validate(fieldMap);
         if (errors.size() > 0) {
-            List<String> localized = MessageLocalizer.getMessages(request,errors);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, localized, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
         }
         Builder<Record> recordBuilder = BuilderFactory.getInstance().getRecordBuilder();
         Record record = recordBuilder.build(fieldMap);
@@ -53,8 +52,7 @@ public class CommandSendRecord implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add("error.server");
-            List<String> localized = MessageLocalizer.getMessages(request,errors);
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, localized, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
         } catch (IOException | ServletException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }

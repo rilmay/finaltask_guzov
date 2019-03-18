@@ -55,7 +55,7 @@ public class CommandProvider {
         commandMap.put(CommandType.SHOW_RECORD_LIST, new CommandShowRecordList());
         commandMap.put(CommandType.SHOW_RECORD_DETAILS, new CommandShowRecordDetails());
         commandMap.put(CommandType.DELETE_RECORD, new CommandDeleteRecord());
-        commandMap.put(CommandType.SET_EXPIRED_RECORD,new CommandSetExpiredRecord());
+        commandMap.put(CommandType.SET_EXPIRED_RECORD, new CommandSetExpiredRecord());
     }
 
     /**

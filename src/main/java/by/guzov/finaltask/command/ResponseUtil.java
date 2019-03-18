@@ -1,6 +1,7 @@
 package by.guzov.finaltask.command;
 
 import by.guzov.finaltask.dto.ResponseContent;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,13 +29,19 @@ public final class ResponseUtil {
     }
 
     public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, String error) {
+        String localized = MessageLocalizer.getMessages(request, error);
+        return withError(request,commandType,localized);
+    }
+
+    private static ResponseContent withError(HttpServletRequest request, CommandType commandType, String error){
         request.setAttribute(AppConstants.ERROR_MESSAGE, error);
         return toCommand(request, commandType);
     }
 
     public static ResponseContent toFormWithErrors(HttpServletRequest request, CommandType commandType, List<String> errors, Map<String, String> fieldMap) {
         fieldMap.forEach(request::setAttribute);
-        return toCommandWithError(request, commandType, errors.stream().collect(Collectors.joining("\\n")));
+        List<String> localized = MessageLocalizer.getMessages(request, errors);
+        return withError(request, commandType, localized.stream().collect(Collectors.joining("\\n")));
     }
 
     public static ResponseContent redirectTo(HttpServletRequest request, String url) {

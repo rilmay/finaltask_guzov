@@ -92,7 +92,7 @@
                            onClick="changeLang('en')">
                 </span>
                 <span class="navbar-item">
-                    <input id="ru" class="button is-light" type="button" value="<my:lang key="${text['links.ru']}"/>"
+                    <input id="ru" class="button is-light" type="button" value="${text['links.ru']}"
                            onClick="changeLang('ru')">
                 </span>
             </div>

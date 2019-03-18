@@ -28,10 +28,10 @@ public class CommandRecoverPassword implements Command {
                 session.setAttribute(AppConstants.SESSION_USER, recovered);
                 return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
             } else {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid recovery procedure");
+                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
             }
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "invalid recovery procedure");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
         }
     }
 }

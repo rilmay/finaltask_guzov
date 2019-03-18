@@ -37,7 +37,7 @@
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">
-                            <my:lang key="title.hello"/>
+                            ${text['title.hello']}
                         </h1>
                         <h2 class="subtitle">
                             please log in or register

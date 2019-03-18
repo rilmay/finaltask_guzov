@@ -17,7 +17,7 @@ public final class MessageLocalizer {
     private MessageLocalizer() {
     }
 
-    private static MessageResourceBundle bundleInit(HttpServletRequest request){
+    private static MessageResourceBundle bundleInit(HttpServletRequest request) {
         Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
         ResourceBundleFactory factory = ResourceBundleFactory.getInstance();
         MessageResourceBundle bundle;
@@ -29,7 +29,7 @@ public final class MessageLocalizer {
         return bundle;
     }
 
-    private static String localize(String message, MessageResourceBundle bundle){
+    private static String localize(String message, MessageResourceBundle bundle) {
         String localizedMessage;
         if (message.contains(BASE_MESSAGE)) {
             String base = "";
@@ -41,8 +41,8 @@ public final class MessageLocalizer {
                     components.add(bundle.handleGetObject(component).toString());
                 }
             }
-            localizedMessage = MessageFormat.format(base,components).replaceAll("[\\[\\]]","");
-        }else {
+            localizedMessage = MessageFormat.format(base, components.toArray());
+        } else {
             localizedMessage = bundle.handleGetObject(message).toString();
         }
         return localizedMessage;
@@ -50,11 +50,11 @@ public final class MessageLocalizer {
 
     public static List<String> getMessages(HttpServletRequest request, List<String> keys) {
         MessageResourceBundle bundle = bundleInit(request);
-        return keys.stream().map(message -> localize(message,bundle)).collect(Collectors.toList());
+        return keys.stream().map(message -> localize(message, bundle)).collect(Collectors.toList());
     }
 
-    public static String getMessages(HttpServletRequest request, String key){
+    public static String getMessages(HttpServletRequest request, String key) {
         MessageResourceBundle bundle = bundleInit(request);
-        return localize(key,bundle);
+        return localize(key, bundle);
     }
 }
