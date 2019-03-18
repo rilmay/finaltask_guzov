@@ -22,7 +22,6 @@ public class CommandShowRequestDetails implements Command {
             int requestId = Integer.parseInt(id);
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             request.setAttribute("request", requestService.getFullRequest(requestId));
-            return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "personal_page", Router.Type.FORWARD);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_details", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
