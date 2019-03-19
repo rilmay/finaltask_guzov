@@ -1,10 +1,9 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.domain.Builder.Builder;
-import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.domain.User;
+import by.guzov.finaltask.domain.entityBuilder.Builder;
+import by.guzov.finaltask.domain.entityBuilder.BuilderFactory;
 import by.guzov.finaltask.dto.ResponseContent;
-import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.UserService;

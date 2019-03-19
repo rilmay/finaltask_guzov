@@ -3,7 +3,6 @@ package by.guzov.finaltask.i18n;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
@@ -46,5 +45,9 @@ public class MessageResourceBundle extends ResourceBundle {
     @Override
     protected Object handleGetObject(String key) {
         return parent.getObject(key);
+    }
+
+    public String getByKey(String key) {
+        return handleGetObject(key).toString();
     }
 }

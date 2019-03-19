@@ -1,4 +1,4 @@
-package by.guzov.finaltask.domain.Builder;
+package by.guzov.finaltask.domain.entityBuilder;
 
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.util.FieldNames;

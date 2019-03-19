@@ -57,4 +57,9 @@ public final class MessageLocalizer {
         MessageResourceBundle bundle = bundleInit(request);
         return localize(key, bundle);
     }
+
+    public static String getLangTag(HttpServletRequest request) {
+        Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
+        return cookieLang.orElse("en");
+    }
 }

@@ -13,27 +13,15 @@ public final class StringValidator {
     }
 
     public static boolean isValid(String str, int minLength, String pattern) {
-        if (str == null || str.isEmpty()) {
-            return false;
-        } else {
-            return str.length() >= minLength && str.matches(pattern);
-        }
+        return isValid(str, pattern) && str.length() >= minLength;
     }
 
     public static boolean isValid(String str, int minLength, int maxLength, String pattern) {
-        if (str == null || str.isEmpty()) {
-            return false;
-        } else {
-            return str.length() >= minLength && str.length() <= maxLength && str.matches(pattern);
-        }
+        return isValid(str, minLength, pattern) && str.length() <= maxLength;
     }
 
     public static boolean isValid(String str, String pattern) {
-        if (str == null || str.isEmpty()) {
-            return false;
-        } else {
-            return str.matches(pattern);
-        }
+        return str != null && !str.isEmpty() && str.matches(pattern);
     }
 }
 

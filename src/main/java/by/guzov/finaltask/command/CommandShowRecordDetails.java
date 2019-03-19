@@ -23,6 +23,8 @@ public class CommandShowRecordDetails implements Command {
             int requestId = Integer.parseInt(id);
             RecordService recordService = ServiceFactory.getInstance().getRecordService();
             Record record = recordService.getById(requestId);
+            String textWithLinks = recordService.textWithLinks(record.getDescription(), MessageLocalizer.getLangTag(request));
+            record.setDescription(textWithLinks);
             request.setAttribute("record", record);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "record_details", Router.Type.FORWARD);
         } catch (ServiceException e) {

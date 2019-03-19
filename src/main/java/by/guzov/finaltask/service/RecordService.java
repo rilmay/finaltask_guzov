@@ -20,4 +20,6 @@ public interface RecordService {
     List<Record> getAll() throws ServiceException;
 
     void setExpired(Record record) throws ServiceException;
+
+    String textWithLinks(String text, String langTag) throws ServiceException;
 }

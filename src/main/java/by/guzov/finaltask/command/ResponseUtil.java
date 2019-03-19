@@ -30,10 +30,10 @@ public final class ResponseUtil {
 
     public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, String error) {
         String localized = MessageLocalizer.getMessages(request, error);
-        return withError(request,commandType,localized);
+        return withError(request, commandType, localized);
     }
 
-    private static ResponseContent withError(HttpServletRequest request, CommandType commandType, String error){
+    private static ResponseContent withError(HttpServletRequest request, CommandType commandType, String error) {
         request.setAttribute(AppConstants.ERROR_MESSAGE, error);
         return toCommand(request, commandType);
     }

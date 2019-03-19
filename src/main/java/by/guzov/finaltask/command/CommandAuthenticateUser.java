@@ -1,7 +1,7 @@
 package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.domain.Builder.BuilderFactory;
 import by.guzov.finaltask.domain.User;
+import by.guzov.finaltask.domain.entityBuilder.BuilderFactory;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.ServiceException;
@@ -14,7 +14,6 @@ import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
