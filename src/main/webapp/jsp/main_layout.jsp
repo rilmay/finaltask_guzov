@@ -40,7 +40,7 @@
                             ${text['title.hello']}
                         </h1>
                         <h2 class="subtitle">
-                            please log in or register
+                                ${text['title.log_in_register']}
                         </h2>
                     </div>
                 </div>

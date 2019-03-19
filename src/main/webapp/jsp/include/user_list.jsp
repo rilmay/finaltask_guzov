@@ -44,7 +44,7 @@
             <div class="has-text-centered is-light">
                 <br>
                 <br>
-                <p class="subtitle">Nothing to show...</p>
+                <p class="subtitle">${text['title.nothing_to_show']}</p>
                 <br>
                 <br>
             </div>

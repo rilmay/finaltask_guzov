@@ -17,13 +17,13 @@
                         <p class="title is-4"><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></p>
                         <p class="subtitle is-6">@<c:out value="${user.login}"/></p>
                     <div class="content">
-                        <p><strong>Registration Date: </strong><c:out value="${user.registrationDate}"/></p>
-                        <p><strong>E-mail: </strong><c:out value="${user.email}"/></p>
+                        <p><strong>${text['field.registration_date']}: </strong><c:out value="${user.registrationDate}"/></p>
+                        <p><strong>${text['field.email']}: </strong><c:out value="${user.email}"/></p>
                     </div>
                     <br>
                     <form id="" action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_PERSONAL_PAGE}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="button" value="delete"
+                        <input class="button is-block is-info is-normal is-fullwidth" type="button" value="${text['button.delete']}"
                                onclick="ondeleteclick('delete_form')">
                     </form>
                 </div>

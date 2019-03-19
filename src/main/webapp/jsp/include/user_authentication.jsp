@@ -16,16 +16,16 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">Authentication</p>
-                <p class="subtitle is-6">Please fill in the fields</p>
+                <p class="title is-4">${text['title.authentication']}</p>
+                <p class="subtitle is-6">${text['title.fill_in']}</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <my:inputfield label="${text['field.login']}" name="${FieldNames.LOGIN}"/>
                         <my:inputfield label="${text['field.password']}" name="${FieldNames.PASSWORD}" type="password"/>
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.AUTHENTICATE_USER}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="Log in">
+                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['links.log_in']}">
                     </form>
-                    <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECOVERY_PAGE}">forgot your password?</a>
+                    <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECOVERY_PAGE}">${text['links.forgot_password']}</a>
                 </div>
             </div>
         </article>

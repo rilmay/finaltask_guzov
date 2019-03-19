@@ -11,7 +11,7 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
-<div class="column is-8 is-centered">
+<div class="column is-7 is-centered">
     <div class="box is-2">
         <article class="media">
             <div class="media-left">
@@ -20,25 +20,26 @@
                 </figure>
                 <br>
                 <c:if test="${person.pending}">
-                    <p class="button is-fullwidth is-small is-warning">pending</p>
+                    <p class="button is-fullwidth is-small is-warning">${text['status.pending']}</p>
                 </c:if>
             </div>
             <div class="media-content">
                 <div class="content">
-                    <p><strong><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
-                        </strong><i><my:display variable="${person.personStatus}"/></i></p>
-                    <p><strong>Description: </strong><my:display variable="${person.description}"/></p>
-                    <p><strong>Born: </strong>
-                        <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
+                    <p><strong class="title is-5"><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
+                        </strong><i><my:lang key="status.${person.personStatus}"/></i></p>
+                    <p><strong>${text['title.born']}: </strong>
+                    <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
                     </p>
-                    <p><strong>Special signs: </strong><my:display variable="${person.specialSigns}"/></p>
-                    <p><strong>Search area:</strong><my:display variable="${person.searchArea}"/></p>
+                    <p><strong>${text['field.special_signs']}: </strong><my:display variable="${person.specialSigns}"/></p>
+                    <p><strong>${text['field.search_area']}: </strong><my:display variable="${person.searchArea}"/></p>
+
+                    <p><strong>${text['field.description']}: </strong><my:display variable="${person.description}"/></p>
                     <form action="${pageContext.request.contextPath}/" method="get">
                         <input type="hidden" name="${AppConstants.COMMAND}"
                                value="${CommandType.SHOW_REQUESTS_BY_WANTED_PERSON}">
                         <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
                         <input class="button is-block is-light is-normal is-fullwidth" type="submit"
-                               value="requests">
+                               value="${text['links.requests']}">
                     </form>
                     <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER) and not person.pending}">
                         <c:if test="${person.personStatus eq 'missing' or person.personStatus eq 'wanted'}">
@@ -47,7 +48,7 @@
                                    value="${CommandType.SHOW_REQUEST_FORM}">
                                 <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
                                 <input class="button is-block is-success is-normal is-fullwidth" type="submit"
-                                    value="make a request">
+                                    value="${text['links.make_request']}">
                             </form>
                         </c:if>
                     </c:if>
@@ -56,7 +57,7 @@
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_UPLOAD_PHOTO_FORM}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="upload photo">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.upload_photo']}">
                         </form>
                     </c:if>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
@@ -64,7 +65,7 @@
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.DELETE_WANTED_PERSON}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="button" value="delete"
+                            <input class="button is-block is-info is-normal is-fullwidth" type="button" value="${text['button.delete']}"
                                    onclick="ondeleteclick('delete_form')">
                         </form>
                     </c:if>

@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 public class RecordServiceImpl implements RecordService {
     private RecordDao recordDao;
     private static final String LINK_PATTERN = "@[0-9]+";
+    private static final String NOT_FOUND_KEY = "title.not_found";
+    private static final String UNKNOWN_KEY = "title.unknown";
 
     public RecordServiceImpl() throws ServiceException {
         daoInit();
@@ -112,8 +114,8 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public String textWithLinks(String text, String langTag) throws ServiceException {
         MessageResourceBundle bundle = ResourceBundleFactory.getInstance().getBundle(langTag);
-        String notFound = bundle.getByKey("title.not_found");
-        String unknown = bundle.getByKey("title.unknown");
+        String notFound = bundle.getByKey(NOT_FOUND_KEY);
+        String unknown = bundle.getByKey(UNKNOWN_KEY);
         String outText = text;
         WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
         Pattern pattern = Pattern.compile(LINK_PATTERN);
@@ -130,7 +132,7 @@ public class RecordServiceImpl implements RecordService {
                 link = "<a href=\"?" + AppConstants.COMMAND + "=" + CommandType.SHOW_PERSON_DETAILS
                         + "&" + AppConstants.ID + "=" + id + "\">" + firstName + " " + lastName + "</a>";
             } catch (RuntimeException e) {
-                link = "<a href=\"#\">" + notFound + "</a>";
+                link = "<a>" + notFound + "</a>";
             }
             outText = text.replaceAll(found, link);
         }

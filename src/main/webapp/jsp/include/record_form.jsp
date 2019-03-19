@@ -17,16 +17,16 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">Make a record</p>
-                <p class="subtitle is-6">Please fill in the fields</p>
+                <p class="title is-4">${text['links.make_record']}</p>
+                <p class="subtitle is-6">${text['title.fill_in']}</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
 
-                        <my:inputfield label="Title" name="${FieldNames.NAME}"/>
+                        <my:inputfield label="${text['field.title']}" name="${FieldNames.NAME}"/>
 
-                        <my:inputfield label="Place" name="${FieldNames.PLACE}"/>
+                        <my:inputfield label="${text['field.place']}" name="${FieldNames.PLACE}"/>
 
-                        <label for="date" class="label">Date</label>
+                        <label for="date" class="label">${text['field.date']}:</label>
 
                         <div class="field">
                             <div class="control">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <label for="description" class="label">Description</label>
+                        <label for="description" class="label">${text['field.description']}:</label>
                         <div class="field">
                             <div class="control">
                                 <textarea required="required" class="textarea" name="${FieldNames.DESCRIPTION}"
@@ -43,9 +43,9 @@
                             </div>
                         </div>
 
-                        <my:inputfield label="Photo" name="${FieldNames.PHOTO}" type="file" requied="false"/>
+                        <my:inputfield label="${text['field.photo']}" name="${FieldNames.PHOTO}" type="file" requied="false"/>
 
-                        <label for="rate" class="label">Rating</label>
+                        <label for="rate" class="label">${text['field.rating']}</label>
                         <div id="rate" class="rating">
                             <input name="${FieldNames.RATING}" id="e5" type="radio" value="5"><label for="e5">☆</label>
                             <input name="${FieldNames.RATING}" id="e4" type="radio" value="4"><label for="e4">☆</label>
@@ -54,7 +54,7 @@
                             <input name="${FieldNames.RATING}" id="e1" type="radio" value="1"><label for="e1">☆</label>
                         </div>
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SEND_RECORD}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="send">
+                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.send']}">
                     </form>
                 </div>
             </div>

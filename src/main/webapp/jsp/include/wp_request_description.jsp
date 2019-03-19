@@ -25,38 +25,38 @@
 </c:if>
 <c:if test="${empty wp}">
     <br>
-    <p class="title is-4">Describe the wanted person</p>
-    <p class="subtitle is-6">Or choose him from <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">the
-        list</a></p>
+    <p class="title is-4">${text['title.describe_wanted_person']}</p>
+    <p class="subtitle is-6">${text['title.choose']} <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_WANTED_PEOPLE}">
+            ${text['title.the_list']}</a></p>
     <br>
 
-    <my:inputfield label="First name" name="${FieldNames.FIRST_NAME}" requied="false"/>
-    <my:inputfield label="Last name" name="${FieldNames.LAST_NAME}" requied="false"/>
-    <label for="status" class="label">Person status</label>
+    <my:inputfield label="${text['field.first_name']}" name="${FieldNames.FIRST_NAME}" requied="false"/>
+    <my:inputfield label="${text['field.last_name']}" name="${FieldNames.LAST_NAME}" requied="false"/>
+    <label for="status" class="label">${text['field.status']}:</label>
     <div class="field">
         <div class="control">
             <select required="required" id="status" class="select" name="${FieldNames.PERSON_STATUS}" size="1">
-                <option value="missing">missing</option>
-                <option value="wanted">wanted</option>
+                <option value="missing">${text['status.missing']}</option>
+                <option value="wanted">${text['status.wanted']}</option>
             </select>
         </div>
     </div>
-    <label for="description" class="label">Description<i>(required)</i></label>
+    <label for="description" class="label">${text['field.description']}<i>(${text['title.required']})</i></label>
     <div class="field">
         <div class="control">
             <textarea required="required" class="textarea" name="${FieldNames.DESCRIPTION}" id="description"></textarea>
         </div>
     </div>
-    <my:inputfield label="Birth place" name="${FieldNames.BIRTH_PLACE}" requied="false"/>
-    <label for="birth_date" class="label">Birth date</label>
+    <my:inputfield label="${text['field.birth_place']}" name="${FieldNames.BIRTH_PLACE}" requied="false"/>
+    <label for="birth_date" class="label">${text['field.birth_date']}:</label>
     <div class="field">
         <div class="control">
             <input type="date" id="birth_date" name="${FieldNames.BIRTH_DATE}" class="date-picker"
                    max="<fmt:formatDate value="${date}" pattern="yyyy-mm-dd" />"/>
         </div>
     </div>
-    <my:inputfield label="Search area" name="${FieldNames.SEARCH_AREA}" requied="false"/>
-    <my:inputfield label="Special signs" name="${FieldNames.SPECIAL_SIGNS}" requied="false"/>
-    <my:inputfield label="Photo" name="${FieldNames.PHOTO}" type="file" requied="false"/>
+    <my:inputfield label="${text['field.search_area']}" name="${FieldNames.SEARCH_AREA}" requied="false"/>
+    <my:inputfield label="${text['field.special_signs']}" name="${FieldNames.SPECIAL_SIGNS}" requied="false"/>
+    <my:inputfield label="${text['field.photo']}" name="${FieldNames.PHOTO}" type="file" requied="false"/>
     <br>
 </c:if>

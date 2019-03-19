@@ -27,8 +27,8 @@
                         <h3>
                             <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_DETAILS}&${AppConstants.ID}=${record.id}">${record.name}</a>
                         </h3>
-                        <p><strong>Place: </strong>${record.place}</p>
-                        <p><strong>Date: </strong>${record.date}</p>
+                        <p><strong>${text['field.place']}: </strong>${record.place}</p>
+                        <p><strong>${text['field.date']}: </strong>${record.date}</p>
                     </div>
                 </div>
                 <div class="media-right">
@@ -48,7 +48,7 @@
     <div class="has-text-centered is-light">
         <br>
         <br>
-        <p class="subtitle">Nothing to show...</p>
+        <p class="subtitle">${text['title.nothing_to_show']}</p>
         <br>
         <br>
     </div>

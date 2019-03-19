@@ -9,7 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="content">
     <div class="box">
-        <p class="title is-3">About us</p>
+        <p class="title is-3">${text['links.about_us']}</p>
         <p>People search service</p>
     </div>
 </div>

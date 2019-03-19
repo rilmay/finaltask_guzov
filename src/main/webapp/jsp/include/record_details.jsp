@@ -18,7 +18,7 @@
                 <my:image variable="${record.photo}"/>
             </figure>
             <c:if test="${record.recordStatus eq 'expired'}">
-                <p class="button is-fullwidth is-small is-warning">expired</p>
+                <p class="button is-fullwidth is-small is-warning">${text['status.expired']}</p>
             </c:if>
         </div>
         <div class="card-content">
@@ -32,8 +32,8 @@
                     </c:forTokens>
                 </div>
                 <br>
-                <p><strong>Place: </strong>${record.place}</p>
-                <p><strong>Date: </strong>${record.date}</p>
+                <p><strong>${text['field.place']}: </strong>${record.place}</p>
+                <p><strong>${text['field.date']}: </strong>${record.date}</p>
                 <p><i>${record.description}</i></p>
                 <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                     <c:if test="${record.recordStatus eq 'relevant'}">
@@ -42,13 +42,13 @@
                                value="${CommandType.SET_EXPIRED_RECORD}">
                         <input type="hidden" name="${AppConstants.ID}" value="${record.id}">
                         <input class="button is-block is-success is-normal is-fullwidth" type="submit"
-                               value="set expired">
+                               value="${text['button.set_expired']}">
                     </form>
                     </c:if>
                     <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_RECORD}">
                         <input type="hidden" name="${AppConstants.ID}" value="${record.id}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="button" value="delete"
+                        <input class="button is-block is-info is-normal is-fullwidth" type="button" value="${text['button.delete']}"
                                onclick="ondeleteclick('delete_form')">
                     </form>
                 </c:if>

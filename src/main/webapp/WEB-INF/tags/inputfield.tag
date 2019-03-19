@@ -8,7 +8,7 @@
 <jsp:directive.attribute name="requied" description="required"/>
 <jsp:directive.attribute name="type" description="type"/>
 
-<label for="field" class="label">${label}</label>
+<label for="field" class="label">${label}:</label>
 
 <div class="field">
     <div class="control">

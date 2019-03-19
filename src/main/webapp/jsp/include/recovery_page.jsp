@@ -16,24 +16,24 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">Password recovery</p>
+                <p class="title is-4">${text['title.password_recovery']}</p>
                 <div class="content">
                     <br>
                     <c:if test="${empty sessionScope.get('recovery')}">
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>
+                            <my:inputfield label="${text['field.login']}" name="${FieldNames.LOGIN}"/>
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_RECOVERY_PAGE}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="send e-mail">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.send_message']}">
                         </form>
                     </c:if>
                     <c:if test="${not empty sessionScope.get('recovery')}">
-                        We have sent you email, please enter secret code and new password
+                        ${text['title.recovery_info']}
                         <form action="${pageContext.request.contextPath}/" method="post">
-                            <my:inputfield label="Secret code" name="code"/>
-                            <my:inputfield label="New password" name="new_password" type="password"/>
+                            <my:inputfield label="${text['field.secret_code']}" name="code"/>
+                            <my:inputfield label="${text['field.new_password']}" name="new_password" type="password"/>
                             <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.RECOVER_PASSWORD}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="confirm">
+                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.confirm']}">
                         </form>
                     </c:if>
                 </div>

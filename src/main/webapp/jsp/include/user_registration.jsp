@@ -16,25 +16,24 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">Registration</p>
-                <p class="subtitle is-6">Please fill in the fields</p>
+                <p class="title is-4">${text['title.registration']}</p>
+                <p class="subtitle is-6">${text['title.fill_in']}</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <my:inputfield label="Login" name="${FieldNames.LOGIN}"/>
+                        <my:inputfield label="${text['field.login']}" name="${FieldNames.LOGIN}"/>
 
-                        <my:inputfield label="Password" name="${FieldNames.PASSWORD}" type="password"/>
+                        <my:inputfield label="${text['field.password']}" name="${FieldNames.PASSWORD}" type="password"/>
 
-                        <my:inputfield label="E-mail" name="${FieldNames.EMAIL}"/>
+                        <my:inputfield label="${text['field.email']}" name="${FieldNames.EMAIL}"/>
 
-                        <my:inputfield label="First name" name="${FieldNames.FIRST_NAME}"/>
+                        <my:inputfield label="${text['field.first_name']}" name="${FieldNames.FIRST_NAME}"/>
 
-                        <my:inputfield label="Last name" name="${FieldNames.LAST_NAME}"/>
+                        <my:inputfield label="${text['field.last_name']}" name="${FieldNames.LAST_NAME}"/>
 
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.REGISTER_USER}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="register">
+                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.register']}">
                     </form>
                 </div>
-                <p class="has-text-info"><c:out value="${requirements_message}"/></p>
             </div>
         </article>
     </div>

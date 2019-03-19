@@ -29,7 +29,7 @@
                                     </a>
                     </div>
                 </div>
-                <p><i><my:display variable="${person.personStatus}"/></i></p>
+                <p><i><my:lang key="status.${person.personStatus}"/></i></p>
                 <br>
                 <p><my:display variable="${person.description}"/></p>
             </div>
@@ -42,7 +42,7 @@
     <div class="has-text-centered is-light">
         <br>
         <br>
-        <p class="subtitle">Nothing to show...</p>
+        <p class="subtitle">${text['title.nothing_to_show']}</p>
         <br>
         <br>
     </div>
