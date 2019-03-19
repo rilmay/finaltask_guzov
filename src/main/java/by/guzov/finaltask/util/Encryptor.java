@@ -17,7 +17,7 @@ public final class Encryptor {
             return IntStream.range(0, hexHash.length).mapToObj(i -> Integer.toHexString(0xff & hexHash[i]))
                     .map(s -> (s.length() == 1) ? "0" + s : s).collect(Collectors.joining());
         } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
 
     }

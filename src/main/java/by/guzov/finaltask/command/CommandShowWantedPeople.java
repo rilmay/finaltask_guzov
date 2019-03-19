@@ -8,9 +8,7 @@ import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommandShowWantedPeople implements Command {
     public ResponseContent execute(HttpServletRequest request) {
@@ -22,10 +20,10 @@ public class CommandShowWantedPeople implements Command {
                 wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false);
             } else if (only.equals("relevant")) {
                 wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false,
-                        AppConstants.WP_STATUS_MISSING,AppConstants.WP_STATUS_WANTED);
+                        AppConstants.WP_STATUS_MISSING, AppConstants.WP_STATUS_WANTED);
             } else if (only.equals("found")) {
                 wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false,
-                        AppConstants.WP_STATUS_FOUND,AppConstants.WP_STATUS_CAUGHT);
+                        AppConstants.WP_STATUS_FOUND, AppConstants.WP_STATUS_CAUGHT);
             } else {
                 wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false);
             }

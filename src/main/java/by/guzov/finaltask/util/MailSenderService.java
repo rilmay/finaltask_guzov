@@ -52,7 +52,7 @@ public final class MailSenderService {
             properties.load(getClass().getResourceAsStream("/" + name));
             return properties;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 

@@ -116,8 +116,8 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
                      connection.prepareStatement(getSelectQuery() + " WHERE record_status = 'relevant'")) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            LOGGER.error("Failed when getting all relevant",e);
-            throw new DaoException("Failed when getting all relevant",e);
+            LOGGER.error("Failed when getting all relevant", e);
+            throw new DaoException("Failed when getting all relevant", e);
         }
     }
 
@@ -128,8 +128,8 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
                      connection.prepareStatement(getSelectQuery() + " WHERE record_status = 'expired'")) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            LOGGER.error("Failed when getting all expired",e);
-            throw new DaoException("Failed when getting all expired",e);
+            LOGGER.error("Failed when getting all expired", e);
+            throw new DaoException("Failed when getting all expired", e);
         }
     }
 }

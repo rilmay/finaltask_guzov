@@ -124,8 +124,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            LOGGER.error("Failed when getting all by user and status",e);
-            throw new DaoException("Failed when getting all by user and status",e);
+            LOGGER.error("Failed when getting all by user and status", e);
+            throw new DaoException("Failed when getting all by user and status", e);
         }
     }
 
@@ -145,8 +145,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            LOGGER.error("Failed when getting all by wanted person and status",e);
-            throw new DaoException("Failed when getting all by wanted person and status",e);
+            LOGGER.error("Failed when getting all by wanted person and status", e);
+            throw new DaoException("Failed when getting all by wanted person and status", e);
         }
     }
 }

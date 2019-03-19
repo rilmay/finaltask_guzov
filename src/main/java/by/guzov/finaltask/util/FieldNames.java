@@ -8,7 +8,7 @@ public final class FieldNames {
     public static final String DESCRIPTION = "description";
     public static final String DATE = "date";
     public static final String PLACE = "place";
-    public static final String RECORD_SATUS = "record_status";
+    public static final String RECORD_STATUS = "record_status";
     public static final String NAME = "name";
     public static final String RATING = "rating";
 

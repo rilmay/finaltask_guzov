@@ -10,6 +10,8 @@ import by.guzov.finaltask.dto.FullRequest;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.util.AppConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RequestServiceImpl implements RequestService {
+    private final Logger LOGGER = LogManager.getLogger(RequestServiceImpl.class);
     private RequestDao requestDao;
     private WantedPersonDao wantedPersonDao;
     private UserDao userDao;
@@ -32,7 +35,8 @@ public class RequestServiceImpl implements RequestService {
             wantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
             userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when dao initialization", e);
+            throw new ServiceException("Failed when dao initialization", e);
         }
     }
 
@@ -41,7 +45,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             return requestDao.persist(request);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when creating", e);
+            throw new ServiceException("Failed when creating", e);
         }
     }
 
@@ -50,7 +55,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             requestDao.update(request);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when updating", e);
+            throw new ServiceException("Failed when updating", e);
         }
 
     }
@@ -60,7 +66,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             requestDao.delete(request);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when deleting", e);
+            throw new ServiceException("Failed when deleting", e);
         }
     }
 
@@ -69,7 +76,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             return getWithWP(requestDao.getAll());
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting all", e);
+            throw new ServiceException("Failed when getting all", e);
         }
     }
 
@@ -84,7 +92,8 @@ public class RequestServiceImpl implements RequestService {
                     person.getLastName(), user.getLogin());
 
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting by id", e);
+            throw new ServiceException("Failed when getting by id", e);
         }
     }
 
@@ -107,7 +116,8 @@ public class RequestServiceImpl implements RequestService {
             wantedPerson.setPending(false);
             transactionalUpdate(wantedPerson, request);
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when approving", e);
+            throw new ServiceException("Failed when approving", e);
         }
     }
 
@@ -117,7 +127,8 @@ public class RequestServiceImpl implements RequestService {
             request.setRequestStatus("cancelled");
             requestDao.update(request);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when cancelling", e);
+            throw new ServiceException("Failed when cancelling", e);
         }
     }
 
@@ -126,7 +137,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             return requestDao.getByPK(requestId);
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting by id", e);
+            throw new ServiceException("Failed when getting by id", e);
         }
     }
 
@@ -145,7 +157,8 @@ public class RequestServiceImpl implements RequestService {
                     .collect(Collectors.toList());
             transactionalUpdate(wantedPerson, updateRequests);
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when setting completed", e);
+            throw new ServiceException("Failed when setting completed", e);
         }
     }
 
@@ -170,7 +183,8 @@ public class RequestServiceImpl implements RequestService {
             try {
                 transactionManager.rollback();
             } catch (SQLException e1) {
-                throw new ServiceException(e);
+                LOGGER.error("Failed when doing transactional update", e);
+                throw new ServiceException("Failed when doing transactional update", e);
             }
         }
 
@@ -181,7 +195,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             return getWithWP(requestDao.getAllByUserAndStatus(userId, statuses));
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting all by user and statuses", e);
+            throw new ServiceException("Failed when getting all by user and statuses", e);
         }
     }
 
@@ -190,7 +205,8 @@ public class RequestServiceImpl implements RequestService {
         try {
             return getWithWP(requestDao.getAllByWantedPersonAndStatus(wantedPersonId, statuses));
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting all by wanted person and statuses", e);
+            throw new ServiceException("Failed when getting all by wanted person and statuses", e);
         }
     }
 }

@@ -36,7 +36,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             this.recordDao = (RecordDao) JdbcDaoFactory.getInstance().getDao(Record.class);
         } catch (DaoException e) {
-            throw new ServiceException("Server error", e);
+            LOGGER.error("Failed when dao initialization", e);
+            throw new ServiceException("Failed when dao initialization", e);
         }
     }
 
@@ -45,7 +46,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             return recordDao.getByPK(id);
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting by id", e);
+            throw new ServiceException("Failed when getting by id", e);
         }
     }
 
@@ -54,7 +56,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             return recordDao.persist(record);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when creating", e);
+            throw new ServiceException("Failed when creating", e);
         }
     }
 
@@ -63,7 +66,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             recordDao.delete(record);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when deleting", e);
+            throw new ServiceException("Failed when deleting", e);
         }
     }
 
@@ -72,9 +76,9 @@ public class RecordServiceImpl implements RecordService {
         try {
             recordDao.update(record);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when updating", e);
+            throw new ServiceException("Failed when updating", e);
         }
-
     }
 
     @Override
@@ -82,7 +86,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             return recordDao.getAllRelevant();
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting all relevant", e);
+            throw new ServiceException("Failed when getting all relevant", e);
         }
     }
 
@@ -91,7 +96,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             return recordDao.getAllExpired();
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting all expired", e);
+            throw new ServiceException("Failed when getting all expired", e);
         }
     }
 
@@ -100,7 +106,8 @@ public class RecordServiceImpl implements RecordService {
         try {
             return recordDao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when getting all", e);
+            throw new ServiceException("Failed when getting all", e);
         }
     }
 
@@ -110,7 +117,8 @@ public class RecordServiceImpl implements RecordService {
             record.setRecordStatus("expired");
             recordDao.update(record);
         } catch (PersistException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when setting expired", e);
+            throw new ServiceException("Failed when setting expired", e);
         }
     }
 

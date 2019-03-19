@@ -14,7 +14,7 @@ public class RecordBuilder implements Builder<Record> {
         String date = fieldMap.get(FieldNames.DATE);
         String rating = fieldMap.get(FieldNames.RATING);
         String description = fieldMap.get(FieldNames.DESCRIPTION);
-        String record_status = fieldMap.get(FieldNames.RECORD_SATUS);
+        String record_status = fieldMap.get(FieldNames.RECORD_STATUS);
 
         Record record = new Record();
         record.setName(name);

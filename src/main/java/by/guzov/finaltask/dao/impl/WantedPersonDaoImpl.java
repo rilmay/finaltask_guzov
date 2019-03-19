@@ -139,8 +139,8 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            LOGGER.error("Failed when getting all by pending and status",e);
-            throw new DaoException("Failed when getting all by pending and status",e);
+            LOGGER.error("Failed when getting all by pending and status", e);
+            throw new DaoException("Failed when getting all by pending and status", e);
         }
     }
 }

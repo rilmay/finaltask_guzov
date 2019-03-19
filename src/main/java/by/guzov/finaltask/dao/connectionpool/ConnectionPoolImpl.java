@@ -25,7 +25,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Implementation of Connection Pool
  */
 public class ConnectionPoolImpl implements ConnectionPool {
-    private static final Logger LOGGER = LogManager.getLogger(RequestDaoImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionPoolImpl.class);
     private static ConnectionPool INSTANCE;
     private static Lock lock = new ReentrantLock();
 
@@ -92,8 +92,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 return saved.isClosed() ? createConnection() : saved;
             }
         } catch (InterruptedException | SQLException e) {
-            LOGGER.error("Failed when retrieving connection",e);
-            throw new ConnectionPoolException("Failed when retrieving connection",e);
+            LOGGER.error("Failed when retrieving connection", e);
+            throw new ConnectionPoolException("Failed when retrieving connection", e);
         }
     }
 
@@ -110,8 +110,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 connection.close();
             }
         } catch (SQLException e) {
-            LOGGER.error("Failed when destroying pool",e);
-            throw new ConnectionPoolException("Failed when destroying pool",e);
+            LOGGER.error("Failed when destroying pool", e);
+            throw new ConnectionPoolException("Failed when destroying pool", e);
         }
     }
 

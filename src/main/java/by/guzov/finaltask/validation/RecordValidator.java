@@ -18,7 +18,7 @@ public class RecordValidator implements Validator {
         String date = fieldMap.get(FieldNames.DATE);
         String rating = fieldMap.get(FieldNames.RATING);
         String description = fieldMap.get(FieldNames.DESCRIPTION);
-        String record_status = fieldMap.get(FieldNames.RECORD_SATUS);
+        String record_status = fieldMap.get(FieldNames.RECORD_STATUS);
 
         if (!StringValidator.isValid(name, 3, 60, StringValidator.TEXT_PATTERN)) {
             errors.add("field.title" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");

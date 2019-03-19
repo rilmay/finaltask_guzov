@@ -12,6 +12,8 @@ import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.Encryptor;
 import by.guzov.finaltask.util.MailSenderService;
 import by.guzov.finaltask.validation.StringValidator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.mail.MessagingException;
 import java.sql.Timestamp;
@@ -22,6 +24,7 @@ import java.util.List;
  * Example of user service implementation
  */
 public class UserServiceImpl implements UserService {
+    private final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
     private UserDao userDao;
 
     public UserServiceImpl() throws ServiceException {
@@ -32,7 +35,8 @@ public class UserServiceImpl implements UserService {
         try {
             return (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         } catch (DaoException e) {
-            throw new ServiceException("server error", e);
+            LOGGER.error("Failed when dao initialization", e);
+            throw new ServiceException("Failed when dao initialization", e);
         }
     }
 
@@ -47,7 +51,8 @@ public class UserServiceImpl implements UserService {
             encryptPassword(user);
             return userDao.persist(user);
         } catch (PersistException e) {
-            throw new ServiceException("Server error", e);
+            LOGGER.error("Failed when registration", e);
+            throw new ServiceException("Failed when registration", e);
         }
     }
 
@@ -72,7 +77,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.getAll();
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Failed when getting all users", e);
+            throw new ServiceException("Failed when getting all users", e);
         }
     }
 
@@ -80,7 +86,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.getByPK(id);
         } catch (DaoException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Failed when getting user by id", e);
+            throw new ServiceException("Failed when getting user by id", e);
         }
     }
 
@@ -88,7 +95,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.update(user);
         } catch (PersistException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Failed when updating user", e);
+            throw new ServiceException("Failed when updating user", e);
         }
     }
 
@@ -96,7 +104,8 @@ public class UserServiceImpl implements UserService {
         try {
             userDao.delete(user);
         } catch (PersistException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Failed when deleting", e);
+            throw new ServiceException("Failed when deleting", e);
         }
     }
 
@@ -104,7 +113,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDao.persist(user);
         } catch (PersistException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Failed when creating", e);
+            throw new ServiceException("Failed when creating", e);
         }
     }
 
@@ -123,7 +133,8 @@ public class UserServiceImpl implements UserService {
             recovery.setExpires(Timestamp.valueOf(LocalDateTime.now()).getTime() + 6_000_000);
             return recovery;
         } catch (DaoException | MessagingException e) {
-            throw new ServiceException(e);
+            LOGGER.error("Failed when generating recovery", e);
+            throw new ServiceException("Failed when generating recovery", e);
         }
     }
 
@@ -142,7 +153,8 @@ public class UserServiceImpl implements UserService {
                 throw new ServiceException("invalid recovery procedure");
             }
         } catch (DaoException | PersistException e) {
-            throw new ServiceException("server error");
+            LOGGER.error("Failed when doing recovery", e);
+            throw new ServiceException("Failed when doing recovery", e);
         }
 
     }
