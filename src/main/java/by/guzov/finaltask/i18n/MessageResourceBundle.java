@@ -45,11 +45,6 @@ public class MessageResourceBundle extends ResourceBundle {
 
     @Override
     protected Object handleGetObject(String key) {
-        String in = parent.getObject(key).toString();
-        try {
-            return new String(in.getBytes("ISO-8859-1"));
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return parent.getObject(key);
     }
 }

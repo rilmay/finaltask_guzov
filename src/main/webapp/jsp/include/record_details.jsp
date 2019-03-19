@@ -11,7 +11,7 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
-<div class="column is-7">
+<div class="column is-6">
     <div class="card">
         <div class="card-image">
             <figure class="image is-fullwidth">
