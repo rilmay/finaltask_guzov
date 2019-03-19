@@ -1,6 +1,9 @@
 package by.guzov.finaltask.dao.connectionpool;
 
 import by.guzov.finaltask.dao.ConnectionPoolException;
+import by.guzov.finaltask.dao.impl.RequestDaoImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
@@ -22,7 +25,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * Implementation of Connection Pool
  */
 public class ConnectionPoolImpl implements ConnectionPool {
-    private static ConnectionPool instance;
+    private static final Logger LOGGER = LogManager.getLogger(RequestDaoImpl.class);
+    private static ConnectionPool INSTANCE;
     private static Lock lock = new ReentrantLock();
 
     private static final String DRIVER_CLASS = "driver";
@@ -49,7 +53,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
             properties.load(getClass().getResourceAsStream("/" + name));
             return properties;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("Failed when loading properties", e);
+            throw new IllegalStateException("Failed when loading properties", e);
         }
     }
 
@@ -57,6 +62,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         try {
             Class.forName(driverClass);
         } catch (ClassNotFoundException e) {
+            LOGGER.error("Driver cannot be found", e);
             throw new IllegalStateException("Driver cannot be found", e);
         }
     }
@@ -64,15 +70,15 @@ public class ConnectionPoolImpl implements ConnectionPool {
     public static synchronized ConnectionPool getInstance() {
         lock.lock();
         try {
-            if (instance == null) {
-                instance = new ConnectionPoolImpl();
+            if (INSTANCE == null) {
+                INSTANCE = new ConnectionPoolImpl();
             }
 
         } finally {
             lock.unlock();
         }
 
-        return instance;
+        return INSTANCE;
     }
 
     @Override
@@ -86,7 +92,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 return saved.isClosed() ? createConnection() : saved;
             }
         } catch (InterruptedException | SQLException e) {
-            throw new ConnectionPoolException(e);
+            LOGGER.error("Failed when retrieving connection",e);
+            throw new ConnectionPoolException("Failed when retrieving connection",e);
         }
     }
 
@@ -103,7 +110,8 @@ public class ConnectionPoolImpl implements ConnectionPool {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new ConnectionPoolException(e);
+            LOGGER.error("Failed when destroying pool",e);
+            throw new ConnectionPoolException("Failed when destroying pool",e);
         }
     }
 

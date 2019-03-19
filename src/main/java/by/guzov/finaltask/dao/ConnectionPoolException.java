@@ -5,7 +5,7 @@ package by.guzov.finaltask.dao;
  */
 public class ConnectionPoolException extends Exception {
 
-    ConnectionPoolException(String message, Throwable cause) {
+    public ConnectionPoolException(String message, Throwable cause) {
         super(message, cause);
     }
     //provide your code here

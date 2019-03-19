@@ -6,6 +6,7 @@ import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.dto.PasswordRecovery;
+import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.Encryptor;
@@ -54,12 +55,12 @@ public class UserServiceImpl implements UserService {
     public User authenticate(User user) throws ServiceException {
         try {
             if (!userDao.getStringsFromColumn("login").contains(user.getLogin())) {
-                throw new ServiceException("Check your login");
+                throw new ServiceException("field.login" + MessageLocalizer.DELIMITER + "error.invalid_base");
             }
             encryptPassword(user);
             User validUser = userDao.getByLogin(user);
             if (!user.getPassword().equals(validUser.getPassword())) {
-                throw new ServiceException("Wrong password");
+                throw new ServiceException("field.password" + MessageLocalizer.DELIMITER + "error.invalid_base");
             }
             return validUser;
         } catch (DaoException e) {

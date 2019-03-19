@@ -35,24 +35,6 @@ public class WantedPersonServiceImpl implements WantedPersonService {
     }
 
     @Override
-    public List<WantedPerson> getAllExceptPending() throws ServiceException {
-        try {
-            return wantedPersonDao.getAllExceptPending();
-        } catch (DaoException e) {
-            throw new ServiceException("Server error", e);
-        }
-    }
-
-    @Override
-    public List<WantedPerson> getAllPending() throws ServiceException {
-        try {
-            return wantedPersonDao.getAllPending();
-        } catch (DaoException e) {
-            throw new ServiceException("Server error", e);
-        }
-    }
-
-    @Override
     public void delete(WantedPerson wantedPerson) throws ServiceException {
         try {
             wantedPersonDao.delete(wantedPerson);
@@ -84,6 +66,15 @@ public class WantedPersonServiceImpl implements WantedPersonService {
         try {
             return wantedPersonDao.persist(wantedPerson);
         } catch (PersistException e) {
+            throw new ServiceException("server error", e);
+        }
+    }
+
+    @Override
+    public List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws ServiceException{
+        try {
+            return wantedPersonDao.getAllByPendingAndStatuses(pending,statuses);
+        } catch (DaoException e) {
             throw new ServiceException("server error", e);
         }
     }

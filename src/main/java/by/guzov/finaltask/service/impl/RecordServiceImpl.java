@@ -14,12 +14,15 @@ import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.AppConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RecordServiceImpl implements RecordService {
+    private final Logger LOGGER = LogManager.getLogger(RecordServiceImpl.class);
     private RecordDao recordDao;
     private static final String LINK_PATTERN = "@[0-9]+";
     private static final String NOT_FOUND_KEY = "title.not_found";

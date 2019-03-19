@@ -18,7 +18,6 @@ public final class AppConstants {
     public static final String ERROR_MESSAGE = "error_message";
     public static final String LANG = "lang";
     public static final String LOCALE_BUNDLE = "text";
-    public static final String ERROR_MESSAGES = "error_messages";
     public static final String ONLY = "ONLY";
 
     public static final String WANTED_PERSON_FILE_PREFIX = "wp_";
@@ -29,4 +28,10 @@ public final class AppConstants {
     public static final String STATUS_EXPIRED = "expired";
     public static final String STATUS_COMPLETED = "completed";
     public static final String STATUS_PENDING = "pending";
+
+    public static final String WP_STATUS_FOUND = "found";
+    public static final String WP_STATUS_CAUGHT = "caught";
+    public static final String WP_STATUS_MISSING = "missing";
+    public static final String WP_STATUS_WANTED = "wanted";
+
 }

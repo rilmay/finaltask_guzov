@@ -7,6 +7,8 @@ import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -24,6 +26,7 @@ import java.util.function.Supplier;
  * Jdbc DAO Factory
  */
 public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
+    private static final Logger LOGGER = LogManager.getLogger(JdbcDaoFactory.class);
     private static JdbcDaoFactory instance;
     private static Lock lock = new ReentrantLock();
     private Map<Class, Supplier<GenericDao>> creators = new HashMap<>();
@@ -87,6 +90,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
     public <T extends Identified<PK>, PK extends Serializable> GenericDao<T, PK> getDao(Class<T> entityClass) throws DaoException {
         Supplier<GenericDao> daoCreator = creators.get(entityClass);
         if (daoCreator == null) {
+            LOGGER.error("Entity Class cannot be find");
             throw new DaoException("Entity Class cannot be find");
         }
         GenericDao dao = daoCreator.get();
@@ -100,6 +104,7 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
     public <T extends Identified<PK>, PK extends Serializable> GenericDao<T, PK> getTransactionalDao(Class<T> entityClass) throws DaoException {
         Supplier<GenericDao> daoCreator = creators.get(entityClass);
         if (daoCreator == null) {
+            LOGGER.error("Entity Class cannot be find");
             throw new DaoException("Entity Class cannot be find");
         }
 

@@ -1,5 +1,8 @@
 package by.guzov.finaltask.dao;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +15,8 @@ import java.util.List;
  */
 public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Number> implements GenericDao<T, PK> {
     protected Connection connection;
+
+    private static final Logger LOGGER = LogManager.getLogger(AbstractJdbcDao.class);
 
     protected abstract List<T> parseResultSet(ResultSet rs) throws SQLException;
 
@@ -38,7 +43,8 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
                      connection.prepareStatement(getSelectQuery() + " WHERE id = " + key)) {
             return parseResultSet(preparedStatement.executeQuery()).get(0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Cannot get by PK", e);
+            throw new DaoException("Cannot get by PK", e);
         }
     }
 
@@ -48,7 +54,8 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         try (PreparedStatement preparedStatement = connection.prepareStatement(getSelectQuery())) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Cannot get all", e);
+            throw new DaoException("Cannot get all", e);
         }
     }
 
@@ -59,6 +66,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
                      connection.prepareStatement(getCreateQuery(), Statement.RETURN_GENERATED_KEYS)) {
             prepareStatementForInsert(preparedStatement, object);
             if (preparedStatement.executeUpdate() < 1) {
+                LOGGER.error("Failed to insert");
                 throw new PersistException("Failed to insert");
             }
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
@@ -66,11 +74,13 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
                     object.setIDGen(generatedKeys.getInt(1));
                     return object;
                 } else {
+                    LOGGER.error("Creating user failed, no ID obtained.");
                     throw new PersistException("Creating user failed, no ID obtained.");
                 }
             }
         } catch (SQLException e) {
-            throw new PersistException(e);
+            LOGGER.error("Creating user failed", e);
+            throw new PersistException("Creating user failed", e);
         }
     }
 
@@ -81,7 +91,8 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             prepareStatementForUpdate(preparedStatement, object);
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new PersistException(e);
+            LOGGER.error("Update failed", e);
+            throw new PersistException("Update failed", e);
         }
     }
 
@@ -92,7 +103,8 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             preparedStatement.setInt(1, (Integer) object.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new PersistException(e);
+            LOGGER.error("Update failed", e);
+            throw new PersistException("Update failed", e);
         }
     }
 
@@ -106,14 +118,14 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement("SELECT " + column + " " + getSelectColumnQuery())) {
             List<String> strings = new ArrayList<>();
-            //preparedStatement.setString(1, column);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 strings.add(rs.getString(column));
             }
             return strings;
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Failed when getting values from column", e);
+            throw new DaoException("Failed when getting values from column", e);
         }
     }
 }

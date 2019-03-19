@@ -6,6 +6,8 @@ import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.GenericDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPool;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -15,6 +17,7 @@ import java.sql.SQLException;
  * Implementation of transaction with DAO
  */
 public final class TransactionManager {
+    private static final Logger LOGGER = LogManager.getLogger(TransactionManager.class);
     private Connection proxyConnection;
 
     public void begin(GenericDao dao, GenericDao... daos) throws DaoException {
@@ -29,6 +32,7 @@ public final class TransactionManager {
                 setConnectionWithReflection(d, proxyConnection);
             }
         } catch (ConnectionPoolException | SQLException e) {
+            LOGGER.error("Failed to get a connection from CP.", e);
             throw new DaoException("Failed to get a connection from CP.", e);
         }
     }
@@ -62,6 +66,7 @@ public final class TransactionManager {
             connectionField.set(dao, connection);
 
         } catch (NoSuchFieldException | IllegalAccessException e) {
+            LOGGER.error("Failed to set connection for transactional DAO. ", e);
             throw new DaoException("Failed to set connection for transactional DAO. ", e);
         }
     }

@@ -5,6 +5,8 @@ import by.guzov.finaltask.dao.AutoConnection;
 import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.domain.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,7 @@ import java.util.List;
  * Example User DAO implementation
  */
 public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserDao {
+    private static final Logger LOGGER = LogManager.getLogger(UserDaoImpl.class);
     private static final String ID = "id";
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
@@ -107,11 +110,6 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     }
 
     @Override
-    public int signIn() {
-        return 0;
-    }
-
-    @Override
     protected boolean hasColumn(String column) {
         return Arrays.asList(ID, LOGIN, PASSWORD, ROLE, FIRST_NAME, LAST_NAME, REGISTRATION_DATE, EMAIL)
                 .contains(column);
@@ -125,7 +123,8 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
             preparedStatement.setString(1, user.getLogin());
             return parseResultSet(preparedStatement.executeQuery()).get(0);
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Failed when getting user by login", e);
+            throw new DaoException("Failed when getting user by login", e);
         }
     }
 }

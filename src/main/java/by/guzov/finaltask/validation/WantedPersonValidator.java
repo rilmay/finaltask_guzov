@@ -1,6 +1,7 @@
 package by.guzov.finaltask.validation;
 
 import by.guzov.finaltask.i18n.MessageLocalizer;
+import by.guzov.finaltask.util.AppConstants;
 import by.guzov.finaltask.util.FieldNames;
 
 import java.sql.Date;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class WantedPersonValidator implements Validator {
-    private List<String> statuses = Arrays.asList("missing", "wanted");
+    private List<String> statuses = Arrays.asList(AppConstants.WP_STATUS_MISSING, AppConstants.WP_STATUS_WANTED);
 
     @Override
     public List<String> validate(Map<String, String> fieldMap) {

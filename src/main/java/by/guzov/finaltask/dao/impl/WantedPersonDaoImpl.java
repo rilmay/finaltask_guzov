@@ -5,6 +5,8 @@ import by.guzov.finaltask.dao.AutoConnection;
 import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.WantedPersonDao;
 import by.guzov.finaltask.domain.WantedPerson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,8 +14,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> implements WantedPersonDao {
+    private static final Logger LOGGER = LogManager.getLogger(WantedPersonDaoImpl.class);
     private static final String ID = "id";
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
@@ -120,23 +125,22 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
 
     @Override
     @AutoConnection
-    public List<WantedPerson> getAllPending() throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE pending = true")) {
-            return parseResultSet(preparedStatement.executeQuery());
-        } catch (SQLException e) {
-            throw new DaoException(e);
+    public List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws DaoException {
+        String sql = getSelectQuery() + " WHERE 1=1";
+        if (pending != null) {
+            sql += " AND (" + PENDING + " = " + pending + ")";
         }
-    }
-
-    @Override
-    @AutoConnection
-    public List<WantedPerson> getAllExceptPending() throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE pending = false")) {
+        if (statuses != null && statuses.length != 0) {
+            String statusQuery = Stream.of(statuses)
+                    .map(status -> PERSON_STATUS + " = '" + status + "'")
+                    .collect(Collectors.joining(" OR "));
+            sql += " AND (" + statusQuery + ")";
+        }
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Failed when getting all by pending and status",e);
+            throw new DaoException("Failed when getting all by pending and status",e);
         }
     }
 }

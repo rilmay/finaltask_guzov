@@ -38,7 +38,7 @@ public class CommandAuthenticateUser implements Command {
             request.getSession().setAttribute(AppConstants.SESSION_USER, valid);
             return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, "error.server");
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_AUTHENTICATION_PAGE, e.getMessage());
         }
     }
 }

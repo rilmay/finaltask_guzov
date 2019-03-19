@@ -29,7 +29,7 @@ public class CommandDeleteWantedPerson implements Command {
             WantedPerson found = service.getById(wpId);
             service.delete(found);
             String photo = found.getPhoto();
-            if (photo != null) {
+            if (photo != null && !photo.isEmpty()) {
                 ImageService.delete(photo);
             }
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_WANTED_PEOPLE.name());

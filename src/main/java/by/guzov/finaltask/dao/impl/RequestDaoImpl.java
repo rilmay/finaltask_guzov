@@ -5,6 +5,8 @@ import by.guzov.finaltask.dao.AutoConnection;
 import by.guzov.finaltask.dao.DaoException;
 import by.guzov.finaltask.dao.RequestDao;
 import by.guzov.finaltask.domain.Request;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements RequestDao {
+    private static final Logger LOGGER = LogManager.getLogger(RequestDaoImpl.class);
     private static final String ID = "id";
     private static final String REWARD = "reward";
     private static final String APPLICATION_DATE = "application_date";
@@ -121,7 +124,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Failed when getting all by user and status",e);
+            throw new DaoException("Failed when getting all by user and status",e);
         }
     }
 
@@ -141,7 +145,8 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            throw new DaoException(e);
+            LOGGER.error("Failed when getting all by wanted person and status",e);
+            throw new DaoException("Failed when getting all by wanted person and status",e);
         }
     }
 }

@@ -19,7 +19,7 @@ public class CommandShowPendingPeople implements Command {
     public ResponseContent execute(HttpServletRequest request) {
         try {
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
-            List<WantedPerson> wantedPeople = wantedPersonService.getAllPending();
+            List<WantedPerson> wantedPeople = wantedPersonService.getAllByPendingAndStatuses(true);
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
         } catch (ServiceException e) {

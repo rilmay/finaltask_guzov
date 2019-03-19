@@ -19,17 +19,15 @@ public class CommandShowWantedPeople implements Command {
             String only = request.getParameter("ONLY");
             List<WantedPerson> wantedPeople;
             if (only == null) {
-                wantedPeople = wantedPersonService.getAllExceptPending();
+                wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false);
             } else if (only.equals("relevant")) {
-                wantedPeople = wantedPersonService.getAllExceptPending().stream()
-                        .filter(wantedPerson -> Arrays.asList("missing", "wanted").contains(wantedPerson.getPersonStatus()))
-                        .collect(Collectors.toList());
+                wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false,
+                        AppConstants.WP_STATUS_MISSING,AppConstants.WP_STATUS_WANTED);
             } else if (only.equals("found")) {
-                wantedPeople = wantedPersonService.getAllExceptPending().stream()
-                        .filter(wantedPerson -> Arrays.asList("found", "caught").contains(wantedPerson.getPersonStatus()))
-                        .collect(Collectors.toList());
+                wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false,
+                        AppConstants.WP_STATUS_FOUND,AppConstants.WP_STATUS_CAUGHT);
             } else {
-                wantedPeople = wantedPersonService.getAllExceptPending();
+                wantedPeople = wantedPersonService.getAllByPendingAndStatuses(false);
             }
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
