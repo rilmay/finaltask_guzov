@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `wanted_person` (
   `special_signs` TEXT(170) NULL,
   `photo` VARCHAR(45) NULL,
   `pending` TINYINT NOT NULL,
+  `rating` INT NOT NULL,
   PRIMARY KEY (`id`));
 
   CREATE TABLE IF NOT EXISTS `request` (

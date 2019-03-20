@@ -58,5 +58,13 @@
     <my:inputfield label="${text['field.search_area']}" name="${FieldNames.SEARCH_AREA}" requied="false"/>
     <my:inputfield label="${text['field.special_signs']}" name="${FieldNames.SPECIAL_SIGNS}" requied="false"/>
     <my:inputfield label="${text['field.photo']}" name="${FieldNames.PHOTO}" type="file" requied="false"/>
+    <label for="rate" class="label">${text['field.rating']}</label>
+    <div id="rate" class="rating">
+        <input name="${FieldNames.RATING}" id="e5" type="radio" value="5"><label for="e5">☆</label>
+        <input name="${FieldNames.RATING}" id="e4" type="radio" value="4"><label for="e4">☆</label>
+        <input name="${FieldNames.RATING}" id="e3" type="radio" value="3"><label for="e3">☆</label>
+        <input name="${FieldNames.RATING}" id="e2" type="radio" value="2"><label for="e2">☆</label>
+        <input name="${FieldNames.RATING}" id="e1" type="radio" value="1"><label for="e1">☆</label>
+    </div>
     <br>
 </c:if>

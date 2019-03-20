@@ -30,6 +30,13 @@
                     </div>
                 </div>
                 <p><i><my:lang key="status.${person.personStatus}"/></i></p>
+                <div class="rating" style="color: orange; width: 150px; font-size: 25px; height: 30px;">
+                    <c:forTokens items="1,2,3,4,5" delims="," var="star">
+                        <c:if test="${star <= person.rating}">
+                            ☆
+                        </c:if>
+                    </c:forTokens>
+                </div>
                 <br>
                 <p><my:display variable="${person.description}"/></p>
             </div>

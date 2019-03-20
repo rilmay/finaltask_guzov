@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 public class WantedPersonValidator implements Validator {
     private List<String> statuses = Arrays.asList(AppConstants.WP_STATUS_MISSING, AppConstants.WP_STATUS_WANTED);
@@ -27,6 +28,7 @@ public class WantedPersonValidator implements Validator {
         String birthPlace = fieldMap.get(FieldNames.BIRTH_PLACE);
         String searchArea = fieldMap.get(FieldNames.SEARCH_AREA);
         String specialSigns = fieldMap.get(FieldNames.SPECIAL_SIGNS);
+        String rating = fieldMap.get(FieldNames.RATING);
 
         if (notEmpty(firstName)) {
             if (StringValidator.isValid(firstName, 2, StringValidator.TITLE_PATTERN_EN_RUS)) {
@@ -74,6 +76,10 @@ public class WantedPersonValidator implements Validator {
 
         if (!statuses.contains(status)) {
             errors.add("field.status" + MessageLocalizer.DELIMITER + "error.invalid_base");
+        }
+
+        if (IntStream.range(1, 6).noneMatch(i -> Integer.toString(i).equals(rating))) {
+            errors.add("field.rating" + MessageLocalizer.DELIMITER + "error.not_meet_req_base");
         }
 
         if (notEmpty(birthDate)) {

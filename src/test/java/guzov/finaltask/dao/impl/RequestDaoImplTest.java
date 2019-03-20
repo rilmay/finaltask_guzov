@@ -25,8 +25,6 @@ public class RequestDaoImplTest {
     private AbstractJdbcDao daoWithAbstractMethods;
     private PreparedStatement deleteAll;
     private Connection connection;
-    private PreparedStatement deleteWantedPeople;
-    private PreparedStatement addWantedPerson;
     private User user;
     private UserDao userDao;
 
@@ -43,13 +41,11 @@ public class RequestDaoImplTest {
         request.setWantedPersonId(1);
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM request WHERE id<100");
-        deleteWantedPeople = connection.prepareStatement("DELETE from  request where id<100");
-        addWantedPerson = connection.prepareStatement("INSERT INTO " +
-                "wanted_person (first_name, person_status) VALUES ('John' ,'missing')");
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setPersonStatus("missing");
         wantedPerson.setDescription("Description");
         wantedPerson.setPending(true);
+        wantedPerson.setRating(1);
 
         userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         user = new User();

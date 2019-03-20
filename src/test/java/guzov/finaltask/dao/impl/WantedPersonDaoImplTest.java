@@ -35,6 +35,7 @@ public class WantedPersonDaoImplTest {
         wantedPerson.setFirstName("FirstName");
         wantedPerson.setLastName("LastName");
         wantedPerson.setPending(false);
+        wantedPerson.setRating(3);
         connection = ConnectionPoolImpl.getInstance().retrieveConnection();
         deleteAll = connection.prepareStatement("DELETE  FROM wanted_person WHERE id<100");
     }
@@ -43,22 +44,22 @@ public class WantedPersonDaoImplTest {
     @Test
     public void getSelectQuery() {
         Assert.assertEquals("SELECT id, first_name, last_name, person_status, description, birth_place, " +
-                        "birth_date, search_area, special_signs, photo, pending FROM wanted_person",
+                        "birth_date, search_area, special_signs, photo, pending, rating FROM wanted_person",
                 daoWithAbstractMethods.getSelectQuery());
     }
 
     @Test
     public void getCreateQuery() {
         Assert.assertEquals("INSERT INTO wanted_person (first_name, last_name, person_status, " +
-                "description, birth_place, birth_date, search_area, special_signs, photo, pending)VALUES " +
-                "(? ,? ,? ,? ,? ,? ,?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
+                "description, birth_place, birth_date, search_area, special_signs, photo, pending, rating)VALUES " +
+                "(? ,? ,? ,? ,? ,? ,?, ?, ?, ?, ?)", daoWithAbstractMethods.getCreateQuery());
     }
 
     @Test
     public void getUpdateQuery() {
         Assert.assertEquals("UPDATE wanted_person SET first_name = ?, last_name = ?, " +
                 "person_status = ?, description = ?, birth_place = ?, birth_date = ?, search_area = ?, " +
-                "special_signs = ?, photo = ?, pending = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
+                "special_signs = ?, photo = ?, pending = ?, rating = ? WHERE id = ?", daoWithAbstractMethods.getUpdateQuery());
     }
 
     @Test
@@ -100,6 +101,13 @@ public class WantedPersonDaoImplTest {
         wantedPersonDao.persist(wantedPerson);
         Assert.assertTrue(
                 wantedPersonDao.getAll().stream().findAny().isPresent());
+    }
+
+    @Test
+    public void ratingTest() throws Exception {
+        WantedPerson inserted = wantedPersonDao.persist(wantedPerson);
+        Assert.assertEquals(
+                wantedPersonDao.getByPK(inserted.getId()).getRating(),inserted.getRating());
     }
 
     @After

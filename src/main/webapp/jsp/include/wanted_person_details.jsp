@@ -22,6 +22,13 @@
                 <c:if test="${person.pending}">
                     <p class="button is-fullwidth is-small is-warning">${text['status.pending']}</p>
                 </c:if>
+                <div class="rating" style="color: orange; width: 150px; font-size: 25px; height: 40px;">
+                    <c:forTokens items="1,2,3,4,5" delims="," var="star">
+                        <c:if test="${star <= person.rating}">
+                            ☆
+                        </c:if>
+                    </c:forTokens>
+                </div>
             </div>
             <div class="media-content">
                 <div class="content">

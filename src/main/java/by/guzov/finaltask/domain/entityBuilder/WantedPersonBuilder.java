@@ -18,6 +18,7 @@ public class WantedPersonBuilder implements Builder<WantedPerson> {
         String birthPlace = fieldMap.get(FieldNames.BIRTH_PLACE);
         String searchArea = fieldMap.get(FieldNames.SEARCH_AREA);
         String specialSigns = fieldMap.get(FieldNames.SPECIAL_SIGNS);
+        String rating = fieldMap.get(FieldNames.RATING);
 
         WantedPerson wantedPerson = new WantedPerson();
         wantedPerson.setFirstName(firstName);
@@ -30,6 +31,7 @@ public class WantedPersonBuilder implements Builder<WantedPerson> {
         wantedPerson.setBirthPlace(birthPlace);
         wantedPerson.setSearchArea(searchArea);
         wantedPerson.setSpecialSigns(specialSigns);
+        wantedPerson.setRating(Integer.parseInt(rating));
         return wantedPerson;
     }
 }

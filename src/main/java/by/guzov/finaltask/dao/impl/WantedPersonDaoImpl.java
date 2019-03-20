@@ -30,18 +30,19 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     private static final String SPECIAL_SIGNS = "special_signs";
     private static final String PHOTO = "photo";
     private static final String PENDING = "pending";
+    private static final String RATING = "rating";
 
     private static final String DELETE_QUERY = "DELETE FROM wanted_person WHERE id = ?";
     private static final String UPDATE_QUERY = "UPDATE wanted_person " +
             "SET first_name = ?, last_name = ?, person_status = ?, description = ?, birth_place = ?, birth_date = ?, " +
-            "search_area = ?, special_signs = ?, photo = ?, pending = ? " +
+            "search_area = ?, special_signs = ?, photo = ?, pending = ?, rating = ? " +
             "WHERE id = ?";
     private static final String SELECT_QUERY = "SELECT id, first_name, last_name, person_status, description, " +
-            "birth_place, birth_date, search_area, special_signs, photo, pending FROM wanted_person";
+            "birth_place, birth_date, search_area, special_signs, photo, pending, rating FROM wanted_person";
     private static final String CREATE_QUERY = "INSERT INTO wanted_person " +
             "(first_name, last_name, person_status, description, birth_place, birth_date, search_area," +
-            " special_signs, photo, pending)" +
-            "VALUES (? ,? ,? ,? ,? ,? ,?, ?, ?, ?)";
+            " special_signs, photo, pending, rating)" +
+            "VALUES (? ,? ,? ,? ,? ,? ,?, ?, ?, ?, ?)";
 
     private static final String SELECT_COLUMN = "FROM wanted_person";
 
@@ -61,6 +62,7 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
             wantedPerson.setSpecialSigns(rs.getString(SPECIAL_SIGNS));
             wantedPerson.setPhoto(rs.getString(PHOTO));
             wantedPerson.setPending(rs.getBoolean(PENDING));
+            wantedPerson.setRating(rs.getInt(RATING));
             wantedPeople.add(wantedPerson);
         }
         return wantedPeople;
@@ -75,7 +77,7 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     @Override
     protected void prepareStatementForUpdate(PreparedStatement statement, WantedPerson object) throws SQLException {
         statementPreparation(statement, object);
-        statement.setInt(11, object.getId());
+        statement.setInt(12, object.getId());
     }
 
     private void statementPreparation(PreparedStatement statement, WantedPerson object) throws SQLException {
@@ -89,7 +91,8 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
         statement.setString(i++, object.getSearchArea());
         statement.setString(i++, object.getSpecialSigns());
         statement.setString(i++, object.getPhoto());
-        statement.setBoolean(i, object.isPending());
+        statement.setBoolean(i++, object.isPending());
+        statement.setInt(i, object.getRating());
     }
 
     @Override
