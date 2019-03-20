@@ -8,10 +8,11 @@ import by.guzov.finaltask.service.WantedPersonService;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class CommandShowWantedPeople implements Command {
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
             String only = request.getParameter("ONLY");
@@ -30,7 +31,7 @@ public class CommandShowWantedPeople implements Command {
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

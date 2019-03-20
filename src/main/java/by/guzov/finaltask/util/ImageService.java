@@ -1,6 +1,5 @@
 package by.guzov.finaltask.util;
 
-import by.guzov.finaltask.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,8 +27,8 @@ public final class ImageService {
             if (fileName == null || fileName.isEmpty()) {
                 throw new IllegalStateException("empty photo input");
             }
-            String format = fileName.replaceAll("^.+(?=\\.)", "");
-            if (!Arrays.asList(".jpg", ".png").contains(format)) {
+            String format = getType(fileName);
+            if (!isValidType(format)) {
                 throw new IllegalStateException("invalid photo format");
             }
             String outFileName = prefix + id + format;
@@ -46,8 +45,25 @@ public final class ImageService {
         File delete = new File(PHOTO_DIR + "/" + photo);
         if (delete.exists()) {
             if (!delete.delete()) {
-                LOGGER.warn("File was not deleted: "+photo);
+                LOGGER.warn("File was not deleted: " + photo);
             }
         }
+    }
+
+    public static File load(String photo) {
+        File loaded = new File(PHOTO_DIR + "/" + photo);
+        if (loaded.exists()) {
+            return loaded;
+        } else {
+            throw new IllegalStateException("Failed when loading file: " + photo);
+        }
+    }
+
+    public static String getType(String photo) {
+        return photo.replaceAll("^.+(?=\\.)", "");
+    }
+
+    public static boolean isValidType(String type) {
+        return Arrays.asList(".jpg", ".png").contains(type);
     }
 }

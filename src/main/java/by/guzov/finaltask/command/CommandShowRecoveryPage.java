@@ -10,12 +10,13 @@ import by.guzov.finaltask.util.FieldNames;
 import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class CommandShowRecoveryPage implements Command {
 
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         String login = request.getParameter(FieldNames.LOGIN);
         if (login == null) {
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "recovery_page", Router.Type.FORWARD);
@@ -29,10 +30,10 @@ public class CommandShowRecoveryPage implements Command {
                     session.setAttribute("recovery", recovery);
                     return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "recovery_page", Router.Type.FORWARD);
                 } else {
-                    return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
+                    return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
                 }
             } catch (ServiceException e) {
-                return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
+                return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
             }
         }
     }

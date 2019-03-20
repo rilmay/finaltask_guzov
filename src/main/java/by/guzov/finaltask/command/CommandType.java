@@ -23,6 +23,7 @@ public enum CommandType {
     CANCEL_REQUEST(new Restrictions().setRoles(ADMIN, USER)),
     SET_COMPLETED_REQUEST(new Restrictions().setRoles(ADMIN)),
     UPLOAD_PHOTO(new Restrictions().setRoles(ADMIN)),
+    LOAD_IMAGE,
     SEND_RECORD(new Restrictions().setRoles(ADMIN)),
     DELETE_RECORD(new Restrictions().setRoles(ADMIN)),
     SET_EXPIRED_RECORD(new Restrictions().setRoles(ADMIN)),

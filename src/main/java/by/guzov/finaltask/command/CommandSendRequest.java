@@ -19,6 +19,7 @@ import by.guzov.finaltask.validation.ValidatorFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -28,7 +29,7 @@ import java.util.Map;
 
 public class CommandSendRequest implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         List<String> errors = new ArrayList<>();
         Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
         try {
@@ -42,7 +43,7 @@ public class CommandSendRequest implements Command {
             Validator requestValidator = ValidatorFactory.getInstance().getRequestValidator();
             errors.addAll(requestValidator.validate(fieldMap));
             if (errors.size() > 0) {
-                return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
+                return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
             }
             Builder<Request> requestBuilder = BuilderFactory.getInstance().getRequestBuilder();
             Request wantedPersonRequest = requestBuilder.build(fieldMap);
@@ -53,7 +54,7 @@ public class CommandSendRequest implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_MY_REQUESTS.name());
         } catch (ServiceException e) {
             errors.add("error.server");
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_REQUEST_FORM, errors, fieldMap);
         } catch (IOException | ServletException e) {
             return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=error%server");
         }

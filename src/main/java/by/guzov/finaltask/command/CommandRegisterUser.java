@@ -13,6 +13,7 @@ import by.guzov.finaltask.validation.Validator;
 import by.guzov.finaltask.validation.ValidatorFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,12 +22,12 @@ import java.util.Map;
 
 public class CommandRegisterUser implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
         Validator userValidator = ValidatorFactory.getInstance().getUserValidator();
         List<String> errors = new ArrayList<>(userValidator.validate(fieldMap));
         if (errors.size() > 0) {
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
         }
         Builder<User> userBuilder = BuilderFactory.getInstance().getUserBuilder();
         try {
@@ -39,7 +40,7 @@ public class CommandRegisterUser implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add("error.server");
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
         }
     }
 }

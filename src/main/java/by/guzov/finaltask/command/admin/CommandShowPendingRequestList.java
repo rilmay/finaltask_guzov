@@ -11,17 +11,18 @@ import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class CommandShowPendingRequestList implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             request.setAttribute("requestList", requestService.getAllByUserAndStatuses(null,
                     AppConstants.STATUS_CANCELLED, AppConstants.STATUS_EXPIRED, AppConstants.STATUS_PENDING));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

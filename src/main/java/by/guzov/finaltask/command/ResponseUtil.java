@@ -5,6 +5,7 @@ import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,8 +20,8 @@ public final class ResponseUtil {
         return responseContent;
     }
 
-    public static ResponseContent toCommand(HttpServletRequest request, CommandType commandType) {
-        return CommandProvider.getInstance().takeCommand(commandType).execute(request);
+    public static ResponseContent toCommand(HttpServletRequest request, HttpServletResponse response, CommandType commandType) {
+        return CommandProvider.getInstance().takeCommand(commandType).execute(request, response);
     }
 
     public static ResponseContent responseWithView(HttpServletRequest request, String page, String view, Router.Type type) {
@@ -28,20 +29,20 @@ public final class ResponseUtil {
         return sendByUrl(page, type);
     }
 
-    public static ResponseContent toCommandWithError(HttpServletRequest request, CommandType commandType, String error) {
+    public static ResponseContent toCommandWithError(HttpServletRequest request, HttpServletResponse response, CommandType commandType, String error) {
         String localized = MessageLocalizer.getMessages(request, error);
-        return withError(request, commandType, localized);
+        return withError(request, response, commandType, localized);
     }
 
-    private static ResponseContent withError(HttpServletRequest request, CommandType commandType, String error) {
+    private static ResponseContent withError(HttpServletRequest request, HttpServletResponse response, CommandType commandType, String error) {
         request.setAttribute(AppConstants.ERROR_MESSAGE, error);
-        return toCommand(request, commandType);
+        return toCommand(request, response, commandType);
     }
 
-    public static ResponseContent toFormWithErrors(HttpServletRequest request, CommandType commandType, List<String> errors, Map<String, String> fieldMap) {
+    public static ResponseContent toFormWithErrors(HttpServletRequest request, HttpServletResponse response, CommandType commandType, List<String> errors, Map<String, String> fieldMap) {
         fieldMap.forEach(request::setAttribute);
         List<String> localized = MessageLocalizer.getMessages(request, errors);
-        return withError(request, commandType, localized.stream().collect(Collectors.joining("\\n")));
+        return withError(request, response, commandType, localized.stream().collect(Collectors.joining("\\n")));
     }
 
     public static ResponseContent redirectTo(HttpServletRequest request, String url) {

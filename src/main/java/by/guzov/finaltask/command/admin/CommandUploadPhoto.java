@@ -16,17 +16,18 @@ import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 
 public class CommandUploadPhoto implements Command {
 
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             String wpId = request.getParameter(AppConstants.ID);
             if (!StringValidator.isValid(wpId, 1, 9, StringValidator.NUMBER_PATTERN)) {
-                return ResponseUtil.toCommandWithError(request,
+                return ResponseUtil.toCommandWithError(request, response,
                         CommandType.SHOW_EMPTY_PAGE, "field.id" + MessageLocalizer.DELIMITER + "error.invalid_base");
             }
             int wantedPersonId = Integer.parseInt(wpId);
@@ -38,9 +39,9 @@ public class CommandUploadPhoto implements Command {
             wantedPersonService.update(wantedPerson);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_UPLOAD_PHOTO_FORM, "error.server");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_UPLOAD_PHOTO_FORM, "error.server");
         } catch (IOException | ServletException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
 
     }

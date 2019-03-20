@@ -1,7 +1,6 @@
 package by.guzov.finaltask.dao.connectionpool;
 
 import by.guzov.finaltask.dao.ConnectionPoolException;
-import by.guzov.finaltask.dao.impl.RequestDaoImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

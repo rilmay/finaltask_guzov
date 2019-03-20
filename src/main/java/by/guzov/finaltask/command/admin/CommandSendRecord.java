@@ -19,6 +19,7 @@ import by.guzov.finaltask.validation.ValidatorFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -27,14 +28,14 @@ import java.util.Map;
 
 public class CommandSendRecord implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         Map<String, String> fieldMap = HttpRequestMapper.toMap(request);
         fieldMap.put(FieldNames.RECORD_STATUS, "relevant");
 
         Validator recordValidator = ValidatorFactory.getInstance().getRecordValidator();
         List<String> errors = recordValidator.validate(fieldMap);
         if (errors.size() > 0) {
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
         }
         Builder<Record> recordBuilder = BuilderFactory.getInstance().getRecordBuilder();
         Record record = recordBuilder.build(fieldMap);
@@ -51,9 +52,9 @@ public class CommandSendRecord implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             errors.add("error.server");
-            return ResponseUtil.toFormWithErrors(request, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
+            return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
         } catch (IOException | ServletException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

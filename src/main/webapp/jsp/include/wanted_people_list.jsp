@@ -18,7 +18,7 @@
         <div class="tile is-child box">
             <div class="card-image">
                 <figure class="image is-fullwidth">
-                <my:image variable="${person.photo}"/>
+                <my:image variable="${person.photo}" type="person"/>
                 </figure>
             </div>
             <div class="card-content">

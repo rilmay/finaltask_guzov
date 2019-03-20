@@ -16,7 +16,7 @@
         <article class="media">
             <div class="media-left">
                 <figure class="image is-128x128">
-                    <my:image variable="${person.photo}"/>
+                    <my:image variable="${person.photo}" type="person"/>
                 </figure>
                 <br>
                 <c:if test="${person.pending}">

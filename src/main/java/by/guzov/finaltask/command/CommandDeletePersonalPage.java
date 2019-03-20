@@ -8,19 +8,20 @@ import by.guzov.finaltask.service.UserService;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class CommandDeletePersonalPage implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             User sessionUser = (User) request.getSession().getAttribute(AppConstants.SESSION_USER);
             UserService userService = ServiceFactory.getInstance().getUserService();
             User user = userService.getUserById(sessionUser.getId());
             userService.deleteUser(user);
             request.getSession().invalidate();
-            return ResponseUtil.toCommand(request, CommandType.SHOW_EMPTY_PAGE);
+            return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "server error");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "server error");
         }
     }
 }

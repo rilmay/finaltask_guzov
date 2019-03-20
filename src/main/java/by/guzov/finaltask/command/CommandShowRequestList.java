@@ -8,12 +8,13 @@ import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.util.AppConstants;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
 public class CommandShowRequestList implements Command {
     @Override
-    public ResponseContent execute(HttpServletRequest request) {
+    public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             String only = request.getParameter(AppConstants.ONLY);
@@ -27,7 +28,7 @@ public class CommandShowRequestList implements Command {
             request.setAttribute("requestList", requests);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

@@ -32,11 +32,13 @@ public class FrontController extends HttpServlet {
         Command command = CommandProvider.getInstance()
                 .takeCommand(CommandType.of(request.getParameter(AppConstants.COMMAND))
                         .orElse(CommandType.SHOW_EMPTY_PAGE));
-        ResponseContent responseContent = command.execute(request);
-        if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {
-            response.sendRedirect(responseContent.getRouter().getRoute());
-        } else {
-            request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
+        ResponseContent responseContent = command.execute(request, response);
+        if (responseContent != null) {
+            if (responseContent.getRouter().getType().equals(Router.Type.REDIRECT)) {
+                response.sendRedirect(responseContent.getRouter().getRoute());
+            } else {
+                request.getRequestDispatcher(responseContent.getRouter().getRoute()).forward(request, response);
+            }
         }
     }
 }

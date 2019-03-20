@@ -6,7 +6,7 @@
     <display-name>Example project name</display-name>
     <context-param>
         <param-name>photoDir</param-name>
-        <param-value>C:\\Users\Dmitry\Downloads\BSUIR\Epam\finaltask\src\main\webapp\img\user</param-value>
+        <param-value>D:\\photos</param-value>
     </context-param>
     <context-param>
         <param-name>mailProps</param-name>
