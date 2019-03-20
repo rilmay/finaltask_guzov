@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public class WantedPersonServiceImpl implements WantedPersonService {
-    private final Logger LOGGER = LogManager.getLogger(WantedPersonServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(WantedPersonServiceImpl.class);
     private WantedPersonDao wantedPersonDao;
 
     public WantedPersonServiceImpl() throws ServiceException {

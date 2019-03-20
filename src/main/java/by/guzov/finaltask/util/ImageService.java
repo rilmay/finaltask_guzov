@@ -1,5 +1,9 @@
 package by.guzov.finaltask.util;
 
+import by.guzov.finaltask.service.impl.UserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +16,7 @@ import java.util.Arrays;
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
 public final class ImageService {
+    private static final Logger LOGGER = LogManager.getLogger(ImageService.class);
     private static final String PHOTO_DIR = getServletContext().getInitParameter("photoDir");
 
     private ImageService() {
@@ -32,6 +37,7 @@ public final class ImageService {
             Files.copy(photo.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             return outFileName;
         } catch (IOException e) {
+            LOGGER.error("upload error", e);
             throw new IllegalStateException("upload error", e);
         }
     }
@@ -40,7 +46,7 @@ public final class ImageService {
         File delete = new File(PHOTO_DIR + "/" + photo);
         if (delete.exists()) {
             if (!delete.delete()) {
-                throw new IllegalStateException("File was not deleted");
+                LOGGER.warn("File was not deleted: "+photo);
             }
         }
     }

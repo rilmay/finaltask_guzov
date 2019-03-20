@@ -22,7 +22,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RecordServiceImpl implements RecordService {
-    private final Logger LOGGER = LogManager.getLogger(RecordServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(RecordServiceImpl.class);
     private RecordDao recordDao;
     private static final String LINK_PATTERN = "@[0-9]+";
     private static final String NOT_FOUND_KEY = "title.not_found";

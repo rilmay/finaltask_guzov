@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RequestServiceImpl implements RequestService {
-    private final Logger LOGGER = LogManager.getLogger(RequestServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(RequestServiceImpl.class);
     private RequestDao requestDao;
     private WantedPersonDao wantedPersonDao;
     private UserDao userDao;

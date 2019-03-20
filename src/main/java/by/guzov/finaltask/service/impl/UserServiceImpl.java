@@ -24,7 +24,7 @@ import java.util.List;
  * Example of user service implementation
  */
 public class UserServiceImpl implements UserService {
-    private final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserServiceImpl.class);
     private UserDao userDao;
 
     public UserServiceImpl() throws ServiceException {
