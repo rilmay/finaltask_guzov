@@ -2,10 +2,13 @@ package by.guzov.finaltask.i18n;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ResourceBundleFactory {
-    private static final ResourceBundleFactory INSTANCE = new ResourceBundleFactory();
+    private static ResourceBundleFactory INSTANCE;
     private Map<String, MessageResourceBundle> resourceBundleMap;
+    private static final Lock lock = new ReentrantLock();
 
     private ResourceBundleFactory() {
         resourceBundleMap = new HashMap<>();
@@ -14,6 +17,15 @@ public class ResourceBundleFactory {
     }
 
     public static ResourceBundleFactory getInstance() {
+        lock.lock();
+        try {
+            if (INSTANCE == null) {
+                INSTANCE = new ResourceBundleFactory();
+            }
+
+        } finally {
+            lock.unlock();
+        }
         return INSTANCE;
     }
 

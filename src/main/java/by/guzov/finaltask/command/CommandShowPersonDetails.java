@@ -27,6 +27,8 @@ public class CommandShowPersonDetails implements Command {
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_person_details", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
+        }catch (RuntimeException e){
+            return ResponseUtil.toCommandWithError(request, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

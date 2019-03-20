@@ -67,7 +67,7 @@ public class ConnectionPoolImpl implements ConnectionPool {
         }
     }
 
-    public static synchronized ConnectionPool getInstance() {
+    public static ConnectionPool getInstance() {
         lock.lock();
         try {
             if (INSTANCE == null) {

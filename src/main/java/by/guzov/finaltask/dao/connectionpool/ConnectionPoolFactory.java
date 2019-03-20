@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * Connection Pool Factory
  */
 public class ConnectionPoolFactory {
-    private static ConnectionPoolFactory instance;
+    private static ConnectionPoolFactory INSTANCE;
     private static Lock lock = new ReentrantLock();
 
     private ConnectionPoolFactory() {
@@ -16,15 +16,15 @@ public class ConnectionPoolFactory {
     public static ConnectionPoolFactory getInstance() {
         lock.lock();
         try {
-            if (instance == null) {
-                instance = new ConnectionPoolFactory();
+            if (INSTANCE == null) {
+                INSTANCE = new ConnectionPoolFactory();
             }
 
         } finally {
             lock.unlock();
         }
 
-        return instance;
+        return INSTANCE;
     }
 
     public ConnectionPool getConnectionPool() {

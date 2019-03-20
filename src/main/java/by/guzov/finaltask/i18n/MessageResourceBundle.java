@@ -44,7 +44,11 @@ public class MessageResourceBundle extends ResourceBundle {
 
     @Override
     protected Object handleGetObject(String key) {
-        return parent.getObject(key);
+        try {
+            return parent.getObject(key);
+        }catch (MissingResourceException e){
+            return parent.getObject("title.not_found");
+        }
     }
 
     public String getByKey(String key) {

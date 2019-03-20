@@ -10,6 +10,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.apache.logging.log4j.web.WebLoggerContextUtils.getServletContext;
 
@@ -26,9 +28,19 @@ public final class MailSenderService {
     private static String FROM_VALUE;
     private static String PASS_VALUE;
     private static Properties mailProperties;
-    private static MailSenderService INSTANCE = new MailSenderService();
+    private static MailSenderService INSTANCE;
+    private static Lock lock = new ReentrantLock();
 
     public static MailSenderService getInstance() {
+        lock.lock();
+        try {
+            if (INSTANCE == null) {
+                INSTANCE = new MailSenderService();
+            }
+
+        } finally {
+            lock.unlock();
+        }
         return INSTANCE;
     }
 

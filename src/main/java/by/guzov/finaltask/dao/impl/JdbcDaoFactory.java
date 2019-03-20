@@ -27,7 +27,7 @@ import java.util.function.Supplier;
  */
 public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
     private static final Logger LOGGER = LogManager.getLogger(JdbcDaoFactory.class);
-    private static JdbcDaoFactory instance;
+    private static JdbcDaoFactory INSTANCE;
     private static Lock lock = new ReentrantLock();
     private Map<Class, Supplier<GenericDao>> creators = new HashMap<>();
 
@@ -75,15 +75,15 @@ public class JdbcDaoFactory implements DaoFactory, TransactionalDaoFactory {
     public static JdbcDaoFactory getInstance() {
         lock.lock();
         try {
-            if (instance == null) {
-                instance = new JdbcDaoFactory();
+            if (INSTANCE == null) {
+                INSTANCE = new JdbcDaoFactory();
             }
 
         } finally {
             lock.unlock();
         }
 
-        return instance;
+        return INSTANCE;
     }
 
     @Override

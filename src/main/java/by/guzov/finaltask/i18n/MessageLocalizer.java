@@ -60,6 +60,6 @@ public final class MessageLocalizer {
 
     public static String getLangTag(HttpServletRequest request) {
         Optional<String> cookieLang = CookieFinder.getValueByName(AppConstants.LANG, request.getCookies());
-        return cookieLang.orElse("en");
+        return cookieLang.orElse(request.getLocale().getLanguage());
     }
 }

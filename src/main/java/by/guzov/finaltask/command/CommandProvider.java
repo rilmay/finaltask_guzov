@@ -4,16 +4,28 @@ import by.guzov.finaltask.command.admin.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Command Provider
  */
 public class CommandProvider {
-    private static CommandProvider instance = new CommandProvider();
+    private static CommandProvider INSTANCE = new CommandProvider();
+    private static Lock lock = new ReentrantLock();
     private Map<CommandType, Command> commandMap = new HashMap<>();
 
     public static CommandProvider getInstance() {
-        return instance;
+        lock.lock();
+        try {
+            if (INSTANCE == null) {
+                INSTANCE = new CommandProvider();
+            }
+
+        } finally {
+            lock.unlock();
+        }
+        return INSTANCE;
     }
 
     private CommandProvider() {

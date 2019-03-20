@@ -41,7 +41,12 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
     public T getByPK(PK key) throws DaoException {
         try (PreparedStatement preparedStatement =
                      connection.prepareStatement(getSelectQuery() + " WHERE id = " + key)) {
-            return parseResultSet(preparedStatement.executeQuery()).get(0);
+            List<T> received = parseResultSet(preparedStatement.executeQuery());
+            if (received.size() > 0) {
+                return received.get(0);
+            } else {
+                throw new DaoException("Invalid id");
+            }
         } catch (SQLException e) {
             LOGGER.error("Cannot get by PK", e);
             throw new DaoException("Cannot get by PK", e);
