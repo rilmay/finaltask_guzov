@@ -20,7 +20,7 @@
                 <div class="content">
                     <p><strong><i class="fas fa-envelope"></i> </strong><c:out value="${user.email}"/></p>
                     <p><strong>${text['field.registration_date']}: </strong><c:out value="${user.registrationDate}"/></p>
-                    <p><strong>${text['field.role']}: </strong><c:out value="${user.role}"/></p>
+                    <p><strong>${text['field.role']}: </strong><my:lang key="role.${user.role}"/></p>
                 </div>
                 <br>
                 <form action="${pageContext.request.contextPath}/" method="get">
@@ -36,8 +36,10 @@
                 <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">
                     <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">
                     <input type="hidden" name=${AppConstants.ID} value="${user.id}">
-                    <input class="button is-block is-info is-normal is-fullwidth" type="button" value="${text['button.delete']}"
-                           onclick="ondeleteclick('delete_form')">
+                    <button class="button is-block is-info is-normal is-fullwidth" type="button"
+                            onclick="ondeleteclick('delete_form')">
+                        <i class="fas fa-trash-alt"></i> ${text['button.delete']}
+                    </button>
                 </form>
             </div>
         </article>

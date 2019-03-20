@@ -22,6 +22,8 @@
                 <c:if test="${person.pending}">
                     <p class="button is-fullwidth is-small is-warning">${text['status.pending']}</p>
                 </c:if>
+                <strong class="title is-5"><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
+                </strong>
                 <div class="rating" style="color: orange; font-size: 25px;">
                     <c:forTokens items="1,2,3,4,5" delims="," var="star">
                         <c:if test="${star <= person.rating}">
@@ -32,8 +34,7 @@
             </div>
             <div class="media-content">
                 <div class="content">
-                    <p><strong class="title is-5"><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
-                        </strong><i><my:lang key="status.${person.personStatus}"/></i></p>
+                    <p><strong>${text['field.status']}: </strong><i class="has-text-primary"><my:lang key="status.${person.personStatus}"/></i></p>
                     <p><strong>${text['title.born']}: </strong>
                     <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
                     </p>
@@ -72,8 +73,10 @@
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.DELETE_WANTED_PERSON}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="button" value="${text['button.delete']}"
-                                   onclick="ondeleteclick('delete_form')">
+                            <button class="button is-block is-info is-normal is-fullwidth" type="button"
+                                    onclick="ondeleteclick('delete_form')">
+                                <i class="fas fa-trash-alt"></i> ${text['button.delete']}
+                            </button>
                         </form>
                     </c:if>
                 </div>

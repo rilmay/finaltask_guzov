@@ -40,7 +40,7 @@
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">
-                            ${text['title.hello']}
+                            <i class="fas fa-bell"></i> ${text['title.hello']}
                         </h1>
                         <h2 class="subtitle">
                                 ${text['title.log_in_register']}

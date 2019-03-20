@@ -16,7 +16,7 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">${text['title.authentication']}</p>
+                <p class="title is-4"><i class="fas fa-sign-in-alt"></i> ${text['title.authentication']}</p>
                 <p class="subtitle is-6">${text['title.fill_in']}</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post">

@@ -17,29 +17,29 @@
             <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER).role}">
                 <p class="menu-label">${text['title.user']}</p>
                 <ul class="menu-list">
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_FORM}">${text['links.make_request']}</a></li>
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_MY_REQUESTS}">${text['links.my_requests']}</a></li>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_FORM}"><i class="fas fa-pencil-alt"></i> ${text['links.make_request']}</a></li>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_MY_REQUESTS}"><i class="fas fa-list-ul"></i> ${text['links.my_requests']}</a></li>
                 </ul>
             </c:if>
             <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role == AppConstants.ADMIN}">
                 <p class="menu-label">${text['title.administration']}</p>
                 <ul class="menu-list">
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_FORM}">${text['links.make_record']}</a>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_FORM}"><i class="fas fa-edit"></i> ${text['links.make_record']}</a>
                     </li>
-                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}">${text['links.user_list']}</a>
+                    <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_USER_LIST}"><i class="fas fa-users"></i> ${text['links.user_list']}</a>
                     </li>
                     <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_REQUEST_LIST}">
-                            ${text['links.pending_requests']}</a></li>
+                        <i class="fas fa-spinner"></i> ${text['links.pending_requests']}</a></li>
                     <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PENDING_PEOPLE}">
-                            ${text['links.pending_people']}</a></li>
+                        <i class="fas fa-spinner"></i> ${text['links.pending_people']}</a></li>
                 </ul>
             </c:if>
             <p class="menu-label">
                 ${text['title.general']}
             </p>
             <ul class="menu-list">
-                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_ABOUT_US_PAGE}">${text['links.about_us']}</a></li>
-                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_HOW_TO_PAGE}">${text['links.how_apply_request']}</a></li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_ABOUT_US_PAGE}"><i class="fas fa-info-circle"></i> ${text['links.about_us']}</a></li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_HOW_TO_PAGE}"><i class="fas fa-info-circle"></i> ${text['links.how_apply_request']}</a></li>
             </ul>
         </div>
     </aside>

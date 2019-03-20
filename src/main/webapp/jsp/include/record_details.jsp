@@ -45,8 +45,10 @@
                     <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">
                         <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_RECORD}">
                         <input type="hidden" name="${AppConstants.ID}" value="${record.id}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="button" value="${text['button.delete']}"
-                               onclick="ondeleteclick('delete_form')">
+                        <button class="button is-block is-info is-normal is-fullwidth" type="button"
+                                onclick="ondeleteclick('delete_form')">
+                            <i class="fas fa-trash-alt"></i> ${text['button.delete']}
+                        </button>
                     </form>
                 </c:if>
             </div>

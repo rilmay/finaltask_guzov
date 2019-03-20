@@ -17,7 +17,7 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">${text['links.make_record']}</p>
+                <p class="title is-4"><i class="fas fa-edit"></i> ${text['links.make_record']}</p>
                 <p class="subtitle is-6">${text['title.fill_in']}</p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">

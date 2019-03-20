@@ -16,7 +16,7 @@
     <div class="box is-2">
         <article class="media">
             <div class="media-content">
-                <p class="title is-4">${text['title.upload']}</p>
+                <p class="title is-4"><i class="fas fa-camera"></i> ${text['title.upload']}</p>
                 <p class="subtitle is-6">${text['title.for']} <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${person.id}">
                     <my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/></a></p>
                 <div class="content">

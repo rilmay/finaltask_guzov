@@ -18,10 +18,10 @@
                 <div class="content">
                     <table class="table is-fullwidth is-striped">
                         <thead>
-                        <th>${text['title.wanted_person']}</th>
-                        <th>${text['field.reward']}</th>
-                        <th>${text['title.boundary_dates']}</th>
-                        <th>${text['field.status']}</th>
+                        <th><i class="fas fa-walking"></i> ${text['title.wanted_person']}</th>
+                        <th><i class="fas fa-money-check-alt"></i> ${text['field.reward']}</th>
+                        <th><i class="fas fa-calendar-alt"></i> ${text['title.boundary_dates']}</th>
+                        <th><i class="far fa-check-square"></i> ${text['field.status']}</th>
                         <th></th>
                         </thead>
                         <tbody>
@@ -60,7 +60,7 @@
                                     </c:if>
                                 </td>
                                 <td><a class="button is-small is-primary"
-                                       href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}">${text['links.info']}</a></td>
+                                       href="?${AppConstants.COMMAND}=${CommandType.SHOW_REQUEST_DETAILS}&${AppConstants.ID}=${request_w_p.request.id}"><i class="fas fa-info"></i></a></td>
                             </tr>
                         </c:forEach>
                         </tbody>

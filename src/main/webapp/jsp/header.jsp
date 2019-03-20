@@ -28,10 +28,12 @@
         </div>
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-start">
+                <a class="navbar-item"><i class="fas fa-home"></i></a>
                 <a class="navbar-item" href="?${AppConstants.COMMAND}=${CommandType.SHOW_EMPTY_PAGE}">
                     ${text['links.home']}
                 </a>
                 <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-item"><i class="fas fa-walking"></i></a>
                     <a class="navbar-link">
                         ${text['links.wanted_people']}
                     </a>
@@ -51,6 +53,7 @@
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-item"><i class="fas fa-list-alt"></i></a>
                     <a class="navbar-link">
                         ${text['links.requests']}
                     </a>
@@ -69,9 +72,8 @@
                     </div>
                 </div>
                 <div class="navbar-item has-dropdown is-hoverable">
-                    <a class="navbar-link">
-                        ${text['links.records']}
-                    </a>
+                    <a class="navbar-item"><i class="far fa-newspaper"></i></a>
+                    <a class="navbar-link">${text['links.records']}</a>
                     <div class="navbar-dropdown">
                         <a class="navbar-item"
                            href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECORD_LIST}">
@@ -87,13 +89,18 @@
         </div>
         <div class="navbar-menu">
             <div class="navbar-end">
+                <span class="navbar-item">
+                    <i class="fas fa-globe-europe"></i>
+                </span>
 				<span class="navbar-item">
-                    <input id="en" class="button is-light" type="button" value="${text['links.en']}"
-                           onClick="changeLang('en')">
+                    <button id="en" class="button is-light" type="button" onClick="changeLang('en')">
+                        ${text['links.en']}
+                    </button>
                 </span>
                 <span class="navbar-item">
-                    <input id="ru" class="button is-light" type="button" value="${text['links.ru']}"
-                           onClick="changeLang('ru')">
+                    <button id="ru" class="button is-light" type="button" onClick="changeLang('ru')">
+                        ${text['links.ru']}
+                    </button>
                 </span>
             </div>
         </div>
@@ -109,7 +116,7 @@
             <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
             <span class="navbar-item">
                 <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSONAL_PAGE}">
-                    <c:out value="${sessionScope.get(AppConstants.SESSION_USER).login}"/>
+                    <i class="fas fa-user"></i> <c:out value="${sessionScope.get(AppConstants.SESSION_USER).login}"/>
                 </a>
             </span>
                 <span class="navbar-item">
