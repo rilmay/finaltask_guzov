@@ -18,9 +18,9 @@
                 <p class="title is-4"><c:out value="${user.firstName}"/> <c:out value="${user.lastName}"/></p>
                 <p class="subtitle is-6">@<c:out value="${user.login}"/></p>
                 <div class="content">
-                    <p><strong>${text['field.role']}: </strong><c:out value="${user.role}"/></p>
+                    <p><strong><i class="fas fa-envelope"></i> </strong><c:out value="${user.email}"/></p>
                     <p><strong>${text['field.registration_date']}: </strong><c:out value="${user.registrationDate}"/></p>
-                    <p><strong>${text['field.email']}: </strong><c:out value="${user.email}"/></p>
+                    <p><strong>${text['field.role']}: </strong><c:out value="${user.role}"/></p>
                 </div>
                 <br>
                 <form action="${pageContext.request.contextPath}/" method="get">

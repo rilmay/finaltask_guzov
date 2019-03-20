@@ -100,10 +100,10 @@
         <div class="navbar-tabs">
             <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
             <span class="navbar-item">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}">${text['links.registration']}</a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_REGISTRATION_PAGE}"><i class="fas fa-user-plus"></i> ${text['links.registration']}</a>
             </span>
                 <span class="navbar-item">
-                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}">${text['links.log_in']}</a>
+                <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_AUTHENTICATION_PAGE}"><i class="fas fa-sign-in-alt"></i> ${text['links.log_in']}</a>
             </span>
             </c:if>
             <c:if test="${not empty sessionScope.get(AppConstants.SESSION_USER)}">
@@ -114,7 +114,7 @@
             </span>
                 <span class="navbar-item">
                 <a href="?${AppConstants.COMMAND}=${CommandType.LOG_OUT_USER}">
-                    ${text['links.log_out']}
+                    <i class="fas fa-sign-out-alt"></i> ${text['links.log_out']}
                 </a>
                 </span>
             </c:if>

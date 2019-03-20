@@ -69,6 +69,8 @@ public class CommandProvider {
         commandMap.put(CommandType.DELETE_RECORD, new CommandDeleteRecord());
         commandMap.put(CommandType.SET_EXPIRED_RECORD, new CommandSetExpiredRecord());
         commandMap.put(CommandType.LOAD_IMAGE, new CommandLoadImage());
+        commandMap.put(CommandType.SHOW_ABOUT_US_PAGE, new CommandShowAboutUsPage());
+        commandMap.put(CommandType.SHOW_HOW_TO_PAGE, new CommandShowHowToPage());
     }
 
     /**

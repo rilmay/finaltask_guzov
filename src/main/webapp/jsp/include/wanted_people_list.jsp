@@ -11,7 +11,7 @@
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
 
-<div class="column is-10">
+<div class="column is-11">
     <div class="tile is-ancestor" style="flex-wrap: wrap;">
 <c:forEach items="${peopleList}" var="person">
     <div class="tile is-parent is-4">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <p><i><my:lang key="status.${person.personStatus}"/></i></p>
-                <div class="rating" style="color: orange; width: 150px; font-size: 25px; height: 30px;">
+                <div class="rating" style="color: orange; font-size: 25px;">
                     <c:forTokens items="1,2,3,4,5" delims="," var="star">
                         <c:if test="${star <= person.rating}">
                             ☆
@@ -45,13 +45,5 @@
 </c:forEach>
     </div>
 </div>
-<c:if test="${peopleList.size() eq 0}">
-    <div class="has-text-centered is-light">
-        <br>
-        <br>
-        <p class="subtitle">${text['title.nothing_to_show']}</p>
-        <br>
-        <br>
-    </div>
-</c:if>
+<my:emptylist size="${peopleList.size()}"/>
 

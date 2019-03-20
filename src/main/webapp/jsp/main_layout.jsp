@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="static/bulma.css">
     <link rel="stylesheet" href="static/rating.css">
     <link rel="stylesheet" type="text/css" href="static/loading.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <script src="js/sweetalert.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/custom.js"></script>
@@ -34,7 +36,7 @@
         <jsp:include page="menu.jsp"/>
         <div class="column is-9">
             <c:if test="${empty sessionScope.get(AppConstants.SESSION_USER)}">
-            <section class="hero is-info welcome is-small">
+            <section class="hero is-warning welcome is-small">
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">
@@ -57,7 +59,7 @@
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
-            Nikita Guzov final project
+            Nikita Guzov final project <i class="fas fa-copyright"></i>
         </p>
     </div>
 </footer>
@@ -74,3 +76,4 @@
         }
     </script>
 </body>
+</html>

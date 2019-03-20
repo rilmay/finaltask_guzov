@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <div class="columns">
     <div class="column is-9">
@@ -20,7 +21,7 @@
                         <th>Login</th>
                         <th>First name</th>
                         <th>Last name</th>
-                        <th>Email</th>
+                        <th><i class="fas fa-envelope"></i> Email</th>
                         </thead>
                         <tbody>
                         <c:forEach items="${userList}" var="user">
@@ -40,14 +41,6 @@
                 </div>
             </div>
         </div>
-        <c:if test="${userList.size() eq 0}">
-            <div class="has-text-centered is-light">
-                <br>
-                <br>
-                <p class="subtitle">${text['title.nothing_to_show']}</p>
-                <br>
-                <br>
-            </div>
-        </c:if>
+        <my:emptylist size="${userList.size()}"/>
     </div>
 </div>

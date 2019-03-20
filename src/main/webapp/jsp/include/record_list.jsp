@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="media-right">
-                    <div class="rating" style="color: orange; width: 150px; font-size: 30px; height: 40px;">
+                    <div class="rating" style="color: orange; font-size: 30px;">
                         <c:forTokens items="1,2,3,4,5" delims="," var="star">
                             <c:if test="${star <= record.rating}">
                                 ☆
@@ -44,12 +44,4 @@
         </div>
     </div>
 </c:forEach>
-<c:if test="${recordList.size() eq 0}">
-    <div class="has-text-centered is-light">
-        <br>
-        <br>
-        <p class="subtitle">${text['title.nothing_to_show']}</p>
-        <br>
-        <br>
-    </div>
-</c:if>
+<my:emptylist size="${recordList.size()}"/>

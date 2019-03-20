@@ -47,7 +47,9 @@ public enum CommandType {
     SHOW_REQUESTS_BY_WANTED_PERSON,
     SHOW_UPLOAD_PHOTO_FORM(new Restrictions().setRoles(ADMIN)),
     SHOW_RECORD_FORM(new Restrictions().setRoles(ADMIN)),
-    SHOW_RECORD_LIST;
+    SHOW_RECORD_LIST,
+    SHOW_ABOUT_US_PAGE,
+    SHOW_HOW_TO_PAGE;
 
     public Restrictions getRestrictions() {
         return restrictions;

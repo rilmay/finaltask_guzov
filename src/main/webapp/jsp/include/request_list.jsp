@@ -68,14 +68,6 @@
                 </div>
             </div>
         </div>
-        <c:if test="${requestList.size() eq 0}">
-            <div class="has-text-centered is-light">
-                <br>
-                <br>
-                <p class="subtitle">${text['title.nothing_to_show']}</p>
-                <br>
-                <br>
-            </div>
-        </c:if>
+        <my:emptylist size="${requestList.size()}"/>
     </div>
 </div>

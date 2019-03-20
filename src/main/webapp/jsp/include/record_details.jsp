@@ -24,7 +24,7 @@
         <div class="card-content">
             <div class="content">
                 <h1>${record.name}</h1>
-                <div class="rating" style="color: orange; width: 150px; font-size: 30px; height: 40px;">
+                <div class="rating" style="color: orange;font-size: 30px;">
                     <c:forTokens items="1,2,3,4,5" delims="," var="star">
                         <c:if test="${star <= record.rating}">
                             ☆

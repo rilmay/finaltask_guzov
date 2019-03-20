@@ -38,8 +38,8 @@
                 ${text['title.general']}
             </p>
             <ul class="menu-list">
-                <li><a>${text['links.about_us']}</a></li>
-                <li><a>${text['links.how_apply_request']}</a></li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_ABOUT_US_PAGE}">${text['links.about_us']}</a></li>
+                <li><a href="?${AppConstants.COMMAND}=${CommandType.SHOW_HOW_TO_PAGE}">${text['links.how_apply_request']}</a></li>
             </ul>
         </div>
     </aside>
