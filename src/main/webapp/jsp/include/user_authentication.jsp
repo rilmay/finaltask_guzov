@@ -22,8 +22,7 @@
                     <form action="${pageContext.request.contextPath}/" method="post">
                         <my:inputfield label="${text['field.login']}" name="${FieldNames.LOGIN}"/>
                         <my:inputfield label="${text['field.password']}" name="${FieldNames.PASSWORD}" type="password"/>
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.AUTHENTICATE_USER}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['links.log_in']}">
+                        <my:loadingbutton command="${CommandType.AUTHENTICATE_USER}" label="${text['links.log_in']}" />
                     </form>
                     <a href="?${AppConstants.COMMAND}=${CommandType.SHOW_RECOVERY_PAGE}">${text['links.forgot_password']}</a>
                 </div>

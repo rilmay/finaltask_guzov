@@ -65,27 +65,18 @@
                     <c:if test="${role == AppConstants.ADMIN}">
                         <c:if test="${current.requestStatus == 'pending'}">
                             <form action="${pageContext.request.contextPath}/" method="post">
-                                <input type="hidden" name="${AppConstants.COMMAND}"
-                                       value="${CommandType.APPROVE_REQUEST}">
                                 <input type="hidden" name=${AppConstants.ID} value="${current.id}">
-                                <input class="button is-block is-success is-normal is-fullwidth" type="submit"
-                                       value="${text['button.approve']}">
+                                <my:loadingbutton label="${text['button.approve']}" command="${CommandType.APPROVE_REQUEST}" type="is-success" id="b7"/>
                             </form>
                             <form action="${pageContext.request.contextPath}/" method="post">
-                                <input type="hidden" name="${AppConstants.COMMAND}"
-                                       value="${CommandType.CANCEL_REQUEST}">
                                 <input type="hidden" name=${AppConstants.ID} value="${current.id}">
-                                <input class="button is-block is-warning is-normal is-fullwidth" type="submit"
-                                       value="${text['button.cancel']}">
+                                <my:loadingbutton label="${text['button.cancel']}" command="${CommandType.CANCEL_REQUEST}" type="is-warning" id="b8"/>
                             </form>
                         </c:if>
                         <c:if test="${current.requestStatus == 'approved'}">
                             <form action="${pageContext.request.contextPath}/" method="post">
-                                <input type="hidden" name="${AppConstants.COMMAND}"
-                                       value="${CommandType.SET_COMPLETED_REQUEST}">
                                 <input type="hidden" name=${AppConstants.ID} value="${current.id}">
-                                <input class="button is-block is-primary is-normal is-fullwidth" type="submit"
-                                       value="${text['button.set_completed']}">
+                                <my:loadingbutton label="${text['button.set_completed']}" command="${CommandType.SET_COMPLETED_REQUEST}" type="is-primary" id="b9"/>
                             </form>
                         </c:if>
                     </c:if>

@@ -57,7 +57,7 @@
                             <input type="hidden" name="${AppConstants.COMMAND}"
                                    value="${CommandType.SHOW_UPLOAD_PHOTO_FORM}">
                             <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
-                            <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.upload_photo']}">
+                            <input class="button is-block is-success is-normal is-fullwidth" type="submit" value="${text['button.upload_photo']}">
                         </form>
                     </c:if>
                     <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">

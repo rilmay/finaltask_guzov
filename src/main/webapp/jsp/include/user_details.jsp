@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="by.guzov.finaltask.command.CommandType" %>
 <%@ page import="by.guzov.finaltask.util.AppConstants" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <div class="column is-4 is-centered">
     <div class="box is-2">
@@ -22,17 +23,15 @@
                     <p><strong>${text['field.email']}: </strong><c:out value="${user.email}"/></p>
                 </div>
                 <br>
-                <form action="${pageContext.request.contextPath}/" method="post">
+                <form action="${pageContext.request.contextPath}/" method="get">
                     <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SHOW_REQUESTS_BY_USER}">
                     <input type="hidden" name=${AppConstants.ID} value="${user.id}">
                     <input class="button is-block is-light is-normal is-fullwidth" type="submit"
                            value="${text['links.requests']}">
                 </form>
                 <form action="${pageContext.request.contextPath}/" method="post">
-                    <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.CHANGE_USER_ROLE}">
                     <input type="hidden" name=${AppConstants.ID} value="${user.id}">
-                    <input class="button is-block is-success is-normal is-fullwidth" type="submit"
-                           value="${text['button.change_role']}">
+                    <my:loadingbutton label="${text['button.change_role']}" command="${CommandType.CHANGE_USER_ROLE}" type="is-success"/>
                 </form>
                 <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">
                     <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.DELETE_USER}">

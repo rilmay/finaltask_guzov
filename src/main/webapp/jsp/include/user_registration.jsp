@@ -30,8 +30,7 @@
 
                         <my:inputfield label="${text['field.last_name']}" name="${FieldNames.LAST_NAME}"/>
 
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.REGISTER_USER}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.register']}">
+                        <my:loadingbutton command="${CommandType.REGISTER_USER}" label="${text['button.register']}"/>
                     </form>
                 </div>
             </div>

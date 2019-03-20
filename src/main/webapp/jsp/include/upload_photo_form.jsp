@@ -21,11 +21,10 @@
                     <my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/></a></p>
                 <div class="content">
                     <form action="${pageContext.request.contextPath}/" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.UPLOAD_PHOTO}">
                         <input type="hidden" name="${AppConstants.ID}" value="${person.id}">
                         <my:inputfield label="${text['field.photo']}" name="${FieldNames.PHOTO}" type="file"/>
                         <br>
-                        <input class="button is-block is-success is-normal is-fullwidth" type="submit" value="${text['button.upload_photo']}">
+                        <my:loadingbutton label="${text['button.upload_photo']}" command="${CommandType.UPLOAD_PHOTO}" type="is-success"/>
                     </form>
                 </div>
             </div>

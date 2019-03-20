@@ -53,8 +53,7 @@
                             <input name="${FieldNames.RATING}" id="e2" type="radio" value="2"><label for="e2">☆</label>
                             <input name="${FieldNames.RATING}" id="e1" type="radio" value="1"><label for="e1">☆</label>
                         </div>
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SEND_RECORD}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.send']}">
+                        <my:loadingbutton label="${text['button.send']}" command="${CommandType.SEND_RECORD}" />
                     </form>
                 </div>
             </div>

@@ -44,8 +44,7 @@
                             </div>
                         </div>
                         <jsp:include page="wp_request_description.jsp"/>
-                        <input type="hidden" name="${AppConstants.COMMAND}" value="${CommandType.SEND_REQUEST}">
-                        <input class="button is-block is-info is-normal is-fullwidth" type="submit" value="${text['button.send']}">
+                        <my:loadingbutton label="${text['button.send']}" command="${CommandType.SEND_REQUEST}"/>
                     </form>
                 </div>
             </div>

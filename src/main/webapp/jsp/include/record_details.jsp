@@ -38,11 +38,8 @@
                 <c:if test="${sessionScope.get(AppConstants.SESSION_USER).role eq AppConstants.ADMIN}">
                     <c:if test="${record.recordStatus eq 'relevant'}">
                     <form action="${pageContext.request.contextPath}/" method="post">
-                        <input type="hidden" name="${AppConstants.COMMAND}"
-                               value="${CommandType.SET_EXPIRED_RECORD}">
                         <input type="hidden" name="${AppConstants.ID}" value="${record.id}">
-                        <input class="button is-block is-success is-normal is-fullwidth" type="submit"
-                               value="${text['button.set_expired']}">
+                        <my:loadingbutton label="${text['button.set_expired']}" command="${CommandType.SET_EXPIRED_RECORD}" type="is-success"/>
                     </form>
                     </c:if>
                     <form id="delete_form" action="${pageContext.request.contextPath}/" method="post">

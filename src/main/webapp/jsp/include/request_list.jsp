@@ -53,7 +53,7 @@
                                         </a>
                                     </c:if>
 
-                                    <c:if test="${request_w_p.request.requestStatus eq 'expired' or current.requestStatus eq 'cancelled'}">
+                                    <c:if test="${request_w_p.request.requestStatus eq 'expired' or request_w_p.request.requestStatus eq 'cancelled'}">
                                         <a class="button is-small is-primary">
                                             <my:lang key="status.${request_w_p.request.requestStatus}"/>
                                         </a>

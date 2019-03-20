@@ -18,6 +18,7 @@
     <title>Interpol</title>
     <link rel="stylesheet" href="static/bulma.css">
     <link rel="stylesheet" href="static/rating.css">
+    <link rel="stylesheet" type="text/css" href="static/loading.css">
     <script src="js/sweetalert.min.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/custom.js"></script>
@@ -64,5 +65,12 @@
         <c:if test="${not empty error_message}">error('${error_message}')</c:if>
         <c:if test="${success}">successWindow('${text['title.success']}')</c:if>
         document.getElementById('${text.getLocaleTag()}').setAttribute("disabled","disabled")}
+
+        function loading(id) {
+            var element = document.getElementById(id);
+            element.classList.add("ld");
+            element.classList.add("ld-ring");
+            element.classList.add("ld-spin");
+        }
     </script>
 </body>
