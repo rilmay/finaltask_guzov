@@ -3,10 +3,11 @@ package by.guzov.finaltask.domain;
 import by.guzov.finaltask.dao.Identified;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Data
-public class Request implements Identified<Integer> {
+public class Request implements Identified<Integer>, Serializable {
     private int id;
     private int reward;
     private Date applicationDate;

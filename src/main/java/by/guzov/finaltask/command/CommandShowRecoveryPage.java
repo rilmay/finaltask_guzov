@@ -34,7 +34,7 @@ public class CommandShowRecoveryPage implements Command {
                 }
             } catch (ServiceException e) {
                 return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.recovery");
-            }catch (RuntimeException e){
+            } catch (RuntimeException e) {
                 return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
             }
         }

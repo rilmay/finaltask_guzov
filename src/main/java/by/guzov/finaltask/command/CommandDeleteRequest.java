@@ -34,7 +34,7 @@ public class CommandDeleteRequest implements Command {
             }
         } catch (ServiceException e) {
             return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE + "error_message=error%server");
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

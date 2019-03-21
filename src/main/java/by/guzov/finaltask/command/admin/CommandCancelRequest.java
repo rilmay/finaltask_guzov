@@ -33,7 +33,7 @@ public class CommandCancelRequest implements Command {
                             AppConstants.ID + "=" + currentRequest.getId());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

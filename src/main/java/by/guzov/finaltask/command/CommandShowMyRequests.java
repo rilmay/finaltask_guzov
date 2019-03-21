@@ -20,7 +20,7 @@ public class CommandShowMyRequests implements Command {
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

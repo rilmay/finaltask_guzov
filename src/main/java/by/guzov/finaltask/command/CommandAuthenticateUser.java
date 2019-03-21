@@ -40,7 +40,7 @@ public class CommandAuthenticateUser implements Command {
             return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_AUTHENTICATION_PAGE, e.getMessage());
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
