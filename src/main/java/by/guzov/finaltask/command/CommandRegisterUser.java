@@ -41,6 +41,8 @@ public class CommandRegisterUser implements Command {
         } catch (ServiceException e) {
             errors.add("error.server");
             return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_REGISTRATION_PAGE, errors, fieldMap);
+        }catch (RuntimeException e){
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

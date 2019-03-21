@@ -17,7 +17,7 @@
 
 <c:if test="${not empty wp}">
     <p>
-        request for search <a
+        ${text['title.request_for']} <a
             href="?${AppConstants.COMMAND}=${CommandType.SHOW_PERSON_DETAILS}&${AppConstants.ID}=${wp.id}">
         <my:display variable="${wp.firstName}"/> <my:display variable="${wp.lastName}"/></a>
     </p>

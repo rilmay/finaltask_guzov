@@ -31,6 +31,8 @@ public class CommandDeleteUser implements Command {
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_USER_LIST.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
+        }catch (RuntimeException e){
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

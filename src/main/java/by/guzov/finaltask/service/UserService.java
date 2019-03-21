@@ -35,6 +35,5 @@ public interface UserService {
 
     User recoverPassword(PasswordRecovery passwordRecovery, String code, String newPassword) throws ServiceException;
 
-    // Provide your code here
 
 }

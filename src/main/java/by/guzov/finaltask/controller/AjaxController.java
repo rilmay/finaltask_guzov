@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(/* Provide your code here**/)
+@WebServlet()
 public class AjaxController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,8 +27,5 @@ public class AjaxController extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Command command = CommandProvider.getInstance().takeCommand(CommandType.SHOW_EMPTY_PAGE);
         ResponseContent responseContent = command.execute(request, response);
-
-        // Provide your code here
-
     }
 }

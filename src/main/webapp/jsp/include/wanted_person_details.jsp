@@ -19,9 +19,6 @@
                     <my:image variable="${person.photo}" type="person"/>
                 </figure>
                 <br>
-                <c:if test="${person.pending}">
-                    <p class="button is-fullwidth is-small is-warning">${text['status.pending']}</p>
-                </c:if>
                 <strong class="title is-5"><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
                 </strong>
                 <div class="rating" style="color: orange; font-size: 25px;">
@@ -31,6 +28,10 @@
                         </c:if>
                     </c:forTokens>
                 </div>
+                <c:if test="${person.pending}">
+                    <br>
+                    <p class="button is-small is-warning">${text['status.pending']}</p>
+                </c:if>
             </div>
             <div class="media-content">
                 <div class="content">

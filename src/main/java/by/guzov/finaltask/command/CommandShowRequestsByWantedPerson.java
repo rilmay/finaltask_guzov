@@ -1,5 +1,7 @@
 package by.guzov.finaltask.command;
 
+import by.guzov.finaltask.domain.User;
+import by.guzov.finaltask.dto.FullRequest;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.RequestService;
@@ -10,6 +12,7 @@ import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 public class CommandShowRequestsByWantedPerson implements Command {
     @Override
@@ -22,10 +25,19 @@ public class CommandShowRequestsByWantedPerson implements Command {
             }
             int id = Integer.parseInt(strId);
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            request.setAttribute("requestList", requestService
-                    .getAllByWantedPersonAndStatuses(id, AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED));
+            List<FullRequest> requestList;
+            Object user = request.getSession().getAttribute(AppConstants.SESSION_USER);
+            if (user != null && ((User) user).getRole().equals(AppConstants.ADMIN)) {
+                requestList = requestService.getAllByWantedPersonAndStatuses(id);
+            } else {
+                requestList = requestService
+                        .getAllByWantedPersonAndStatuses(id, AppConstants.STATUS_APPROVED, AppConstants.STATUS_COMPLETED);
+            }
+            request.setAttribute("requestList", requestList);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
+        }catch (RuntimeException e){
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

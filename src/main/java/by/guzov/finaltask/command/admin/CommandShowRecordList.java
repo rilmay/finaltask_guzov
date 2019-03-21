@@ -31,6 +31,8 @@ public class CommandShowRecordList implements Command {
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "record_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
+        }catch (RuntimeException e){
+            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }
 }

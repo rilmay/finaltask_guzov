@@ -127,7 +127,6 @@ public class RecordServiceImpl implements RecordService {
         MessageResourceBundle bundle = ResourceBundleFactory.getInstance().getBundle(langTag);
         String notFound = bundle.getByKey(NOT_FOUND_KEY);
         String unknown = bundle.getByKey(UNKNOWN_KEY);
-        String outText = text;
         WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
         Pattern pattern = Pattern.compile(LINK_PATTERN);
         Matcher matcher = pattern.matcher(text);
@@ -145,9 +144,9 @@ public class RecordServiceImpl implements RecordService {
             } catch (RuntimeException e) {
                 link = "<a>" + notFound + "</a>";
             }
-            outText = text.replaceAll(found, link);
+            text = text.replaceAll(found, link);
         }
-        return outText;
+        return text;
     }
 
     private String returnName(String name, String elseName) {
