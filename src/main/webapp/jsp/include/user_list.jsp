@@ -18,10 +18,10 @@
                 <div class="content">
                     <table class="table is-fullwidth is-striped">
                         <thead>
-                        <th>Login</th>
-                        <th>First name</th>
-                        <th>Last name</th>
-                        <th><i class="fas fa-envelope"></i> Email</th>
+                        <th>${text['field.login']}</th>
+                        <th>${text['field.first_name']}</th>
+                        <th>${text['field.last_name']}</th>
+                        <th><i class="fas fa-envelope"></i> ${text['field.email']}</th>
                         </thead>
                         <tbody>
                         <c:forEach items="${userList}" var="user">
