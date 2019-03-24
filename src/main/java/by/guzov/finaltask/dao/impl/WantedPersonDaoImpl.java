@@ -43,7 +43,7 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
             "(first_name, last_name, person_status, description, birth_place, birth_date, search_area," +
             " special_signs, photo, pending, rating)" +
             "VALUES (? ,? ,? ,? ,? ,? ,?, ?, ?, ?, ?)";
-
+    private static final String COUNT_QUERY = "SELECT COUNT(id) FROM wanted_person";
     private static final String SELECT_COLUMN = "FROM wanted_person";
 
     @Override
@@ -116,9 +116,8 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     }
 
     @Override
-    protected boolean hasColumn(String column) {
-        return Arrays.asList(ID, FIRST_NAME, LAST_NAME, PERSON_STATUS, DESCRIPTION, BIRTH_DATE, BIRTH_PLACE,
-                SEARCH_AREA, SPECIAL_SIGNS, PHOTO, PENDING).contains(column);
+    protected String getCountQuery() {
+        return COUNT_QUERY;
     }
 
     @Override
@@ -127,9 +126,13 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     }
 
     @Override
-    @AutoConnection
-    public List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws DaoException {
-        String sql = getSelectQuery() + " WHERE 1=1";
+    protected boolean hasColumn(String column) {
+        return Arrays.asList(ID, FIRST_NAME, LAST_NAME, PERSON_STATUS, DESCRIPTION, BIRTH_DATE, BIRTH_PLACE,
+                SEARCH_AREA, SPECIAL_SIGNS, PHOTO, PENDING).contains(column);
+    }
+
+    private String pendingAndStatusesCondition(Boolean pending, String... statuses){
+        String sql = " WHERE 1=1";
         if (pending != null) {
             sql += " AND (" + PENDING + " = " + pending + ")";
         }
@@ -139,11 +142,27 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
                     .collect(Collectors.joining(" OR "));
             sql += " AND (" + statusQuery + ")";
         }
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            return parseResultSet(preparedStatement.executeQuery());
-        } catch (SQLException e) {
-            LOGGER.error("Failed when getting all by pending and status", e);
-            throw new DaoException("Failed when getting all by pending and status", e);
-        }
+        return sql;
+    }
+
+    @Override
+    @AutoConnection
+    public List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws DaoException {
+        String condition = pendingAndStatusesCondition(pending,statuses);
+        return selectByCondition(condition);
+    }
+
+    @AutoConnection
+    @Override
+    public List<WantedPerson> getPageByPendingAndStatuses(int page, int amountOnPage, Boolean pending, String... statuses) throws DaoException {
+        String condition = pendingAndStatusesCondition(pending,statuses);
+        return selectWithPagination(page, amountOnPage, condition);
+    }
+
+    @AutoConnection
+    @Override
+    public int countByPendingAndStatuses(Boolean pending, String... statuses) throws DaoException {
+        String condition = pendingAndStatusesCondition(pending,statuses);
+        return counting(condition);
     }
 }

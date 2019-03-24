@@ -7,12 +7,10 @@ import by.guzov.finaltask.dao.RecordDao;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.Record;
 import by.guzov.finaltask.domain.WantedPerson;
+import by.guzov.finaltask.dto.PaginationTool;
 import by.guzov.finaltask.i18n.MessageResourceBundle;
 import by.guzov.finaltask.i18n.ResourceBundleFactory;
-import by.guzov.finaltask.service.RecordService;
-import by.guzov.finaltask.service.ServiceException;
-import by.guzov.finaltask.service.ServiceFactory;
-import by.guzov.finaltask.service.WantedPersonService;
+import by.guzov.finaltask.service.*;
 import by.guzov.finaltask.util.AppConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +19,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RecordServiceImpl implements RecordService {
+public class RecordServiceImpl extends AbstractService<Record> implements RecordService {
     private static final Logger LOGGER = LogManager.getLogger(RecordServiceImpl.class);
     private RecordDao recordDao;
     private static final String LINK_PATTERN = "@[0-9]+";
@@ -34,50 +32,11 @@ public class RecordServiceImpl implements RecordService {
 
     private void daoInit() throws ServiceException {
         try {
-            this.recordDao = (RecordDao) JdbcDaoFactory.getInstance().getDao(Record.class);
+            super.dao = JdbcDaoFactory.getInstance().getDao(Record.class);
+            recordDao = (RecordDao) super.dao;
         } catch (DaoException e) {
             LOGGER.error("Failed when dao initialization", e);
             throw new ServiceException("Failed when dao initialization", e);
-        }
-    }
-
-    @Override
-    public Record getById(int id) throws ServiceException {
-        try {
-            return recordDao.getByPK(id);
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting by id", e);
-            throw new ServiceException("Failed when getting by id", e);
-        }
-    }
-
-    @Override
-    public Record create(Record record) throws ServiceException {
-        try {
-            return recordDao.persist(record);
-        } catch (PersistException e) {
-            LOGGER.error("Failed when creating", e);
-            throw new ServiceException("Failed when creating", e);
-        }
-    }
-
-    @Override
-    public void delete(Record record) throws ServiceException {
-        try {
-            recordDao.delete(record);
-        } catch (PersistException e) {
-            LOGGER.error("Failed when deleting", e);
-            throw new ServiceException("Failed when deleting", e);
-        }
-    }
-
-    @Override
-    public void update(Record record) throws ServiceException {
-        try {
-            recordDao.update(record);
-        } catch (PersistException e) {
-            LOGGER.error("Failed when updating", e);
-            throw new ServiceException("Failed when updating", e);
         }
     }
 
@@ -98,16 +57,6 @@ public class RecordServiceImpl implements RecordService {
         } catch (DaoException e) {
             LOGGER.error("Failed when getting all expired", e);
             throw new ServiceException("Failed when getting all expired", e);
-        }
-    }
-
-    @Override
-    public List<Record> getAll() throws ServiceException {
-        try {
-            return recordDao.getAll();
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all", e);
-            throw new ServiceException("Failed when getting all", e);
         }
     }
 
@@ -154,6 +103,46 @@ public class RecordServiceImpl implements RecordService {
             return name;
         } else {
             return elseName;
+        }
+    }
+
+    @Override
+    public List<Record> getPageRelevant(PaginationTool tool) throws ServiceException {
+        try {
+            return recordDao.getPageRelevant(tool.getCurrentPage(), tool.getAmountOnPage());
+        } catch (DaoException e) {
+            LOGGER.error("Failed when getting page of relevant", e);
+            throw new ServiceException("Failed when getting page of relevant", e);
+        }
+    }
+
+    @Override
+    public List<Record> getPageExpired(PaginationTool tool) throws ServiceException {
+        try {
+            return recordDao.getPageExpired(tool.getCurrentPage(), tool.getAmountOnPage());
+        } catch (DaoException e) {
+            LOGGER.error("Failed when getting page of expired", e);
+            throw new ServiceException("Failed when getting page of expired", e);
+        }
+    }
+
+    @Override
+    public int countRelevant() throws ServiceException {
+        try {
+            return recordDao.countRelevant();
+        } catch (DaoException e) {
+            LOGGER.error("Failed when getting counting relevant", e);
+            throw new ServiceException("Failed when getting counting relevant", e);
+        }
+    }
+
+    @Override
+    public int countExpired() throws ServiceException {
+        try {
+            return recordDao.countExpired();
+        } catch (DaoException e) {
+            LOGGER.error("Failed when getting counting expired", e);
+            throw new ServiceException("Failed when getting counting expired", e);
         }
     }
 }

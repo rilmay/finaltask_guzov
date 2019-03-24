@@ -42,6 +42,7 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
             "VALUES (? ,? ,? ,? ,? ,? ,?)";
 
     private static final String SELECT_COLUMN = "FROM user";
+    private static final String COUNT_QUERY = "SELECT COUNT(id) FROM user";
 
 
     @Override
@@ -105,6 +106,11 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     }
 
     @Override
+    protected String getCountQuery() {
+        return COUNT_QUERY;
+    }
+
+    @Override
     protected String getSelectColumnQuery() {
         return SELECT_COLUMN;
     }
@@ -118,13 +124,7 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     @AutoConnection
     @Override
     public User getByLogin(User user) throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE login = ?")) {
-            preparedStatement.setString(1, user.getLogin());
-            return parseResultSet(preparedStatement.executeQuery()).get(0);
-        } catch (SQLException e) {
-            LOGGER.error("Failed when getting user by login", e);
-            throw new DaoException("Failed when getting user by login", e);
-        }
+        String condition = " WHERE login = '"+user.getLogin()+"'";
+        return selectByCondition(condition).get(0);
     }
 }

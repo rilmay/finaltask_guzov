@@ -26,8 +26,8 @@ public class CommandDeleteUser implements Command {
             }
             int userId = Integer.parseInt(id);
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User user = userService.getUserById(userId);
-            userService.deleteUser(user);
+            User user = userService.getById(userId);
+            userService.delete(user);
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_USER_LIST.name());
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");

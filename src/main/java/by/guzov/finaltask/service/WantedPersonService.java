@@ -1,19 +1,14 @@
 package by.guzov.finaltask.service;
 
 import by.guzov.finaltask.domain.WantedPerson;
+import by.guzov.finaltask.dto.PaginationTool;
 
 import java.util.List;
 
-public interface WantedPersonService {
-    List<WantedPerson> getAll() throws ServiceException;
-
-    void delete(WantedPerson wantedPerson) throws ServiceException;
-
-    WantedPerson getById(int id) throws ServiceException;
-
-    void update(WantedPerson wantedPerson) throws ServiceException;
-
-    WantedPerson create(WantedPerson wantedPerson) throws ServiceException;
-
+public interface WantedPersonService extends GenericService<WantedPerson> {
     List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws ServiceException;
+
+    List<WantedPerson> getPageByPendingAndStatuses(PaginationTool tool, Boolean pending, String... statuses) throws ServiceException;
+
+    int countByPendingAndStatuses(Boolean pending, String... statuses) throws ServiceException;
 }

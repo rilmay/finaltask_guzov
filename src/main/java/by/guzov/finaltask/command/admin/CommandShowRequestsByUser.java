@@ -4,12 +4,14 @@ import by.guzov.finaltask.command.Command;
 import by.guzov.finaltask.command.CommandType;
 import by.guzov.finaltask.command.ResponseUtil;
 import by.guzov.finaltask.command.Router;
+import by.guzov.finaltask.dto.PaginationTool;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.util.PaginationUtil;
 import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +28,8 @@ public class CommandShowRequestsByUser implements Command {
             }
             int userId = Integer.parseInt(id);
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            request.setAttribute("requestList", requestService.getAllByUserAndStatuses(userId));
+            PaginationTool tool = PaginationUtil.defaultHandle(request,requestService.countByUserAndStatuses(userId));
+            request.setAttribute("requestList", requestService.getPageByUserAndStatuses(tool,userId));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
         } catch (ServiceException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");

@@ -47,3 +47,5 @@
     </div>
 </div>
 <my:emptylist size="${recordList.size()}"/>
+<my:pagination/>
+

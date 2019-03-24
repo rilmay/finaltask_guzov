@@ -69,5 +69,6 @@
             </div>
         </div>
         <my:emptylist size="${requestList.size()}"/>
+        <my:pagination/>
     </div>
 </div>

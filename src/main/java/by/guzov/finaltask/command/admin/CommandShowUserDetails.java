@@ -27,7 +27,7 @@ public class CommandShowUserDetails implements Command {
             }
             int userId = Integer.parseInt(id);
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User user = userService.getUserById(userId);
+            User user = userService.getById(userId);
             request.setAttribute("user", user);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "user_details", Router.Type.FORWARD);
         } catch (ServiceException e) {

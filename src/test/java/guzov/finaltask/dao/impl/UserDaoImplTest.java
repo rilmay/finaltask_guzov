@@ -5,7 +5,10 @@ import by.guzov.finaltask.dao.UserDao;
 import by.guzov.finaltask.dao.connectionpool.ConnectionPoolImpl;
 import by.guzov.finaltask.dao.impl.JdbcDaoFactory;
 import by.guzov.finaltask.domain.User;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -105,11 +108,17 @@ public class UserDaoImplTest {
     }
 
     @Test
-    public void findByLoginTest() throws Exception{
+    public void findByLoginTest() throws Exception {
         deleteAll.execute();
         User forGetAll = userDao.persist(user);
 
-        Assert.assertEquals(forGetAll.getPassword(),userDao.getByLogin(user).getPassword());
+        Assert.assertEquals(forGetAll.getPassword(), userDao.getByLogin(user).getPassword());
+    }
+
+    @Test
+    public void countTest() throws Exception {
+        userDao.persist(user);
+        Assert.assertTrue(userDao.recordCount() > 0);
     }
 
     @After

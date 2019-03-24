@@ -19,6 +19,10 @@ public final class AppConstants {
     public static final String LANG = "lang";
     public static final String LOCALE_BUNDLE = "text";
     public static final String ONLY = "ONLY";
+    public static final String PAGE = "page";
+    public static final String CURRENT_PAGE = "current_page";
+    public static final String PAGES = "pages";
+    public static final int DEFAULT_AMOUNT_ON_PAGE = 5;
 
     public static final String WANTED_PERSON_FILE_PREFIX = "wp_";
     public static final String RECORD_FILE_PREFIX = "rec_";

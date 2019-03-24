@@ -3,12 +3,14 @@ package by.guzov.finaltask.command;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.i18n.MessageLocalizer;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.validation.StringValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public final class ResponseUtil {
     private ResponseUtil() {
@@ -52,6 +54,23 @@ public final class ResponseUtil {
 
     public static ResponseContent redirectWIthSuccess(HttpServletRequest request, String url) {
         return redirectTo(request, url + "&success=true");
+    }
+
+    public static int paginateAndReturnCurrentPage(HttpServletRequest request, int recordAmount, int recordsOnPage) {
+        request.setAttribute(AppConstants.PAGES, IntStream.
+                range(1, 1 + (int) Math.ceil((double) recordAmount / recordsOnPage))
+                .boxed()
+                .collect(Collectors.toList()));
+        String pageParameter = request.getParameter(AppConstants.PAGE);
+        int page = 1;
+        if (StringValidator.isValid(pageParameter, 1, 9, StringValidator.NUMBER_PATTERN)) {
+            int input = Integer.parseInt(pageParameter);
+            if (input > 0) {
+                page = input;
+            }
+        }
+        request.setAttribute(AppConstants.CURRENT_PAGE, page);
+        return page;
     }
 
     public static void addSuccess(HttpServletRequest request) {

@@ -16,8 +16,8 @@ public class CommandDeletePersonalPage implements Command {
         try {
             User sessionUser = (User) request.getSession().getAttribute(AppConstants.SESSION_USER);
             UserService userService = ServiceFactory.getInstance().getUserService();
-            User user = userService.getUserById(sessionUser.getId());
-            userService.deleteUser(user);
+            User user = userService.getById(sessionUser.getId());
+            userService.delete(user);
             request.getSession().invalidate();
             return ResponseUtil.redirectTo(request, CommandType.SHOW_EMPTY_PAGE.name());
         } catch (ServiceException e) {

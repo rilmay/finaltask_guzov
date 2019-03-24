@@ -35,7 +35,7 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     private static final String CREATE_QUERY = "INSERT INTO record " +
             "(description, place, date, record_status, rating, name, photo) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+    private static final String COUNT_QUERY = "SELECT COUNT(id) FROM record";
     private static final String SELECT_COLUMN = "FROM record";
 
     @Override
@@ -100,8 +100,8 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     }
 
     @Override
-    protected boolean hasColumn(String column) {
-        return Arrays.asList(ID, DESCRIPTION, PLACE, DATE, RECORD_STATUS, RATING, NAME, PHOTO).contains(column);
+    protected String getCountQuery() {
+        return COUNT_QUERY;
     }
 
     @Override
@@ -109,27 +109,46 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
         return SELECT_COLUMN;
     }
 
+    @Override
+    protected boolean hasColumn(String column) {
+        return Arrays.asList(ID, DESCRIPTION, PLACE, DATE, RECORD_STATUS, RATING, NAME, PHOTO).contains(column);
+    }
+
     @AutoConnection
     @Override
     public List<Record> getAllRelevant() throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE record_status = 'relevant'")) {
-            return parseResultSet(preparedStatement.executeQuery());
-        } catch (SQLException e) {
-            LOGGER.error("Failed when getting all relevant", e);
-            throw new DaoException("Failed when getting all relevant", e);
-        }
+        String condition = " WHERE record_status = 'relevant'";
+        return selectByCondition(condition);
     }
 
     @AutoConnection
     @Override
     public List<Record> getAllExpired() throws DaoException {
-        try (PreparedStatement preparedStatement =
-                     connection.prepareStatement(getSelectQuery() + " WHERE record_status = 'expired'")) {
-            return parseResultSet(preparedStatement.executeQuery());
-        } catch (SQLException e) {
-            LOGGER.error("Failed when getting all expired", e);
-            throw new DaoException("Failed when getting all expired", e);
-        }
+        String condition = " WHERE record_status = 'expired'";
+        return selectByCondition(condition);
+    }
+
+    @AutoConnection
+    @Override
+    public List<Record> getPageRelevant(int page, int amountOnPage) throws DaoException {
+        return selectWithPagination(page, amountOnPage, " WHERE record_status = 'relevant'");
+    }
+
+    @AutoConnection
+    @Override
+    public List<Record> getPageExpired(int page, int amountOnPage) throws DaoException {
+        return selectWithPagination(page, amountOnPage, " WHERE record_status = 'expired'");
+    }
+
+    @AutoConnection
+    @Override
+    public int countRelevant() throws DaoException {
+        return counting(" WHERE record_status = 'relevant'");
+    }
+
+    @AutoConnection
+    @Override
+    public int countExpired() throws DaoException {
+        return counting(" WHERE record_status = 'expired'");
     }
 }

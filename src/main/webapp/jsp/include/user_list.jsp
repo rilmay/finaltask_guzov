@@ -42,5 +42,6 @@
             </div>
         </div>
         <my:emptylist size="${userList.size()}"/>
+        <my:pagination/>
     </div>
 </div>

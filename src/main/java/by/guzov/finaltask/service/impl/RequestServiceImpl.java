@@ -7,6 +7,8 @@ import by.guzov.finaltask.domain.Request;
 import by.guzov.finaltask.domain.User;
 import by.guzov.finaltask.domain.WantedPerson;
 import by.guzov.finaltask.dto.FullRequest;
+import by.guzov.finaltask.dto.PaginationTool;
+import by.guzov.finaltask.service.AbstractService;
 import by.guzov.finaltask.service.RequestService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.util.AppConstants;
@@ -19,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RequestServiceImpl implements RequestService {
+public class RequestServiceImpl extends AbstractService<Request> implements RequestService {
     private static final Logger LOGGER = LogManager.getLogger(RequestServiceImpl.class);
     private RequestDao requestDao;
     private WantedPersonDao wantedPersonDao;
@@ -31,53 +33,13 @@ public class RequestServiceImpl implements RequestService {
 
     private void daoInit() throws ServiceException {
         try {
-            requestDao = (RequestDao) JdbcDaoFactory.getInstance().getDao(Request.class);
+            super.dao = JdbcDaoFactory.getInstance().getDao(Request.class);
+            requestDao = (RequestDao) super.dao;
             wantedPersonDao = (WantedPersonDao) JdbcDaoFactory.getInstance().getDao(WantedPerson.class);
             userDao = (UserDao) JdbcDaoFactory.getInstance().getDao(User.class);
         } catch (DaoException e) {
             LOGGER.error("Failed when dao initialization", e);
             throw new ServiceException("Failed when dao initialization", e);
-        }
-    }
-
-    @Override
-    public Request create(Request request) throws ServiceException {
-        try {
-            return requestDao.persist(request);
-        } catch (PersistException e) {
-            LOGGER.error("Failed when creating", e);
-            throw new ServiceException("Failed when creating", e);
-        }
-    }
-
-    @Override
-    public void update(Request request) throws ServiceException {
-        try {
-            requestDao.update(request);
-        } catch (PersistException e) {
-            LOGGER.error("Failed when updating", e);
-            throw new ServiceException("Failed when updating", e);
-        }
-
-    }
-
-    @Override
-    public void delete(Request request) throws ServiceException {
-        try {
-            requestDao.delete(request);
-        } catch (PersistException e) {
-            LOGGER.error("Failed when deleting", e);
-            throw new ServiceException("Failed when deleting", e);
-        }
-    }
-
-    @Override
-    public List<FullRequest> getAllFullRequests() throws ServiceException {
-        try {
-            return getWithWP(requestDao.getAll());
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all", e);
-            throw new ServiceException("Failed when getting all", e);
         }
     }
 
@@ -129,16 +91,6 @@ public class RequestServiceImpl implements RequestService {
         } catch (PersistException e) {
             LOGGER.error("Failed when cancelling", e);
             throw new ServiceException("Failed when cancelling", e);
-        }
-    }
-
-    @Override
-    public Request getById(int requestId) throws ServiceException {
-        try {
-            return requestDao.getByPK(requestId);
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting by id", e);
-            throw new ServiceException("Failed when getting by id", e);
         }
     }
 
@@ -207,6 +159,48 @@ public class RequestServiceImpl implements RequestService {
         } catch (DaoException e) {
             LOGGER.error("Failed when getting all by wanted person and statuses", e);
             throw new ServiceException("Failed when getting all by wanted person and statuses", e);
+        }
+    }
+
+    @Override
+    public List<FullRequest> getPageByWantedPersonAndStatuses(PaginationTool tool, Integer wantedPersonId, String... statuses) throws ServiceException {
+        try {
+            return getWithWP(
+                    requestDao.getPageByWantedPersonAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), wantedPersonId, statuses));
+        } catch (DaoException e) {
+            LOGGER.error("Failed when getting page by wanted person and statuses", e);
+            throw new ServiceException("Failed when getting page by wanted person and statuses", e);
+        }
+    }
+
+    @Override
+    public List<FullRequest> getPageByUserAndStatuses(PaginationTool tool, Integer userId, String... statuses) throws ServiceException {
+        try {
+            return getWithWP(
+                    requestDao.getPageByUserAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), userId, statuses));
+        } catch (DaoException e) {
+            LOGGER.error("Failed when getting page by user and statuses", e);
+            throw new ServiceException("Failed when getting all by user and statuses", e);
+        }
+    }
+
+    @Override
+    public int countByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) throws ServiceException {
+        try {
+            return requestDao.countByWantedPersonAndStatus(wantedPersonId,statuses);
+        } catch (DaoException e) {
+            LOGGER.error("Failed when counting by wanted person and statuses", e);
+            throw new ServiceException("Failed when counting by wanted person and statuses", e);
+        }
+    }
+
+    @Override
+    public int countByUserAndStatuses(Integer userId, String... statuses) throws ServiceException {
+        try {
+            return requestDao.countByUserAndStatus(userId,statuses);
+        } catch (DaoException e) {
+            LOGGER.error("Failed when counting by user and statuses", e);
+            throw new ServiceException("Failed when counting by user and statuses", e);
         }
     }
 }

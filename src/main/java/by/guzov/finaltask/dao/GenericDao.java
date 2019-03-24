@@ -53,4 +53,8 @@ public interface GenericDao<T extends Identified<PK>, PK extends Serializable> {
     List<T> getAll() throws DaoException;
 
     List<String> getStringsFromColumn(String column) throws DaoException;
+
+    int recordCount() throws DaoException;
+
+    List<T> getAllByPage(int page, int amountOnPage) throws DaoException;
 }

@@ -1,15 +1,13 @@
-package by.guzov.finaltask.command.admin;
+package by.guzov.finaltask.command;
 
-import by.guzov.finaltask.command.Command;
-import by.guzov.finaltask.command.CommandType;
-import by.guzov.finaltask.command.ResponseUtil;
-import by.guzov.finaltask.command.Router;
 import by.guzov.finaltask.domain.Record;
+import by.guzov.finaltask.dto.PaginationTool;
 import by.guzov.finaltask.dto.ResponseContent;
 import by.guzov.finaltask.service.RecordService;
 import by.guzov.finaltask.service.ServiceException;
 import by.guzov.finaltask.service.ServiceFactory;
 import by.guzov.finaltask.util.AppConstants;
+import by.guzov.finaltask.util.PaginationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,10 +20,13 @@ public class CommandShowRecordList implements Command {
             RecordService recordService = ServiceFactory.getInstance().getRecordService();
             String only = request.getParameter(AppConstants.ONLY);
             List<Record> records;
+            PaginationTool tool;
             if (only != null && only.equals("expired")) {
-                records = recordService.getAllExpired();
+                tool = PaginationUtil.defaultHandle(request, recordService.countExpired());
+                records = recordService.getPageExpired(tool);
             } else {
-                records = recordService.getAllRelevant();
+                tool = PaginationUtil.defaultHandle(request, recordService.countRelevant());
+                records = recordService.getPageRelevant(tool);
             }
             request.setAttribute("recordList", records);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "record_list", Router.Type.FORWARD);
