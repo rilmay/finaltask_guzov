@@ -117,6 +117,7 @@ public class UserDaoImplTest {
 
     @Test
     public void countTest() throws Exception {
+        deleteAll.execute();
         userDao.persist(user);
         Assert.assertTrue(userDao.recordCount() > 0);
     }

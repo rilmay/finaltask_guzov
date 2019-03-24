@@ -16,10 +16,6 @@ public interface RequestService extends GenericService<Request> {
 
     void setCompleted(Request request) throws ServiceException;
 
-    List<FullRequest> getAllByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) throws ServiceException;
-
-    List<FullRequest> getAllByUserAndStatuses(Integer userId, String... statuses) throws ServiceException;
-
     List<FullRequest> getPageByWantedPersonAndStatuses(PaginationTool tool, Integer wantedPersonId, String... statuses) throws ServiceException;
 
     List<FullRequest> getPageByUserAndStatuses(PaginationTool tool, Integer userId, String... statuses) throws ServiceException;

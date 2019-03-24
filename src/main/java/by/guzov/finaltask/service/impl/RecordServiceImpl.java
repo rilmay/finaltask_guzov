@@ -41,26 +41,6 @@ public class RecordServiceImpl extends AbstractService<Record> implements Record
     }
 
     @Override
-    public List<Record> getAllRelevant() throws ServiceException {
-        try {
-            return recordDao.getAllRelevant();
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all relevant", e);
-            throw new ServiceException("Failed when getting all relevant", e);
-        }
-    }
-
-    @Override
-    public List<Record> getAllExpired() throws ServiceException {
-        try {
-            return recordDao.getAllExpired();
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all expired", e);
-            throw new ServiceException("Failed when getting all expired", e);
-        }
-    }
-
-    @Override
     public void setExpired(Record record) throws ServiceException {
         try {
             record.setRecordStatus("expired");
@@ -109,7 +89,11 @@ public class RecordServiceImpl extends AbstractService<Record> implements Record
     @Override
     public List<Record> getPageRelevant(PaginationTool tool) throws ServiceException {
         try {
-            return recordDao.getPageRelevant(tool.getCurrentPage(), tool.getAmountOnPage());
+            if(tool == null){
+                return recordDao.getAllRelevant();
+            }else {
+                return recordDao.getPageRelevant(tool.getCurrentPage(), tool.getAmountOnPage());
+            }
         } catch (DaoException e) {
             LOGGER.error("Failed when getting page of relevant", e);
             throw new ServiceException("Failed when getting page of relevant", e);
@@ -119,7 +103,11 @@ public class RecordServiceImpl extends AbstractService<Record> implements Record
     @Override
     public List<Record> getPageExpired(PaginationTool tool) throws ServiceException {
         try {
-            return recordDao.getPageExpired(tool.getCurrentPage(), tool.getAmountOnPage());
+            if(tool == null){
+                return recordDao.getAllExpired();
+            }else {
+                return recordDao.getPageExpired(tool.getCurrentPage(), tool.getAmountOnPage());
+            }
         } catch (DaoException e) {
             LOGGER.error("Failed when getting page of expired", e);
             throw new ServiceException("Failed when getting page of expired", e);

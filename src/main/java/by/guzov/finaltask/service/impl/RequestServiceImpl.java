@@ -143,30 +143,15 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     }
 
     @Override
-    public List<FullRequest> getAllByUserAndStatuses(Integer userId, String... statuses) throws ServiceException {
-        try {
-            return getWithWP(requestDao.getAllByUserAndStatus(userId, statuses));
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all by user and statuses", e);
-            throw new ServiceException("Failed when getting all by user and statuses", e);
-        }
-    }
-
-    @Override
-    public List<FullRequest> getAllByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) throws ServiceException {
-        try {
-            return getWithWP(requestDao.getAllByWantedPersonAndStatus(wantedPersonId, statuses));
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all by wanted person and statuses", e);
-            throw new ServiceException("Failed when getting all by wanted person and statuses", e);
-        }
-    }
-
-    @Override
     public List<FullRequest> getPageByWantedPersonAndStatuses(PaginationTool tool, Integer wantedPersonId, String... statuses) throws ServiceException {
         try {
-            return getWithWP(
-                    requestDao.getPageByWantedPersonAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), wantedPersonId, statuses));
+            if(tool == null){
+                return getWithWP(requestDao.getAllByWantedPersonAndStatus(wantedPersonId, statuses));
+            }
+            {
+                return getWithWP(
+                        requestDao.getPageByWantedPersonAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), wantedPersonId, statuses));
+            }
         } catch (DaoException e) {
             LOGGER.error("Failed when getting page by wanted person and statuses", e);
             throw new ServiceException("Failed when getting page by wanted person and statuses", e);
@@ -176,8 +161,12 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     @Override
     public List<FullRequest> getPageByUserAndStatuses(PaginationTool tool, Integer userId, String... statuses) throws ServiceException {
         try {
-            return getWithWP(
-                    requestDao.getPageByUserAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), userId, statuses));
+            if(tool == null){
+                return getWithWP(requestDao.getAllByUserAndStatus(userId, statuses));
+            }else {
+                return getWithWP(
+                        requestDao.getPageByUserAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), userId, statuses));
+            }
         } catch (DaoException e) {
             LOGGER.error("Failed when getting page by user and statuses", e);
             throw new ServiceException("Failed when getting all by user and statuses", e);

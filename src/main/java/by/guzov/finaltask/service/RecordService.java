@@ -6,9 +6,6 @@ import by.guzov.finaltask.dto.PaginationTool;
 import java.util.List;
 
 public interface RecordService extends GenericService<Record> {
-    List<Record> getAllRelevant() throws ServiceException;
-
-    List<Record> getAllExpired() throws ServiceException;
 
     void setExpired(Record record) throws ServiceException;
 

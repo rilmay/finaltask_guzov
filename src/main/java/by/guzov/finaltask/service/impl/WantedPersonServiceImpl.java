@@ -32,19 +32,13 @@ public class WantedPersonServiceImpl extends AbstractService<WantedPerson> imple
     }
 
     @Override
-    public List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws ServiceException {
-        try {
-            return wantedPersonDao.getAllByPendingAndStatuses(pending, statuses);
-        } catch (DaoException e) {
-            LOGGER.error("Failed when getting all by pending and statuses", e);
-            throw new ServiceException("Failed when getting all by pending and statuses", e);
-        }
-    }
-
-    @Override
     public List<WantedPerson> getPageByPendingAndStatuses(PaginationTool tool, Boolean pending, String... statuses) throws ServiceException {
         try {
-            return wantedPersonDao.getPageByPendingAndStatuses(tool.getCurrentPage(), tool.getAmountOnPage(), pending, statuses);
+            if(tool == null){
+                return wantedPersonDao.getAllByPendingAndStatuses(pending, statuses);
+            }else {
+                return wantedPersonDao.getPageByPendingAndStatuses(tool.getCurrentPage(), tool.getAmountOnPage(), pending, statuses);
+            }
         } catch (DaoException e) {
             LOGGER.error("Failed when getting page by pending and statuses", e);
             throw new ServiceException("Failed when getting page by pending and statuses", e);
