@@ -53,9 +53,7 @@ public class CommandSendRecord implements Command {
         } catch (ServiceException e) {
             errors.add("error.server");
             return ResponseUtil.toFormWithErrors(request, response, CommandType.SHOW_RECORD_FORM, errors, fieldMap);
-        } catch (IOException | ServletException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (IOException | ServletException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

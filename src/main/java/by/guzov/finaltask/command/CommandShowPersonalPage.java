@@ -18,9 +18,7 @@ public class CommandShowPersonalPage implements Command {
             User user = userService.getById(((User) request.getSession().getAttribute(AppConstants.SESSION_USER)).getId());
             request.setAttribute("user", user);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "personal_page", Router.Type.FORWARD);
-        } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

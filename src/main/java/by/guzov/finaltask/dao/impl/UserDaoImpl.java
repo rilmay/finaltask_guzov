@@ -124,7 +124,7 @@ public class UserDaoImpl extends AbstractJdbcDao<User, Integer> implements UserD
     @AutoConnection
     @Override
     public User getByLogin(User user) throws DaoException {
-        String condition = " WHERE login = '"+user.getLogin()+"'";
+        String condition = " " + WHERE + " " + LOGIN + " = '" + user.getLogin() + "'";
         return selectByCondition(condition).get(0);
     }
 }

@@ -145,7 +145,7 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     @Override
     public List<FullRequest> getPageByWantedPersonAndStatuses(PaginationTool tool, Integer wantedPersonId, String... statuses) throws ServiceException {
         try {
-            if(tool == null){
+            if (tool == null) {
                 return getWithWP(requestDao.getAllByWantedPersonAndStatus(wantedPersonId, statuses));
             }
             {
@@ -161,9 +161,9 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     @Override
     public List<FullRequest> getPageByUserAndStatuses(PaginationTool tool, Integer userId, String... statuses) throws ServiceException {
         try {
-            if(tool == null){
+            if (tool == null) {
                 return getWithWP(requestDao.getAllByUserAndStatus(userId, statuses));
-            }else {
+            } else {
                 return getWithWP(
                         requestDao.getPageByUserAndStatus(tool.getCurrentPage(), tool.getAmountOnPage(), userId, statuses));
             }
@@ -176,7 +176,7 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     @Override
     public int countByWantedPersonAndStatuses(Integer wantedPersonId, String... statuses) throws ServiceException {
         try {
-            return requestDao.countByWantedPersonAndStatus(wantedPersonId,statuses);
+            return requestDao.countByWantedPersonAndStatus(wantedPersonId, statuses);
         } catch (DaoException e) {
             LOGGER.error("Failed when counting by wanted person and statuses", e);
             throw new ServiceException("Failed when counting by wanted person and statuses", e);
@@ -186,7 +186,7 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     @Override
     public int countByUserAndStatuses(Integer userId, String... statuses) throws ServiceException {
         try {
-            return requestDao.countByUserAndStatus(userId,statuses);
+            return requestDao.countByUserAndStatus(userId, statuses);
         } catch (DaoException e) {
             LOGGER.error("Failed when counting by user and statuses", e);
             throw new ServiceException("Failed when counting by user and statuses", e);

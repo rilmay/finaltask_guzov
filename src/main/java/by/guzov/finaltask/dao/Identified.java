@@ -15,5 +15,5 @@ public interface Identified<PK extends Serializable> {
      */
     PK getId();
 
-    void setIDGen(int id);
+    void setIdGeneric(int id);
 }

@@ -113,21 +113,21 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     }
 
 
-    private String foreignKeyCondition(Integer id, String name){
+    private String foreignKeyCondition(Integer id, String name) {
         if (id != null) {
             return " AND (" + name + " = '" + id + "')";
-        }else {
+        } else {
             return "";
         }
     }
 
-    private String statusesCondition(String... statuses){
+    private String statusesCondition(String... statuses) {
         if (statuses != null && statuses.length != 0) {
             String statusQuery = Stream.of(statuses)
                     .map(status -> REQUEST_STATUS + " = '" + status + "'")
                     .collect(Collectors.joining(" OR "));
-            return  " AND (" + statusQuery + ")";
-        }else {
+            return " AND (" + statusQuery + ")";
+        } else {
             return "";
         }
     }
@@ -135,42 +135,42 @@ public class RequestDaoImpl extends AbstractJdbcDao<Request, Integer> implements
     @Override
     @AutoConnection
     public List<Request> getAllByUserAndStatus(Integer userId, String... requestStatuses) throws DaoException {
-        String condition = " WHERE 1=1"+foreignKeyCondition(userId,USER_ID)+statusesCondition(requestStatuses);
+        String condition = " " + WHERE + " 1=1" + foreignKeyCondition(userId, USER_ID) + statusesCondition(requestStatuses);
         return selectByCondition(condition);
     }
 
     @Override
     @AutoConnection
     public List<Request> getAllByWantedPersonAndStatus(Integer personId, String... requestStatuses) throws DaoException {
-        String condition = " WHERE 1=1"+foreignKeyCondition(personId,WANTED_PERSON_ID)+statusesCondition(requestStatuses);
+        String condition = " " + WHERE + " 1=1" + foreignKeyCondition(personId, WANTED_PERSON_ID) + statusesCondition(requestStatuses);
         return selectByCondition(condition);
     }
 
     @AutoConnection
     @Override
     public List<Request> getPageByWantedPersonAndStatus(int page, int amountOnPage, Integer personId, String... requestStatuses) throws DaoException {
-        String condition = " WHERE 1=1"+foreignKeyCondition(personId,WANTED_PERSON_ID)+statusesCondition(requestStatuses);
+        String condition = " " + WHERE + " 1=1" + foreignKeyCondition(personId, WANTED_PERSON_ID) + statusesCondition(requestStatuses);
         return selectWithPagination(page, amountOnPage, condition);
     }
 
     @AutoConnection
     @Override
     public List<Request> getPageByUserAndStatus(int page, int amountOnPage, Integer userId, String... requestStatuses) throws DaoException {
-        String condition = " WHERE 1=1"+foreignKeyCondition(userId,USER_ID)+statusesCondition(requestStatuses);
+        String condition = " " + WHERE + " 1=1" + foreignKeyCondition(userId, USER_ID) + statusesCondition(requestStatuses);
         return selectWithPagination(page, amountOnPage, condition);
     }
 
     @AutoConnection
     @Override
     public int countByWantedPersonAndStatus(Integer personId, String... requestStatuses) throws DaoException {
-        String condition = " WHERE 1=1"+foreignKeyCondition(personId,WANTED_PERSON_ID)+statusesCondition(requestStatuses);
+        String condition = " " + WHERE + " 1=1" + foreignKeyCondition(personId, WANTED_PERSON_ID) + statusesCondition(requestStatuses);
         return counting(condition);
     }
 
     @AutoConnection
     @Override
     public int countByUserAndStatus(Integer userId, String... requestStatuses) throws DaoException {
-        String condition = " WHERE 1=1"+foreignKeyCondition(userId,USER_ID)+statusesCondition(requestStatuses);
+        String condition = " " + WHERE + " 1=1" + foreignKeyCondition(userId, USER_ID) + statusesCondition(requestStatuses);
         return counting(condition);
     }
 }

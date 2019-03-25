@@ -34,9 +34,9 @@ public class WantedPersonServiceImpl extends AbstractService<WantedPerson> imple
     @Override
     public List<WantedPerson> getPageByPendingAndStatuses(PaginationTool tool, Boolean pending, String... statuses) throws ServiceException {
         try {
-            if(tool == null){
+            if (tool == null) {
                 return wantedPersonDao.getAllByPendingAndStatuses(pending, statuses);
-            }else {
+            } else {
                 return wantedPersonDao.getPageByPendingAndStatuses(tool.getCurrentPage(), tool.getAmountOnPage(), pending, statuses);
             }
         } catch (DaoException e) {
@@ -48,7 +48,7 @@ public class WantedPersonServiceImpl extends AbstractService<WantedPerson> imple
     @Override
     public int countByPendingAndStatuses(Boolean pending, String... statuses) throws ServiceException {
         try {
-            return wantedPersonDao.countByPendingAndStatuses(pending,statuses);
+            return wantedPersonDao.countByPendingAndStatuses(pending, statuses);
         } catch (DaoException e) {
             LOGGER.error("Failed when counting by pending and statuses", e);
             throw new ServiceException("Failed when counting by pending and statuses", e);

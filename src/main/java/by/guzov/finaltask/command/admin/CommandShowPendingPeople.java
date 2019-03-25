@@ -22,13 +22,11 @@ public class CommandShowPendingPeople implements Command {
     public ResponseContent execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             WantedPersonService wantedPersonService = ServiceFactory.getInstance().getWantedPersonService();
-            PaginationTool tool = PaginationUtil.defaultHandle(request,wantedPersonService.countByPendingAndStatuses(true));
-            List<WantedPerson> wantedPeople = wantedPersonService.getPageByPendingAndStatuses(tool,true);
+            PaginationTool tool = PaginationUtil.defaultHandle(request, wantedPersonService.countByPendingAndStatuses(true));
+            List<WantedPerson> wantedPeople = wantedPersonService.getPageByPendingAndStatuses(tool, true);
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
-        } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

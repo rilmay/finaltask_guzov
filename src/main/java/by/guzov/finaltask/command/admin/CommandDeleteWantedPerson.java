@@ -34,9 +34,7 @@ public class CommandDeleteWantedPerson implements Command {
                 ImageService.delete(photo);
             }
             return ResponseUtil.redirectWIthSuccess(request, CommandType.SHOW_WANTED_PEOPLE.name());
-        } catch (ServiceException | NumberFormatException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

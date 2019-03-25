@@ -29,9 +29,7 @@ public class CommandSetExpiredRecord implements Command {
             Record found = service.getById(requestId);
             service.setExpired(found);
             return ResponseUtil.redirectTo(request, CommandType.SHOW_RECORD_DETAILS + "&" + AppConstants.ID + "=" + found.getId());
-        } catch (ServiceException | NumberFormatException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

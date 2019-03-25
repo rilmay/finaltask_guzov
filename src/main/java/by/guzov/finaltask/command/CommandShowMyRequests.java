@@ -18,12 +18,10 @@ public class CommandShowMyRequests implements Command {
         try {
             int id = ((User) request.getSession().getAttribute(AppConstants.SESSION_USER)).getId();
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            PaginationTool tool = PaginationUtil.defaultHandle(request,requestService.countByUserAndStatuses(id));
-            request.setAttribute("requestList", requestService.getPageByUserAndStatuses(tool,id));
+            PaginationTool tool = PaginationUtil.defaultHandle(request, requestService.countByUserAndStatuses(id));
+            request.setAttribute("requestList", requestService.getPageByUserAndStatuses(tool, id));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
-        } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

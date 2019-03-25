@@ -24,13 +24,11 @@ public class CommandShowWantedPeople implements Command {
             } else if (only != null && only.equals("found")) {
                 statuses = new String[]{AppConstants.WP_STATUS_FOUND, AppConstants.WP_STATUS_CAUGHT};
             }
-            PaginationTool tool = PaginationUtil.defaultHandle(request, wantedPersonService.countByPendingAndStatuses(false,statuses));
+            PaginationTool tool = PaginationUtil.defaultHandle(request, wantedPersonService.countByPendingAndStatuses(false, statuses));
             List<WantedPerson> wantedPeople = wantedPersonService.getPageByPendingAndStatuses(tool, false, statuses);
             request.setAttribute("peopleList", wantedPeople);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "wanted_people_list", Router.Type.FORWARD);
-        } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

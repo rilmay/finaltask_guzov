@@ -23,13 +23,11 @@ public class CommandShowPendingRequestList implements Command {
         try {
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
             String[] statuses = new String[]{AppConstants.STATUS_CANCELLED, AppConstants.STATUS_EXPIRED, AppConstants.STATUS_PENDING};
-            PaginationTool tool = PaginationUtil.defaultHandle(request,requestService.countByUserAndStatuses(null,statuses));
-            List<FullRequest> requests = requestService.getPageByUserAndStatuses(tool,null,statuses);
+            PaginationTool tool = PaginationUtil.defaultHandle(request, requestService.countByUserAndStatuses(null, statuses));
+            List<FullRequest> requests = requestService.getPageByUserAndStatuses(tool, null, statuses);
             request.setAttribute("requestList", requests);
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
-        } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

@@ -89,9 +89,9 @@ public class RecordServiceImpl extends AbstractService<Record> implements Record
     @Override
     public List<Record> getPageRelevant(PaginationTool tool) throws ServiceException {
         try {
-            if(tool == null){
+            if (tool == null) {
                 return recordDao.getAllRelevant();
-            }else {
+            } else {
                 return recordDao.getPageRelevant(tool.getCurrentPage(), tool.getAmountOnPage());
             }
         } catch (DaoException e) {
@@ -103,9 +103,9 @@ public class RecordServiceImpl extends AbstractService<Record> implements Record
     @Override
     public List<Record> getPageExpired(PaginationTool tool) throws ServiceException {
         try {
-            if(tool == null){
+            if (tool == null) {
                 return recordDao.getAllExpired();
-            }else {
+            } else {
                 return recordDao.getPageExpired(tool.getCurrentPage(), tool.getAmountOnPage());
             }
         } catch (DaoException e) {

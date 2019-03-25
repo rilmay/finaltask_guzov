@@ -23,7 +23,7 @@ public class Record implements Identified<Integer>, Serializable {
     }
 
     @Override
-    public void setIDGen(int id) {
+    public void setIdGeneric(int id) {
         this.id = id;
     }
 }

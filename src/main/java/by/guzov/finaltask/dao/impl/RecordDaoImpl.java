@@ -117,38 +117,38 @@ public class RecordDaoImpl extends AbstractJdbcDao<Record, Integer> implements R
     @AutoConnection
     @Override
     public List<Record> getAllRelevant() throws DaoException {
-        String condition = " WHERE record_status = 'relevant'";
+        String condition = " " + WHERE + " " + RECORD_STATUS + " = 'relevant'";
         return selectByCondition(condition);
     }
 
     @AutoConnection
     @Override
     public List<Record> getAllExpired() throws DaoException {
-        String condition = " WHERE record_status = 'expired'";
+        String condition = " " + WHERE + " " + RECORD_STATUS + " = 'expired'";
         return selectByCondition(condition);
     }
 
     @AutoConnection
     @Override
     public List<Record> getPageRelevant(int page, int amountOnPage) throws DaoException {
-        return selectWithPagination(page, amountOnPage, " WHERE record_status = 'relevant'");
+        return selectWithPagination(page, amountOnPage, " " + WHERE + " " + RECORD_STATUS + " = 'relevant'");
     }
 
     @AutoConnection
     @Override
     public List<Record> getPageExpired(int page, int amountOnPage) throws DaoException {
-        return selectWithPagination(page, amountOnPage, " WHERE record_status = 'expired'");
+        return selectWithPagination(page, amountOnPage, " " + WHERE + " " + RECORD_STATUS + " = 'expired'");
     }
 
     @AutoConnection
     @Override
     public int countRelevant() throws DaoException {
-        return counting(" WHERE record_status = 'relevant'");
+        return counting(" " + WHERE + " " + RECORD_STATUS + " = 'relevant'");
     }
 
     @AutoConnection
     @Override
     public int countExpired() throws DaoException {
-        return counting(" WHERE record_status = 'expired'");
+        return counting(" " + WHERE + " " + RECORD_STATUS + " = 'expired'");
     }
 }

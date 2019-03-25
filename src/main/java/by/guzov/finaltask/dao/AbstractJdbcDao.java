@@ -38,10 +38,13 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
 
     public abstract String getDeleteQuery();
 
+    protected static final String COUNT_COLUMN = "COUNT(id)";
+    protected static final String WHERE = "WHERE";
+
     @Override
     @AutoConnection
     public T getByPK(PK key) throws DaoException {
-        List<T> received = selectByCondition(" WHERE id = " + key);
+        List<T> received = selectByCondition(" " + WHERE + " id = " + key);
         if (received.size() > 0) {
             return received.get(0);
         } else {
@@ -67,7 +70,7 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
             }
             try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    object.setIDGen(generatedKeys.getInt(1));
+                    object.setIdGeneric(generatedKeys.getInt(1));
                     return object;
                 } else {
                     LOGGER.error("Creating user failed, no ID obtained.");
@@ -141,32 +144,27 @@ public abstract class AbstractJdbcDao<T extends Identified<PK>, PK extends Numbe
         if (page < 1 || amountOnPage < 1) {
             throw new DaoException("incorrect arguments");
         }
-        try (PreparedStatement preparedStatement = connection.prepareStatement(getSelectQuery()+condition +
-                " ORDER BY id LIMIT " + amountOnPage + " OFFSET " + (page - 1) * amountOnPage)) {
-            return parseResultSet(preparedStatement.executeQuery());
-        } catch (SQLException e) {
-            LOGGER.error("Cannot select with pagination, condition: "+condition, e);
-            throw new DaoException("Cannot select with pagination, condition: "+condition, e);
-        }
+        return selectByCondition(condition
+                + " ORDER BY id LIMIT " + amountOnPage + " OFFSET " + (page - 1) * amountOnPage);
     }
 
-    protected int counting(String condition) throws DaoException{
-        try (PreparedStatement preparedStatement = connection.prepareStatement(getCountQuery()+condition)) {
+    protected int counting(String condition) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getCountQuery() + condition)) {
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-            return rs.getInt("COUNT(id)");
+            return rs.getInt(COUNT_COLUMN);
         } catch (SQLException e) {
-            LOGGER.error("Failed when counting by condition: "+condition, e);
-            throw new DaoException("Failed when counting by condition: "+condition, e);
+            LOGGER.error("Failed when counting by condition: " + condition, e);
+            throw new DaoException("Failed when counting by condition: " + condition, e);
         }
     }
 
-    protected List<T> selectByCondition(String condition) throws DaoException{
-        try (PreparedStatement preparedStatement = connection.prepareStatement(getSelectQuery()+condition)) {
+    protected List<T> selectByCondition(String condition) throws DaoException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(getSelectQuery() + condition)) {
             return parseResultSet(preparedStatement.executeQuery());
         } catch (SQLException e) {
-            LOGGER.error("Cannot select by condition: "+condition, e);
-            throw new DaoException("Cannot select by condition: "+condition, e);
+            LOGGER.error("Cannot select by condition: " + condition, e);
+            throw new DaoException("Cannot select by condition: " + condition, e);
         }
     }
 }

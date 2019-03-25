@@ -28,12 +28,10 @@ public class CommandShowRequestsByUser implements Command {
             }
             int userId = Integer.parseInt(id);
             RequestService requestService = ServiceFactory.getInstance().getRequestService();
-            PaginationTool tool = PaginationUtil.defaultHandle(request,requestService.countByUserAndStatuses(userId));
-            request.setAttribute("requestList", requestService.getPageByUserAndStatuses(tool,userId));
+            PaginationTool tool = PaginationUtil.defaultHandle(request, requestService.countByUserAndStatuses(userId));
+            request.setAttribute("requestList", requestService.getPageByUserAndStatuses(tool, userId));
             return ResponseUtil.responseWithView(request, AppConstants.MAIN_PAGE_PATH, "request_list", Router.Type.FORWARD);
-        } catch (ServiceException e) {
-            return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
-        } catch (RuntimeException e) {
+        } catch (ServiceException | RuntimeException e) {
             return ResponseUtil.toCommandWithError(request, response, CommandType.SHOW_EMPTY_PAGE, "error.server");
         }
     }

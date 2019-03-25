@@ -131,8 +131,8 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
                 SEARCH_AREA, SPECIAL_SIGNS, PHOTO, PENDING).contains(column);
     }
 
-    private String pendingAndStatusesCondition(Boolean pending, String... statuses){
-        String sql = " WHERE 1=1";
+    private String pendingAndStatusesCondition(Boolean pending, String... statuses) {
+        String sql = " " + WHERE + " 1=1";
         if (pending != null) {
             sql += " AND (" + PENDING + " = " + pending + ")";
         }
@@ -148,21 +148,21 @@ public class WantedPersonDaoImpl extends AbstractJdbcDao<WantedPerson, Integer> 
     @Override
     @AutoConnection
     public List<WantedPerson> getAllByPendingAndStatuses(Boolean pending, String... statuses) throws DaoException {
-        String condition = pendingAndStatusesCondition(pending,statuses);
+        String condition = pendingAndStatusesCondition(pending, statuses);
         return selectByCondition(condition);
     }
 
     @AutoConnection
     @Override
     public List<WantedPerson> getPageByPendingAndStatuses(int page, int amountOnPage, Boolean pending, String... statuses) throws DaoException {
-        String condition = pendingAndStatusesCondition(pending,statuses);
+        String condition = pendingAndStatusesCondition(pending, statuses);
         return selectWithPagination(page, amountOnPage, condition);
     }
 
     @AutoConnection
     @Override
     public int countByPendingAndStatuses(Boolean pending, String... statuses) throws DaoException {
-        String condition = pendingAndStatusesCondition(pending,statuses);
+        String condition = pendingAndStatusesCondition(pending, statuses);
         return counting(condition);
     }
 }
