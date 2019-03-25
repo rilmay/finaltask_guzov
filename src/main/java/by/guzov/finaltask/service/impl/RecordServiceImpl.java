@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class RecordServiceImpl extends AbstractService<Record> implements RecordService {
     private static final Logger LOGGER = LogManager.getLogger(RecordServiceImpl.class);
     private RecordDao recordDao;
-    private static final String LINK_PATTERN = "@[0-9]+";
+    private static final String LINK_PATTERN = "@[0-9]{1,9}";
     private static final String NOT_FOUND_KEY = "title.not_found";
     private static final String UNKNOWN_KEY = "title.unknown";
 
@@ -43,7 +43,7 @@ public class RecordServiceImpl extends AbstractService<Record> implements Record
     @Override
     public void setExpired(Record record) throws ServiceException {
         try {
-            record.setRecordStatus("expired");
+            record.setRecordStatus(AppConstants.STATUS_EXPIRED);
             recordDao.update(record);
         } catch (PersistException e) {
             LOGGER.error("Failed when setting expired", e);

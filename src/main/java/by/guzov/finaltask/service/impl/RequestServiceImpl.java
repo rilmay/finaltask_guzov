@@ -73,7 +73,7 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     public void approve(Request request) throws ServiceException {
         try {
 
-            request.setRequestStatus("approved");
+            request.setRequestStatus(AppConstants.STATUS_APPROVED);
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
             transactionalUpdate(wantedPerson, request);
@@ -86,7 +86,7 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
     @Override
     public void cancel(Request request) throws ServiceException {
         try {
-            request.setRequestStatus("cancelled");
+            request.setRequestStatus(AppConstants.STATUS_CANCELLED);
             requestDao.update(request);
         } catch (PersistException e) {
             LOGGER.error("Failed when cancelling", e);
@@ -99,7 +99,8 @@ public class RequestServiceImpl extends AbstractService<Request> implements Requ
         try {
             WantedPerson wantedPerson = wantedPersonDao.getByPK(request.getWantedPersonId());
             wantedPerson.setPending(false);
-            String newStatus = wantedPerson.getPersonStatus().equals("wanted") ? "caught" : "found";
+            String newStatus = wantedPerson.getPersonStatus().equals(AppConstants.WP_STATUS_WANTED) ?
+                    AppConstants.WP_STATUS_CAUGHT : AppConstants.WP_STATUS_FOUND;
             wantedPerson.setPersonStatus(newStatus);
             List<Request> updateRequests = requestDao
                     .getAllByWantedPersonAndStatus(wantedPerson.getId())
