@@ -1,1 +1,3 @@
 Most of the functionality can be seen here http://207.154.220.222:8181/interpol/
+
+The administrator manages the searched criminals and the missing people, and also establishes and pays rewards, writes news. The client fills in the application for the search, indicating the possible time of completion and a reward, if it is expected. The administrator manages clients and requests, reviews the received applications, confirms or rejects them, closes irrelevant ones.
