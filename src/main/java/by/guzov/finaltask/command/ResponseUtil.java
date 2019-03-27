@@ -56,23 +56,6 @@ public final class ResponseUtil {
         return redirectTo(request, url + "&success=true");
     }
 
-    public static int paginateAndReturnCurrentPage(HttpServletRequest request, int recordAmount, int recordsOnPage) {
-        request.setAttribute(AppConstants.PAGES, IntStream.
-                range(1, 1 + (int) Math.ceil((double) recordAmount / recordsOnPage))
-                .boxed()
-                .collect(Collectors.toList()));
-        String pageParameter = request.getParameter(AppConstants.PAGE);
-        int page = 1;
-        if (StringValidator.isValid(pageParameter, 1, 9, StringValidator.NUMBER_PATTERN)) {
-            int input = Integer.parseInt(pageParameter);
-            if (input > 0) {
-                page = input;
-            }
-        }
-        request.setAttribute(AppConstants.CURRENT_PAGE, page);
-        return page;
-    }
-
     public static void addSuccess(HttpServletRequest request) {
         request.setAttribute("success", true);
     }

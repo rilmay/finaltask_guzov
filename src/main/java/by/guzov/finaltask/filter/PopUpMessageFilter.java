@@ -26,12 +26,7 @@ public class PopUpMessageFilter implements Filter {
         String error = request.getParameter(AppConstants.ERROR_MESSAGE);
         if (error != null && !error.isEmpty()) {
             error = error.replaceAll("%", ".");
-            String message;
-            try {
-                message = MessageLocalizer.getMessages(request, error);
-            } catch (Exception e) {
-                message = MessageLocalizer.getMessages(request, "error.server");
-            }
+            String message = MessageLocalizer.getMessages(request, error);
             request.setAttribute(AppConstants.ERROR_MESSAGE, message);
         }
     }

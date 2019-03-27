@@ -12,11 +12,6 @@ function ondeleteclick(formid) {
     }).then((value) => {
         if(value == "delete"){
         document.getElementById(formid).submit();
-        // swal(
-        //     'Deleted!',
-        //     'Your file has been deleted.',
-        //     'success'
-        // );
     }
 })
 }
@@ -35,7 +30,6 @@ function successWindow(title) {
 function error(text) {
     swal({
         icon: "error",
-        //title: "error",
         text: text
     });
 }
