@@ -9,6 +9,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Properties;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -30,6 +31,8 @@ public final class MailSenderService {
     private static Properties mailProperties;
     private static MailSenderService INSTANCE;
     private static Lock lock = new ReentrantLock();
+    private static final String SUBJECT = "Password recovery";
+    private static final String CONTENT = "Your secret code: {0}. It will be available for the next 10 minutes";
 
     public static MailSenderService getInstance() {
         lock.lock();
@@ -79,9 +82,8 @@ public final class MailSenderService {
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(FROM_VALUE));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-        message.setSubject("Password recovery");
-        message.setContent("Your secret code: " + code + ". It will be available for the next 10 minutes"
-                , "text/html");
+        message.setSubject(SUBJECT);
+        message.setContent(MessageFormat.format(CONTENT, code), "text/html");
         Transport transport = session.getTransport(PROTOCOL);
         transport.connect(HOST_VALUE, FROM_VALUE, PASS_VALUE);
         transport.sendMessage(message, message.getAllRecipients());

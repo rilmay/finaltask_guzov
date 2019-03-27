@@ -18,23 +18,21 @@
                 <figure class="image is-128x128">
                     <my:image variable="${person.photo}" type="person"/>
                 </figure>
-                <br>
-                <strong class="title is-5"><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
-                </strong>
-                <div class="rating" style="color: orange; font-size: 25px;">
-                    <c:forTokens items="1,2,3,4,5" delims="," var="star">
-                        <c:if test="${star <= person.rating}">
-                            ☆
-                        </c:if>
-                    </c:forTokens>
-                </div>
-                <c:if test="${person.pending}">
-                    <br>
-                    <p class="button is-small is-warning">${text['status.pending']}</p>
-                </c:if>
             </div>
             <div class="media-content">
                 <div class="content">
+                    <strong class="title is-5"><my:display variable="${person.firstName}"/> <my:display variable="${person.lastName}"/>
+                    </strong>
+                    <div class="rating" style="color: orange; font-size: 25px;">
+                        <c:forTokens items="1,2,3,4,5" delims="," var="star">
+                            <c:if test="${star <= person.rating}">
+                                ☆
+                            </c:if>
+                        </c:forTokens>
+                    </div>
+                    <c:if test="${person.pending}">
+                        <p class="button is-small is-warning">${text['status.pending']}</p>
+                    </c:if>
                     <p><strong>${text['field.status']}: </strong><i class="has-text-primary"><my:lang key="status.${person.personStatus}"/></i></p>
                     <p><strong>${text['title.born']}: </strong>
                     <my:display variable="${person.birthPlace}"/>, <my:display variable="${person.birthDate}"/>
